@@ -103,18 +103,18 @@
 		B78CECA421F9B74000811586 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B78CECA521F9B74000811586 /* MixObject.h */,
-				B78CECA621F9B74000811586 /* MixProperty.h */,
-				B78CECA721F9B74000811586 /* MixMethod.m */,
-				B78CECA821F9B74000811586 /* MixClassFile.m */,
-				B78CECA921F9B74000811586 /* MixClass.m */,
 				B78CECAA21F9B74000811586 /* MixFile.h */,
-				B78CECAB21F9B74000811586 /* MixObject.m */,
 				B78CECAC21F9B74000811586 /* MixFile.m */,
-				B78CECAD21F9B74000811586 /* MixClass.h */,
 				B78CECAE21F9B74000811586 /* MixClassFile.h */,
-				B78CECAF21F9B74000811586 /* MixMethod.h */,
+				B78CECA821F9B74000811586 /* MixClassFile.m */,
+				B78CECA521F9B74000811586 /* MixObject.h */,
+				B78CECAB21F9B74000811586 /* MixObject.m */,
+				B78CECAD21F9B74000811586 /* MixClass.h */,
+				B78CECA921F9B74000811586 /* MixClass.m */,
+				B78CECA621F9B74000811586 /* MixProperty.h */,
 				B78CECB021F9B74000811586 /* MixProperty.m */,
+				B78CECAF21F9B74000811586 /* MixMethod.h */,
+				B78CECA721F9B74000811586 /* MixMethod.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -122,18 +122,18 @@
 		B78CECB121F9B74000811586 /* Strategy */ = {
 			isa = PBXGroup;
 			children = (
-				B78CECB221F9B74000811586 /* MixStringStrategy.m */,
 				B78CECB321F9B74000811586 /* MixFileStrategy.h */,
-				B78CECB421F9B74000811586 /* MixClassFileStrategy.h */,
-				B78CECB521F9B74000811586 /* MixMainStrategy.m */,
-				B78CECB621F9B74000811586 /* MixObjectStrategy.h */,
-				B78CECB721F9B74000811586 /* MixReferenceStrategy.h */,
-				B78CECB821F9B74000811586 /* MixStringStrategy.h */,
 				B78CECB921F9B74000811586 /* MixFileStrategy.m */,
-				B78CECBA21F9B74000811586 /* MixMainStrategy.h */,
+				B78CECB821F9B74000811586 /* MixStringStrategy.h */,
+				B78CECB221F9B74000811586 /* MixStringStrategy.m */,
+				B78CECB421F9B74000811586 /* MixClassFileStrategy.h */,
 				B78CECBB21F9B74000811586 /* MixClassFileStrategy.m */,
-				B78CECBC21F9B74000811586 /* MixReferenceStrategy.m */,
+				B78CECB621F9B74000811586 /* MixObjectStrategy.h */,
 				B78CECBD21F9B74000811586 /* MixObjectStrategy.m */,
+				B78CECB721F9B74000811586 /* MixReferenceStrategy.h */,
+				B78CECBC21F9B74000811586 /* MixReferenceStrategy.m */,
+				B78CECB521F9B74000811586 /* MixMainStrategy.m */,
+				B78CECBA21F9B74000811586 /* MixMainStrategy.h */,
 			);
 			path = Strategy;
 			sourceTree = "<group>";
