@@ -8,6 +8,7 @@
 
 #import "MixObject.h"
 #import "MixStringStrategy.h"
+#import "../Strategy/MixFilterStrategy.h"
 
 @implementation MixObject
 
@@ -23,7 +24,6 @@
 
 - (void)analyze {
     
-    //取出字符串
     if (self.classFile.hFile) {
         NSData * hData = [NSData dataWithContentsOfFile:self.classFile.hFile.path options:NSDataReadingUncached error:nil];
         NSString * hText  = [[NSString alloc] initWithData:hData encoding:NSUTF8StringEncoding];
@@ -45,12 +45,11 @@
 
 - (NSArray <MixClass *>*)dataToClassName:(NSString *)data {
     __block NSMutableArray <MixClass *>* classNames = [NSMutableArray arrayWithCapacity:0];
-    //判断是否是类
+
     NSArray <NSString *>* classes = [data componentsSeparatedByString:@"@interface"];
     if (classes.count > 1) {
         [classes enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (idx != 0 && [obj containsString:@":"]) {
-                
                 
                 NSArray <NSString *>* blanks = [obj componentsSeparatedByString:@" "];
                 NSString * classStr = nil;
@@ -79,10 +78,8 @@
                     
                 }
                 
-                if (classStr && ![classStr hasPrefix:@"NS"]&& ![classStr hasPrefix:@"UI"]&& ![classStr hasPrefix:@"CA"]) {
-                    //这只是获取名称
+                if (classStr && ![MixFilterStrategy isSystemClass:classStr]) {
                     MixClass * class = [[MixClass alloc] initWithClassName:classStr];
-                    //我们继续获取方法
                     [class methodFromData:data];
                     [classNames addObject:class];
                 }
