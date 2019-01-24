@@ -18,22 +18,24 @@
  */
 @property (nonatomic , copy ) NSString * className;
 
-@property (nonatomic , copy ) NSString * lastClassName;
-
 /**
  方法
  */
-@property (nonatomic , strong) NSArray <MixMethod *>* methods;
+@property (nonatomic , strong) MixMethod * method;
 
 /**
  属性
  */
-@property (nonatomic , strong) NSArray <MixProperty *>* propertys;
+@property (nonatomic , strong) MixProperty* property;
 
-
-
+/**
+ 使用类名初始化
+ */
 - (instancetype)initWithClassName:(NSString *)className;
 
+/**
+ 从数据里获取方法
+ */
 - (void)methodFromData:(NSString *)data;
 
 
