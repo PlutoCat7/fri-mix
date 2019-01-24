@@ -22,6 +22,7 @@
 		B78CECC721F9B74100811586 /* MixClassFileStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECBB21F9B74000811586 /* MixClassFileStrategy.m */; };
 		B78CECC821F9B74100811586 /* MixReferenceStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECBC21F9B74000811586 /* MixReferenceStrategy.m */; };
 		B78CECC921F9B74100811586 /* MixObjectStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECBD21F9B74000811586 /* MixObjectStrategy.m */; };
+		B78CECCC21F9BD7000811586 /* MixMethodStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECCB21F9BD7000811586 /* MixMethodStrategy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,6 +69,8 @@
 		B78CECBB21F9B74000811586 /* MixClassFileStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixClassFileStrategy.m; sourceTree = "<group>"; };
 		B78CECBC21F9B74000811586 /* MixReferenceStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixReferenceStrategy.m; sourceTree = "<group>"; };
 		B78CECBD21F9B74000811586 /* MixObjectStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixObjectStrategy.m; sourceTree = "<group>"; };
+		B78CECCA21F9BD7000811586 /* MixMethodStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixMethodStrategy.h; sourceTree = "<group>"; };
+		B78CECCB21F9BD7000811586 /* MixMethodStrategy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixMethodStrategy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,18 +125,18 @@
 		B78CECA421F9B74000811586 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B78CECA521F9B74000811586 /* MixObject.h */,
-				B78CECA621F9B74000811586 /* MixProperty.h */,
-				B78CECA721F9B74000811586 /* MixMethod.m */,
-				B78CECA821F9B74000811586 /* MixClassFile.m */,
-				B78CECA921F9B74000811586 /* MixClass.m */,
 				B78CECAA21F9B74000811586 /* MixFile.h */,
-				B78CECAB21F9B74000811586 /* MixObject.m */,
 				B78CECAC21F9B74000811586 /* MixFile.m */,
-				B78CECAD21F9B74000811586 /* MixClass.h */,
 				B78CECAE21F9B74000811586 /* MixClassFile.h */,
-				B78CECAF21F9B74000811586 /* MixMethod.h */,
+				B78CECA821F9B74000811586 /* MixClassFile.m */,
+				B78CECA521F9B74000811586 /* MixObject.h */,
+				B78CECAB21F9B74000811586 /* MixObject.m */,
+				B78CECAD21F9B74000811586 /* MixClass.h */,
+				B78CECA921F9B74000811586 /* MixClass.m */,
+				B78CECA621F9B74000811586 /* MixProperty.h */,
 				B78CECB021F9B74000811586 /* MixProperty.m */,
+				B78CECAF21F9B74000811586 /* MixMethod.h */,
+				B78CECA721F9B74000811586 /* MixMethod.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -142,18 +145,20 @@
 			isa = PBXGroup;
 			children = (
 				2C01F4FB21F9B9E2005DF383 /* file */,
-				B78CECB221F9B74000811586 /* MixStringStrategy.m */,
 				B78CECB321F9B74000811586 /* MixFileStrategy.h */,
-				B78CECB421F9B74000811586 /* MixClassFileStrategy.h */,
-				B78CECB521F9B74000811586 /* MixMainStrategy.m */,
-				B78CECB621F9B74000811586 /* MixObjectStrategy.h */,
-				B78CECB721F9B74000811586 /* MixReferenceStrategy.h */,
-				B78CECB821F9B74000811586 /* MixStringStrategy.h */,
 				B78CECB921F9B74000811586 /* MixFileStrategy.m */,
-				B78CECBA21F9B74000811586 /* MixMainStrategy.h */,
+				B78CECB821F9B74000811586 /* MixStringStrategy.h */,
+				B78CECB221F9B74000811586 /* MixStringStrategy.m */,
+				B78CECB421F9B74000811586 /* MixClassFileStrategy.h */,
 				B78CECBB21F9B74000811586 /* MixClassFileStrategy.m */,
-				B78CECBC21F9B74000811586 /* MixReferenceStrategy.m */,
+				B78CECB621F9B74000811586 /* MixObjectStrategy.h */,
 				B78CECBD21F9B74000811586 /* MixObjectStrategy.m */,
+				B78CECCA21F9BD7000811586 /* MixMethodStrategy.h */,
+				B78CECCB21F9BD7000811586 /* MixMethodStrategy.m */,
+				B78CECB721F9B74000811586 /* MixReferenceStrategy.h */,
+				B78CECBC21F9B74000811586 /* MixReferenceStrategy.m */,
+				B78CECBA21F9B74000811586 /* MixMainStrategy.h */,
+				B78CECB521F9B74000811586 /* MixMainStrategy.m */,
 			);
 			path = Strategy;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 				B78CECC621F9B74100811586 /* MixFileStrategy.m in Sources */,
 				B78CECC021F9B74100811586 /* MixClass.m in Sources */,
 				B78CECC821F9B74100811586 /* MixReferenceStrategy.m in Sources */,
+				B78CECCC21F9BD7000811586 /* MixMethodStrategy.m in Sources */,
 				B78CECC121F9B74100811586 /* MixObject.m in Sources */,
 				B78CECC521F9B74100811586 /* MixMainStrategy.m in Sources */,
 				B78CECC721F9B74100811586 /* MixClassFileStrategy.m in Sources */,
@@ -349,18 +355,22 @@
 		B78CECA221F9B73000811586 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CCC33549W8;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = G8GG37PHW2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
 		B78CECA321F9B73000811586 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CCC33549W8;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

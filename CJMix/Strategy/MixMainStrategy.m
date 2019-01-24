@@ -126,10 +126,6 @@
         return data;
     }
     
-    if ([fileName containsString:@"SwipeTableCell"] && [oldName isEqualToString:@"SwipeView"]) {
-        
-    }
-    
     NSString * dataCopy = [NSString stringWithFormat:@"%@",data];
     NSString * substitute = [dataCopy stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
     
