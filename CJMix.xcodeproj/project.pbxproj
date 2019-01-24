@@ -1,0 +1,369 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B78CEC9E21F9B73000811586 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CEC9D21F9B73000811586 /* main.m */; };
+		B78CECBE21F9B74100811586 /* MixMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECA721F9B74000811586 /* MixMethod.m */; };
+		B78CECBF21F9B74100811586 /* MixClassFile.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECA821F9B74000811586 /* MixClassFile.m */; };
+		B78CECC021F9B74100811586 /* MixClass.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECA921F9B74000811586 /* MixClass.m */; };
+		B78CECC121F9B74100811586 /* MixObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECAB21F9B74000811586 /* MixObject.m */; };
+		B78CECC221F9B74100811586 /* MixFile.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECAC21F9B74000811586 /* MixFile.m */; };
+		B78CECC321F9B74100811586 /* MixProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECB021F9B74000811586 /* MixProperty.m */; };
+		B78CECC421F9B74100811586 /* MixStringStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECB221F9B74000811586 /* MixStringStrategy.m */; };
+		B78CECC521F9B74100811586 /* MixMainStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECB521F9B74000811586 /* MixMainStrategy.m */; };
+		B78CECC621F9B74100811586 /* MixFileStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECB921F9B74000811586 /* MixFileStrategy.m */; };
+		B78CECC721F9B74100811586 /* MixClassFileStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECBB21F9B74000811586 /* MixClassFileStrategy.m */; };
+		B78CECC821F9B74100811586 /* MixReferenceStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECBC21F9B74000811586 /* MixReferenceStrategy.m */; };
+		B78CECC921F9B74100811586 /* MixObjectStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CECBD21F9B74000811586 /* MixObjectStrategy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B78CEC9821F9B73000811586 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B78CEC9A21F9B73000811586 /* CJMix */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CJMix; sourceTree = BUILT_PRODUCTS_DIR; };
+		B78CEC9D21F9B73000811586 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B78CECA521F9B74000811586 /* MixObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixObject.h; sourceTree = "<group>"; };
+		B78CECA621F9B74000811586 /* MixProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixProperty.h; sourceTree = "<group>"; };
+		B78CECA721F9B74000811586 /* MixMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixMethod.m; sourceTree = "<group>"; };
+		B78CECA821F9B74000811586 /* MixClassFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixClassFile.m; sourceTree = "<group>"; };
+		B78CECA921F9B74000811586 /* MixClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixClass.m; sourceTree = "<group>"; };
+		B78CECAA21F9B74000811586 /* MixFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixFile.h; sourceTree = "<group>"; };
+		B78CECAB21F9B74000811586 /* MixObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixObject.m; sourceTree = "<group>"; };
+		B78CECAC21F9B74000811586 /* MixFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixFile.m; sourceTree = "<group>"; };
+		B78CECAD21F9B74000811586 /* MixClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixClass.h; sourceTree = "<group>"; };
+		B78CECAE21F9B74000811586 /* MixClassFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixClassFile.h; sourceTree = "<group>"; };
+		B78CECAF21F9B74000811586 /* MixMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixMethod.h; sourceTree = "<group>"; };
+		B78CECB021F9B74000811586 /* MixProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixProperty.m; sourceTree = "<group>"; };
+		B78CECB221F9B74000811586 /* MixStringStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixStringStrategy.m; sourceTree = "<group>"; };
+		B78CECB321F9B74000811586 /* MixFileStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixFileStrategy.h; sourceTree = "<group>"; };
+		B78CECB421F9B74000811586 /* MixClassFileStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixClassFileStrategy.h; sourceTree = "<group>"; };
+		B78CECB521F9B74000811586 /* MixMainStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixMainStrategy.m; sourceTree = "<group>"; };
+		B78CECB621F9B74000811586 /* MixObjectStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixObjectStrategy.h; sourceTree = "<group>"; };
+		B78CECB721F9B74000811586 /* MixReferenceStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixReferenceStrategy.h; sourceTree = "<group>"; };
+		B78CECB821F9B74000811586 /* MixStringStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixStringStrategy.h; sourceTree = "<group>"; };
+		B78CECB921F9B74000811586 /* MixFileStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixFileStrategy.m; sourceTree = "<group>"; };
+		B78CECBA21F9B74000811586 /* MixMainStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixMainStrategy.h; sourceTree = "<group>"; };
+		B78CECBB21F9B74000811586 /* MixClassFileStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixClassFileStrategy.m; sourceTree = "<group>"; };
+		B78CECBC21F9B74000811586 /* MixReferenceStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixReferenceStrategy.m; sourceTree = "<group>"; };
+		B78CECBD21F9B74000811586 /* MixObjectStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixObjectStrategy.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B78CEC9721F9B73000811586 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B78CEC9121F9B73000811586 = {
+			isa = PBXGroup;
+			children = (
+				B78CEC9C21F9B73000811586 /* CJMix */,
+				B78CEC9B21F9B73000811586 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B78CEC9B21F9B73000811586 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B78CEC9A21F9B73000811586 /* CJMix */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B78CEC9C21F9B73000811586 /* CJMix */ = {
+			isa = PBXGroup;
+			children = (
+				B78CECB121F9B74000811586 /* Strategy */,
+				B78CECA421F9B74000811586 /* Model */,
+				B78CEC9D21F9B73000811586 /* main.m */,
+			);
+			path = CJMix;
+			sourceTree = "<group>";
+		};
+		B78CECA421F9B74000811586 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B78CECA521F9B74000811586 /* MixObject.h */,
+				B78CECA621F9B74000811586 /* MixProperty.h */,
+				B78CECA721F9B74000811586 /* MixMethod.m */,
+				B78CECA821F9B74000811586 /* MixClassFile.m */,
+				B78CECA921F9B74000811586 /* MixClass.m */,
+				B78CECAA21F9B74000811586 /* MixFile.h */,
+				B78CECAB21F9B74000811586 /* MixObject.m */,
+				B78CECAC21F9B74000811586 /* MixFile.m */,
+				B78CECAD21F9B74000811586 /* MixClass.h */,
+				B78CECAE21F9B74000811586 /* MixClassFile.h */,
+				B78CECAF21F9B74000811586 /* MixMethod.h */,
+				B78CECB021F9B74000811586 /* MixProperty.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B78CECB121F9B74000811586 /* Strategy */ = {
+			isa = PBXGroup;
+			children = (
+				B78CECB221F9B74000811586 /* MixStringStrategy.m */,
+				B78CECB321F9B74000811586 /* MixFileStrategy.h */,
+				B78CECB421F9B74000811586 /* MixClassFileStrategy.h */,
+				B78CECB521F9B74000811586 /* MixMainStrategy.m */,
+				B78CECB621F9B74000811586 /* MixObjectStrategy.h */,
+				B78CECB721F9B74000811586 /* MixReferenceStrategy.h */,
+				B78CECB821F9B74000811586 /* MixStringStrategy.h */,
+				B78CECB921F9B74000811586 /* MixFileStrategy.m */,
+				B78CECBA21F9B74000811586 /* MixMainStrategy.h */,
+				B78CECBB21F9B74000811586 /* MixClassFileStrategy.m */,
+				B78CECBC21F9B74000811586 /* MixReferenceStrategy.m */,
+				B78CECBD21F9B74000811586 /* MixObjectStrategy.m */,
+			);
+			path = Strategy;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B78CEC9921F9B73000811586 /* CJMix */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B78CECA121F9B73000811586 /* Build configuration list for PBXNativeTarget "CJMix" */;
+			buildPhases = (
+				B78CEC9621F9B73000811586 /* Sources */,
+				B78CEC9721F9B73000811586 /* Frameworks */,
+				B78CEC9821F9B73000811586 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CJMix;
+			productName = CJMix;
+			productReference = B78CEC9A21F9B73000811586 /* CJMix */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B78CEC9221F9B73000811586 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = Chan;
+				TargetAttributes = {
+					B78CEC9921F9B73000811586 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = B78CEC9521F9B73000811586 /* Build configuration list for PBXProject "CJMix" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B78CEC9121F9B73000811586;
+			productRefGroup = B78CEC9B21F9B73000811586 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B78CEC9921F9B73000811586 /* CJMix */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B78CEC9621F9B73000811586 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B78CECC221F9B74100811586 /* MixFile.m in Sources */,
+				B78CECC321F9B74100811586 /* MixProperty.m in Sources */,
+				B78CEC9E21F9B73000811586 /* main.m in Sources */,
+				B78CECC621F9B74100811586 /* MixFileStrategy.m in Sources */,
+				B78CECC021F9B74100811586 /* MixClass.m in Sources */,
+				B78CECC821F9B74100811586 /* MixReferenceStrategy.m in Sources */,
+				B78CECC121F9B74100811586 /* MixObject.m in Sources */,
+				B78CECC521F9B74100811586 /* MixMainStrategy.m in Sources */,
+				B78CECC721F9B74100811586 /* MixClassFileStrategy.m in Sources */,
+				B78CECBE21F9B74100811586 /* MixMethod.m in Sources */,
+				B78CECC921F9B74100811586 /* MixObjectStrategy.m in Sources */,
+				B78CECC421F9B74100811586 /* MixStringStrategy.m in Sources */,
+				B78CECBF21F9B74100811586 /* MixClassFile.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B78CEC9F21F9B73000811586 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B78CECA021F9B73000811586 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B78CECA221F9B73000811586 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CCC33549W8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B78CECA321F9B73000811586 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CCC33549W8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B78CEC9521F9B73000811586 /* Build configuration list for PBXProject "CJMix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B78CEC9F21F9B73000811586 /* Debug */,
+				B78CECA021F9B73000811586 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B78CECA121F9B73000811586 /* Build configuration list for PBXNativeTarget "CJMix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B78CECA221F9B73000811586 /* Debug */,
+				B78CECA321F9B73000811586 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B78CEC9221F9B73000811586 /* Project object */;
+}
