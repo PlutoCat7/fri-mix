@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
-
 @interface MixMethod : NSObject
 
 @property (nonatomic , copy) NSArray <NSString *>* addMethod;
