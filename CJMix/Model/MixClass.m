@@ -57,7 +57,6 @@
                     }
                 }];
                 
-                
                 self.method.addMethod = [NSArray arrayWithArray:addMethods];
                 self.method.subMethod = [NSArray arrayWithArray:subMethods];
                 
