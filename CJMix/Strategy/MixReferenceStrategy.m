@@ -12,7 +12,8 @@
 #import "MixFileStrategy.h"
 #import "MixClassFileStrategy.h"
 #import "MixObjectStrategy.h"
-
+#import "MixFilterStrategy.h"
+#import "../Config/MixConfig.h"
 
 @implementation MixReferenceStrategy
 
@@ -25,7 +26,7 @@
     
     [objects enumerateObjectsUsingBlock:^(MixObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         for (MixClass * class in obj.hClasses) {
-            NSString * newClassName = [NSString stringWithFormat:@"BangBang%@",class.className];
+            NSString * newClassName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixPrefix,class.className];
             if (![MixReferenceStrategy filter:newClassName] && ![classNames containsObject:newClassName]) {
                 [classNames addObject:newClassName];
             }
@@ -39,7 +40,7 @@
 + (BOOL)filter:(NSString *)string {
     BOOL isFilter = NO;
     NSArray * filters = @[@"AppDelegate"];
-    if ([filters containsObject:string] || [string containsString:@"("] || [string containsString:@")"] || [string hasPrefix:@"NS"] || [string hasPrefix:@"UI"] ||[string hasPrefix:@"CA"] ) {
+    if ([filters containsObject:string] || [string containsString:@"("] || [MixFilterStrategy isSystemClass:string]) {
         isFilter = YES;
     }
 

@@ -31,4 +31,11 @@
     return [MixConfig sharedSingleton];
 }
 
+- (NSString *)mixPrefix {
+    if (!_mixPrefix) {
+        _mixPrefix = @"Mix";
+    }
+    return _mixPrefix;
+}
+
 @end

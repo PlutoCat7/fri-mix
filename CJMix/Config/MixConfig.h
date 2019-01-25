@@ -12,7 +12,7 @@
 
 + (instancetype)sharedSingleton;
 
-
+@property (nonatomic , copy) NSString * mixPrefix;
 
 @end
 
