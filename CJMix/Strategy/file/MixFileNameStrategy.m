@@ -30,6 +30,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 
 //旧类名、新类名
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSDictionary *> *classNameDict;
+@property (nonatomic, strong) NSMutableSet *fileGroupNameSet;
 
 @property (nonatomic, strong) NSMutableArray<MixFileInfo *> *fileList;  //文件名列表
 @property (nonatomic, strong) NSMutableArray<MixFileInfo *> *fileGroupList;  //文件夹列表
@@ -44,7 +45,9 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     if (self) {
         _fileList = [NSMutableArray arrayWithCapacity:1];
         _fileGroupList = [NSMutableArray arrayWithCapacity:1];
+        
         _classNameDict = [NSMutableDictionary dictionaryWithCapacity:1];
+        _fileGroupNameSet = [NSMutableSet setWithCapacity:1];
     }
     return self;
 }
@@ -52,6 +55,9 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 #pragma mark - Public
 
 + (BOOL)start:(NSArray<MixObject *> *)objects rootPath:(NSString *)rootPath {
+    
+#warning 未完待续。。。
+    return NO;
     
     MixFileNameStrategy *strategy = [[MixFileNameStrategy alloc] init];
     strategy.objects = objects;
@@ -69,8 +75,12 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
         }
     }
     
+    //读取工程文件  提取文件名称  和文件夹
     if ([strategy initPbxproj]) {
-        [strategy makeConfigurationJson];
+        //读取文件夹名称
+        [strategy readFileGroupData];
+        //生成配置文件
+        return [strategy makeConfigurationJson];
     }
     return NO;
 }
@@ -82,7 +92,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     NSString *jsonPath = [self.rootPath stringByAppendingPathComponent:@"pbxproj.json"];   //已通过plutil -convert json -s -r -o my.json project.pbxproj 转成json
     NSData *data = [NSData dataWithContentsOfFile:jsonPath];
     if (!data) {
-        NSLog(@"pbxproj文件出错了");
+        printf("pbxproj文件出错了");
         return NO;
     }
     NSError *error = nil;
@@ -112,9 +122,37 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     return YES;
 }
 
+//读取文件夹数据 生成数组
+- (void)readFileGroupData {
+    
+    NSString *jsonPath = [self.rootPath stringByAppendingPathComponent:@"fileGroup.json"];   //已通过plutil -convert json -s -r -o my.json project.pbxproj 转成json
+    NSData *data = [NSData dataWithContentsOfFile:jsonPath];
+    if (!data) {
+        return;
+    }
+    NSError *error = nil;
+    id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    NSDictionary *list = [result objectForKey:@"objects"];
+    for (NSString *key in list) {
+        NSDictionary *dict = [list objectForKey:key];
+        if ([dict isKindOfClass:NSDictionary.class]) {
+            NSString *isa = [dict objectForKey:@"isa"];
+            if (isa && [isa isKindOfClass:NSString.class]) {
+                if ([isa isEqualToString:@"PBXGroup"]) {
+                    NSString *fileGroupName = [dict objectForKey:@"path"];
+                    if (fileGroupName.length>0) {
+                        [self.fileGroupNameSet addObject:fileGroupName];
+                    }
+                }
+            }
+        }
+    }
+}
+
 - (BOOL)makeConfigurationJson {
     
     MixFileNameModifyJsonInfo *jsonObject = [[MixFileNameModifyJsonInfo alloc] init];
+    //对文件名称替换
     for (MixFileInfo *info in self.fileList) {
         NSString *suffix = [info.fileName componentsSeparatedByString:@"."].lastObject;
         if (![self checkFileValidWithSuffux:suffix]) {
@@ -143,17 +181,29 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             }
         }
     }
+    //对文件夹名称进行替换
+    NSEnumerator * enumerator = [self.fileGroupNameSet objectEnumerator];
+    for (MixFileInfo *info in self.fileGroupList) {
+        NSString *newGroup = [enumerator nextObject];
+        NSString *oldFroup = info.fileName;
+        if (newGroup.length>0 && oldFroup.length>0) {
+            [jsonObject.backward.modify setObject:oldFroup forKey:[self keyWithUDID:info.UDID]];
+            [jsonObject.forward.modify setObject:newGroup forKey:[self keyWithUDID:info.UDID]];
+        }
+#warning 未完待续。。。。
+        //修改物理文件夹名称  https://blog.csdn.net/hsf_study/article/details/46993099
+    }
     
-    NSLog(@"Pbxproj配置修改数据：%@", [jsonObject jsonString]);
+    printf("Pbxproj配置修改数据：%s", [[jsonObject jsonString] UTF8String]);
     
     NSString *configPath = [self.rootPath stringByAppendingPathComponent:@"config.json"];
     NSError *error;
     [[jsonObject jsonString] writeToFile:configPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error) {
-        NSLog(@"Pbxproj配置数据写入失败，失败原因：%@", error);
+        printf("Pbxproj配置数据写入失败，失败原因：%s\n", [error.localizedDescription UTF8String]);
         return NO;
     }else{
-        NSLog(@"Pbxproj配置数据写入成功");
+        printf("Pbxproj配置数据写入成功\n");
         return YES;
     }
 }
