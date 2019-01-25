@@ -12,7 +12,7 @@
 #import "MixFileStrategy.h"
 #import "MixClassFileStrategy.h"
 #import "MixObjectStrategy.h"
-#import "MixFilterStrategy.h"
+#import "MixJudgeStrategy.h"
 
 @implementation MixMainStrategy
 
@@ -45,7 +45,7 @@
 //        return YES;
 //    }
 //    return NO;
-    if ([MixFilterStrategy isSystemClass:className]) {
+    if ([MixJudgeStrategy isSystemClass:className]) {
         return NO;
     }
     
@@ -67,7 +67,7 @@
     
     [classNames enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        if ([MixFilterStrategy isSystemClass:obj]) {
+        if ([MixJudgeStrategy isSystemClass:obj]) {
             [workers removeObject:obj];
         } else {
             for (MixObject * object in objects) {
@@ -171,8 +171,6 @@
                 substitute = [NSString stringWithFormat:@"%@%@%@",front,encrypt,back];
                 NSArray * lines = [front componentsSeparatedByString:@"\n"];
                 printf("替换失败 文件:%s 原类:%s 新类:%s %d行\n",[fileName UTF8String] ,[oldName UTF8String],[newName UTF8String], (int)lines.count);
-                    
-                
                 
             }
         }
@@ -187,11 +185,9 @@
 
 + (BOOL)isLegalWithFrontSymbol:(NSString *)frontSymbol backSymbol:(NSString *)backSymbol {
     BOOL isLegal = NO;
-    
-    if (([frontSymbol isEqualToString:@" "] || [frontSymbol isEqualToString:@","]|| [frontSymbol isEqualToString:@"("] || [frontSymbol isEqualToString:@")"] || [frontSymbol isEqualToString:@"\n"] || [frontSymbol isEqualToString:@"["]|| [frontSymbol isEqualToString:@"<"] )&& ([backSymbol isEqualToString:@" "] || [backSymbol isEqualToString:@"\n"] || [backSymbol isEqualToString:@"("] || [backSymbol isEqualToString:@"<"] || [backSymbol isEqualToString:@")"] || [backSymbol isEqualToString:@"*"] || [backSymbol isEqualToString:@";"] || [backSymbol isEqualToString:@","] || [backSymbol isEqualToString:@":"]|| [backSymbol isEqualToString:@"{"])) {
+    if ([MixJudgeStrategy isLegalClassFrontSymbol:frontSymbol] && [MixJudgeStrategy isLegalClassFrontSymbol:backSymbol]) {
         isLegal = YES;
     }
-    
     return isLegal;
 }
 
@@ -199,12 +195,14 @@
 + (void)reference:(NSArray <MixObject *>*)objects oldName:(NSString*)oldName newName:(NSString *)newName {
     
     for (MixObject * object in objects) {
-        
-        NSString * hData = [MixMainStrategy referenceData:object.classFile.hFile.data oldName:oldName newName:newName fileName:object.classFile.hFile.fileName];
-        if (![object.classFile.hFile.data isEqualToString:hData]) {
-            object.classFile.hFile.data = hData;
-            [MixFileStrategy writeFileAtPath:object.classFile.hFile.path content:hData];
+        if (object.classFile.hFile) {
+            NSString * hData = [MixMainStrategy referenceData:object.classFile.hFile.data oldName:oldName newName:newName fileName:object.classFile.hFile.fileName];
+            if (![object.classFile.hFile.data isEqualToString:hData]) {
+                object.classFile.hFile.data = hData;
+                [MixFileStrategy writeFileAtPath:object.classFile.hFile.path content:hData];
+            }
         }
+        
         
         if (object.classFile.mFile) {
             NSString * mData = [MixMainStrategy referenceData:object.classFile.mFile.data oldName:oldName newName:newName fileName:object.classFile.mFile.fileName];

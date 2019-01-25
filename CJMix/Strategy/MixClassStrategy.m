@@ -8,7 +8,7 @@
 
 #import "MixClassStrategy.h"
 #import "MixStringStrategy.h"
-#import "MixFilterStrategy.h"
+#import "MixJudgeStrategy.h"
 
 @implementation MixClassStrategy
 
@@ -47,7 +47,7 @@
                     
                 }
                 
-                if (classStr && ![MixFilterStrategy isSystemClass:classStr]) {
+                if (classStr && ![MixJudgeStrategy isSystemClass:classStr]) {
                     MixClass * class = [[MixClass alloc] initWithClassName:classStr];
                     [class methodFromData:data];
                     [classNames addObject:class];

@@ -12,7 +12,7 @@
 #import "MixFileStrategy.h"
 #import "MixClassFileStrategy.h"
 #import "MixObjectStrategy.h"
-#import "MixFilterStrategy.h"
+#import "MixJudgeStrategy.h"
 #import "../Config/MixConfig.h"
 
 @implementation MixReferenceStrategy
@@ -40,7 +40,7 @@
 + (BOOL)filter:(NSString *)string {
     BOOL isFilter = NO;
     NSArray * filters = @[@"AppDelegate"];
-    if ([filters containsObject:string] || [string containsString:@"("] || [MixFilterStrategy isSystemClass:string]) {
+    if ([filters containsObject:string] || [string containsString:@"("] || [MixJudgeStrategy isSystemClass:string]) {
         isFilter = YES;
     }
 
