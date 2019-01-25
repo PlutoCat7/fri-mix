@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B75DB03221FAAC94006FDB86 /* MixFileNameStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DB02E21FAAC94006FDB86 /* MixFileNameStrategy.m */; };
 		B75DB03321FAAC94006FDB86 /* MixFileNameModifyJsonInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DB02F21FAAC94006FDB86 /* MixFileNameModifyJsonInfo.m */; };
+		B75DB03721FAAF90006FDB86 /* MixConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DB03621FAAF90006FDB86 /* MixConfig.m */; };
 		B78CED2221FAA09E00811586 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CED2121FAA09E00811586 /* main.m */; };
 		B78CED4821FAA0A700811586 /* MixMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CED2B21FAA0A600811586 /* MixMethod.m */; };
 		B78CED4921FAA0A700811586 /* MixClassFile.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CED2C21FAA0A600811586 /* MixClassFile.m */; };
@@ -45,6 +46,8 @@
 		B75DB02F21FAAC94006FDB86 /* MixFileNameModifyJsonInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixFileNameModifyJsonInfo.m; sourceTree = "<group>"; };
 		B75DB03021FAAC94006FDB86 /* MixFileNameStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixFileNameStrategy.h; sourceTree = "<group>"; };
 		B75DB03121FAAC94006FDB86 /* pbxproj.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pbxproj.json; sourceTree = "<group>"; };
+		B75DB03521FAAF90006FDB86 /* MixConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixConfig.h; sourceTree = "<group>"; };
+		B75DB03621FAAF90006FDB86 /* MixConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixConfig.m; sourceTree = "<group>"; };
 		B78CED1E21FAA09E00811586 /* CJMix */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CJMix; sourceTree = BUILT_PRODUCTS_DIR; };
 		B78CED2121FAA09E00811586 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B78CED2921FAA0A600811586 /* MixObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixObject.h; sourceTree = "<group>"; };
@@ -102,6 +105,15 @@
 			path = file;
 			sourceTree = "<group>";
 		};
+		B75DB03421FAAF71006FDB86 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				B75DB03521FAAF90006FDB86 /* MixConfig.h */,
+				B75DB03621FAAF90006FDB86 /* MixConfig.m */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		B78CED1521FAA09E00811586 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +133,7 @@
 		B78CED2021FAA09E00811586 /* CJMix */ = {
 			isa = PBXGroup;
 			children = (
+				B75DB03421FAAF71006FDB86 /* Config */,
 				B78CED2821FAA0A600811586 /* Model */,
 				B78CED3521FAA0A600811586 /* Strategy */,
 				B78CED2121FAA09E00811586 /* main.m */,
@@ -235,6 +248,7 @@
 				B78CED4A21FAA0A700811586 /* MixClass.m in Sources */,
 				B78CED4B21FAA0A700811586 /* MixObject.m in Sources */,
 				B78CED5221FAA0A700811586 /* MixFilterStrategy.m in Sources */,
+				B75DB03721FAAF90006FDB86 /* MixConfig.m in Sources */,
 				B75DB03221FAAC94006FDB86 /* MixFileNameStrategy.m in Sources */,
 				B75DB03321FAAC94006FDB86 /* MixFileNameModifyJsonInfo.m in Sources */,
 				B78CED5621FAA0A700811586 /* MixObjectStrategy.m in Sources */,

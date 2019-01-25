@@ -14,6 +14,7 @@
 #import "Strategy/MixObjectStrategy.h"
 #import "Strategy/MixMainStrategy.h"
 #import "Strategy/MixReferenceStrategy.h"
+#import "Config/MixConfig.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
