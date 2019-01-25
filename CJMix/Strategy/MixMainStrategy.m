@@ -12,6 +12,7 @@
 #import "MixFileStrategy.h"
 #import "MixClassFileStrategy.h"
 #import "MixObjectStrategy.h"
+#import "MixFilterStrategy.h"
 
 @implementation MixMainStrategy
 
@@ -44,7 +45,7 @@
 //        return YES;
 //    }
 //    return NO;
-    if ([className hasPrefix:@"UI"] || [className hasPrefix:@"NS"]||[className hasPrefix:@"CA"]) {
+    if ([MixFilterStrategy isSystemClass:className]) {
         return NO;
     }
     
@@ -66,7 +67,7 @@
     
     [classNames enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        if ([obj hasPrefix:@"UI"] || [obj hasPrefix:@"NS"]||[obj hasPrefix:@"CA"]) {
+        if ([MixFilterStrategy isSystemClass:obj]) {
             [workers removeObject:obj];
         } else {
             for (MixObject * object in objects) {

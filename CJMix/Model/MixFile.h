@@ -22,29 +22,14 @@ typedef NS_ENUM(NSUInteger, MixFileType) {
 
 @interface MixFile : NSObject
 
-/**
- 文件目录
- */
-@property (nonatomic , copy) NSString * path;
-
-/**
- 文件名
- */
-@property (nonatomic , copy) NSString * fileName;
-
-/**
- 数据
- */
-@property (nonatomic , copy) NSString * data;
-
-/**
- 文件类型
- */
 @property (nonatomic , assign) MixFileType fileType;
 
-/**
- 子文件（只有文件夹类型存在）
- */
+@property (nonatomic , copy) NSString * path;
+
+@property (nonatomic , copy) NSString * fileName;
+
+@property (nonatomic , copy) NSString * data;
+
 @property (nonatomic , copy) NSArray <MixFile *>* subFiles;
 
 @end

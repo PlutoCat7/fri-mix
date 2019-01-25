@@ -11,34 +11,16 @@
 
 @interface MixClassFile : NSObject
 
-/**
- 头文件
- */
 @property (nonatomic , strong) MixFile * hFile;
 
-/**
- 实现文件
- */
 @property (nonatomic , strong) MixFile * mFile;
 
-/**
- 类文件名
- */
 @property (nonatomic , copy) NSString * classFileName;
 
-/**
- 重置文件名
- */
 @property (nonatomic , copy) NSString * resetFileName;
 
-/**
- 是否是应用代理
- */
 @property (nonatomic , assign , readonly) BOOL isAppDelegate;
 
-/**
- 是否是分类
- */
 @property (nonatomic , assign , readonly) BOOL isCategory;
 
 @end
