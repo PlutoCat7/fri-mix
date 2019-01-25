@@ -190,31 +190,34 @@
     return substitute;
 }
 
++ (void)referenceDataAndWrite:(MixFile *)file oldName:(NSString*)oldName newName:(NSString *)newName {
+    if (![file isKindOfClass:[MixFile class]]) {
+        return;
+    }
+    
+    NSString * data = [MixMainStrategy referenceData:file.data oldName:oldName newName:newName fileName:file.fileName];
+    if (![file.data isEqualToString:data]) {
+        file.data = data;
+        [MixFileStrategy writeFileAtPath:file.path content:data];
+    }
+    
+    
+}
+
 
 + (void)reference:(NSArray <MixObject *>*)objects oldName:(NSString*)oldName newName:(NSString *)newName {
     
     for (MixObject * object in objects) {
         
-        if (object.classFile.hFile) {
-            NSString * hData = [MixMainStrategy referenceData:object.classFile.hFile.data oldName:oldName newName:newName fileName:object.classFile.hFile.fileName];
-            if (![object.classFile.hFile.data isEqualToString:hData]) {
-                object.classFile.hFile.data = hData;
-                [MixFileStrategy writeFileAtPath:object.classFile.hFile.path content:hData];
-            }
-        }
+        [MixMainStrategy referenceDataAndWrite:object.classFile.hFile oldName:oldName newName:newName];
+        [MixMainStrategy referenceDataAndWrite:object.classFile.mFile oldName:oldName newName:newName];
         
-        
-        if (object.classFile.mFile) {
-            NSString * mData = [MixMainStrategy referenceData:object.classFile.mFile.data oldName:oldName newName:newName fileName:object.classFile.mFile.fileName];
-            if (![object.classFile.mFile.data isEqualToString:mData]) {
-                object.classFile.mFile.data = mData;
-                [MixFileStrategy writeFileAtPath:object.classFile.mFile.path content:mData];
-            }
-            
-        }
     }
-    
-    
 }
+
+
+
+
+
 
 @end
