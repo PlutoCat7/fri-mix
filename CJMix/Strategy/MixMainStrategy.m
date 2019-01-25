@@ -41,10 +41,6 @@
 }
 
 + (BOOL)legal:(NSString *)className {
-//    if (([className containsString:@"Habibi"]||[className containsString:@"WL"]||[className containsString:@"Voice"])) {
-//        return YES;
-//    }
-//    return NO;
     if ([MixJudgeStrategy isSystemClass:className]) {
         return NO;
     }
@@ -57,7 +53,7 @@
     int count = 0;
     //获取合法替换类数量
     for (MixObject * object in objects) {
-        if ([MixMainStrategy legal:object.classFile.classFileName]) {
+        if (![MixJudgeStrategy isSystemClass:object.classFile.classFileName]) {
             count = count + (int)object.hClasses.count;
         }
     }
@@ -195,12 +191,10 @@
 + (void)reference:(NSArray <MixObject *>*)objects oldName:(NSString*)oldName newName:(NSString *)newName {
     
     for (MixObject * object in objects) {
-        if (object.classFile.hFile) {
-            NSString * hData = [MixMainStrategy referenceData:object.classFile.hFile.data oldName:oldName newName:newName fileName:object.classFile.hFile.fileName];
-            if (![object.classFile.hFile.data isEqualToString:hData]) {
-                object.classFile.hFile.data = hData;
-                [MixFileStrategy writeFileAtPath:object.classFile.hFile.path content:hData];
-            }
+        NSString * hData = [MixMainStrategy referenceData:object.classFile.hFile.data oldName:oldName newName:newName fileName:object.classFile.hFile.fileName];
+        if (![object.classFile.hFile.data isEqualToString:hData]) {
+            object.classFile.hFile.data = hData;
+            [MixFileStrategy writeFileAtPath:object.classFile.hFile.path content:hData];
         }
         
         

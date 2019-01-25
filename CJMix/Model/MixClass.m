@@ -57,8 +57,8 @@
                     }
                 }];
                 
-                self.method.addMethod = [NSArray arrayWithArray:addMethods];
-                self.method.subMethod = [NSArray arrayWithArray:subMethods];
+                self.method.classMethod = [NSArray arrayWithArray:addMethods];
+                self.method.exampleMethod = [NSArray arrayWithArray:subMethods];
                 
             }
         }
