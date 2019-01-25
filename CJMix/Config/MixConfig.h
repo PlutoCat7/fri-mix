@@ -16,6 +16,8 @@
 
 @property (nonatomic , copy) NSArray <NSString *>* systemPrefixs;
 
+@property (nonatomic , copy) NSArray <NSString *>* shieldPaths;
+
 @property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassFrontSymbols;
 
 @property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassBackSymbols;
