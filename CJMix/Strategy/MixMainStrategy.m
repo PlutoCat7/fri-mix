@@ -75,7 +75,7 @@
         
     }];
     
-    NSMutableArray * referenceClassNames = [NSMutableArray arrayWithArray:workers];
+    NSMutableArray<NSString *> * referenceClassNames = [NSMutableArray arrayWithArray:workers];
     
     if (count > referenceClassNames.count) {
         printf("类名不足\n需要替换类数量:%d 类名数量:%d\n",(int)count,(int)referenceClassNames.count);
@@ -97,13 +97,20 @@
         }
         
         [MixMainStrategy replace:mObject.hClasses newNames:referenceClassNames allObject:mainObjects];
+        if (mObject.hClasses.count) {
+            MixClass * class = mObject.hClasses[0];
+            if (class.className) {
+                mObject.classFile.resetFileName = class.className;
+            }
+        }
+        
 //        [MixMainStrategy replace:mObject.mClasses newNames:referenceClassNames allObject:mainObjects];
         
     }
     
 }
 
-+ (void)replace:(NSArray <MixClass *>*)classes newNames:(NSMutableArray <NSString *>*)newNmaes allObject:(NSArray <MixObject *>*)allObject {
++ (void)replace:(NSArray <MixClass *>*)classes newNames:(NSMutableArray<NSString *>*)newNmaes allObject:(NSArray <MixObject *>*)allObject {
     for (MixClass * class in classes) {
         NSInteger index = arc4random() % newNmaes.count;
         NSString * oldClassName = class.className;
@@ -114,6 +121,7 @@
         [newNmaes removeObjectAtIndex:index];
         [MixMainStrategy reference:allObject oldName:oldClassName newName:newClassName];
         class.className = newClassName;
+        
     }
 }
 
