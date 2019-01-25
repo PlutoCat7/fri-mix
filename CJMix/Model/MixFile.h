@@ -22,13 +22,13 @@ typedef NS_ENUM(NSUInteger, MixFileType) {
 
 @interface MixFile : NSObject
 
+@property (nonatomic , assign) MixFileType fileType;
+
 @property (nonatomic , copy) NSString * path;
 
 @property (nonatomic , copy) NSString * fileName;
 
 @property (nonatomic , copy) NSString * data;
-
-@property (nonatomic , assign) MixFileType fileType;
 
 @property (nonatomic , copy) NSArray <MixFile *>* subFiles;
 

@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface MixSingleModifyJsonInfo : NSObject
 
 @property (nonatomic, strong) NSMutableDictionary *insert;  //不能修改属性名
@@ -27,5 +25,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)jsonString;
 
 @end
-
-NS_ASSUME_NONNULL_END
