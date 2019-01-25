@@ -10,12 +10,4 @@
 
 @implementation MixFile
 
-- (void)setData:(NSString *)data {
-    _data = data;
-    
-    
-    
-}
-
-
 @end

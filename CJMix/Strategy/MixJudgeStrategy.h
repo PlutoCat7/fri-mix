@@ -1,5 +1,5 @@
 //
-//  MixFilterStrategy.h
+//  MixJudgeStrategy.h
 //  CJMix
 //
 //  Created by ChenJie on 2019/1/24.
@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MixFilterStrategy : NSObject
+@interface MixJudgeStrategy : NSObject
 
 + (BOOL)isSystemClass:(NSString *)className;
+
++ (BOOL)isLegalClassFrontSymbol:(NSString *)symbol;
+
++ (BOOL)isLegalClassBackSymbol:(NSString *)symbol;
 
 @end
 

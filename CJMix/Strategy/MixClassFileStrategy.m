@@ -12,7 +12,7 @@
 
 + (NSArray <MixClassFile *> *)filesToClassFiles:(NSArray <MixFile *>*)hmFiles {
     __block NSMutableArray <MixClassFile *>*classFiles = [NSMutableArray arrayWithCapacity:0];
-    
+
     [hmFiles enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.fileType == MixFileTypeH) {
             MixFile * mFile = [self mFileOfHFile:obj classFiles:hmFiles];
@@ -22,24 +22,20 @@
                 classFile.mFile = mFile;
             }
             [classFiles addObject:classFile];
-            
+
         }
     }];
-    
-    
+
+
     return [NSArray arrayWithArray:classFiles];
     
     
 //    __block NSMutableDictionary * fileDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
-//    
+//
 //    [hmFiles enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 //        if (obj.fileType == MixFileTypeH) {
-//            MixFile * mFile = [self mFileOfHFile:obj classFiles:hmFiles];
 //            MixClassFile * classFile = [[MixClassFile alloc] init];
 //            classFile.hFile = obj;
-//            //            if (mFile) {
-//            //                classFile.mFile = mFile;
-//            //            }
 //            if (![fileDictionary.allKeys containsObject:classFile.classFileName]) {
 //                [fileDictionary setObject:classFile forKey:classFile.classFileName];
 //            }else {
@@ -49,10 +45,8 @@
 //                }
 //            }
 //        } else if (obj.fileType == MixFileTypeM || obj.fileType == MixFileTypeMM) {
-//            
 //            MixClassFile * classFile = [[MixClassFile alloc] init];
 //            classFile.mFile = obj;
-//            
 //            if (![fileDictionary.allKeys containsObject:classFile.classFileName]) {
 //                [fileDictionary setObject:classFile forKey:classFile.classFileName];
 //            } else {
@@ -63,8 +57,8 @@
 //            }
 //        }
 //    }];
-//    
-//    
+//
+//
 //    return fileDictionary.allValues;
 }
 

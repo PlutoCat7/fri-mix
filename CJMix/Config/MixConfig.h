@@ -14,5 +14,11 @@
 
 @property (nonatomic , copy) NSString * mixPrefix;
 
+@property (nonatomic , copy) NSArray <NSString *>* systemPrefixs;
+
+@property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassFrontSymbols;
+
+@property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassBackSymbols;
+
 @end
 

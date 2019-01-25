@@ -99,28 +99,13 @@
     return saveHMFiles;
 }
 
-
-
-
-/**
- 获取文件特定属性
- @param path 目录
- @param key 属性键值
- @param error 错误信息
- @return 文件信息
- */
 + (id)attributeOfItemAtPath:(NSString *)path forKey:(NSString *)key error:(NSError *__autoreleasing *)error {
     NSDictionary * dic = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:error];
     id object = [dic objectForKey:key];
     return object;
 }
 
-/**
- 是否为文件夹
- @param path 目录
- @param error 错误信息
- @return 是否
- */
+
 + (BOOL)isDirectoryAtPath:(NSString *)path error:(NSError *__autoreleasing *)error {
     return ([self attributeOfItemAtPath:path forKey:NSFileType error:error] == NSFileTypeDirectory);
 }

@@ -8,7 +8,7 @@
 
 #import "MixObject.h"
 #import "MixStringStrategy.h"
-#import "../Strategy/MixFilterStrategy.h"
+#import "../Strategy/MixJudgeStrategy.h"
 #import "../Strategy/MixClassStrategy.h"
 
 @implementation MixObject
