@@ -36,24 +36,20 @@
 //        if (obj.fileType == MixFileTypeH) {
 //            MixClassFile * classFile = [[MixClassFile alloc] init];
 //            classFile.hFile = obj;
-//            if (![fileDictionary.allKeys containsObject:classFile.classFileName]) {
-//                [fileDictionary setObject:classFile forKey:classFile.classFileName];
-//            }else {
+//            if ([fileDictionary.allKeys containsObject:classFile.classFileName]) {
 //                MixClassFile * classFile2 = [fileDictionary objectForKey:classFile.classFileName];
-//                if (!classFile2.hFile) {
-//                    classFile2.hFile = obj;
-//                }
+//                classFile2.hFile = obj;
+//            }else {
+//                [fileDictionary setObject:classFile forKey:classFile.classFileName];
 //            }
 //        } else if (obj.fileType == MixFileTypeM || obj.fileType == MixFileTypeMM) {
 //            MixClassFile * classFile = [[MixClassFile alloc] init];
 //            classFile.mFile = obj;
-//            if (![fileDictionary.allKeys containsObject:classFile.classFileName]) {
-//                [fileDictionary setObject:classFile forKey:classFile.classFileName];
-//            } else {
+//            if ([fileDictionary.allKeys containsObject:classFile.classFileName]) {
 //                MixClassFile * classFile2 = [fileDictionary objectForKey:classFile.classFileName];
-//                if (!classFile2.mFile) {
-//                    classFile2.mFile = obj;
-//                }
+//                classFile2.mFile = obj;
+//            } else {
+//                [fileDictionary setObject:classFile forKey:classFile.classFileName];
 //            }
 //        }
 //    }];

@@ -26,15 +26,15 @@
         if (self.hFile) {
             _classFileName = [self.hFile.fileName stringByReplacingOccurrencesOfString:@".h" withString:@""];
         } else {
-            _classFileName = [self.mFile.fileName stringByReplacingOccurrencesOfString:@".m" withString:@""];
+            if (_mFile.fileType == MixFileTypeM) {
+                _classFileName = [self.mFile.fileName stringByReplacingOccurrencesOfString:@".m" withString:@""];
+            } else if (_mFile.fileType == MixFileTypeMM) {
+                _classFileName = [self.mFile.fileName stringByReplacingOccurrencesOfString:@".mm" withString:@""];
+            }
         }
         
         if ([_classFileName containsString:@"AppDelegate"]) {
             _isAppDelegate = YES;
-        }
-        
-        if ([_classFileName containsString:@"+"]) {
-            _isCategory = YES;
         }
         
     }

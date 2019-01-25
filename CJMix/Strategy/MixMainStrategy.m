@@ -55,7 +55,7 @@
     //获取合法替换类数量
     for (MixObject * object in objects) {
         if (![MixJudgeStrategy isSystemClass:object.classFile.classFileName]) {
-            count = count + (int)object.hClasses.count;
+            count = count + (int)object.hClasses.count + (int)object.mClasses.count;
         }
     }
     
@@ -76,7 +76,7 @@
         
     }];
     
-    NSMutableArray * referenceClassNames = [NSMutableArray arrayWithArray:workers];
+    NSMutableArray<NSString *> * referenceClassNames = [NSMutableArray arrayWithArray:workers];
     
     if (count > referenceClassNames.count) {
         printf("类名不足\n需要替换类数量:%d 类名数量:%d\n",(int)count,(int)referenceClassNames.count);
@@ -93,28 +93,37 @@
             continue;
         }
         
-//        if (mObject.classFile.isCategory) {
-//            continue;
-//        }
-        
         if (![MixMainStrategy fileLegal:mObject.classFile.classFileName]) {
             continue;
         }
         
-        for (MixClass * mClass in mObject.hClasses) {
-            NSInteger index = arc4random() % referenceClassNames.count;
-            NSString * oldClassName = mClass.className;
-            if (![MixMainStrategy legal:oldClassName]) {
-                continue;
+        [MixMainStrategy replace:mObject.hClasses newNames:referenceClassNames allObject:mainObjects];
+        if (mObject.hClasses.count) {
+            MixClass * class = mObject.hClasses[0];
+            if (class.className) {
+                mObject.classFile.resetFileName = class.className;
             }
-            NSString * newClassName = referenceClassNames[index];
-            [referenceClassNames removeObjectAtIndex:index];
-            [MixMainStrategy reference:mainObjects oldName:oldClassName newName:newClassName];
-            mClass.className = newClassName;
-            
         }
+        
+//        [MixMainStrategy replace:mObject.mClasses newNames:referenceClassNames allObject:mainObjects];
+        
     }
     
+}
+
++ (void)replace:(NSArray <MixClass *>*)classes newNames:(NSMutableArray<NSString *>*)newNmaes allObject:(NSArray <MixObject *>*)allObject {
+    for (MixClass * class in classes) {
+        NSInteger index = arc4random() % newNmaes.count;
+        NSString * oldClassName = class.className;
+        if (![MixMainStrategy legal:oldClassName]) {
+            continue;
+        }
+        NSString * newClassName = newNmaes[index];
+        [newNmaes removeObjectAtIndex:index];
+        [MixMainStrategy reference:allObject oldName:oldClassName newName:newClassName];
+        class.className = newClassName;
+        
+    }
 }
 
 + (NSString *)referenceData:(NSString *)data oldName:(NSString*)oldName newName:(NSString *)newName fileName:(NSString *)fileName {
@@ -192,10 +201,13 @@
 + (void)reference:(NSArray <MixObject *>*)objects oldName:(NSString*)oldName newName:(NSString *)newName {
     
     for (MixObject * object in objects) {
-        NSString * hData = [MixMainStrategy referenceData:object.classFile.hFile.data oldName:oldName newName:newName fileName:object.classFile.hFile.fileName];
-        if (![object.classFile.hFile.data isEqualToString:hData]) {
-            object.classFile.hFile.data = hData;
-            [MixFileStrategy writeFileAtPath:object.classFile.hFile.path content:hData];
+        
+        if (object.classFile.hFile) {
+            NSString * hData = [MixMainStrategy referenceData:object.classFile.hFile.data oldName:oldName newName:newName fileName:object.classFile.hFile.fileName];
+            if (![object.classFile.hFile.data isEqualToString:hData]) {
+                object.classFile.hFile.data = hData;
+                [MixFileStrategy writeFileAtPath:object.classFile.hFile.path content:hData];
+            }
         }
         
         

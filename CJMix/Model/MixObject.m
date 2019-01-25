@@ -49,12 +49,6 @@
         classes = _mClasses;
     }
     
-    if (!self.classFile.resetFileName && classes.count) {
-        MixClass * class = classes[0];
-        self.classFile.resetFileName = class.className;
-    }
-    
-    
 }
 
 
