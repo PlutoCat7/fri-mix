@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 @property (nonatomic, copy) NSString *rootPath;
 
 //旧类名、新类名
-@property (nonatomic, strong) NSDictionary<NSString *, NSString *> *classNameDict;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *classNameDict;
 
 @property (nonatomic, strong) NSMutableArray<MixFileInfo *> *fileList;  //文件名列表
 @property (nonatomic, strong) NSMutableArray<MixFileInfo *> *fileGroupList;  //文件夹列表
@@ -44,6 +44,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     if (self) {
         _fileList = [NSMutableArray arrayWithCapacity:1];
         _fileGroupList = [NSMutableArray arrayWithCapacity:1];
+        _classNameDict = [NSMutableDictionary dictionaryWithCapacity:1];
     }
     return self;
 }
@@ -56,9 +57,17 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     strategy.objects = objects;
     strategy.rootPath = rootPath;
     
+    //生成类字段
+    for (MixObject *object in objects) {
+        NSString *oldName = object.classFile.classFileName;
+        NSString *newName = object.classFile.resetFileName;
+        if (oldName && newName) {
+            [strategy.classNameDict setObject:newName forKey:oldName];
+        }
+    }
+    
     if ([strategy initPbxproj]) {
-        [strategy makeConfigurationJson];
-        return YES;
+        return [strategy makeConfigurationJson];
     }
     return NO;
 }
@@ -100,7 +109,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     return YES;
 }
 
-- (void)makeConfigurationJson {
+- (BOOL)makeConfigurationJson {
     
     MixFileNameModifyJsonInfo *jsonObject = [[MixFileNameModifyJsonInfo alloc] init];
     for (MixFileInfo *info in self.fileList) {
@@ -117,7 +126,19 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             [jsonObject.forward.modify setObject:[NSString stringWithFormat:@"%@.%@", newFileName, suffix] forKey:key];
         }
     }
+    
     NSLog(@"Pbxproj配置修改数据：%@", [jsonObject jsonString]);
+    
+    NSString *configPath = [self.rootPath stringByAppendingPathComponent:@"config.json"];
+    NSError *error;
+    [[jsonObject jsonString] writeToFile:configPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    if (error) {
+        NSLog(@"Pbxproj配置数据写入失败，失败原因：%@", error);
+        return NO;
+    }else{
+        NSLog(@"Pbxproj配置数据写入成功");
+        return YES;
+    }
 }
 
 - (BOOL)checkFileValidWithSuffux:(NSString *)suffix {

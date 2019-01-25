@@ -44,9 +44,13 @@ int main(int argc, const char * argv[]) {
         } else {
             printf("工程文件不存在\n");
         }
-        
-        [MixFileNameStrategy start:objects rootPath:rootPath];
-        
+        //
+        printf("开始替换文件名称\n");
+        if ([MixFileNameStrategy start:objects rootPath:rootPath]) {
+            printf("成功替换文件名称\n");
+        }else {
+            printf("替换文件名称出错了\n");
+        }
     }
     return 0;
 }
