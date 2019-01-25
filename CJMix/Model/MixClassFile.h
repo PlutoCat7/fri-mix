@@ -24,7 +24,12 @@
 /**
  类文件名
  */
-@property (nonatomic , copy ) NSString * classFileName;
+@property (nonatomic , copy) NSString * classFileName;
+
+/**
+ 重置文件名
+ */
+@property (nonatomic , copy) NSString * resetFileName;
 
 /**
  是否是应用代理

@@ -25,21 +25,27 @@
 
 - (void)analyze {
     
-    if (self.classFile.hFile) {
-        NSData * hData = [NSData dataWithContentsOfFile:self.classFile.hFile.path options:NSDataReadingUncached error:nil];
-        NSString * hText  = [[NSString alloc] initWithData:hData encoding:NSUTF8StringEncoding];
-        self.classFile.hFile.data = hText;
-        
-        _hClasses = [NSArray arrayWithArray:[MixClassStrategy dataToClassName:hText]];
+    [self setupClassWithFile:self.classFile.hFile classes:_hClasses];
+    [self setupClassWithFile:self.classFile.mFile classes:_mClasses];
+    
+}
+
+- (void)setupClassWithFile:(MixFile *)file classes:(NSArray <MixClass *> *)classes {
+    
+    if (!file ||!self.classFile) {
+        return;
     }
     
-    if (self.classFile.mFile) {
-        
-        NSData * mData = [NSData dataWithContentsOfFile:self.classFile.mFile.path options:NSDataReadingUncached error:nil];
-        NSString * mText = [[NSString alloc] initWithData:mData encoding:NSUTF8StringEncoding];
-        self.classFile.mFile.data = mText;
-        _mClasses = [NSArray arrayWithArray:[MixClassStrategy dataToClassName:mText]];
+    NSData * hData = [NSData dataWithContentsOfFile:file.path options:NSDataReadingUncached error:nil];
+    NSString * hText  = [[NSString alloc] initWithData:hData encoding:NSUTF8StringEncoding];
+    file.data = hText;
+    
+    classes = [NSArray arrayWithArray:[MixClassStrategy dataToClassName:hText]];
+    if (!self.classFile.resetFileName && classes.count) {
+        MixClass * class = _hClasses[0];
+        self.classFile.resetFileName = class.className;
     }
+    
     
 }
 
