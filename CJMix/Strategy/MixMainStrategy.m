@@ -149,13 +149,13 @@
             NSString * frontSymbol = [substitute substringWithRange:frontRange];
             NSString * backSymbol = [substitute substringWithRange:backRange];
             
-            if ([MixMainStrategy isLegalWithFrontSymbol:frontSymbol backSymbol:backSymbol]) {
+            if ([MixJudgeStrategy isLegalClassFrontSymbol:frontSymbol] && [MixJudgeStrategy isLegalClassBackSymbol:backSymbol]) {
                 NSString * front = [substitute substringToIndex:range.location];
                 NSString * back = [substitute substringFromIndex:range.location + range.length];
                 substitute = [NSString stringWithFormat:@"%@%@%@",front,newName,back];
                 
             } else {
-                if ([MixMainStrategy isLegalWithFrontSymbol:frontSymbol backSymbol:@" "]) {
+                if ([MixJudgeStrategy isLegalClassFrontSymbol:frontSymbol]) {
                     if ([backSymbol isEqualToString:@"."]) {
                         
                         NSRange newBackRange = NSMakeRange(range.location + range.length, 3);
@@ -188,14 +188,6 @@
     
     
     return substitute;
-}
-
-+ (BOOL)isLegalWithFrontSymbol:(NSString *)frontSymbol backSymbol:(NSString *)backSymbol {
-    BOOL isLegal = NO;
-    if ([MixJudgeStrategy isLegalClassFrontSymbol:frontSymbol] && [MixJudgeStrategy isLegalClassBackSymbol:backSymbol]) {
-        isLegal = YES;
-    }
-    return isLegal;
 }
 
 
