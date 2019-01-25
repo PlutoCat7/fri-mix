@@ -25,12 +25,12 @@
 
 - (void)analyze {
     
-    [self setupClassWithFile:self.classFile.hFile classes:_hClasses];
-    [self setupClassWithFile:self.classFile.mFile classes:_mClasses];
+    [self setupClassWithFile:self.classFile.hFile isHeader:YES];
+    [self setupClassWithFile:self.classFile.mFile isHeader:NO];
     
 }
 
-- (void)setupClassWithFile:(MixFile *)file classes:(NSArray <MixClass *> *)classes {
+- (void)setupClassWithFile:(MixFile *)file isHeader:(BOOL)isHeader {
     
     if (!file ||!self.classFile) {
         return;
@@ -40,9 +40,17 @@
     NSString * hText  = [[NSString alloc] initWithData:hData encoding:NSUTF8StringEncoding];
     file.data = hText;
     
-    classes = [NSArray arrayWithArray:[MixClassStrategy dataToClassName:hText]];
+    NSArray * classes = nil;
+    if (isHeader) {
+        _hClasses = [NSArray arrayWithArray:[MixClassStrategy dataToClassName:hText]];
+        classes = _hClasses;
+    } else {
+        _mClasses = [NSArray arrayWithArray:[MixClassStrategy dataToClassName:hText]];
+        classes = _mClasses;
+    }
+    
     if (!self.classFile.resetFileName && classes.count) {
-        MixClass * class = _hClasses[0];
+        MixClass * class = classes[0];
         self.classFile.resetFileName = class.className;
     }
     
