@@ -21,7 +21,5 @@
 
 @property (nonatomic , assign , readonly) BOOL isAppDelegate;
 
-@property (nonatomic , assign , readonly) BOOL isCategory;
-
 @end
 
