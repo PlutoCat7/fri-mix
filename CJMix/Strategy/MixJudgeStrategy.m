@@ -31,7 +31,7 @@
 }
 
 + (BOOL)isLegalClassBackSymbol:(NSString *)symbol {
-    NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].legalClassFrontSymbols];
+    NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].legalClassBackSymbols];
     for (NSString * str in array) {
         if ([symbol isEqualToString:str]) {
             return YES;
