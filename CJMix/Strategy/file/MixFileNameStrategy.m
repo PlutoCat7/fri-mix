@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 @property (nonatomic, copy) NSString *rootPath;
 
 //旧类名、新类名
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *classNameDict;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSDictionary *> *classNameDict;
 
 @property (nonatomic, strong) NSMutableArray<MixFileInfo *> *fileList;  //文件名列表
 @property (nonatomic, strong) NSMutableArray<MixFileInfo *> *fileGroupList;  //文件夹列表
@@ -62,12 +62,15 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
         NSString *oldName = object.classFile.classFileName;
         NSString *newName = object.classFile.resetFileName;
         if (oldName && newName) {
-            [strategy.classNameDict setObject:newName forKey:oldName];
+            NSDictionary *data = @{@"name":newName,
+                                   @"object":object
+                                   };
+            [strategy.classNameDict setObject:data forKey:oldName];
         }
     }
     
     if ([strategy initPbxproj]) {
-        return [strategy makeConfigurationJson];
+        [strategy makeConfigurationJson];
     }
     return NO;
 }
@@ -118,12 +121,26 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             continue;
         }
         //去除后缀 当做类名比对
-        NSString *fileName = [info.fileName componentsSeparatedByString:@"."].firstObject;
-        NSString *newFileName = [self.classNameDict objectForKey:fileName];
+        NSString *oldFileName = [info.fileName componentsSeparatedByString:@"."].firstObject;
+        NSDictionary *dataDict = [self.classNameDict objectForKey:oldFileName];
+        NSString *newFileName = [dataDict objectForKey:@"name"];
         if (newFileName && newFileName.length>0) { //找到了
             NSString *key = [self keyWithUDID:info.UDID];
             [jsonObject.backward.modify setObject:info.fileName forKey:key];
             [jsonObject.forward.modify setObject:[NSString stringWithFormat:@"%@.%@", newFileName, suffix] forKey:key];
+            
+            //修改物理文件路径
+            MixObject *object = [dataDict objectForKey:@"object"];
+            NSString *oldPath = nil;
+            if ([suffix isEqualToString:@"h"]) {
+                oldPath = object.classFile.hFile.path;
+            }else {
+                oldPath = object.classFile.mFile.path;
+            }
+            if (oldPath && oldPath.length>0) {
+                NSString *newPath = [[NSMutableString stringWithString:oldPath] stringByReplacingOccurrencesOfString:oldFileName withString:newFileName];
+                [[NSFileManager defaultManager] moveItemAtPath:oldPath toPath:newPath error:nil];
+            }
         }
     }
     
