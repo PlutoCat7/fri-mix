@@ -15,11 +15,12 @@
 #import "Strategy/MixMainStrategy.h"
 #import "Strategy/MixReferenceStrategy.h"
 #import "Config/MixConfig.h"
+#import "MixFileNameStrategy.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        NSString * referencePath = @"/Users/wn/Desktop/Reference";
-        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
+        NSString * referencePath = @"/Users/wangsw/Desktop/Reference";
+        NSString * rootPath = @"/Users/wangsw/Desktop/najiabao-file";
         NSString * path = [NSString stringWithFormat:@"%@_copy",rootPath];
         
         printf("拷贝文件中..\n");
@@ -43,6 +44,8 @@ int main(int argc, const char * argv[]) {
         } else {
             printf("工程文件不存在\n");
         }
+        
+        [MixFileNameStrategy start:objects rootPath:rootPath];
         
     }
     return 0;

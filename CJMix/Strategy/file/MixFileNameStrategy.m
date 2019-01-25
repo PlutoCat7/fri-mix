@@ -9,15 +9,15 @@
 #import "MixFileNameStrategy.h"
 #import "MixFileNameModifyJsonInfo.h"
 
-typedef NS_ENUM(NSUInteger, MixFileType) {
-    MixFileType_UnKnow,
-    MixFileType_Group,          //文件夹
-    MixFileType_FileReference,  //文件
+typedef NS_ENUM(NSUInteger, yah_MixFileType) {
+    yah_MixFileType_UnKnow,
+    yah_MixFileType_Group,          //文件夹
+    yah_MixFileType_FileReference,  //文件
 };
 
 @interface MixFileInfo : NSObject
 @property (nonatomic, copy) NSString *UDID;
-@property (nonatomic, assign) MixFileType fileType;
+@property (nonatomic, assign) yah_MixFileType fileType;
 @property (nonatomic, copy) NSString *fileName;
 @end
 @implementation MixFileInfo
@@ -25,11 +25,14 @@ typedef NS_ENUM(NSUInteger, MixFileType) {
 
 @interface MixFileNameStrategy ()
 
+@property (nonatomic, strong) NSArray<MixObject *> *objects;
+@property (nonatomic, copy) NSString *rootPath;
+
 //旧类名、新类名
 @property (nonatomic, strong) NSDictionary<NSString *, NSString *> *classNameDict;
 
-@property (nonatomic, strong) NSMutableArray<MixFileInfo *> *fileList;
-@property (nonatomic, strong) NSMutableArray<MixFileInfo *> *fileGroupList;
+@property (nonatomic, strong) NSMutableArray<MixFileInfo *> *fileList;  //文件名列表
+@property (nonatomic, strong) NSMutableArray<MixFileInfo *> *fileGroupList;  //文件夹列表
 
 @end
 
@@ -41,28 +44,30 @@ typedef NS_ENUM(NSUInteger, MixFileType) {
     if (self) {
         _fileList = [NSMutableArray arrayWithCapacity:1];
         _fileGroupList = [NSMutableArray arrayWithCapacity:1];
-        
-        _classNameDict = @{@"file-7":@"file-8"};
-        
-        if ([self initPbxproj]) {
-            [self makeConfigurationJson];
-        }
     }
     return self;
 }
 
 #pragma mark - Public
 
-- (void)test {
++ (BOOL)start:(NSArray<MixObject *> *)objects rootPath:(NSString *)rootPath {
     
+    MixFileNameStrategy *strategy = [[MixFileNameStrategy alloc] init];
+    strategy.objects = objects;
+    strategy.rootPath = rootPath;
     
+    if ([strategy initPbxproj]) {
+        [strategy makeConfigurationJson];
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - Private
 
 - (BOOL)initPbxproj {
     
-    NSString *jsonPath = [[NSBundle mainBundle] pathForResource:@"pbxproj" ofType:@"json"];  //已通过plutil -convert json -s -r -o my.json project.pbxproj 转成json
+    NSString *jsonPath = [self.rootPath stringByAppendingPathComponent:@"pbxproj.json"];   //已通过plutil -convert json -s -r -o my.json project.pbxproj 转成json
     NSData *data = [NSData dataWithContentsOfFile:jsonPath];
     if (!data) {
         NSLog(@"pbxproj文件出错了");
@@ -78,13 +83,13 @@ typedef NS_ENUM(NSUInteger, MixFileType) {
             if (isa && [isa isKindOfClass:NSString.class]) {
                 if ([isa isEqualToString:@"PBXFileReference"]) {
                     MixFileInfo *info = [[MixFileInfo alloc] init];
-                    info.fileType = MixFileType_FileReference;
+                    info.fileType = yah_MixFileType_FileReference;
                     info.UDID = key;
                     info.fileName = [dict objectForKey:@"path"];
                     [self.fileList addObject:info];
                 }else if ([isa isEqualToString:@"PBXGroup"]) {
                     MixFileInfo *info = [[MixFileInfo alloc] init];
-                    info.fileType = MixFileType_Group;
+                    info.fileType = yah_MixFileType_Group;
                     info.UDID = key;
                     info.fileName = [dict objectForKey:@"path"];
                     [self.fileGroupList addObject:info];
@@ -117,7 +122,8 @@ typedef NS_ENUM(NSUInteger, MixFileType) {
 
 - (BOOL)checkFileValidWithSuffux:(NSString *)suffix {
     
-    return ([suffix isEqualToString:@"h"] || [suffix isEqualToString:@"m"]);
+    return ([suffix isEqualToString:@"h"] || [suffix isEqualToString:@"m"]
+            || [suffix isEqualToString:@"mm"]);
 }
 
 - (NSString *)keyWithUDID:(NSString *)udid {

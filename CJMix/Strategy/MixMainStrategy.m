@@ -13,6 +13,7 @@
 #import "MixClassFileStrategy.h"
 #import "MixObjectStrategy.h"
 #import "MixJudgeStrategy.h"
+#import "file/MixFileNameStrategy.h"
 
 @implementation MixMainStrategy
 

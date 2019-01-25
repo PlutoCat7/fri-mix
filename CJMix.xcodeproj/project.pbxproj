@@ -45,7 +45,6 @@
 		B75DB02E21FAAC94006FDB86 /* MixFileNameStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixFileNameStrategy.m; sourceTree = "<group>"; };
 		B75DB02F21FAAC94006FDB86 /* MixFileNameModifyJsonInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixFileNameModifyJsonInfo.m; sourceTree = "<group>"; };
 		B75DB03021FAAC94006FDB86 /* MixFileNameStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixFileNameStrategy.h; sourceTree = "<group>"; };
-		B75DB03121FAAC94006FDB86 /* pbxproj.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pbxproj.json; sourceTree = "<group>"; };
 		B75DB03521FAAF90006FDB86 /* MixConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixConfig.h; sourceTree = "<group>"; };
 		B75DB03621FAAF90006FDB86 /* MixConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixConfig.m; sourceTree = "<group>"; };
 		B78CED1E21FAA09E00811586 /* CJMix */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CJMix; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,7 +99,6 @@
 				B75DB02F21FAAC94006FDB86 /* MixFileNameModifyJsonInfo.m */,
 				B75DB03021FAAC94006FDB86 /* MixFileNameStrategy.h */,
 				B75DB02E21FAAC94006FDB86 /* MixFileNameStrategy.m */,
-				B75DB03121FAAC94006FDB86 /* pbxproj.json */,
 			);
 			path = file;
 			sourceTree = "<group>";

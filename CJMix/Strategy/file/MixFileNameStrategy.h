@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MixObject.h"
 
 @interface MixFileNameStrategy : NSObject
 
-- (void)test;
++ (BOOL)start:(NSArray<MixObject *> *)objects rootPath:(NSString *)rootPath;
 
 @end
