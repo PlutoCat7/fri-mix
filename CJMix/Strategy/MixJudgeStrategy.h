@@ -16,5 +16,7 @@
 
 + (BOOL)isLegalClassBackSymbol:(NSString *)symbol;
 
++ (BOOL)isShieldWithPath:(NSString *)path;
+
 @end
 

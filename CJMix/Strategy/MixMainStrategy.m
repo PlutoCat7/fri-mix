@@ -87,25 +87,26 @@
     
     NSArray * mainObjects = [NSArray arrayWithArray:objects];
     
-    for (MixObject * mObject in mainObjects) {
+    for (MixObject * object in objects) {
         
-        if (mObject.classFile.isAppDelegate) {
+        if (object.classFile.isAppDelegate) {
             continue;
         }
         
-        if (![MixMainStrategy fileLegal:mObject.classFile.classFileName]) {
+        if (![MixMainStrategy fileLegal:object.classFile.classFileName]) {
             continue;
         }
         
-        [MixMainStrategy replace:mObject.hClasses newNames:referenceClassNames allObject:mainObjects];
-        if (mObject.hClasses.count) {
-            MixClass * class = mObject.hClasses[0];
+        [MixMainStrategy replace:object.hClasses newNames:referenceClassNames allObject:mainObjects];
+        
+        if (object.hClasses.count) {
+            MixClass * class = object.hClasses[0];
             if (class.className) {
-                mObject.classFile.resetFileName = class.className;
+                object.classFile.resetFileName = class.className;
             }
         }
         
-//        [MixMainStrategy replace:mObject.mClasses newNames:referenceClassNames allObject:mainObjects];
+        [MixMainStrategy replace:object.mClasses newNames:referenceClassNames allObject:objects];
         
     }
     
@@ -148,13 +149,13 @@
             NSString * frontSymbol = [substitute substringWithRange:frontRange];
             NSString * backSymbol = [substitute substringWithRange:backRange];
             
-            if ([MixMainStrategy isLegalWithFrontSymbol:frontSymbol backSymbol:backSymbol]) {
+            if ([MixJudgeStrategy isLegalClassFrontSymbol:frontSymbol] && [MixJudgeStrategy isLegalClassBackSymbol:backSymbol]) {
                 NSString * front = [substitute substringToIndex:range.location];
                 NSString * back = [substitute substringFromIndex:range.location + range.length];
                 substitute = [NSString stringWithFormat:@"%@%@%@",front,newName,back];
                 
             } else {
-                if ([MixMainStrategy isLegalWithFrontSymbol:frontSymbol backSymbol:@" "]) {
+                if ([MixJudgeStrategy isLegalClassFrontSymbol:frontSymbol]) {
                     if ([backSymbol isEqualToString:@"."]) {
                         
                         NSRange newBackRange = NSMakeRange(range.location + range.length, 3);
@@ -189,12 +190,18 @@
     return substitute;
 }
 
-+ (BOOL)isLegalWithFrontSymbol:(NSString *)frontSymbol backSymbol:(NSString *)backSymbol {
-    BOOL isLegal = NO;
-    if ([MixJudgeStrategy isLegalClassFrontSymbol:frontSymbol] && [MixJudgeStrategy isLegalClassBackSymbol:backSymbol]) {
-        isLegal = YES;
++ (void)referenceDataAndWrite:(MixFile *)file oldName:(NSString*)oldName newName:(NSString *)newName {
+    if (![file isKindOfClass:[MixFile class]]) {
+        return;
     }
-    return isLegal;
+    
+    NSString * data = [MixMainStrategy referenceData:file.data oldName:oldName newName:newName fileName:file.fileName];
+    if (![file.data isEqualToString:data]) {
+        file.data = data;
+        [MixFileStrategy writeFileAtPath:file.path content:data];
+    }
+    
+    
 }
 
 
@@ -202,26 +209,15 @@
     
     for (MixObject * object in objects) {
         
-        if (object.classFile.hFile) {
-            NSString * hData = [MixMainStrategy referenceData:object.classFile.hFile.data oldName:oldName newName:newName fileName:object.classFile.hFile.fileName];
-            if (![object.classFile.hFile.data isEqualToString:hData]) {
-                object.classFile.hFile.data = hData;
-                [MixFileStrategy writeFileAtPath:object.classFile.hFile.path content:hData];
-            }
-        }
+        [MixMainStrategy referenceDataAndWrite:object.classFile.hFile oldName:oldName newName:newName];
+        [MixMainStrategy referenceDataAndWrite:object.classFile.mFile oldName:oldName newName:newName];
         
-        
-        if (object.classFile.mFile) {
-            NSString * mData = [MixMainStrategy referenceData:object.classFile.mFile.data oldName:oldName newName:newName fileName:object.classFile.mFile.fileName];
-            if (![object.classFile.mFile.data isEqualToString:mData]) {
-                object.classFile.mFile.data = mData;
-                [MixFileStrategy writeFileAtPath:object.classFile.mFile.path content:mData];
-            }
-            
-        }
     }
-    
-    
 }
+
+
+
+
+
 
 @end

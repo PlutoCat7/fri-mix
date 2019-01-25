@@ -42,4 +42,14 @@
     return NO;
 }
 
++ (BOOL)isShieldWithPath:(NSString *)path {
+    NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldPaths];
+    for (NSString * str in array) {
+        if ([path hasSuffix:str]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 @end
