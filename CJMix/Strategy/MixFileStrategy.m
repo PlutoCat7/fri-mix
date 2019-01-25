@@ -7,6 +7,7 @@
 //
 
 #import "MixFileStrategy.h"
+#import "MixJudgeStrategy.h"
 
 @implementation MixFileStrategy
 
@@ -40,10 +41,12 @@
     if ([MixFileStrategy isDirectoryAtPath:path error:nil]) {
         if ([path hasSuffix:@".pbxproj"]) {
             file.fileType = MixFileTypeProject;
-        } else if ([path hasSuffix:@"Pods"]||[path hasSuffix:@"imkit"]||[path hasSuffix:@"imsdk"]||[path hasSuffix:@"FDFullscreenPopGesture"]||[path hasSuffix:@"UIAlertView+BlocksKit"]||[path hasSuffix:@"V8HorizontalPickerView"]||[path hasSuffix:@"MJExtension"]||[path hasSuffix:@"FBKVOController"]||[path hasSuffix:@"countly-sdk-ios"]||[path hasSuffix:@"Hockey-iOS"]) {
+        } else if ([path hasSuffix:@"Pods"]) {
             file.fileType = MixFileTypePodFolder;
         } else if ([path hasSuffix:@".framework"]) {
             file.fileType = MixFileTypeFramework;
+        } else if ([MixJudgeStrategy isShieldWithPath:path]) {
+            file.fileType = MixFileTypeShield;
         } else {
             file.fileType = MixFileTypeFolder;
         }
@@ -58,15 +61,7 @@
         }
     }
     
-    if (file.fileType == MixFileTypeUnknown) {
-        return nil;
-    }
-    
-    if (file.fileType == MixFileTypePodFolder) {
-        return nil;
-    }
-    
-    if (file.fileType == MixFileTypeFramework) {
+    if (file.fileType == MixFileTypeUnknown || file.fileType == MixFileTypePodFolder || file.fileType == MixFileTypeFramework || file.fileType == MixFileTypeShield) {
         return nil;
     }
     

@@ -87,25 +87,26 @@
     
     NSArray * mainObjects = [NSArray arrayWithArray:objects];
     
-    for (MixObject * mObject in mainObjects) {
+    for (MixObject * object in objects) {
         
-        if (mObject.classFile.isAppDelegate) {
+        if (object.classFile.isAppDelegate) {
             continue;
         }
         
-        if (![MixMainStrategy fileLegal:mObject.classFile.classFileName]) {
+        if (![MixMainStrategy fileLegal:object.classFile.classFileName]) {
             continue;
         }
         
-        [MixMainStrategy replace:mObject.hClasses newNames:referenceClassNames allObject:mainObjects];
-        if (mObject.hClasses.count) {
-            MixClass * class = mObject.hClasses[0];
+        [MixMainStrategy replace:object.hClasses newNames:referenceClassNames allObject:mainObjects];
+        
+        if (object.hClasses.count) {
+            MixClass * class = object.hClasses[0];
             if (class.className) {
-                mObject.classFile.resetFileName = class.className;
+                object.classFile.resetFileName = class.className;
             }
         }
         
-//        [MixMainStrategy replace:mObject.mClasses newNames:referenceClassNames allObject:mainObjects];
+        [MixMainStrategy replace:object.mClasses newNames:referenceClassNames allObject:objects];
         
     }
     

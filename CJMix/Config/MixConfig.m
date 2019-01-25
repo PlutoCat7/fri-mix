@@ -68,4 +68,11 @@
     return _legalClassBackSymbols;
 }
 
+- (NSArray <NSString *>*)shieldPaths {
+    if (!_shieldPaths) {
+        _shieldPaths = @[];
+    }
+    return _shieldPaths;
+}
+
 @end

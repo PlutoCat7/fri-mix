@@ -36,17 +36,14 @@
         return;
     }
     
-    NSData * hData = [NSData dataWithContentsOfFile:file.path options:NSDataReadingUncached error:nil];
-    NSString * hText  = [[NSString alloc] initWithData:hData encoding:NSUTF8StringEncoding];
-    file.data = hText;
+    NSData * data = [NSData dataWithContentsOfFile:file.path options:NSDataReadingUncached error:nil];
+    NSString * text  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    file.data = text;
     
-    NSArray * classes = nil;
     if (isHeader) {
-        _hClasses = [NSArray arrayWithArray:[MixClassStrategy dataToClassName:hText]];
-        classes = _hClasses;
+        _hClasses = [NSArray arrayWithArray:[MixClassStrategy dataToClassName:text]];
     } else {
-        _mClasses = [NSArray arrayWithArray:[MixClassStrategy dataToClassName:hText]];
-        classes = _mClasses;
+        _mClasses = [NSArray arrayWithArray:[MixClassStrategy dataToClassName:text]];
     }
     
 }

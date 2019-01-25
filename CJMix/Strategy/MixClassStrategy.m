@@ -32,22 +32,24 @@
                         NSArray <NSString *>* strs = [obj componentsSeparatedByString:@":"];
                         
                         if (strs.count) {
+                            
                             NSString * temp = strs[0];
                             NSString * replacing = [temp stringByReplacingOccurrencesOfString:@" " withString:@""];
-                            classStr = replacing;
-                            break;
+                            if ([MixStringStrategy isAlphaNum:replacing]) {
+                                classStr = replacing;
+                            }
                         }
                         
                     } else {
                         if ([MixStringStrategy isAlphaNum:str]) {
                             classStr = str;
-                            break;
                         }
                     }
-                    
+                    break;
                 }
                 
                 if (classStr && ![MixJudgeStrategy isSystemClass:classStr]) {
+                    
                     MixClass * class = [[MixClass alloc] initWithClassName:classStr];
                     [class methodFromData:data];
                     [classNames addObject:class];
