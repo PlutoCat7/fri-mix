@@ -52,4 +52,11 @@
     return NO;
 }
 
++ (BOOL)isLikeCategory:(NSString *)fileName {
+    if ([fileName containsString:@"+"]) {
+        return YES;
+    }
+    return NO;
+}
+
 @end

@@ -7,8 +7,24 @@
 //
 
 #import "MixObjectStrategy.h"
+#import "MixFileStrategy.h"
+#import "MixClassFileStrategy.h"
 
 @implementation MixObjectStrategy
+
+
++ (NSArray <MixObject *>*)objectsWithPath:(NSString *)path {
+    //获取所有文件（包括文件夹）
+    NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:path];
+    //取出所有.h .m文件
+    NSArray<MixFile *> *hmFiles = [MixFileStrategy filesToHMFiles:files];
+    //合成完整类文件（需要完整的.h .m）
+    NSArray <MixClassFile *> * classFiles = [MixClassFileStrategy filesToClassFiles:hmFiles];
+    //拿到对象信息
+    NSArray <MixObject*>* objects = [MixObjectStrategy fileToObject:classFiles];
+    
+    return objects;
+}
 
 + (NSArray <MixObject*>*)fileToObject:(NSArray <MixClassFile *>*)classFiles {
     NSMutableArray <MixObject*>* objects = [NSMutableArray arrayWithCapacity:0];

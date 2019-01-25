@@ -39,10 +39,13 @@ int main(int argc, const char * argv[]) {
         printf("获取替换类名\n");
         NSArray <NSString *>* className = [MixReferenceStrategy classNamesWithPath:referencePath];
         printf("获取可替换类\n");
-        NSArray <MixObject*>* objects = [MixMainStrategy objectsWithPath:path];
+        NSArray <MixObject*>* objects = [MixObjectStrategy objectsWithPath:path];
         printf("开始替换类名\n");
         [MixMainStrategy replaceClassName:objects referenceClassNames:className];
         printf("结束替换类名\n");
+        printf("开始替换方法名\n");
+        
+        
         
         MixFile * file = [MixFileStrategy projectWithFilesWithPath:path];
         if (file) {
