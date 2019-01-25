@@ -182,7 +182,7 @@
 
 + (BOOL)isLegalWithFrontSymbol:(NSString *)frontSymbol backSymbol:(NSString *)backSymbol {
     BOOL isLegal = NO;
-    if ([MixJudgeStrategy isLegalClassFrontSymbol:frontSymbol] && [MixJudgeStrategy isLegalClassFrontSymbol:backSymbol]) {
+    if ([MixJudgeStrategy isLegalClassFrontSymbol:frontSymbol] && [MixJudgeStrategy isLegalClassBackSymbol:backSymbol]) {
         isLegal = YES;
     }
     return isLegal;
