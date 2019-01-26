@@ -7,9 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "../Model/MixObject.h"
+
 
 @interface MixReferenceStrategy : NSObject
 
-+ (NSMutableArray <NSString *> *)classNamesWithPath:(NSString *)path;
++ (NSMutableArray <NSString *> *)classNamesWithObjects:(NSArray <MixObject*>*)objects;
+
++ (NSMutableArray <NSString *> *)methodWithObjects:(NSArray <MixObject*>*)objects;
 
 @end

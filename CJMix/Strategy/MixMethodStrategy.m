@@ -25,11 +25,7 @@
         if ([MixStringStrategy isAlphaNum:methodStr]) {
             return methodStr;
         }
-        
-        
     }
-    
-    
     
     NSArray <NSString *>* names = [data componentsSeparatedByString:@":"];
     

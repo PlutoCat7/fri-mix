@@ -17,13 +17,8 @@
 
 @implementation MixReferenceStrategy
 
-+ (NSMutableArray <NSString *> *)classNamesWithPath:(NSString *)path {
++ (NSMutableArray <NSString *> *)classNamesWithObjects:(NSArray <MixObject*>*)objects {
     NSMutableArray * classNames = [NSMutableArray arrayWithCapacity:0];
-    NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:path];
-    NSArray<MixFile *> *hmFiles = [MixFileStrategy filesToHMFiles:files];
-    NSArray <MixClassFile *> * classFiles = [MixClassFileStrategy filesToClassFiles:hmFiles];
-    NSArray <MixObject*>* objects = [MixObjectStrategy fileToObject:classFiles];
-    
     [objects enumerateObjectsUsingBlock:^(MixObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         for (MixClass * class in obj.hClasses) {
             NSString * newClassName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixPrefix,class.className];
@@ -35,5 +30,36 @@
     
     return classNames;
 }
+
++ (NSMutableArray <NSString *> *)methodWithObjects:(NSArray <MixObject*>*)objects {
+    
+    NSMutableArray <NSString *> * methods = [NSMutableArray arrayWithCapacity:0];
+    
+    [objects enumerateObjectsUsingBlock:^(MixObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        for (MixClass * class in obj.hClasses) {
+            
+            for (NSString * method in class.method.classMethod) {
+                if (![methods containsObject:method]) {
+                    NSString * methodName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixPrefix,method];
+                    [methods addObject:methodName];
+                }
+            }
+            
+            for (NSString * method in class.method.exampleMethod) {
+                if (![methods containsObject:method]) {
+                    NSString * methodName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixPrefix,method];
+                    [methods addObject:methodName];
+                }
+            }
+            
+        }
+        
+        
+    }];
+    return methods;
+    
+}
+
 
 @end
