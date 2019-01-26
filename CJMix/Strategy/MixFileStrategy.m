@@ -25,15 +25,27 @@
 }
 
 + (NSArray <MixFile *>*)filesToPCHFiles:(NSArray <MixFile *>*)files {
+    __block NSMutableArray <MixFile *> *pchFiles = [MixFileStrategy pchFilesWithFiles:files savePCHFiles:nil];
+    return pchFiles;
+}
+
++ (NSMutableArray <MixFile *>*)pchFilesWithFiles:(NSArray <MixFile *>*)rootFiles savePCHFiles:(NSMutableArray <MixFile *>*)savePCHFiles {
+    NSMutableArray <MixFile *>* PCHFiles = nil;
+    if (savePCHFiles) {
+        PCHFiles = savePCHFiles;
+    } else {
+        PCHFiles = [NSMutableArray arrayWithCapacity:0];
+    }
     
-    __block NSMutableArray <MixFile *> *pchFiles = [NSMutableArray arrayWithCapacity:0];
-    
-    [files enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        if (obj.fileType == ) {
-//            
-//        }
+    [rootFiles enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.subFiles.count) {
+            [self pchFilesWithFiles:obj.subFiles savePCHFiles:PCHFiles];
+        } else if (obj.fileType == MixFileTypePch) {
+            [PCHFiles addObject:obj];
+        }
     }];
     
+    return PCHFiles;
 }
 
 + (MixFile *)projectWithFilesWithPath:(NSString *)path {

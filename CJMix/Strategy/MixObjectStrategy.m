@@ -9,21 +9,33 @@
 #import "MixObjectStrategy.h"
 #import "MixFileStrategy.h"
 #import "MixClassFileStrategy.h"
+#import "../Config/MixConfig.h"
 
 @implementation MixObjectStrategy
 
-
-+ (NSArray <MixObject *>*)objectsWithPath:(NSString *)path {
++ (NSArray <MixObject *>*)objectsWithPath:(NSString *)path saveConfig:(BOOL)saveConfig {
     //获取所有文件（包括文件夹）
     NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:path];
     //取出所有.h .m文件
     NSArray<MixFile *> *hmFiles = [MixFileStrategy filesToHMFiles:files];
+    
+    if (saveConfig) {
+        
+        NSArray<MixFile *> *pchFiles = [MixFileStrategy filesToPCHFiles:files];
+        [MixConfig sharedSingleton].pchFile = [NSArray arrayWithArray:pchFiles];
+        
+    }
+    
     //合成完整类文件（需要完整的.h .m）
     NSArray <MixClassFile *> * classFiles = [MixClassFileStrategy filesToClassFiles:hmFiles];
     //拿到对象信息
     NSArray <MixObject*>* objects = [MixObjectStrategy fileToObject:classFiles];
     
     return objects;
+}
+
++ (NSArray <MixObject *>*)objectsWithPath:(NSString *)path {
+    return [MixObjectStrategy objectsWithPath:path saveConfig:NO];
 }
 
 + (NSArray <MixObject*>*)fileToObject:(NSArray <MixClassFile *>*)classFiles {

@@ -31,9 +31,9 @@ int main(int argc, const char * argv[]) {
         
 //        NSString * referencePath = @"/Users/wn/Desktop/Reference";
 //        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
-        
-        NSString * referencePath = @"/Users/chenjie/Documents/git/CJMix/Demo1";
-        NSString * rootPath = @"/Users/chenjie/Documents/git/CJMix/Demo2";
+  
+        NSString * referencePath = @"/Users/wn/Documents/git/CJMix/Demo1";
+        NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
         
         
         NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
@@ -48,7 +48,7 @@ int main(int argc, const char * argv[]) {
         printf("获取替换对象\n");
         NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
         printf("获取需要被替换对象\n");
-        NSArray <MixObject*>* copyObjects = [MixObjectStrategy objectsWithPath:copyPath];
+        NSArray <MixObject*>* copyObjects = [MixObjectStrategy objectsWithPath:copyPath saveConfig:YES];
         printf("获取替换类名\n");
         NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
         printf("开始替换类名\n");

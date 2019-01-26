@@ -14,6 +14,8 @@
 
 + (NSArray <MixObject *>*)objectsWithPath:(NSString *)path;
 
++ (NSArray <MixObject *>*)objectsWithPath:(NSString *)path saveConfig:(BOOL)saveConfig;
+
 + (NSArray <MixObject*>*)fileToObject:(NSArray <MixClassFile *>*)classFiles;
 
 @end
