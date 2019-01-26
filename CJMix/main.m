@@ -47,11 +47,12 @@ int main(int argc, const char * argv[]) {
         }
         printf("拷贝文件成功\n");
         printf("获取替换类名\n");
-        NSArray <NSString *>* className = [MixReferenceStrategy classNamesWithPath:referencePath];
+        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
+        NSArray <NSString *>* className = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
         printf("获取可替换类\n");
-        NSArray <MixObject*>* objects = [MixObjectStrategy objectsWithPath:copyPath];
+        NSArray <MixObject*>* copyObjects = [MixObjectStrategy objectsWithPath:copyPath];
         printf("开始替换类名\n");
-        [MixMainStrategy replaceClassName:objects referenceClassNames:className];
+        [MixMainStrategy replaceClassName:copyObjects referenceClassNames:className];
         printf("结束替换类名\n");
         printf("开始替换方法名\n");
         

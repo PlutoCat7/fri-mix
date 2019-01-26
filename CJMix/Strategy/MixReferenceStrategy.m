@@ -17,13 +17,8 @@
 
 @implementation MixReferenceStrategy
 
-+ (NSMutableArray <NSString *> *)classNamesWithPath:(NSString *)path {
++ (NSMutableArray <NSString *> *)classNamesWithObjects:(NSArray <MixObject*>*)objects {
     NSMutableArray * classNames = [NSMutableArray arrayWithCapacity:0];
-    NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:path];
-    NSArray<MixFile *> *hmFiles = [MixFileStrategy filesToHMFiles:files];
-    NSArray <MixClassFile *> * classFiles = [MixClassFileStrategy filesToClassFiles:hmFiles];
-    NSArray <MixObject*>* objects = [MixObjectStrategy fileToObject:classFiles];
-    
     [objects enumerateObjectsUsingBlock:^(MixObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         for (MixClass * class in obj.hClasses) {
             NSString * newClassName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixPrefix,class.className];
