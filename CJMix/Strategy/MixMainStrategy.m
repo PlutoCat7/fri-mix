@@ -17,8 +17,9 @@
 
 @implementation MixMainStrategy
 
-
-+ (void)modifyTheProject:(MixFile *)projectFile names:(NSArray <NSString *>*)names {
++ (void)replaceMethod:(NSArray <MixObject *>*)objects methods:(NSArray <NSString *>*)methods {
+    
+    
     
 }
 

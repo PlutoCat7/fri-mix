@@ -31,4 +31,35 @@
     return classNames;
 }
 
++ (NSMutableArray <NSString *> *)methodWithObjects:(NSArray <MixObject*>*)objects {
+    
+    NSMutableArray <NSString *> * methods = [NSMutableArray arrayWithCapacity:0];
+    
+    [objects enumerateObjectsUsingBlock:^(MixObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        for (MixClass * class in obj.hClasses) {
+            
+            for (NSString * method in class.method.classMethod) {
+                if (![methods containsObject:method]) {
+                    NSString * methodName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixPrefix,method];
+                    [methods addObject:methodName];
+                }
+            }
+            
+            for (NSString * method in class.method.exampleMethod) {
+                if (![methods containsObject:method]) {
+                    NSString * methodName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixPrefix,method];
+                    [methods addObject:methodName];
+                }
+            }
+            
+        }
+        
+        
+    }];
+    return methods;
+    
+}
+
+
 @end

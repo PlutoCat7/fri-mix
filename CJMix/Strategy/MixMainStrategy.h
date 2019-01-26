@@ -13,7 +13,7 @@
 
 + (void)replaceClassName:(NSArray <MixObject *>*)objects referenceClassNames:(NSArray <NSString *>*)classNames;
 
-+ (void)modifyTheProject:(MixFile *)projectFile names:(NSArray <NSString *>*)names;
++ (void)replaceMethod:(NSArray <MixObject *>*)objects methods:(NSArray <NSString *>*)methods;
 
 
 @end

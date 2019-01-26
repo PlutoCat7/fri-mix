@@ -14,4 +14,6 @@
 
 + (NSMutableArray <NSString *> *)classNamesWithObjects:(NSArray <MixObject*>*)objects;
 
++ (NSMutableArray <NSString *> *)methodWithObjects:(NSArray <MixObject*>*)objects;
+
 @end

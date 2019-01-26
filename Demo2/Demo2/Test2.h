@@ -19,7 +19,7 @@
 
 - (void)demo2_test2_method2;
 
-- (void)demo1_test1_method2_parameter2:(NSString*)parameter;
+- (void)demo2_test2_method2_parameter2:(NSString*)parameter;
 
 @end
 
