@@ -56,9 +56,6 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 
 + (BOOL)start:(NSArray<MixObject *> *)objects rootPath:(NSString *)rootPath {
     
-#warning 未完待续。。。
-    return NO;
-    
     MixFileNameStrategy *strategy = [[MixFileNameStrategy alloc] init];
     strategy.objects = objects;
     strategy.rootPath = rootPath;
@@ -77,8 +74,6 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     
     //读取工程文件  提取文件名称  和文件夹
     if ([strategy initPbxproj]) {
-        //读取文件夹名称
-        [strategy readFileGroupData];
         //生成配置文件
         return [strategy makeConfigurationJson];
     }
@@ -181,20 +176,22 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             }
         }
     }
+    //暂时不对文件夹进行处理
     //对文件夹名称进行替换
-    NSEnumerator * enumerator = [self.fileGroupNameSet objectEnumerator];
-    for (MixFileInfo *info in self.fileGroupList) {
-        NSString *newGroup = [enumerator nextObject];
-        NSString *oldFroup = info.fileName;
-        if (newGroup.length>0 && oldFroup.length>0) {
-            [jsonObject.backward.modify setObject:oldFroup forKey:[self keyWithUDID:info.UDID]];
-            [jsonObject.forward.modify setObject:newGroup forKey:[self keyWithUDID:info.UDID]];
-        }
-#warning 未完待续。。。。
-        //修改物理文件夹名称  https://blog.csdn.net/hsf_study/article/details/46993099
-    }
-    
-    printf("Pbxproj配置修改数据：%s", [[jsonObject jsonString] UTF8String]);
+//    NSEnumerator * enumerator = [self.fileGroupNameSet objectEnumerator];
+//    for (MixFileInfo *info in self.fileGroupList) {
+//        NSString *newGroup = [enumerator nextObject];
+//        NSString *oldFroup = info.fileName;
+//        if ([oldFroup containsString:@"."]) {//不替换类似Assets.xcassets这种文件夹
+//            continue;
+//        }
+//        if (newGroup.length>0 && oldFroup.length>0) {
+//            [jsonObject.backward.modify setObject:oldFroup forKey:[self keyWithUDID:info.UDID]];
+//            [jsonObject.forward.modify setObject:newGroup forKey:[self keyWithUDID:info.UDID]];
+//        }
+//#warning 未完待续。。。。
+//        //修改物理文件夹名称  https://blog.csdn.net/hsf_study/article/details/46993099
+//    }
     
     NSString *configPath = [self.rootPath stringByAppendingPathComponent:@"config.json"];
     NSError *error;
