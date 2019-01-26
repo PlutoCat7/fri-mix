@@ -24,6 +24,18 @@
     return files;
 }
 
++ (NSArray <MixFile *>*)filesToPCHFiles:(NSArray <MixFile *>*)files {
+    
+    __block NSMutableArray <MixFile *> *pchFiles = [NSMutableArray arrayWithCapacity:0];
+    
+    [files enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if (obj.fileType == ) {
+//            
+//        }
+    }];
+    
+}
+
 + (MixFile *)projectWithFilesWithPath:(NSString *)path {
     __block MixFile * file = nil;
     NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:path];
@@ -70,7 +82,7 @@
     return file;
 }
 
-+ (NSArray <MixFile *>*)filesToHMFiles:(NSArray <MixFile *>*) files {
++ (NSArray <MixFile *>*)filesToHMFiles:(NSArray <MixFile *>*)files {
     NSArray <MixFile *> * hmFiles = [NSArray arrayWithArray:[MixFileStrategy hmFilesWithFiles:files saveHMFiles:nil]];
     return hmFiles;
 }

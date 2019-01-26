@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "../Model/MixFile.h"
 
 @interface MixConfig : NSObject
 
@@ -19,6 +20,8 @@
 @property (nonatomic , copy) NSArray <NSString *>* systemPrefixs;
 
 @property (nonatomic , copy) NSArray <NSString *>* shieldPaths;
+
+@property (nonatomic , copy) NSArray <MixFile *>* pchFile;
 
 @property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassFrontSymbols;
 
