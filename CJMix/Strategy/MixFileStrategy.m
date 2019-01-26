@@ -58,6 +58,8 @@
             file.fileType = MixFileTypeMM;
         } else if ([path hasSuffix:@".m"]) {
             file.fileType = MixFileTypeM;
+        } else if ([path hasSuffix:@".pch"]) {
+            file.fileType = MixFileTypePch;
         }
     }
     
