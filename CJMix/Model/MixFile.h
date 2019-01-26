@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, MixFileType) {
     MixFileTypeH,
     MixFileTypeM,
     MixFileTypeMM,
+    MixFileTypePch,
     MixFileTypeProject,
     MixFileTypePodFolder,
     MixFileTypeFramework,

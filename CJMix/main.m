@@ -20,8 +20,11 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-//        NSString * referencePath = @"/Users/wangsw/Desktop/Reference";
-//        NSString * rootPath = @"/Users/wangsw/Desktop/najiabao-file";
+
+        //NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
+        //NSString * rootPath = @"/Users/wangsw/wangle/majiabao/najiabao-file";
+        //NSString * rootPath = @"/Users/wangsw/Desktop/AudioRoom";
+
         
         [MixConfig sharedSingleton].shieldPaths = @[@"imkit",@"imsdk",@"FDFullscreenPopGesture",@"UIAlertView+BlocksKit",@"V8HorizontalPickerView",@"MJExtension",@"FBKVOController",@"countly-sdk-ios",@"Hockey-iOS",@"ElvaChatServiceSDK",@"WebViewJavascriptBridge"];
         
@@ -29,9 +32,8 @@ int main(int argc, const char * argv[]) {
 //        NSString * referencePath = @"/Users/wn/Desktop/Reference";
 //        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
         
-        
-        NSString * referencePath = @"/Users/wn/Documents/git/CJMix/Demo1";
-        NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
+        NSString * referencePath = @"/Users/chenjie/Documents/git/CJMix/Demo1";
+        NSString * rootPath = @"/Users/chenjie/Documents/git/CJMix/Demo2";
         
         
         NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];

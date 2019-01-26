@@ -36,6 +36,7 @@
 		B75DB10E21FC02AF006FDB86 /* Like1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Like1.m; sourceTree = "<group>"; };
 		B75DB11021FC02BC006FDB86 /* File1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = File1.h; sourceTree = "<group>"; };
 		B75DB11121FC02BC006FDB86 /* File1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = File1.m; sourceTree = "<group>"; };
+		F5EA320121FC851A009D62A7 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +81,7 @@
 				B75DB10E21FC02AF006FDB86 /* Like1.m */,
 				B75DB11021FC02BC006FDB86 /* File1.h */,
 				B75DB11121FC02BC006FDB86 /* File1.m */,
+				F5EA320121FC851A009D62A7 /* PrefixHeader.pch */,
 				B75DB0CF21FBFBFC006FDB86 /* Assets.xcassets */,
 				B75DB0D121FBFBFC006FDB86 /* LaunchScreen.storyboard */,
 				B75DB0D421FBFBFC006FDB86 /* Info.plist */,
