@@ -17,11 +17,44 @@
 
 @implementation MixMainStrategy
 
+#pragma mark 替换方法名
+
 + (void)replaceMethod:(NSArray <MixObject *>*)objects methods:(NSArray <NSString *>*)methods {
+    
+    NSMutableArray <NSString *>* validClassMethods = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray <NSString *>* validExampleMethods = [NSMutableArray arrayWithCapacity:0];
+    for (MixObject * object in objects) {
+        for (MixClass * class in object.hClasses) {
+            
+            for (NSString * method in class.method.classMethods) {
+                if (![validClassMethods containsObject:method]) {
+                    [validClassMethods addObject:method];
+                }
+            }
+            
+            for (NSString * method in class.method.exampleMethods) {
+                if (![validExampleMethods containsObject:method]) {
+                    [validExampleMethods addObject:method];
+                }
+            }
+        }
+    }
+    
+    NSInteger validCount = validClassMethods.count + validExampleMethods.count;
+    
+    NSAssert(methods.count >= validCount, @"方法数量不足");
+    
+    
+    
+    
+    
     
     
     
 }
+
+
+#pragma mark 替换类名
 
 + (void)replaceClassName:(NSArray <MixObject *>*)objects referenceClassNames:(NSArray <NSString *>*)classNames {
     
@@ -65,10 +98,7 @@
     
     NSMutableArray<NSString *> * referenceClassNames = [NSMutableArray arrayWithArray:workers];
     
-    if (count > referenceClassNames.count) {
-        printf("类名不足\n需要替换类数量:%d 类名数量:%d\n",(int)count,(int)referenceClassNames.count);
-        return;
-    }
+    NSAssert(count <= referenceClassNames.count, @"类名不足\n需要替换类数量:%d 类名数量:%d\n",(int)count,(int)referenceClassNames.count);
     
     for (MixObject * object in objects) {
         

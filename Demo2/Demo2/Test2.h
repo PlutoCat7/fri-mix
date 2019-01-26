@@ -10,16 +10,22 @@
 
 @protocol Test2Delegate <NSObject>
 
-- (void)demo2_test2_delegate2_method2;
+- (void)demo2_delegate_method;
+
+- (void)demo2_delegate_method_parameter:(NSString*)parameter;
 
 @end
 
 
 @interface Test2 : NSObject
 
-- (void)demo2_test2_method2;
+- (void)demo2_method;
 
-- (void)demo2_test2_method2_parameter2:(NSString*)parameter;
+- (void)demo2_method_parameter:(NSString*)parameter;
+
++ (void)demo2_class_method;
+
++ (void)demo2_class_method_parameter:(NSString*)parameter;
 
 @end
 

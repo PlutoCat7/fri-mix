@@ -10,15 +10,27 @@
 
 @implementation Test1
 
-- (void)demo1_test1_method1 {
+- (void)demo1_delegate_method {
     
 }
 
-- (void)demo1_test1_delegate1_method1 {
+- (void)demo1_delegate_method_parameter:(NSString*)parameter {
     
 }
 
-- (void)demo1_test1_method1_parameter1:(NSString*)parameter {
+- (void)demo1_method {
+    
+}
+
+- (void)demo1_method_parameter:(NSString*)parameter {
+    
+}
+
++ (void)demo1_class_method {
+    
+}
+
++ (void)demo1_class_method_parameter:(NSString*)parameter {
     
 }
 
