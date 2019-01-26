@@ -41,14 +41,14 @@
             
             for (NSString * method in class.method.classMethods) {
                 if (![methods containsObject:method]) {
-                    NSString * methodName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixPrefix,method];
+                    NSString * methodName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixMethodPrefix,method];
                     [methods addObject:methodName];
                 }
             }
             
             for (NSString * method in class.method.exampleMethods) {
                 if (![methods containsObject:method]) {
-                    NSString * methodName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixPrefix,method];
+                    NSString * methodName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixMethodPrefix,method];
                     [methods addObject:methodName];
                 }
             }

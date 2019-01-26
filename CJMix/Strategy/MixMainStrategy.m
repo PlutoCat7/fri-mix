@@ -44,12 +44,61 @@
     
     NSAssert(methods.count >= validCount, @"方法数量不足");
     
+    NSMutableArray <NSString *>* newMethods = [NSMutableArray arrayWithArray:methods];
     
     
+    for (NSString * method in validClassMethods) {
+        [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
+    }
+    
+    for (NSString * method in validExampleMethods) {
+        [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
+    }
+    
+}
+
++ (void)replaceMethod:(NSArray <MixObject *>*)objects oldMethod:(NSString *)oldMethod newMethods:(NSMutableArray <NSString *>*)newMethods {
+    
+    NSInteger index = arc4random() % newMethods.count;
+    NSString * newMethod = newMethods[index];
+    [newMethods removeObjectAtIndex:index];
+    
+    for (MixObject * object in objects) {
+        [MixMainStrategy replaceMethod:object oldMethod:oldMethod newMethod:newMethod file:object.classFile.hFile];
+        [MixMainStrategy replaceMethod:object oldMethod:oldMethod newMethod:newMethod file:object.classFile.mFile];
+    }
     
     
+}
+
++ (void)replaceMethod:(MixObject *)object oldMethod:(NSString *)oldMethod newMethod:(NSString *)newMethod file:(MixFile *)file {
+    if (!file || !file.data || !oldMethod || !newMethod) {
+        return;
+    }
+    
+    NSString * trueNewMethod = nil;
+    if ([newMethod containsString:@":"]) {
+        NSArray <NSString *>* names = [newMethod componentsSeparatedByString:@":"];
+        trueNewMethod = names[0];
+    } else {
+        trueNewMethod = newMethod;
+    }
+    NSString * trueOldMethod = nil;
+    if ([oldMethod containsString:@":"]) {
+        NSArray <NSString *>* names = [oldMethod componentsSeparatedByString:@":"];
+        trueOldMethod = names[0];
+    } else {
+        trueOldMethod = oldMethod;
+    }
     
     
+    NSString * substitute = [file.data stringByReplacingOccurrencesOfString:trueOldMethod withString:trueNewMethod];
+    
+    if (![substitute isEqualToString:file.data]) {
+        file.data = substitute;
+        [MixFileStrategy writeFileAtPath:file.path content:substitute];
+    }
+
     
 }
 

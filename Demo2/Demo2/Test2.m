@@ -23,7 +23,8 @@
 }
 
 - (void)demo2_method_parameter:(NSString*)parameter {
-    
+    Test2 * test = [[Test2 alloc] init];
+    [test demo2_method];
 }
 
 + (void)demo2_class_method {
