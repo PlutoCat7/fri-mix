@@ -41,6 +41,19 @@
             [workers removeObject:obj];
         } else {
             for (MixObject * object in objects) {
+                
+                for (MixClass * class in object.hClasses) {
+                    if ([class.className isEqualToString:obj]) {
+                        [workers removeObject:obj];
+                    }
+                }
+                
+                for (MixClass * class in object.mClasses) {
+                    if ([class.className isEqualToString:obj]) {
+                        [workers removeObject:obj];
+                    }
+                }
+                
                 if ([object.classFile.classFileName isEqualToString:obj]) {
                     [workers removeObject:obj];
                 }

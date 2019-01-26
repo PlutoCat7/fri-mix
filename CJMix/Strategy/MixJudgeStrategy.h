@@ -20,5 +20,7 @@
 
 + (BOOL)isLikeCategory:(NSString *)fileName;
 
++ (BOOL)isLegalNewClassName:(NSString *)className;
+
 @end
 

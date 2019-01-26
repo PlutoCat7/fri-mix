@@ -27,24 +27,13 @@
     [objects enumerateObjectsUsingBlock:^(MixObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         for (MixClass * class in obj.hClasses) {
             NSString * newClassName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixPrefix,class.className];
-            if (![MixReferenceStrategy filter:newClassName] && ![classNames containsObject:newClassName]) {
+            if (![MixJudgeStrategy isLegalNewClassName:newClassName] && ![classNames containsObject:newClassName]) {
                 [classNames addObject:newClassName];
             }
         }
     }];
     
-    
     return classNames;
-}
-
-+ (BOOL)filter:(NSString *)string {
-    BOOL isFilter = NO;
-    NSArray * filters = @[@"AppDelegate"];
-    if ([filters containsObject:string] || [string containsString:@"("] || [MixJudgeStrategy isSystemClass:string]) {
-        isFilter = YES;
-    }
-
-    return isFilter;
 }
 
 @end

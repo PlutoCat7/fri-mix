@@ -59,4 +59,14 @@
     return NO;
 }
 
++ (BOOL)isLegalNewClassName:(NSString *)className {
+    BOOL isLegal = YES;
+    NSArray * filters = @[@"AppDelegate"];
+    if ([filters containsObject:className] || [className containsString:@"("] || [MixJudgeStrategy isSystemClass:className]) {
+        isLegal = NO;
+    }
+    
+    return isLegal;
+}
+
 @end
