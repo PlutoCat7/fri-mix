@@ -68,7 +68,7 @@ int main(int argc, const char * argv[]) {
 //        }
         
         printf("开始替换文件名称\n");
-        if ([MixFileNameStrategy start:objects rootPath:rootPath]) {
+        if ([MixFileNameStrategy start:copyObjects rootPath:rootPath]) {
             printf("成功替换文件名称\n");
         }else {
             printf("替换文件名称出错了\n");
