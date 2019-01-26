@@ -8,6 +8,7 @@
 
 #import "MixFileNameStrategy.h"
 #import "MixFileNameModifyJsonInfo.h"
+#import "MixFileStrategy.h"
 
 typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     yah_MixFileType_UnKnow,
@@ -144,9 +145,25 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     }
 }
 
+- (BOOL)checkFileValidWithSuffux:(NSString *)suffix {
+    
+    return ([suffix isEqualToString:@"h"] || [suffix isEqualToString:@"m"]
+            || [suffix isEqualToString:@"mm"]);
+}
+
+- (NSString *)keyWithUDID:(NSString *)udid {
+    
+    return [NSString stringWithFormat:@"objects.%@.path", udid];
+}
+
+#pragma mark - 生成文件名称配置数据
+
 - (BOOL)makeConfigurationJson {
     
     MixFileNameModifyJsonInfo *jsonObject = [[MixFileNameModifyJsonInfo alloc] init];
+    
+    //替换的文件字典  旧文件名称  新文件名称
+    NSMutableDictionary *realFileNameDict = [NSMutableDictionary dictionaryWithCapacity:1];
     //对文件名称替换
     for (MixFileInfo *info in self.fileList) {
         NSString *suffix = [info.fileName componentsSeparatedByString:@"."].lastObject;
@@ -162,6 +179,8 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             [jsonObject.backward.modify setObject:info.fileName forKey:key];
             [jsonObject.forward.modify setObject:[NSString stringWithFormat:@"%@.%@", newFileName, suffix] forKey:key];
             
+            [realFileNameDict setObject:[NSString stringWithFormat:@"%@.%@", newFileName, suffix] forKey:info.fileName];
+            
             //修改物理文件路径
             MixObject *object = [dataDict objectForKey:@"object"];
             NSString *oldPath = nil;
@@ -171,49 +190,77 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
                 oldPath = object.classFile.mFile.path;
             }
             if (oldPath && oldPath.length>0) {
+                
                 NSString *newPath = [[NSMutableString stringWithString:oldPath] stringByReplacingOccurrencesOfString:oldFileName withString:newFileName];
                 [[NSFileManager defaultManager] moveItemAtPath:oldPath toPath:newPath error:nil];
+                //修改数据
+                if ([suffix isEqualToString:@"h"]) {
+                    object.classFile.hFile.path = newPath;
+                }else {
+                    object.classFile.mFile.path = newPath;
+                }
             }
         }
     }
     //暂时不对文件夹进行处理
     //对文件夹名称进行替换
-//    NSEnumerator * enumerator = [self.fileGroupNameSet objectEnumerator];
-//    for (MixFileInfo *info in self.fileGroupList) {
-//        NSString *newGroup = [enumerator nextObject];
-//        NSString *oldFroup = info.fileName;
-//        if ([oldFroup containsString:@"."]) {//不替换类似Assets.xcassets这种文件夹
-//            continue;
-//        }
-//        if (newGroup.length>0 && oldFroup.length>0) {
-//            [jsonObject.backward.modify setObject:oldFroup forKey:[self keyWithUDID:info.UDID]];
-//            [jsonObject.forward.modify setObject:newGroup forKey:[self keyWithUDID:info.UDID]];
-//        }
-//#warning 未完待续。。。。
-//        //修改物理文件夹名称  https://blog.csdn.net/hsf_study/article/details/46993099
-//    }
+    //    NSEnumerator * enumerator = [self.fileGroupNameSet objectEnumerator];
+    //    for (MixFileInfo *info in self.fileGroupList) {
+    //        NSString *newGroup = [enumerator nextObject];
+    //        NSString *oldFroup = info.fileName;
+    //        if ([oldFroup containsString:@"."]) {//不替换类似Assets.xcassets这种文件夹
+    //            continue;
+    //        }
+    //        if (newGroup.length>0 && oldFroup.length>0) {
+    //            [jsonObject.backward.modify setObject:oldFroup forKey:[self keyWithUDID:info.UDID]];
+    //            [jsonObject.forward.modify setObject:newGroup forKey:[self keyWithUDID:info.UDID]];
+    //        }
+    //#warning 未完待续。。。。
+    //        //修改物理文件夹名称  https://blog.csdn.net/hsf_study/article/details/46993099
+    //    }
     
     NSString *configPath = [self.rootPath stringByAppendingPathComponent:@"config.json"];
     NSError *error;
     [[jsonObject jsonString] writeToFile:configPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error) {
-        printf("Pbxproj配置数据写入失败，失败原因：%s\n", [error.localizedDescription UTF8String]);
+        printf("Pbxproj配置数据生成失败，失败原因：%s\n", [error.localizedDescription UTF8String]);
         return NO;
     }else{
-        printf("Pbxproj配置数据写入成功\n");
-        return YES;
+        printf("Pbxproj配置数据生成成功\n");
+        //修改
+        return [self replaceImportFile:realFileNameDict];
     }
 }
 
-- (BOOL)checkFileValidWithSuffux:(NSString *)suffix {
-    
-    return ([suffix isEqualToString:@"h"] || [suffix isEqualToString:@"m"]
-            || [suffix isEqualToString:@"mm"]);
-}
+#pragma mark - 替换import
 
-- (NSString *)keyWithUDID:(NSString *)udid {
+- (BOOL)replaceImportFile:(NSDictionary *)fileNameDict {
     
-    return [NSString stringWithFormat:@"objects.%@.path", udid];
+    printf("开始替换import文件\n");
+    for (MixObject *object in self.objects) {
+        //
+        MixFile *hFile = object.classFile.hFile;
+        MixFile *mFile = object.classFile.mFile;
+        
+        NSMutableString *h_mutableString = [NSMutableString stringWithString:hFile.data];
+        NSMutableString *m_mutableString = [NSMutableString stringWithString:mFile.data];
+        for (NSString *key in fileNameDict) {
+            NSString *oldName = key;  
+            NSString *newName = fileNameDict[key];
+            [h_mutableString replaceOccurrencesOfString:oldName withString:newName options:NSCaseInsensitiveSearch range:NSMakeRange(0, h_mutableString.length)];
+            [m_mutableString replaceOccurrencesOfString:oldName withString:newName options:NSCaseInsensitiveSearch range:NSMakeRange(0, m_mutableString.length)];
+        }
+        if (![h_mutableString isEqualToString:hFile.data]) {
+            hFile.data = h_mutableString;
+            [MixFileStrategy writeFileAtPath:hFile.path content:hFile.data];
+        }
+        if (![m_mutableString isEqualToString:mFile.data]) {
+            mFile.data = m_mutableString;
+            [MixFileStrategy writeFileAtPath:mFile.path content:mFile.data];
+        }
+    }
+    printf("结束替换import文件\n");
+    return YES;
 }
 
 @end

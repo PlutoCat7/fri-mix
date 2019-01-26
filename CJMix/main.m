@@ -23,8 +23,8 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-//        NSString * referencePath = @"/Users/wangsw/Desktop/Reference";
-//        NSString * rootPath = @"/Users/wangsw/Desktop/najiabao-file";
+        NSString * referencePath = @"/Users/wangsw/Desktop/Reference";
+        NSString * rootPath = @"/Users/wangsw/Desktop/najiabao-file";
         
         [MixConfig sharedSingleton].shieldPaths = @[@"imkit",@"imsdk",@"FDFullscreenPopGesture",@"UIAlertView+BlocksKit",@"V8HorizontalPickerView",@"MJExtension",@"FBKVOController",@"countly-sdk-ios",@"Hockey-iOS",@"ElvaChatServiceSDK",@"WebViewJavascriptBridge"];
         
@@ -33,8 +33,8 @@ int main(int argc, const char * argv[]) {
 //        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
         
         
-        NSString * referencePath = @"/Users/wn/Documents/git/CJMix/Demo1";
-        NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
+//        NSString * referencePath = @"/Users/wn/Documents/git/CJMix/Demo1";
+//        NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
         
         
         NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
@@ -64,12 +64,12 @@ int main(int argc, const char * argv[]) {
 //            printf("工程文件不存在\n");
 //        }
         
-//        printf("开始替换文件名称\n");
-//        if ([MixFileNameStrategy start:objects rootPath:rootPath]) {
-//            printf("成功替换文件名称\n");
-//        }else {
-//            printf("替换文件名称出错了\n");
-//        }
+        printf("开始替换文件名称\n");
+        if ([MixFileNameStrategy start:objects rootPath:rootPath]) {
+            printf("成功替换文件名称\n");
+        }else {
+            printf("替换文件名称出错了\n");
+        }
     }
     return 0;
 }
