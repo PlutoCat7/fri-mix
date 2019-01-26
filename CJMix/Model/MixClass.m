@@ -20,49 +20,48 @@
     return self;
 }
 
-
 - (void)methodFromData:(NSString *)data {
     if (!self.className) {
+        printf("连类名都没有负分滚粗\n");
         return;
     }
     
-    NSArray <NSString *>* interfaces = [data componentsSeparatedByString:@"@interface"];
+    NSString * newData = [MixStringStrategy filterOutImpurities:data];
     
-    for (NSString * obj in interfaces) {
-        if ([obj containsString:@"@end"]) {
-            NSString * class = [obj stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            class = [class stringByReplacingOccurrencesOfString:@" " withString:@""];
-            if ([class hasPrefix:self.className]) {
-                NSArray <NSString *>* addMethodData = [obj componentsSeparatedByString:@"+"];
-                NSArray <NSString *>* subMethodData = [obj componentsSeparatedByString:@"-"];
-                
-                __block NSMutableArray * addMethods = [NSMutableArray arrayWithCapacity:0];
-                __block NSMutableArray * subMethods = [NSMutableArray arrayWithCapacity:0];
-                
-                [addMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (idx != 0) {
-                        NSString * method = [MixMethodStrategy methodFromData:obj];
-                        if (method) {
-                            [addMethods addObject:method];
-                        }
-                    }
-                }];
-                
-                [subMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (idx != 0) {
-                        NSString * method = [MixMethodStrategy methodFromData:obj];
-                        if (method) {
-                            [subMethods addObject:method];
-                        }
-                    }
-                }];
-                
-                self.method.classMethod = [NSArray arrayWithArray:addMethods];
-                self.method.exampleMethod = [NSArray arrayWithArray:subMethods];
-                
+    if (![newData hasPrefix:self.className] || ![newData hasSuffix:@"@end"]) {
+        //不是我想要的滑板鞋
+        return;
+    }
+    
+    NSArray <NSString *>* addMethodData = [newData componentsSeparatedByString:@"+"];
+    NSArray <NSString *>* subMethodData = [newData componentsSeparatedByString:@"-"];
+    __block NSMutableArray * addMethods = [NSMutableArray arrayWithCapacity:0];
+    __block NSMutableArray * subMethods = [NSMutableArray arrayWithCapacity:0];
+    
+    [addMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (idx != 0) {
+            NSString * group = [NSString stringWithFormat:@"+%@",obj];
+            NSString * method = [MixMethodStrategy methodFromData:group];
+            if (method) {
+                [addMethods addObject:method];
             }
         }
-    }
+    }];
+    
+    [subMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (idx != 0) {
+            NSString * group = [NSString stringWithFormat:@"-%@",obj];
+            NSString * method = [MixMethodStrategy methodFromData:group];
+            if (method) {
+                [subMethods addObject:method];
+            }
+        }
+    }];
+    
+    self.method.classMethod = [NSArray arrayWithArray:addMethods];
+    self.method.exampleMethod = [NSArray arrayWithArray:subMethods];
+
+
 }
 
 - (MixMethod *)method {
@@ -70,6 +69,13 @@
         _method = [[MixMethod alloc] init];
     }
     return _method;
+}
+
+- (MixProperty *)property {
+    if (!_property) {
+        _property = [[MixProperty alloc] init];
+    }
+    return _property;
 }
 
 @end

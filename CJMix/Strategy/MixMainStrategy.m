@@ -17,36 +17,9 @@
 
 @implementation MixMainStrategy
 
-+ (NSArray <MixObject *>*)objectsWithPath:(NSString *)path {
-    //获取所有文件（包括文件夹）
-    NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:path];
-    //取出所有.h .m文件
-    NSArray<MixFile *> *hmFiles = [MixFileStrategy filesToHMFiles:files];
-    //合成完整类文件（需要完整的.h .m）
-    NSArray <MixClassFile *> * classFiles = [MixClassFileStrategy filesToClassFiles:hmFiles];
-    //拿到对象信息
-    NSArray <MixObject*>* objects = [MixObjectStrategy fileToObject:classFiles];
-    
-    return objects;
-}
 
 + (void)modifyTheProject:(MixFile *)projectFile names:(NSArray <NSString *>*)names {
     
-}
-
-+ (BOOL)fileLegal:(NSString *)classFileName {
-    if (![classFileName containsString:@"+"]) {
-        return YES;
-    }
-    return NO;
-}
-
-+ (BOOL)legal:(NSString *)className {
-    if ([MixJudgeStrategy isSystemClass:className]) {
-        return NO;
-    }
-    
-    return YES;
 }
 
 + (void)replaceClassName:(NSArray <MixObject *>*)objects referenceClassNames:(NSArray <NSString *>*)classNames {
@@ -68,6 +41,19 @@
             [workers removeObject:obj];
         } else {
             for (MixObject * object in objects) {
+                
+                for (MixClass * class in object.hClasses) {
+                    if ([class.className isEqualToString:obj]) {
+                        [workers removeObject:obj];
+                    }
+                }
+                
+                for (MixClass * class in object.mClasses) {
+                    if ([class.className isEqualToString:obj]) {
+                        [workers removeObject:obj];
+                    }
+                }
+                
                 if ([object.classFile.classFileName isEqualToString:obj]) {
                     [workers removeObject:obj];
                 }
@@ -83,21 +69,17 @@
         return;
     }
     
-    
-    
-    NSArray * mainObjects = [NSArray arrayWithArray:objects];
-    
     for (MixObject * object in objects) {
         
         if (object.classFile.isAppDelegate) {
             continue;
         }
         
-        if (![MixMainStrategy fileLegal:object.classFile.classFileName]) {
+        if ([MixJudgeStrategy isLikeCategory:object.classFile.classFileName]) {
             continue;
         }
         
-        [MixMainStrategy replace:object.hClasses newNames:referenceClassNames allObject:mainObjects];
+        [MixMainStrategy replace:object.hClasses newNames:referenceClassNames allObject:objects];
         
         if (object.hClasses.count) {
             MixClass * class = object.hClasses[0];
@@ -116,7 +98,7 @@
     for (MixClass * class in classes) {
         NSInteger index = arc4random() % newNmaes.count;
         NSString * oldClassName = class.className;
-        if (![MixMainStrategy legal:oldClassName]) {
+        if ([MixJudgeStrategy isSystemClass:oldClassName]) {
             continue;
         }
         NSString * newClassName = newNmaes[index];

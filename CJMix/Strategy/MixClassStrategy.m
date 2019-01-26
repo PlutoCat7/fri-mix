@@ -51,7 +51,7 @@
                 if (classStr && ![MixJudgeStrategy isSystemClass:classStr]) {
                     
                     MixClass * class = [[MixClass alloc] initWithClassName:classStr];
-                    [class methodFromData:data];
+                    [class methodFromData:obj];
                     [classNames addObject:class];
                 }
             }

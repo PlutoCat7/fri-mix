@@ -12,4 +12,6 @@
 
 + (BOOL)isAlphaNum:(NSString *)string;
 
++ (NSString *)filterOutImpurities:(NSString *)string;
+
 @end

@@ -18,5 +18,9 @@
 
 + (BOOL)isShieldWithPath:(NSString *)path;
 
++ (BOOL)isLikeCategory:(NSString *)fileName;
+
++ (BOOL)isLegalNewClassName:(NSString *)className;
+
 @end
 

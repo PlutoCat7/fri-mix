@@ -12,6 +12,8 @@
 
 @interface MixObjectStrategy : NSObject
 
++ (NSArray <MixObject *>*)objectsWithPath:(NSString *)path;
+
 + (NSArray <MixObject*>*)fileToObject:(NSArray <MixClassFile *>*)classFiles;
 
 @end
