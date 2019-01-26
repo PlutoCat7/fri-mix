@@ -1,6 +1,6 @@
 //
-//  Demo2.h
-//  Demo2
+//  MixProtocol.h
+//  CJMix
 //
 //  Created by ChenJie on 2019/1/26.
 //  Copyright © 2019 Chan. All rights reserved.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Demo2 : NSObject
+@interface MixProtocol : NSObject
 
 @end
 

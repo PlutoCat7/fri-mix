@@ -10,9 +10,9 @@
 
 @interface MixMethod : NSObject
 
-@property (nonatomic , copy) NSArray <NSString *>* classMethod;
+@property (nonatomic , copy) NSArray <NSString *>* classMethods;
 
-@property (nonatomic , copy) NSArray <NSString *>* exampleMethod;
+@property (nonatomic , copy) NSArray <NSString *>* exampleMethods;
 
 @end
 

@@ -14,6 +14,8 @@
 
 @property (nonatomic , copy) NSString * mixPrefix;
 
+@property (nonatomic , copy) NSString * mixMethodPrefix;
+
 @property (nonatomic , copy) NSArray <NSString *>* systemPrefixs;
 
 @property (nonatomic , copy) NSArray <NSString *>* shieldPaths;

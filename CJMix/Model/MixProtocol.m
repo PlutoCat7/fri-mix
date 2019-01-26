@@ -1,13 +1,13 @@
 //
-//  Demo2.m
-//  Demo2
+//  MixProtocol.m
+//  CJMix
 //
 //  Created by ChenJie on 2019/1/26.
 //  Copyright © 2019 Chan. All rights reserved.
 //
 
-#import "Demo2.h"
+#import "MixProtocol.h"
 
-@implementation Demo2
+@implementation MixProtocol
 
 @end

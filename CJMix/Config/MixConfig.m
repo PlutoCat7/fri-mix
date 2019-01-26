@@ -47,6 +47,13 @@
     return _mixPrefix;
 }
 
+- (NSString *)mixMethodPrefix {
+    if (!_mixMethodPrefix) {
+        _mixMethodPrefix = @"mix";
+    }
+    return _mixMethodPrefix;
+}
+
 - (NSArray <NSString *>*)systemPrefixs {
     if (!_systemPrefixs) {
         _systemPrefixs = @[@"UI",@"NS",@"CA"];

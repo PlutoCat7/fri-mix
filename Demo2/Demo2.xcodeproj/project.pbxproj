@@ -12,7 +12,6 @@
 		B75DB0FB21FC01E3006FDB86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B75DB0F921FC01E3006FDB86 /* LaunchScreen.storyboard */; };
 		B75DB0FE21FC01E3006FDB86 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DB0FD21FC01E3006FDB86 /* main.m */; };
 		B75DB10621FC01F9006FDB86 /* Test2.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DB10521FC01F9006FDB86 /* Test2.m */; };
-		B75DB10921FC0206006FDB86 /* Demo2.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DB10821FC0206006FDB86 /* Demo2.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,8 +24,6 @@
 		B75DB0FD21FC01E3006FDB86 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B75DB10421FC01F9006FDB86 /* Test2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Test2.h; sourceTree = "<group>"; };
 		B75DB10521FC01F9006FDB86 /* Test2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Test2.m; sourceTree = "<group>"; };
-		B75DB10721FC0206006FDB86 /* Demo2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Demo2.h; sourceTree = "<group>"; };
-		B75DB10821FC0206006FDB86 /* Demo2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Demo2.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +60,6 @@
 				B75DB0EF21FC01E2006FDB86 /* AppDelegate.m */,
 				B75DB10421FC01F9006FDB86 /* Test2.h */,
 				B75DB10521FC01F9006FDB86 /* Test2.m */,
-				B75DB10721FC0206006FDB86 /* Demo2.h */,
-				B75DB10821FC0206006FDB86 /* Demo2.m */,
 				B75DB0F721FC01E3006FDB86 /* Assets.xcassets */,
 				B75DB0F921FC01E3006FDB86 /* LaunchScreen.storyboard */,
 				B75DB0FC21FC01E3006FDB86 /* Info.plist */,
@@ -143,7 +138,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B75DB10621FC01F9006FDB86 /* Test2.m in Sources */,
-				B75DB10921FC0206006FDB86 /* Demo2.m in Sources */,
 				B75DB0FE21FC01E3006FDB86 /* main.m in Sources */,
 				B75DB0F021FC01E2006FDB86 /* AppDelegate.m in Sources */,
 			);
