@@ -20,8 +20,9 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        NSString * referencePath = @"/Users/wangsw/Desktop/Reference";
-        NSString * rootPath = @"/Users/wangsw/Desktop/najiabao-file";
+        NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
+        NSString * rootPath = @"/Users/wangsw/wangle/majiabao/najiabao-file";
+        //NSString * rootPath = @"/Users/wangsw/Desktop/AudioRoom";
         
         [MixConfig sharedSingleton].shieldPaths = @[@"imkit",@"imsdk",@"FDFullscreenPopGesture",@"UIAlertView+BlocksKit",@"V8HorizontalPickerView",@"MJExtension",@"FBKVOController",@"countly-sdk-ios",@"Hockey-iOS",@"ElvaChatServiceSDK",@"WebViewJavascriptBridge"];
         
