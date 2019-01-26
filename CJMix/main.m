@@ -37,7 +37,7 @@ int main(int argc, const char * argv[]) {
         NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
         
         
-        NSString * copyPath = [NSString stringWithFormat:@"%@_copy",rootPath];
+        NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
         
         printf("拷贝文件中..\n");
         BOOL isSuccess = [MixFileStrategy copyItemAtPath:rootPath toPath:copyPath overwrite:YES error:nil];
