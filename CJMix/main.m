@@ -84,12 +84,12 @@ int main(int argc, const char * argv[]) {
             printf("替换Protocol名称出错了\n");
         }
         
-        printf("开始替换文件名称\n");
-        if ([MixFileNameStrategy start:copyObjects rootPath:rootPath]) {
-            printf("替换文件名称成功\n");
-        }else {
-            printf("替换文件名称出错了\n");
-        }
+//        printf("开始替换文件名称\n");
+//        if ([MixFileNameStrategy start:copyObjects rootPath:rootPath]) {
+//            printf("替换文件名称成功\n");
+//        }else {
+//            printf("替换文件名称出错了\n");
+//        }
     }
     return 0;
 }

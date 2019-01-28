@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSMutableArray<NSString *> *resetProtocolList; //新的protocol名称
 @property (nonatomic, strong) NSArray *oldProtocolList;
+@property (nonatomic, strong) NSMutableDictionary *protocolDict;
 @property (nonatomic, strong) NSMutableArray<MixFile *> *handleFileList; //需要处理的文件列表
 
 @end
@@ -33,7 +34,7 @@
         printf("查找旧Protocol失败\n");
         return NO;
     }
-    result = [strategy replaceProtocol];
+    result = [strategy replaceProtocolQuote];
     if (!result) {
         printf("替换Protocol失败\n");
         return NO;
@@ -48,6 +49,7 @@
     self = [super init];
     if (self) {
         _handleFileList = [NSMutableArray arrayWithCapacity:1];
+        _protocolDict = [NSMutableDictionary dictionaryWithCapacity:1];
     }
     return self;
 }
@@ -68,22 +70,16 @@
 //查好旧的protocol
 - (BOOL)findOldProtocol {
     
-    NSMutableArray *oldList = [NSMutableArray arrayWithCapacity:1];
-    [self recursiveFile:[MixConfig sharedSingleton].allFile list:oldList];
-    self.oldProtocolList = [oldList copy];
+    [self recursiveFile:[MixConfig sharedSingleton].allFile];
     
-    if (self.oldProtocolList.count == 0) {
-        printf("未找到Protocol");
-        return NO;
-    }
     return YES;
 }
 
-- (void)recursiveFile:(NSArray *)files list:(NSMutableArray<NSString *> *)list {
+- (void)recursiveFile:(NSArray *)files {
     
     for (MixFile *file in files) {
         if (file.subFiles.count>0) {
-            [self recursiveFile:file.subFiles list:list];
+            [self recursiveFile:file.subFiles];
         }else if (file.fileType == MixFileTypeH ||
             file.fileType == MixFileTypeM ||
             file.fileType == MixFileTypeMM ||
@@ -94,36 +90,45 @@
             
             NSString *string = file.data;
             NSArray *lineList = [string componentsSeparatedByString:@"\n"];
+            NSMutableArray *tmpList = [NSMutableArray arrayWithArray:lineList];
             for (NSInteger index =0; index<lineList.count; index++) {
                 NSString *lineString = lineList[index];
+                NSString *tmpString = [lineString copy];
                 if (![lineString containsString:@"@protocol"]) {
                     continue;
                 }
                 //去除空格
-                lineString = [lineString stringByReplacingOccurrencesOfString:@" " withString:@""];
-                NSRange curRange = [lineString rangeOfString:@"(?<=@protocol).*(?=<)" options:NSRegularExpressionSearch];
+                tmpString = [lineString stringByReplacingOccurrencesOfString:@" " withString:@""];
+                NSRange curRange = [tmpString rangeOfString:@"(?<=@protocol).*(?=<)" options:NSRegularExpressionSearch];
                 if (curRange.location == NSNotFound)
                     continue;
-                NSString *curStr = [lineString substringWithRange:curRange];
-                [list addObject:curStr];
+                NSString *curStr = [tmpString substringWithRange:curRange];
+                //替换新protocol
+                NSString *resetProtocol = self.resetProtocolList.firstObject;
+                if (!resetProtocol) {
+                    printf("新的protocol个数不足,无法替换完全\n");
+                    return;
+                }
+                tmpString = [lineString stringByReplacingOccurrencesOfString:curStr withString:resetProtocol];
+                [tmpList replaceObjectAtIndex:index withObject:tmpString];
+                
+                //保存数据
+                [self.resetProtocolList removeObjectAtIndex:0];
+                [self.protocolDict setObject:resetProtocol forKey:curStr];
+            }
+            string = [tmpList componentsJoinedByString:@"\n"];
+            if (![string isEqualToString:file.data]) { //保存
+                file.data = string;
+                [MixFileStrategy writeFileAtPath:file.path content:file.data];
             }
         }
     }
 }
 
-- (BOOL)replaceProtocol {
+//替换protocol的使用
+- (BOOL)replaceProtocolQuote {
     
-    if (self.resetProtocolList.count < self.oldProtocolList.count) {
-        printf("新的protocol个数不足\n");
-        return NO;
-    }
-    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:1];
-    for (NSInteger index=0; index<self.oldProtocolList.count; index++) {
-        NSString *oldProtocol = self.oldProtocolList[index];
-        NSString *resetProtocol = self.resetProtocolList[index];
-        [dict setObject:resetProtocol forKey:oldProtocol];
-    }
+    NSMutableDictionary *dict = self.protocolDict;
     
     //遍历文件列表
     for (MixFile *file in self.handleFileList) {
