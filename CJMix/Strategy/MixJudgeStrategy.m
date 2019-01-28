@@ -52,7 +52,7 @@
     return NO;
 }
 
-+ (BOOL)isShieldWitClass:(NSString *)className {
++ (BOOL)isShieldWithClass:(NSString *)className {
     NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldClass];
     for (NSString * str in array) {
         if ([className isEqualToString:str]) {
