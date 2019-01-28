@@ -282,15 +282,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 
 - (void)handleMixFile:(MixFile *)file fileNameDict:(NSDictionary *)fileNameDict {
     
-    if ([file.fileName containsString:@"NTVLocalized"]) {
-        NSLog(@"");
-    }
-    
     NSString *string = file.data;
-    if (!string || string.length == 0) {
-        NSData * data = [NSData dataWithContentsOfFile:file.path options:NSDataReadingUncached error:nil];
-        string  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    }
     if (!string || string.length == 0) {
         return;
     }
