@@ -17,14 +17,17 @@
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        
+        _classFile = [aDecoder decodeObjectForKey:@"classFile"];
+        _hClasses = [aDecoder decodeObjectForKey:@"hClasses"];
+        _mClasses = [aDecoder decodeObjectForKey:@"mClasses"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    
-    
+    [aCoder encodeObject:_classFile forKey:@"classFile"];
+    [aCoder encodeObject:_hClasses forKey:@"hClasses"];
+    [aCoder encodeObject:_mClasses forKey:@"mClasses"];
 }
 
 - (instancetype)initWithClassFile:(MixClassFile *)file {

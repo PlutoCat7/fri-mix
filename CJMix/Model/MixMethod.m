@@ -13,14 +13,17 @@
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        
+        _classMethods = [aDecoder decodeObjectForKey:@"classMethods"];
+        _exampleMethods = [aDecoder decodeObjectForKey:@"exampleMethods"];
+        _propertyMethods = [aDecoder decodeObjectForKey:@"propertyMethods"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    
-    
+    [aCoder encodeObject:_classMethods forKey:@"classMethods"];
+    [aCoder encodeObject:_exampleMethods forKey:@"exampleMethods"];
+    [aCoder encodeObject:_propertyMethods forKey:@"propertyMethods"];
 }
 
 

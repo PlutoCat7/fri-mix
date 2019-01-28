@@ -196,6 +196,7 @@
             continue;
         }
         
+        
         [MixMainStrategy replace:object.hClasses newNames:referenceClassNames allObject:objects];
         
         if (object.hClasses.count) {
@@ -214,6 +215,17 @@
 + (void)replace:(NSArray <MixClass *>*)classes newNames:(NSMutableArray<NSString *>*)newNmaes allObject:(NSArray <MixObject *>*)allObject {
     for (MixClass * class in classes) {
         NSString * oldClassName = class.className;
+        
+        if ([oldClassName isEqualToString:@"TZAlbumPickerController"]) {
+            
+            
+            
+            
+            
+            
+            
+        }
+        
         if ([MixJudgeStrategy isSystemClass:oldClassName] || [MixJudgeStrategy isShieldWithClass:oldClassName]) {
             continue;
         }
