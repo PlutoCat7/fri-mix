@@ -24,16 +24,22 @@ int main(int argc, const char * argv[]) {
         [MixConfig sharedSingleton].shieldPaths = @[@"imkit",@"imsdk",@"FDFullscreenPopGesture",@"UIAlertView+BlocksKit",@"V8HorizontalPickerView",@"MJExtension",@"FBKVOController",@"countly-sdk-ios",@"Hockey-iOS",@"ElvaChatServiceSDK",@"WebViewJavascriptBridge"];
         
         [MixConfig sharedSingleton].openLog = NO;
+
+        NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
+        //NSString * rootPath = @"/Users/wangsw/wangle/majiabao/najiabao-file";
+        NSString * rootPath = @"/Users/wangsw/wangle/majiabao/AudioRoom";
+        NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
+        
+        NSString * sdkPath = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
+
         
         
-        NSString * referencePath = @"/Users/wn/Desktop/Reference";
-        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
+//        NSString * referencePath = @"/Users/wn/Desktop/Reference";
+//        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
   
 //        NSString * referencePath = @"/Users/wn/Documents/git/CJMix/Demo1";
 //        NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
-        
-        NSString * sdkPath = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
-        NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
+
         
         printf("拷贝文件中..\n");
         BOOL isSuccess = [MixFileStrategy copyItemAtPath:rootPath toPath:copyPath overwrite:YES error:nil];
@@ -71,12 +77,12 @@ int main(int argc, const char * argv[]) {
 //            printf("工程文件不存在\n");
 //        }
         
-//        printf("开始替换文件名称\n");
-//        if ([MixFileNameStrategy start:copyObjects rootPath:rootPath]) {
-//            printf("成功替换文件名称\n");
-//        }else {
-//            printf("替换文件名称出错了\n");
-//        }
+        printf("开始替换文件名称\n");
+        if ([MixFileNameStrategy start:copyObjects rootPath:rootPath]) {
+            printf("成功替换文件名称\n");
+        }else {
+            printf("替换文件名称出错了\n");
+        }
     }
     return 0;
 }

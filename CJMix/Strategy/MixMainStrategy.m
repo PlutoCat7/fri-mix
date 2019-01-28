@@ -310,9 +310,10 @@
     
     for (MixObject * object in objects) {
         
-        [MixMainStrategy referenceDataAndWrite:object.classFile.hFile oldName:oldName newName:newName];
-        [MixMainStrategy referenceDataAndWrite:object.classFile.mFile oldName:oldName newName:newName];
-        
+        @autoreleasepool {
+            [MixMainStrategy referenceDataAndWrite:object.classFile.hFile oldName:oldName newName:newName];
+            [MixMainStrategy referenceDataAndWrite:object.classFile.mFile oldName:oldName newName:newName];
+        }
     }
     
     for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
