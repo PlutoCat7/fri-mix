@@ -17,7 +17,13 @@
 + (NSArray <MixObject *>*)objectsWithPath:(NSString *)path saveConfig:(BOOL)saveConfig {
     //获取所有文件（包括文件夹）
     NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:path];
-    [MixConfig sharedSingleton].allFile = files;
+#warning 先这么处理， 后期可在配置初始化
+    if (saveConfig) { //
+        [MixConfig sharedSingleton].allFile = files;
+    }else {
+        [MixConfig sharedSingleton].referenceAllFile = files;
+    }
+    
     
     //取出所有.h .m文件
     NSArray<MixFile *> *hmFiles = [MixFileStrategy filesToHMFiles:files];
