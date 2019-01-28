@@ -14,4 +14,6 @@
 
 + (NSString *)filterOutImpurities:(NSString *)string;
 
++ (BOOL)isProperty:(NSString *)string;
+
 @end

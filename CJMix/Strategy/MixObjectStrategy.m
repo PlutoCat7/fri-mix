@@ -10,6 +10,7 @@
 #import "MixFileStrategy.h"
 #import "MixClassFileStrategy.h"
 #import "../Config/MixConfig.h"
+#import "MixCategoryStrategy.h"
 
 @implementation MixObjectStrategy
 
@@ -37,7 +38,7 @@
 }
 
 + (NSArray <MixObject *>*)objectsWithPath:(NSString *)path {
-    return [MixObjectStrategy objectsWithPath:path saveConfig:NO];
+    return [MixCategoryStrategy integrateCategoryMethod:[MixObjectStrategy objectsWithPath:path saveConfig:NO]];
 }
 
 + (NSArray <MixObject*>*)fileToObject:(NSArray <MixClassFile *>*)classFiles {
@@ -51,6 +52,13 @@
     return objects;
 }
 
-#pragma mark -
++ (void)saveObjects:(NSArray <MixObject *>*)objects key:(NSString *)key {
+    
+    NSString *homeDictionary = NSHomeDirectory();
+    NSString *homePath  = [homeDictionary stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",key]];
+    [NSKeyedArchiver archiveRootObject:objects toFile:homePath];
+    
+}
+
 
 @end

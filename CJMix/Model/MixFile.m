@@ -10,6 +10,19 @@
 
 @implementation MixFile
 
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    
+    
+}
+
 - (void)setPath:(NSString *)path {
     _path = path;
     

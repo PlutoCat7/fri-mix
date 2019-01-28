@@ -20,6 +20,17 @@
     
 }
 
++ (BOOL)isProperty:(NSString *)string {
+    NSString *regex =@"[a-zA-Z0-9]+$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    if ([pred evaluateWithObject:string]) {
+        return YES;
+    }
+    return NO;
+    
+}
+
+
 + (NSString *)filterOutImpurities:(NSString *)string {
     NSString * newData = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     newData = [newData stringByReplacingOccurrencesOfString:@"\n" withString:@""];

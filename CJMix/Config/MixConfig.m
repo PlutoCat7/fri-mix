@@ -7,7 +7,7 @@
 //
 
 #import "MixConfig.h"
-
+#import "../Strategy/MixObjectStrategy.h"
 
 @interface MixConfig () {
     NSArray <NSString *>* _legalClassFrontSymbols;
@@ -56,7 +56,7 @@
 
 - (NSArray <NSString *>*)systemPrefixs {
     if (!_systemPrefixs) {
-        _systemPrefixs = @[@"UI",@"NS",@"CA"];
+        _systemPrefixs = @[@"UI",@"NS",@"CA",@"CG"];
     }
     return _systemPrefixs;
 }
@@ -80,6 +80,25 @@
         _shieldPaths = @[];
     }
     return _shieldPaths;
+}
+
+- (NSArray <NSString *>*)shieldClass {
+    if (!_shieldClass) {
+        _shieldClass = @[];
+    }
+    return _shieldClass;
+}
+
+- (NSArray <NSString *>*)shieldMethods {
+    if (!_shieldMethods) {
+        _shieldMethods = @[@"copy",@"strong",@"assign",@"retain",@"weak",@"nonatomic",@"atomic",@"NSInteger",@"instancetype"];
+    }
+    return _shieldMethods;
+}
+
+- (void)setSystemObjects:(NSArray<MixObject *> *)systemObjects {
+    _systemObjects = systemObjects;
+    [MixObjectStrategy saveObjects:systemObjects key:@"mix_system"];
 }
 
 @end

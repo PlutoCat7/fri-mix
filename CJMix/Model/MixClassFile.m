@@ -11,6 +11,20 @@
 
 @implementation MixClassFile
 
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    
+    
+}
+
+
 - (void)setHFile:(MixFile *)hFile {
     _hFile = hFile;
     [self classFileName];

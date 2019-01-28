@@ -8,15 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "MixMethod.h"
-#import "MixProperty.h"
 
-@interface MixClass : NSObject
+@interface MixClass : NSObject <NSCoding>
 
 @property (nonatomic , copy) NSString * className;
 
 @property (nonatomic , strong) MixMethod * method;
-
-@property (nonatomic , strong) MixProperty* property;
 
 - (instancetype)initWithClassName:(NSString *)className;
 

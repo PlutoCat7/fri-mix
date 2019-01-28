@@ -52,12 +52,37 @@
     return NO;
 }
 
-+ (BOOL)isLikeCategory:(NSString *)fileName {
-    if ([fileName containsString:@"+"]) {
-        return YES;
++ (BOOL)isShieldWithClass:(NSString *)className {
+    NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldClass];
+    for (NSString * str in array) {
+        if ([className isEqualToString:str]) {
+            return YES;
+        }
     }
     return NO;
 }
+
++ (BOOL)isShieldWithMethod:(NSString *)method {
+    NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldMethods];
+    for (NSString * str in array) {
+        if ([method isEqualToString:str]) {
+            return YES;
+        }
+    }
+    
+    if ([method hasPrefix:@"init"]) {
+        return YES;
+    }
+    
+    if ([MixJudgeStrategy isSystemClass:method]) {
+        return YES;
+    }
+    
+    
+    return NO;
+}
+
+
 
 + (BOOL)isLegalNewClassName:(NSString *)className {
     BOOL isLegal = YES;
