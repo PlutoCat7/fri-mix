@@ -9,6 +9,7 @@
 #import "MixFileNameStrategy.h"
 #import "MixFileNameModifyJsonInfo.h"
 #import "MixFileStrategy.h"
+#import "MixConfig.h"
 
 typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     yah_MixFileType_UnKnow,
@@ -70,7 +71,10 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             for (MixObject *subObject in objects) {
                 NSString *className = [oldName componentsSeparatedByString:@"+"].firstObject;
                 if ([subObject.classFile.classFileName isEqualToString:className]) {
-                    newName = [oldName stringByReplacingOccurrencesOfString:className withString:subObject.classFile.resetFileName];
+                    NSString *newClassName = subObject.classFile.resetFileName;
+                    if (newClassName && newClassName.length>0) {
+                        newName = [oldName stringByReplacingOccurrencesOfString:className withString:subObject.classFile.resetFileName];
+                    }
                     break;
                 }
             }
@@ -262,6 +266,14 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             MixFile *mFile = object.classFile.mFile;
             [self handleMixFile:mFile fileNameDict:fileNameDict];
         }
+    }
+    //替换pch里的import
+    for (MixFile *file in [MixConfig sharedSingleton].pchFile) {
+        if (file.path && !file.data) {
+            NSData * data = [NSData dataWithContentsOfFile:file.path options:NSDataReadingUncached error:nil];
+            file.data  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        }
+        [self handleMixFile:file fileNameDict:fileNameDict];
     }
     printf("结束替换import文件\n");
     return YES;

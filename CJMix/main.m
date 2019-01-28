@@ -21,9 +21,9 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
 
-        //NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
+        NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
         //NSString * rootPath = @"/Users/wangsw/wangle/majiabao/najiabao-file";
-        //NSString * rootPath = @"/Users/wangsw/Desktop/AudioRoom";
+        NSString * rootPath = @"/Users/wangsw/wangle/majiabao/AudioRoom";
 
         
         [MixConfig sharedSingleton].shieldPaths = @[@"imkit",@"imsdk",@"FDFullscreenPopGesture",@"UIAlertView+BlocksKit",@"V8HorizontalPickerView",@"MJExtension",@"FBKVOController",@"countly-sdk-ios",@"Hockey-iOS",@"ElvaChatServiceSDK",@"WebViewJavascriptBridge"];
@@ -32,8 +32,8 @@ int main(int argc, const char * argv[]) {
 //        NSString * referencePath = @"/Users/wn/Desktop/Reference";
 //        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
   
-        NSString * referencePath = @"/Users/wn/Documents/git/CJMix/Demo1";
-        NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
+//        NSString * referencePath = @"/Users/wn/Documents/git/CJMix/Demo1";
+//        NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
         
         
         NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
@@ -54,11 +54,11 @@ int main(int argc, const char * argv[]) {
         printf("开始替换类名\n");
         [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
         printf("结束替换类名\n");
-        printf("获取替换方法名\n");
-        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
-        printf("开始替换方法\n");
-        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods];
-        printf("结束替换方法\n");
+//        printf("获取替换方法名\n");
+//        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
+//        printf("开始替换方法\n");
+//        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods];
+//        printf("结束替换方法\n");
         
         
         
@@ -69,12 +69,12 @@ int main(int argc, const char * argv[]) {
 //            printf("工程文件不存在\n");
 //        }
         
-        printf("开始替换文件名称\n");
-        if ([MixFileNameStrategy start:copyObjects rootPath:rootPath]) {
-            printf("成功替换文件名称\n");
-        }else {
-            printf("替换文件名称出错了\n");
-        }
+//        printf("开始替换文件名称\n");
+//        if ([MixFileNameStrategy start:copyObjects rootPath:rootPath]) {
+//            printf("成功替换文件名称\n");
+//        }else {
+//            printf("替换文件名称出错了\n");
+//        }
     }
     return 0;
 }
