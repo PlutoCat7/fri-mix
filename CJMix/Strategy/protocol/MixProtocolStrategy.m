@@ -56,16 +56,51 @@
 
 #pragma mark - Private
 
+#pragma mark - 初始化新的protocol名称列表
 - (BOOL)initResetProtocolData {
     
     _resetProtocolList = [[NSMutableArray alloc] initWithCapacity:1];
     
-#warning test
-    [_resetProtocolList addObject:@"resetDelegate"];
-    [_resetProtocolList addObject:@"reset2Delegate"];
+    [self recursiveFile:[MixConfig sharedSingleton].referenceAllFile resetList:_resetProtocolList];
     
     return YES;
 }
+
+- (void)recursiveFile:(NSArray *)files resetList:(NSMutableArray *)list {
+    
+    for (MixFile *file in files) {
+        if (file.subFiles.count>0) {
+            [self recursiveFile:file.subFiles resetList:list];
+        }else if (file.fileType == MixFileTypeH ||
+                  file.fileType == MixFileTypeM ||
+                  file.fileType == MixFileTypeMM ||
+                  file.fileType == MixFileTypePch) {
+            
+            NSString *string = file.data;
+            NSArray *lineList = [string componentsSeparatedByString:@"\n"];
+            for (NSInteger index =0; index<lineList.count; index++) {
+                NSString *lineString = lineList[index];
+                NSString *tmpString = [lineString copy];
+                if (![lineString containsString:@"@protocol"]) {
+                    continue;
+                }
+                //加入到处理列表中，减少for循环
+                if (![self.handleFileList containsObject:file]) {
+                    [self.handleFileList addObject:file];
+                }
+                //去除空格
+                tmpString = [lineString stringByReplacingOccurrencesOfString:@" " withString:@""];
+                NSRange curRange = [tmpString rangeOfString:@"(?<=@protocol).*(?=<)" options:NSRegularExpressionSearch];
+                if (curRange.location == NSNotFound)
+                    continue;
+                NSString *curStr = [tmpString substringWithRange:curRange];
+                [list addObject:curStr];
+            }
+        }
+    }
+}
+
+#pragma mark - 对旧的protocol名称进行处理
 
 //查好旧的protocol
 - (BOOL)findOldProtocol {
@@ -157,6 +192,7 @@
                 //第二种 跟在类申明后面的   <xxDelegate1,xxDelegate2>
                 NSArray *delegateList = [removeSpaceString componentsSeparatedByString:@","];
                 for (NSString *sub in delegateList) {
+#warning 去除<之前的
                     NSString *delegateString = [sub stringByReplacingOccurrencesOfString:@"<" withString:@""];
                     delegateString = [delegateString stringByReplacingOccurrencesOfString:@"<" withString:@">"];
                     if ([delegateString isEqualToString:oldProtocol]) {
