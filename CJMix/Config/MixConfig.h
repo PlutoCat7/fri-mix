@@ -23,6 +23,8 @@
 
 @property (nonatomic , copy) NSArray <MixFile *>* pchFile;
 
+@property (nonatomic , copy) NSArray <MixFile *>* allFile;  //所有文件
+
 @property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassFrontSymbols;
 
 @property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassBackSymbols;

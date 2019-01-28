@@ -9,7 +9,7 @@
 #import "MixFileNameStrategy.h"
 #import "MixFileNameModifyJsonInfo.h"
 #import "MixFileStrategy.h"
-#import "MixFilePathModifyModel.h"
+#import "MixConfig.h"
 
 typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     yah_MixFileType_UnKnow,
@@ -28,7 +28,6 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 @interface MixFileNameStrategy ()
 
 @property (nonatomic, strong) NSArray<MixObject *> *objects;
-@property (nonatomic, strong) NSArray<MixFile *> *allFiles;
 @property (nonatomic, copy) NSString *rootPath;
 
 //旧类名、新类名
@@ -57,12 +56,11 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 
 #pragma mark - Public
 
-+ (BOOL)start:(NSArray<MixObject *> *)objects allFiles:(NSArray<MixFile *> *)allFiles rootPath:(NSString *)rootPath {
++ (BOOL)start:(NSArray<MixObject *> *)objects rootPath:(NSString *)rootPath {
     
     MixFileNameStrategy *strategy = [[MixFileNameStrategy alloc] init];
     strategy.objects = objects;
     strategy.rootPath = rootPath;
-    strategy.allFiles = allFiles;
     
     //生成类字段
     for (MixObject *object in objects) {
@@ -180,7 +178,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     
     //替换的文件字典  旧文件名称  新文件名称
     NSMutableDictionary *realFileNameDict = [NSMutableDictionary dictionaryWithCapacity:1];
-    //对文件名称替换
+    //对文件名称替换、及路径修改
     for (MixPbxprojFileInfo *info in self.fileList) { //也有文件名称列表
         NSString *suffix = [info.fileName componentsSeparatedByString:@"."].lastObject;
         if (![self checkFileValidWithSuffux:suffix]) {
@@ -211,7 +209,8 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
                     [jsonObject.backward.modify setObject:oldFileName forKey:key];
                     [jsonObject.forward.modify setObject:newFileName forKey:key];
                     
-                    [realFileNameDict setObject:newFileName forKey:oldFileName];
+                    //eg：虽然文件名是A.h  但是#import "a.h" xcode也可以识别，所以对key做小写处理
+                    [realFileNameDict setObject:newFileName forKey:[oldFileName lowercaseString]];
                     //修改数据
                     if ([suffix isEqualToString:@"h"]) {
                         object.classFile.hFile.path = newPath;
@@ -224,6 +223,8 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             }
         }
     }
+    printf("替换#import...\n");
+    [self replaceImportFile:realFileNameDict files:[MixConfig sharedSingleton].allFile];
     
     NSString *configPath = [self.rootPath stringByAppendingPathComponent:@"config.json"];
     NSError *error;
@@ -264,16 +265,13 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
         //
         @autoreleasepool {
             if (file.subFiles.count>0) {
-                return [self replaceImportFile:fileNameDict files:file.subFiles];
+                [self replaceImportFile:fileNameDict files:file.subFiles];
             }else {
                 if (file.fileType == MixFileTypeH ||
                     file.fileType == MixFileTypeM ||
                     file.fileType == MixFileTypeMM ||
                     file.fileType == MixFileTypePch) {
                     [self handleMixFile:file fileNameDict:fileNameDict];
-                    if (file.fileType == MixFileTypePch) {
-                        NSLog(@"123");
-                    }
                 }
             }
         }
@@ -283,6 +281,10 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 }
 
 - (void)handleMixFile:(MixFile *)file fileNameDict:(NSDictionary *)fileNameDict {
+    
+    if ([file.fileName containsString:@"NTVLocalized"]) {
+        NSLog(@"");
+    }
     
     NSString *string = file.data;
     if (!string || string.length == 0) {
@@ -294,27 +296,26 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     }
     NSArray *lineList = [string componentsSeparatedByString:@"\n"];
     NSMutableArray *tmpList = [NSMutableArray arrayWithArray:lineList];
-    for (NSString *key in fileNameDict) {
-        NSString *oldName = key;
-        NSString *newName = fileNameDict[key];
-        
-        for (NSString *lineString in lineList) {
-            if (![lineString containsString:@"#import"]) {
-                continue;
-            }
-            NSRange curRange = [lineString rangeOfString:@"(?<=\").*(?=\")" options:NSRegularExpressionSearch];
-            if (curRange.location == NSNotFound)
-                continue;
-            NSString *curStr = [lineString substringWithRange:curRange];
-            if ([curStr containsString:@"/"]) { //引文文件可能是这个格式 ./a.h
-                curStr = [curStr componentsSeparatedByString:@"/"].lastObject;
-            }
-            if ([curStr isEqualToString:oldName]) {
-                NSString *tmpString = [lineString stringByReplacingOccurrencesOfString:oldName withString:newName];
-                [tmpList replaceObjectAtIndex:[lineList indexOfObject:lineString] withObject:tmpString];
-            }
+    for (NSInteger index =0; index<lineList.count; index++) {
+        NSString *lineString = lineList[index];
+        if (![lineString containsString:@"#import"]) {
+            continue;
+        }
+        NSRange curRange = [lineString rangeOfString:@"(?<=\").*(?=\")" options:NSRegularExpressionSearch];
+        if (curRange.location == NSNotFound)
+            continue;
+        NSString *curStr = [lineString substringWithRange:curRange];
+        if ([curStr containsString:@"/"]) { //引文文件可能是这个格式 ./a.h
+            curStr = [curStr componentsSeparatedByString:@"/"].lastObject;
+        }
+        //对文件名做小写处理， eg：虽然文件名是A.h  但是#import "a.h" xcode也可以识别，坑啊。。。 浪费我一个小时
+        NSString *newName = [fileNameDict objectForKey:[curStr lowercaseString]];
+        if (newName) {
+            NSString *tmpString = [lineString stringByReplacingOccurrencesOfString:curStr withString:newName];
+            [tmpList replaceObjectAtIndex:index withObject:tmpString];
         }
     }
+    
     string = [tmpList componentsJoinedByString:@"\n"];
     if (![string isEqualToString:file.data]) {
         file.data = string;

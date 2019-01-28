@@ -87,7 +87,7 @@
         }
     }
     
-    if (file.fileType == MixFileTypeUnknown || file.fileType == MixFileTypePodFolder || file.fileType == MixFileTypeFramework || file.fileType == MixFileTypeShield) {
+    if (file.fileType == MixFileTypeUnknown || file.fileType == MixFileTypePodFolder || file.fileType == MixFileTypeFramework) {
         return nil;
     }
     
@@ -110,7 +110,7 @@
     }
     
     [rootFiles enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.subFiles.count) {
+        if (obj.subFiles.count && obj.fileType!=MixFileTypeShield) {
             [self hmFilesWithFiles:obj.subFiles saveHMFiles:saveHMFiles];
         } else if (obj.fileType == MixFileTypeH || obj.fileType == MixFileTypeM || obj.fileType == MixFileTypeMM) {
             [saveHMFiles addObject:obj];
