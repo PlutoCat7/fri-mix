@@ -14,6 +14,7 @@
 #import "MixObjectStrategy.h"
 #import "MixJudgeStrategy.h"
 #import "file/MixFileNameStrategy.h"
+#import "../Config/MixConfig.h"
 
 @implementation MixMainStrategy
 
@@ -275,6 +276,13 @@
         [MixMainStrategy referenceDataAndWrite:object.classFile.mFile oldName:oldName newName:newName];
         
     }
+    
+    for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
+        [MixMainStrategy referenceDataAndWrite:file oldName:oldName newName:newName];
+    }
+    
+    
+    
 }
 
 
