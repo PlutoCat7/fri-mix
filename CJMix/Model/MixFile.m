@@ -10,4 +10,17 @@
 
 @implementation MixFile
 
+- (void)setPath:(NSString *)path {
+    _path = path;
+    
+    if (!_path) {
+        return;
+    }
+    
+    NSData * data = [NSData dataWithContentsOfFile:self.path options:NSDataReadingUncached error:nil];
+    NSString * text  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    self.data = text;
+    
+}
+
 @end

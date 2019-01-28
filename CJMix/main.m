@@ -29,8 +29,8 @@ int main(int argc, const char * argv[]) {
         [MixConfig sharedSingleton].shieldPaths = @[@"imkit",@"imsdk",@"FDFullscreenPopGesture",@"UIAlertView+BlocksKit",@"V8HorizontalPickerView",@"MJExtension",@"FBKVOController",@"countly-sdk-ios",@"Hockey-iOS",@"ElvaChatServiceSDK",@"WebViewJavascriptBridge"];
         
         
-//        NSString * referencePath = @"/Users/wn/Desktop/Reference";
-//        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
+        NSString * referencePath = @"/Users/wn/Desktop/Reference";
+        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
   
 //        NSString * referencePath = @"/Users/wn/Documents/git/CJMix/Demo1";
 //        NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
