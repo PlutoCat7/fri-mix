@@ -19,8 +19,6 @@
 
 @property (nonatomic , strong , readonly) NSArray <MixClass *> *mClasses;
 
-@property (nonatomic , strong , readonly) NSArray <MixProperty *> *propertys;
-
 - (instancetype)initWithClassFile:(MixClassFile *)file;
 
 @end

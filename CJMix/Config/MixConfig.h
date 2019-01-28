@@ -21,6 +21,8 @@
 
 @property (nonatomic , copy) NSArray <NSString *>* shieldPaths;
 
+@property (nonatomic , copy) NSArray <NSString *>* shieldMethods;
+
 @property (nonatomic , copy) NSArray <MixFile *>* pchFile;
 
 @property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassFrontSymbols;

@@ -17,25 +17,19 @@
 #import "Config/MixConfig.h"
 #import "MixFileNameStrategy.h"
 
-
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-
-        //NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
-        //NSString * rootPath = @"/Users/wangsw/wangle/majiabao/najiabao-file";
-        //NSString * rootPath = @"/Users/wangsw/Desktop/AudioRoom";
-
         
         [MixConfig sharedSingleton].shieldPaths = @[@"imkit",@"imsdk",@"FDFullscreenPopGesture",@"UIAlertView+BlocksKit",@"V8HorizontalPickerView",@"MJExtension",@"FBKVOController",@"countly-sdk-ios",@"Hockey-iOS",@"ElvaChatServiceSDK",@"WebViewJavascriptBridge"];
         
         
-        NSString * referencePath = @"/Users/wn/Desktop/Reference";
-        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
+//        NSString * referencePath = @"/Users/wn/Desktop/Reference";
+//        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
   
-//        NSString * referencePath = @"/Users/wn/Documents/git/CJMix/Demo1";
-//        NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
+        NSString * referencePath = @"/Users/wn/Documents/git/CJMix/Demo1";
+        NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
         
-        
+        NSString * sdkPath = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
         NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
         
         printf("拷贝文件中..\n");
@@ -45,20 +39,22 @@ int main(int argc, const char * argv[]) {
             return 0;
         }
         printf("拷贝文件成功\n");
+        printf("获取系统对象\n");
+        NSArray <MixObject*>* systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
         printf("获取替换对象\n");
         NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
         printf("获取需要被替换对象\n");
         NSArray <MixObject*>* copyObjects = [MixObjectStrategy objectsWithPath:copyPath saveConfig:YES];
-        printf("获取替换类名\n");
-        NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
-        printf("开始替换类名\n");
-        [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
-        printf("结束替换类名\n");
-//        printf("获取替换方法名\n");
-//        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
-//        printf("开始替换方法\n");
-//        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods];
-//        printf("结束替换方法\n");
+//        printf("获取替换类名\n");
+//        NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
+//        printf("开始替换类名\n");
+//        [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
+//        printf("结束替换类名\n");
+        printf("获取替换方法名\n");
+        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
+        printf("开始替换方法（请耐心等待）\n");
+        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemObjects:systemObjects];
+        printf("结束替换方法\n");
         
         
         

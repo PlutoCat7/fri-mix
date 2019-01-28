@@ -19,7 +19,6 @@
 		B78CED4A21FAA0A700811586 /* MixClass.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CED2D21FAA0A600811586 /* MixClass.m */; };
 		B78CED4B21FAA0A700811586 /* MixObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CED2F21FAA0A600811586 /* MixObject.m */; };
 		B78CED4C21FAA0A700811586 /* MixFile.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CED3021FAA0A600811586 /* MixFile.m */; };
-		B78CED4D21FAA0A700811586 /* MixProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CED3421FAA0A600811586 /* MixProperty.m */; };
 		B78CED4E21FAA0A700811586 /* MixStringStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CED3621FAA0A600811586 /* MixStringStrategy.m */; };
 		B78CED4F21FAA0A700811586 /* MixClassStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CED3821FAA0A600811586 /* MixClassStrategy.m */; };
 		B78CED5021FAA0A700811586 /* MixMethodStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CED3921FAA0A700811586 /* MixMethodStrategy.m */; };
@@ -28,6 +27,7 @@
 		B78CED5421FAA0A700811586 /* MixClassFileStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CED4321FAA0A700811586 /* MixClassFileStrategy.m */; };
 		B78CED5521FAA0A700811586 /* MixReferenceStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CED4521FAA0A700811586 /* MixReferenceStrategy.m */; };
 		B78CED5621FAA0A700811586 /* MixObjectStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B78CED4621FAA0A700811586 /* MixObjectStrategy.m */; };
+		B790C95321FED1A20091AA4F /* MixCategoryStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B790C95221FED1A20091AA4F /* MixCategoryStrategy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,7 +58,6 @@
 		B78CED1E21FAA09E00811586 /* CJMix */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CJMix; sourceTree = BUILT_PRODUCTS_DIR; };
 		B78CED2121FAA09E00811586 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B78CED2921FAA0A600811586 /* MixObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixObject.h; sourceTree = "<group>"; };
-		B78CED2A21FAA0A600811586 /* MixProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixProperty.h; sourceTree = "<group>"; };
 		B78CED2B21FAA0A600811586 /* MixMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixMethod.m; sourceTree = "<group>"; };
 		B78CED2C21FAA0A600811586 /* MixClassFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixClassFile.m; sourceTree = "<group>"; };
 		B78CED2D21FAA0A600811586 /* MixClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixClass.m; sourceTree = "<group>"; };
@@ -68,7 +67,6 @@
 		B78CED3121FAA0A600811586 /* MixClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixClass.h; sourceTree = "<group>"; };
 		B78CED3221FAA0A600811586 /* MixClassFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixClassFile.h; sourceTree = "<group>"; };
 		B78CED3321FAA0A600811586 /* MixMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixMethod.h; sourceTree = "<group>"; };
-		B78CED3421FAA0A600811586 /* MixProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixProperty.m; sourceTree = "<group>"; };
 		B78CED3621FAA0A600811586 /* MixStringStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixStringStrategy.m; sourceTree = "<group>"; };
 		B78CED3721FAA0A600811586 /* MixFileStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixFileStrategy.h; sourceTree = "<group>"; };
 		B78CED3821FAA0A600811586 /* MixClassStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixClassStrategy.m; sourceTree = "<group>"; };
@@ -85,6 +83,8 @@
 		B78CED4421FAA0A700811586 /* MixMethodStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixMethodStrategy.h; sourceTree = "<group>"; };
 		B78CED4521FAA0A700811586 /* MixReferenceStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixReferenceStrategy.m; sourceTree = "<group>"; };
 		B78CED4621FAA0A700811586 /* MixObjectStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixObjectStrategy.m; sourceTree = "<group>"; };
+		B790C95121FED1A20091AA4F /* MixCategoryStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixCategoryStrategy.h; sourceTree = "<group>"; };
+		B790C95221FED1A20091AA4F /* MixCategoryStrategy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixCategoryStrategy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,11 +102,9 @@
 			isa = PBXGroup;
 			children = (
 				B75DB02D21FAAC94006FDB86 /* MixFileNameModifyJsonInfo.h */,
-				B75DB02E21FAAC94006FDB86 /* MixFileNameStrategy.m */,
 				B75DB02F21FAAC94006FDB86 /* MixFileNameModifyJsonInfo.m */,
 				B75DB03021FAAC94006FDB86 /* MixFileNameStrategy.h */,
 				B75DB02E21FAAC94006FDB86 /* MixFileNameStrategy.m */,
-				B75DB03121FAAC94006FDB86 /* pbxproj.json */,
 			);
 			path = file;
 			sourceTree = "<group>";
@@ -162,8 +160,6 @@
 				B78CED2D21FAA0A600811586 /* MixClass.m */,
 				B78CED3321FAA0A600811586 /* MixMethod.h */,
 				B78CED2B21FAA0A600811586 /* MixMethod.m */,
-				B78CED2A21FAA0A600811586 /* MixProperty.h */,
-				B78CED3421FAA0A600811586 /* MixProperty.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -174,6 +170,8 @@
 				B75DB02C21FAAC94006FDB86 /* file */,
 				B78CED4021FAA0A700811586 /* MixStringStrategy.h */,
 				B78CED3621FAA0A600811586 /* MixStringStrategy.m */,
+				B790C95121FED1A20091AA4F /* MixCategoryStrategy.h */,
+				B790C95221FED1A20091AA4F /* MixCategoryStrategy.m */,
 				B78CED3721FAA0A600811586 /* MixFileStrategy.h */,
 				B78CED4121FAA0A700811586 /* MixFileStrategy.m */,
 				B75DB03821FAE546006FDB86 /* MixJudgeStrategy.h */,
@@ -253,7 +251,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B78CED4C21FAA0A700811586 /* MixFile.m in Sources */,
-				B78CED4D21FAA0A700811586 /* MixProperty.m in Sources */,
 				B78CED2221FAA09E00811586 /* main.m in Sources */,
 				B78CED4A21FAA0A700811586 /* MixClass.m in Sources */,
 				B78CED4B21FAA0A700811586 /* MixObject.m in Sources */,
@@ -271,6 +268,7 @@
 				B75DB03D21FB1CFA006FDB86 /* MixDataStrategy.m in Sources */,
 				B78CED5521FAA0A700811586 /* MixReferenceStrategy.m in Sources */,
 				B78CED5021FAA0A700811586 /* MixMethodStrategy.m in Sources */,
+				B790C95321FED1A20091AA4F /* MixCategoryStrategy.m in Sources */,
 				B78CED4921FAA0A700811586 /* MixClassFile.m in Sources */,
 				B78CED5121FAA0A700811586 /* MixMainStrategy.m in Sources */,
 			);

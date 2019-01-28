@@ -20,7 +20,7 @@
 
 #pragma mark 替换方法名
 
-+ (void)replaceMethod:(NSArray <MixObject *>*)objects methods:(NSArray <NSString *>*)methods {
++ (void)replaceMethod:(NSArray <MixObject *>*)objects methods:(NSArray <NSString *>*)methods systemObjects:(NSArray <MixObject*>*)systemObjects {
     
     NSMutableArray <NSString *>* validClassMethods = [NSMutableArray arrayWithCapacity:0];
     NSMutableArray <NSString *>* validExampleMethods = [NSMutableArray arrayWithCapacity:0];
@@ -28,13 +28,13 @@
         for (MixClass * class in object.hClasses) {
             
             for (NSString * method in class.method.classMethods) {
-                if (![validClassMethods containsObject:method]) {
+                if (![validClassMethods containsObject:method] && ![MixMainStrategy repetition:method systemObjects:systemObjects]) {
                     [validClassMethods addObject:method];
                 }
             }
             
             for (NSString * method in class.method.exampleMethods) {
-                if (![validExampleMethods containsObject:method]) {
+                if (![validExampleMethods containsObject:method] && ![MixMainStrategy repetition:method systemObjects:systemObjects]) {
                     [validExampleMethods addObject:method];
                 }
             }
@@ -46,30 +46,81 @@
     NSAssert(methods.count >= validCount, @"方法数量不足");
     
     NSMutableArray <NSString *>* newMethods = [NSMutableArray arrayWithArray:methods];
+    NSMutableArray <NSString *>* worker = [NSMutableArray arrayWithArray:methods];
     
+    [newMethods enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([MixMainStrategy repetition:obj systemObjects:systemObjects]) {
+            [worker removeObject:obj];
+        }
+    }];
+    
+    newMethods = worker;
     
     for (NSString * method in validClassMethods) {
-        [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
+        if (![MixMainStrategy repetition:method systemObjects:systemObjects]) {
+            [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
+        }
     }
     
     for (NSString * method in validExampleMethods) {
-        [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
+        if (![MixMainStrategy repetition:method systemObjects:systemObjects]) {
+            [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
+        }
     }
     
 }
 
++ (BOOL)repetition:(NSString *)method systemObjects:(NSArray <MixObject*>*)systemObjects  {
+    @autoreleasepool {
+    for (MixObject * object in systemObjects) {
+        for (MixClass * class in object.hClasses) {
+            for (NSString * classMethod in class.method.classMethods) {
+                if ([classMethod containsString:method] || [method containsString:classMethod]) {
+                    return YES;
+                }
+            }
+            
+            for (NSString * exampleMethod in class.method.exampleMethods) {
+                if ([exampleMethod containsString:method] || [method containsString:exampleMethod]) {
+                    return YES;
+                }
+            }
+        }
+    }
+    return NO;
+    }
+}
+
 + (void)replaceMethod:(NSArray <MixObject *>*)objects oldMethod:(NSString *)oldMethod newMethods:(NSMutableArray <NSString *>*)newMethods {
     
-    NSInteger index = arc4random() % newMethods.count;
-    NSString * newMethod = newMethods[index];
-    [newMethods removeObjectAtIndex:index];
+    NSString * oldTrueMethod = [MixMainStrategy trueMethod:oldMethod];
+    if (oldTrueMethod.length < 9 || [oldTrueMethod containsString:@"sharedInstance"]) {
+        return;
+    }
+    
+    NSString * newMethod = newMethods.firstObject;
+    [newMethods removeObjectAtIndex:0];
+    
+    NSString * newTrueMethod = [MixMainStrategy trueMethod:newMethod];
     
     for (MixObject * object in objects) {
-        [MixMainStrategy replaceMethod:object oldMethod:oldMethod newMethod:newMethod file:object.classFile.hFile];
-        [MixMainStrategy replaceMethod:object oldMethod:oldMethod newMethod:newMethod file:object.classFile.mFile];
+        [MixMainStrategy replaceMethod:object oldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.hFile];
+        [MixMainStrategy replaceMethod:object oldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.mFile];
     }
     
     
+}
+
++ (NSString *)trueMethod:(NSString *)method {
+    
+    NSString * trueMethod = nil;
+    if ([method containsString:@":"]) {
+        NSArray <NSString *>* names = [method componentsSeparatedByString:@":"];
+        trueMethod = names[0];
+    } else {
+        trueMethod = method;
+    }
+    return trueMethod;
 }
 
 + (void)replaceMethod:(MixObject *)object oldMethod:(NSString *)oldMethod newMethod:(NSString *)newMethod file:(MixFile *)file {
@@ -77,23 +128,7 @@
         return;
     }
     
-    NSString * trueNewMethod = nil;
-    if ([newMethod containsString:@":"]) {
-        NSArray <NSString *>* names = [newMethod componentsSeparatedByString:@":"];
-        trueNewMethod = names[0];
-    } else {
-        trueNewMethod = newMethod;
-    }
-    NSString * trueOldMethod = nil;
-    if ([oldMethod containsString:@":"]) {
-        NSArray <NSString *>* names = [oldMethod componentsSeparatedByString:@":"];
-        trueOldMethod = names[0];
-    } else {
-        trueOldMethod = oldMethod;
-    }
-    
-    
-    NSString * substitute = [file.data stringByReplacingOccurrencesOfString:trueOldMethod withString:trueNewMethod];
+    NSString * substitute = [file.data stringByReplacingOccurrencesOfString:oldMethod withString:newMethod];
     
     if (![substitute isEqualToString:file.data]) {
         file.data = substitute;
@@ -177,13 +212,12 @@
 
 + (void)replace:(NSArray <MixClass *>*)classes newNames:(NSMutableArray<NSString *>*)newNmaes allObject:(NSArray <MixObject *>*)allObject {
     for (MixClass * class in classes) {
-        NSInteger index = arc4random() % newNmaes.count;
         NSString * oldClassName = class.className;
         if ([MixJudgeStrategy isSystemClass:oldClassName]) {
             continue;
         }
-        NSString * newClassName = newNmaes[index];
-        [newNmaes removeObjectAtIndex:index];
+        NSString * newClassName = newNmaes.firstObject;
+        [newNmaes removeObjectAtIndex:0];
         [MixMainStrategy reference:allObject oldName:oldClassName newName:newClassName];
         class.className = newClassName;
         
@@ -240,7 +274,7 @@
                 NSString * encrypt = [NSString stringWithFormat:@"######&&&&&&$$$$$******"];
                 substitute = [NSString stringWithFormat:@"%@%@%@",front,encrypt,back];
                 NSArray * lines = [front componentsSeparatedByString:@"\n"];
-                printf("替换失败 文件:%s 原类:%s 新类:%s %d行\n",[fileName UTF8String] ,[oldName UTF8String],[newName UTF8String], (int)lines.count);
+                printf("打断替换 文件:%s 原类:%s 新类:%s %d行\n",[fileName UTF8String] ,[oldName UTF8String],[newName UTF8String], (int)lines.count);
                 
             }
         }

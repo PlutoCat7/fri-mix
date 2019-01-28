@@ -19,6 +19,10 @@
 
 @interface Test1 : NSObject <Test1Delegate>
 
+@property (nonatomic , strong) NSString * bbbbb;
+
+@property (nonatomic , strong) NSString * aaaaa;
+
 - (void)demo1_method;
 
 - (void)demo1_method_parameter:(NSString*)parameter;
