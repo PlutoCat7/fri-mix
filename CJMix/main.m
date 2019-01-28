@@ -54,11 +54,11 @@ int main(int argc, const char * argv[]) {
         printf("开始替换类名\n");
         [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
         printf("结束替换类名\n");
-        printf("获取替换方法名\n");
-        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
-        printf("开始替换方法\n");
-        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods];
-        printf("结束替换方法\n");
+//        printf("获取替换方法名\n");
+//        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
+//        printf("开始替换方法\n");
+//        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods];
+//        printf("结束替换方法\n");
         
         
         
