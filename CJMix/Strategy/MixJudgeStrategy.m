@@ -52,13 +52,23 @@
     return NO;
 }
 
-+ (BOOL)isLikeCategory:(NSString *)fileName {
++ (BOOL)isShieldWithMethod:(NSString *)method {
+    NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldPaths];
+    for (NSString * str in array) {
+        if ([method isEqualToString:str]) {
+            return YES;
+        }
+    }
+    
+    if ([MixJudgeStrategy isSystemClass:method]) {
+        return YES;
+    }
+    
+    
     return NO;
-//    if ([fileName containsString:@"+"]) {
-//        return YES;
-//    }
-//    return NO;
 }
+
+
 
 + (BOOL)isLegalNewClassName:(NSString *)className {
     BOOL isLegal = YES;

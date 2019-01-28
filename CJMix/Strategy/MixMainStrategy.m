@@ -71,6 +71,11 @@
 }
 
 + (BOOL)repetition:(NSString *)method systemObjects:(NSArray <MixObject*>*)systemObjects  {
+    
+    if ([MixJudgeStrategy isShieldWithMethod:method]) {
+        return YES;
+    }
+    
     @autoreleasepool {
     for (MixObject * object in systemObjects) {
         for (MixClass * class in object.hClasses) {
@@ -191,10 +196,6 @@
             continue;
         }
         
-        if ([MixJudgeStrategy isLikeCategory:object.classFile.classFileName]) {
-            continue;
-        }
-        
         [MixMainStrategy replace:object.hClasses newNames:referenceClassNames allObject:objects];
         
         if (object.hClasses.count) {
@@ -273,8 +274,11 @@
                 NSString * back = [substitute substringFromIndex:range.location + range.length];
                 NSString * encrypt = [NSString stringWithFormat:@"######&&&&&&$$$$$******"];
                 substitute = [NSString stringWithFormat:@"%@%@%@",front,encrypt,back];
-                NSArray * lines = [front componentsSeparatedByString:@"\n"];
-                printf("打断替换 文件:%s 原类:%s 新类:%s %d行\n",[fileName UTF8String] ,[oldName UTF8String],[newName UTF8String], (int)lines.count);
+                
+                if ([MixConfig sharedSingleton].openLog) {
+                    NSArray * lines = [front componentsSeparatedByString:@"\n"];
+                    printf("打断替换 文件:%s 原类:%s 新类:%s %d行\n",[fileName UTF8String] ,[oldName UTF8String],[newName UTF8String], (int)lines.count);
+                }
                 
             }
         }

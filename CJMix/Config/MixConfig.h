@@ -13,6 +13,8 @@
 
 + (instancetype)sharedSingleton;
 
+@property (nonatomic , assign) BOOL openLog;
+
 @property (nonatomic , copy) NSString * mixPrefix;
 
 @property (nonatomic , copy) NSString * mixMethodPrefix;

@@ -56,7 +56,7 @@
 
 - (NSArray <NSString *>*)systemPrefixs {
     if (!_systemPrefixs) {
-        _systemPrefixs = @[@"UI",@"NS",@"CA"];
+        _systemPrefixs = @[@"UI",@"NS",@"CA",@"CG"];
     }
     return _systemPrefixs;
 }
@@ -80,6 +80,13 @@
         _shieldPaths = @[];
     }
     return _shieldPaths;
+}
+
+- (NSArray <NSString *>*)shieldMethods {
+    if (!_shieldMethods) {
+        _shieldMethods = @[@"copy",@"strong",@"assign",@"retain",@"weak",@"nonatomic",@"atomic",@"NSInteger"];
+    }
+    return _shieldMethods;
 }
 
 @end
