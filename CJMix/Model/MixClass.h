@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MixMethod.h"
 
-@interface MixClass : NSObject
+@interface MixClass : NSObject <NSCoding>
 
 @property (nonatomic , copy) NSString * className;
 

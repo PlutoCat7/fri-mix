@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "../Model/MixFile.h"
+#import "../Model/MixObject.h"
 
 @interface MixConfig : NSObject
 
@@ -30,6 +31,8 @@
 @property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassFrontSymbols;
 
 @property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassBackSymbols;
+
+@property (nonatomic , copy) NSArray <MixObject*>* systemObjects;
 
 @end
 

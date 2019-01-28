@@ -10,6 +10,20 @@
 
 @implementation MixMethod
 
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    
+    
+}
+
+
 - (NSMutableArray <NSString *>*)classMethods {
     if (!_classMethods) {
         _classMethods = [NSMutableArray arrayWithCapacity:0];
@@ -22,6 +36,13 @@
         _exampleMethods = [NSMutableArray arrayWithCapacity:0];
     }
     return _exampleMethods;
+}
+
+- (NSMutableArray <NSString *>*)propertyMethods {
+    if (!_propertyMethods) {
+        _propertyMethods = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _propertyMethods;
 }
 
 @end

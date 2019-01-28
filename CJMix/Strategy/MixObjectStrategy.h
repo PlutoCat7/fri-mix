@@ -18,5 +18,7 @@
 
 + (NSArray <MixObject*>*)fileToObject:(NSArray <MixClassFile *>*)classFiles;
 
++ (void)saveObjects:(NSArray <MixObject *>*)objects key:(NSString *)key;
+
 @end
 

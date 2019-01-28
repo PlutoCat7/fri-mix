@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MixFile.h"
 
-@interface MixClassFile : NSObject
+@interface MixClassFile : NSObject <NSCoding>
 
 @property (nonatomic , strong) MixFile * hFile;
 

@@ -53,11 +53,15 @@
 }
 
 + (BOOL)isShieldWithMethod:(NSString *)method {
-    NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldPaths];
+    NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldMethods];
     for (NSString * str in array) {
         if ([method isEqualToString:str]) {
             return YES;
         }
+    }
+    
+    if ([method hasPrefix:@"init"]) {
+        return YES;
     }
     
     if ([MixJudgeStrategy isSystemClass:method]) {

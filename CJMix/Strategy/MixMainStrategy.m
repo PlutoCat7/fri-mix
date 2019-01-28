@@ -72,11 +72,6 @@
 
 + (BOOL)repetition:(NSString *)method systemObjects:(NSArray <MixObject*>*)systemObjects  {
     
-    if ([MixJudgeStrategy isShieldWithMethod:method]) {
-        return YES;
-    }
-    
-    @autoreleasepool {
     for (MixObject * object in systemObjects) {
         for (MixClass * class in object.hClasses) {
             for (NSString * classMethod in class.method.classMethods) {
@@ -93,7 +88,7 @@
         }
     }
     return NO;
-    }
+
 }
 
 + (void)replaceMethod:(NSArray <MixObject *>*)objects oldMethod:(NSString *)oldMethod newMethods:(NSMutableArray <NSString *>*)newMethods {
@@ -102,6 +97,11 @@
     if (oldTrueMethod.length < 9 || [oldTrueMethod containsString:@"sharedInstance"]) {
         return;
     }
+    
+    if ([MixJudgeStrategy isShieldWithMethod:oldTrueMethod]) {
+        return;
+    }
+    
     
     NSString * newMethod = newMethods.firstObject;
     [newMethods removeObjectAtIndex:0];

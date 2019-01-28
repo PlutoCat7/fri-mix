@@ -12,6 +12,21 @@
 
 @implementation MixClass
 
+
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    
+    
+}
+
+
 - (instancetype)initWithClassName:(NSString *)className {
     self = [super init];
     if (self) {
@@ -96,15 +111,19 @@
                 }
                 
                 if (propertyName.length) {
-                    [self.method.exampleMethods addObject:propertyName];
+                    
+                    if (![self.method.propertyMethods containsObject:propertyName]) {
+                        [self.method.propertyMethods addObject:propertyName];
+                    }
+
                     if (!isOnlyRead) {
                         NSString * setPropertyName = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[propertyName substringToIndex:1] uppercaseString]];
                         
-                        setPropertyName = [NSString stringWithFormat:@"set%@",setPropertyName];
+                        setPropertyName = [NSString stringWithFormat:@"set%@:",setPropertyName];
                         
-                        
-                        [self.method.exampleMethods addObject:setPropertyName];
-                        
+                        if (![self.method.propertyMethods containsObject:setPropertyName]) {
+                            [self.method.propertyMethods addObject:setPropertyName];
+                        }
                         
                     }
                 }

@@ -50,4 +50,12 @@
     return objects;
 }
 
++ (void)saveObjects:(NSArray <MixObject *>*)objects key:(NSString *)key {
+    
+    NSString *homeDictionary = NSHomeDirectory();
+    NSString *homePath  = [homeDictionary stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",key]];
+    [NSKeyedArchiver archiveRootObject:objects toFile:homePath];
+    
+}
+
 @end
