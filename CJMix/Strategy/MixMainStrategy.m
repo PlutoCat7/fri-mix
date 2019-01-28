@@ -214,7 +214,7 @@
 + (void)replace:(NSArray <MixClass *>*)classes newNames:(NSMutableArray<NSString *>*)newNmaes allObject:(NSArray <MixObject *>*)allObject {
     for (MixClass * class in classes) {
         NSString * oldClassName = class.className;
-        if ([MixJudgeStrategy isSystemClass:oldClassName]) {
+        if ([MixJudgeStrategy isSystemClass:oldClassName] || [MixJudgeStrategy isShieldWitClass:oldClassName]) {
             continue;
         }
         NSString * newClassName = newNmaes.firstObject;

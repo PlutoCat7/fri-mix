@@ -22,6 +22,7 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
         [MixConfig sharedSingleton].shieldPaths = @[@"imkit",@"imsdk",@"FDFullscreenPopGesture",@"UIAlertView+BlocksKit",@"V8HorizontalPickerView",@"MJExtension",@"FBKVOController",@"countly-sdk-ios",@"Hockey-iOS",@"ElvaChatServiceSDK",@"WebViewJavascriptBridge"];
+        [MixConfig sharedSingleton].shieldClass = @[@"VoiceGiftModel",@"WLPropModel",@"WLSVGBaseModel",@"LaunchAdvertItem",@"HabibiRoomSearchCellModel",@"WLSenderGiftModel",@"WLHabibiGameDefaultResultModel",@"WLSVGBaseModel",@"VoiceFreeGiftModel",@"VoiceTopupMode",@"SVGAParser",@"ResourceConfigModel",@"ResourceMedalItem",@"ResourceNobleItem",@"ResourceLevelItem",@"ResourceGiftItem",@"FriendModel",@"UserAttributeMedalItem",@"UserAttributeModel",@"ResourceConfigModel"];
         
         [MixConfig sharedSingleton].openLog = NO;
 
@@ -50,9 +51,6 @@ int main(int argc, const char * argv[]) {
         printf("拷贝文件成功\n");
         printf("获取系统对象\n");
         NSArray <MixObject*>* systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
-        
-        [[MixConfig sharedSingleton] setSystemObjects:systemObjects];
-        
         printf("获取替换对象\n");
         NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
         printf("获取需要被替换对象\n");

@@ -82,6 +82,13 @@
     return _shieldPaths;
 }
 
+- (NSArray <NSString *>*)shieldClass {
+    if (!_shieldClass) {
+        _shieldClass = @[];
+    }
+    return _shieldClass;
+}
+
 - (NSArray <NSString *>*)shieldMethods {
     if (!_shieldMethods) {
         _shieldMethods = @[@"copy",@"strong",@"assign",@"retain",@"weak",@"nonatomic",@"atomic",@"NSInteger",@"instancetype"];

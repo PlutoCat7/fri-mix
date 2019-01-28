@@ -52,6 +52,16 @@
     return NO;
 }
 
++ (BOOL)isShieldWitClass:(NSString *)className {
+    NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldClass];
+    for (NSString * str in array) {
+        if ([className isEqualToString:str]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 + (BOOL)isShieldWithMethod:(NSString *)method {
     NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldMethods];
     for (NSString * str in array) {

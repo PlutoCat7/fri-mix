@@ -18,6 +18,8 @@
 
 + (BOOL)isShieldWithPath:(NSString *)path;
 
++ (BOOL)isShieldWitClass:(NSString *)className;
+
 + (BOOL)isShieldWithMethod:(NSString *)method;
 
 + (BOOL)isLegalNewClassName:(NSString *)className;
