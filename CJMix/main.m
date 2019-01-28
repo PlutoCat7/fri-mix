@@ -28,8 +28,8 @@ int main(int argc, const char * argv[]) {
         [MixConfig sharedSingleton].openLog = NO;
 
         NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
-        NSString * rootPath = @"/Users/wangsw/wangle/majiabao/najiabao-file";
-        //NSString * rootPath = @"/Users/wangsw/wangle/majiabao/AudioRoom";
+        //NSString * rootPath = @"/Users/wangsw/wangle/majiabao/najiabao-file";
+        NSString * rootPath = @"/Users/wangsw/wangle/majiabao/AudioRoom";
         
         NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
         
@@ -77,19 +77,19 @@ int main(int argc, const char * argv[]) {
 //            printf("工程文件不存在\n");
 //        }
         
-        printf("开始替换Protocol名称\n");
-        if ([MixProtocolStrategy start]) {
-            printf("替换Protocol名称成功\n");
-        }else {
-            printf("替换Protocol名称出错了\n");
-        }
-        
-//        printf("开始替换文件名称\n");
-//        if ([MixFileNameStrategy start:copyObjects rootPath:rootPath]) {
-//            printf("替换文件名称成功\n");
+//        printf("开始替换Protocol名称\n");
+//        if ([MixProtocolStrategy start]) {
+//            printf("替换Protocol名称成功\n");
 //        }else {
-//            printf("替换文件名称出错了\n");
+//            printf("替换Protocol名称出错了\n");
 //        }
+        
+        printf("开始替换文件名称\n");
+        if ([MixFileNameStrategy start:copyObjects rootPath:rootPath]) {
+            printf("替换文件名称成功\n");
+        }else {
+            printf("替换文件名称出错了\n");
+        }
     }
     return 0;
 }
