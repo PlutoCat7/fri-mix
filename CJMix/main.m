@@ -26,20 +26,31 @@ int main(int argc, const char * argv[]) {
         
         [MixConfig sharedSingleton].openLog = NO;
 
-        NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
-        //NSString * rootPath = @"/Users/wangsw/wangle/majiabao/najiabao-file";
-        NSString * rootPath = @"/Users/wangsw/wangle/majiabao/AudioRoom";
-        NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
+//        NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
+//        //NSString * rootPath = @"/Users/wangsw/wangle/majiabao/najiabao-file";
+//        NSString * rootPath = @"/Users/wangsw/wangle/majiabao/AudioRoom";
         
-        NSString * sdkPath = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
 
+//        printf("获取系统对象\n");
+//        NSArray <MixObject*>* systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
+//        if (![MixConfig sharedSingleton].systemObjects) {
+//            systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
+//            [MixConfig sharedSingleton].systemObjects = systemObjects;
+//        } else {
+//            systemObjects = [MixConfig sharedSingleton].systemObjects;
+//        }
         
         
-//        NSString * referencePath = @"/Users/wn/Desktop/Reference";
-//        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
+        NSString * referencePath = @"/Users/wn/Desktop/Reference";
+        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
   
 //        NSString * referencePath = @"/Users/wn/Documents/git/CJMix/Demo1";
 //        NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
+        
+        
+        NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
+        
+        NSString * sdkPath = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
 
         
         printf("拷贝文件中..\n");
@@ -49,8 +60,6 @@ int main(int argc, const char * argv[]) {
             return 0;
         }
         printf("拷贝文件成功\n");
-        printf("获取系统对象\n");
-        NSArray <MixObject*>* systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
         printf("获取替换对象\n");
         NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
         printf("获取需要被替换对象\n");

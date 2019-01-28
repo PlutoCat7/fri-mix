@@ -20,5 +20,7 @@
 
 + (void)saveObjects:(NSArray <MixObject *>*)objects key:(NSString *)key;
 
++ (NSArray <MixObject *>*)objectsForKey:(NSString *)key;
+
 @end
 

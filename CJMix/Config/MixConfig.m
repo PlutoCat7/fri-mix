@@ -12,6 +12,7 @@
 @interface MixConfig () {
     NSArray <NSString *>* _legalClassFrontSymbols;
     NSArray <NSString *>* _legalClassBackSymbols;
+    NSArray <MixObject*>* _systemObjects;
 }
 
 @end
@@ -96,9 +97,18 @@
     return _shieldMethods;
 }
 
+
 - (void)setSystemObjects:(NSArray<MixObject *> *)systemObjects {
     _systemObjects = systemObjects;
     [MixObjectStrategy saveObjects:systemObjects key:@"mix_system"];
 }
+
+- (NSArray<MixObject *> *)systemObjects {
+    if (!_systemObjects) {
+        _systemObjects = [MixObjectStrategy objectsForKey:@"mix_system"];
+    }
+    return _systemObjects;
+}
+
 
 @end

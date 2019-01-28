@@ -40,12 +40,31 @@
                             }
                         }
                         
-                    } else {
+                    }
+                    else {
                         if ([MixStringStrategy isAlphaNum:str]) {
-                            classStr = str;
+                            for (int ff = ii + 1 ; ff < blanks.count; ff++) {
+                                NSString * pp = blanks[ff];
+                                if (!pp.length) {
+                                    continue;
+                                }
+                                
+                                if ([pp hasPrefix:@":"]) {
+                                    classStr = str;
+                                }
+                                
+                                break;
+                                
+                            }
+                            
+                            
                         }
                     }
                     break;
+                }
+                
+                if ([classStr isEqualToString:@"TZAlbumPickerController"]) {
+                    
                 }
                 
                 if (classStr && ![MixJudgeStrategy isSystemClass:classStr]) {

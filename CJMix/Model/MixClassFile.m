@@ -14,14 +14,21 @@
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        
+        _hFile = [aDecoder decodeObjectForKey:@"hFile"];
+        _mFile = [aDecoder decodeObjectForKey:@"hmFile"];
+        _classFileName = [aDecoder decodeObjectForKey:@"classFileName"];
+        _resetFileName = [aDecoder decodeObjectForKey:@"resetFileName"];
+        _isAppDelegate = [aDecoder decodeBoolForKey:@"isAppDelegate"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    
-    
+    [aCoder encodeObject:_hFile forKey:@"hFile"];
+    [aCoder encodeObject:_mFile forKey:@"hmFile"];
+    [aCoder encodeObject:_classFileName forKey:@"classFileName"];
+    [aCoder encodeObject:_resetFileName forKey:@"resetFileName"];
+    [aCoder encodeBool:_isAppDelegate forKey:@"isAppDelegate"];
 }
 
 

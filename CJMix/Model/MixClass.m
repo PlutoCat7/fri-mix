@@ -16,14 +16,15 @@
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        
+        _className = [aDecoder decodeObjectForKey:@"className"];
+        _method = [aDecoder decodeObjectForKey:@"method"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    
-    
+    [aCoder encodeObject:_className forKey:@"className"];
+    [aCoder encodeObject:_method forKey:@"method"];
 }
 
 
