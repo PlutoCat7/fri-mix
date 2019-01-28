@@ -63,10 +63,7 @@
 + (NSArray <MixObject *>*)objectsForKey:(NSString *)key {
     NSString *homeDictionary = NSHomeDirectory();
     NSString *homePath  = [homeDictionary stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",key]];
-    
-    NSData *data = [[NSMutableData alloc] initWithContentsOfFile:homePath];
-    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-    NSArray <MixObject *>* objects = [unarchiver decodeObject];
+    NSArray <MixObject *>* objects = [NSKeyedUnarchiver unarchiveObjectWithFile:homePath];
     
     return objects;
     
