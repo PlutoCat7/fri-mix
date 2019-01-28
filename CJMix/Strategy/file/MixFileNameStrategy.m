@@ -9,7 +9,7 @@
 #import "MixFileNameStrategy.h"
 #import "MixFileNameModifyJsonInfo.h"
 #import "MixFileStrategy.h"
-#import "MixConfig.h"
+#import "MixFilePathModifyModel.h"
 
 typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     yah_MixFileType_UnKnow,
@@ -17,25 +17,26 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     yah_MixFileType_FileReference,  //文件
 };
 
-@interface MixFileInfo : NSObject
+@interface MixPbxprojFileInfo : NSObject
 @property (nonatomic, copy) NSString *UDID;
 @property (nonatomic, assign) yah_MixFileType fileType;
 @property (nonatomic, copy) NSString *fileName;
 @end
-@implementation MixFileInfo
+@implementation MixPbxprojFileInfo
 @end
 
 @interface MixFileNameStrategy ()
 
 @property (nonatomic, strong) NSArray<MixObject *> *objects;
+@property (nonatomic, strong) NSArray<MixFile *> *allFiles;
 @property (nonatomic, copy) NSString *rootPath;
 
 //旧类名、新类名
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSDictionary *> *classNameDict;
 @property (nonatomic, strong) NSMutableSet *fileGroupNameSet;
 
-@property (nonatomic, strong) NSMutableArray<MixFileInfo *> *fileList;  //文件名列表
-@property (nonatomic, strong) NSMutableArray<MixFileInfo *> *fileGroupList;  //文件夹列表
+@property (nonatomic, strong) NSMutableArray<MixPbxprojFileInfo *> *fileList;  //文件名列表
+@property (nonatomic, strong) NSMutableArray<MixPbxprojFileInfo *> *fileGroupList;  //文件夹列表
 
 @end
 
@@ -56,11 +57,12 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 
 #pragma mark - Public
 
-+ (BOOL)start:(NSArray<MixObject *> *)objects rootPath:(NSString *)rootPath {
++ (BOOL)start:(NSArray<MixObject *> *)objects allFiles:(NSArray<MixFile *> *)allFiles rootPath:(NSString *)rootPath {
     
     MixFileNameStrategy *strategy = [[MixFileNameStrategy alloc] init];
     strategy.objects = objects;
     strategy.rootPath = rootPath;
+    strategy.allFiles = allFiles;
     
     //生成类字段
     for (MixObject *object in objects) {
@@ -114,13 +116,13 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             NSString *isa = [dict objectForKey:@"isa"];
             if (isa && [isa isKindOfClass:NSString.class]) {
                 if ([isa isEqualToString:@"PBXFileReference"]) {
-                    MixFileInfo *info = [[MixFileInfo alloc] init];
+                    MixPbxprojFileInfo *info = [[MixPbxprojFileInfo alloc] init];
                     info.fileType = yah_MixFileType_FileReference;
                     info.UDID = key;
                     info.fileName = [dict objectForKey:@"path"];
                     [self.fileList addObject:info];
                 }else if ([isa isEqualToString:@"PBXGroup"]) {
-                    MixFileInfo *info = [[MixFileInfo alloc] init];
+                    MixPbxprojFileInfo *info = [[MixPbxprojFileInfo alloc] init];
                     info.fileType = yah_MixFileType_Group;
                     info.UDID = key;
                     info.fileName = [dict objectForKey:@"path"];
@@ -179,7 +181,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     //替换的文件字典  旧文件名称  新文件名称
     NSMutableDictionary *realFileNameDict = [NSMutableDictionary dictionaryWithCapacity:1];
     //对文件名称替换
-    for (MixFileInfo *info in self.fileList) {
+    for (MixPbxprojFileInfo *info in self.fileList) { //也有文件名称列表
         NSString *suffix = [info.fileName componentsSeparatedByString:@"."].lastObject;
         if (![self checkFileValidWithSuffux:suffix]) {
             continue;
@@ -222,6 +224,19 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             }
         }
     }
+    
+    NSString *configPath = [self.rootPath stringByAppendingPathComponent:@"config.json"];
+    NSError *error;
+    [[jsonObject jsonString] writeToFile:configPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    if (error) {
+        printf("Pbxproj配置数据生成失败，失败原因：%s\n", [error.localizedDescription UTF8String]);
+        return NO;
+    }else{
+        printf("Pbxproj配置数据生成成功\n");
+        //修改
+        return YES;
+    }
+    
     //暂时不对文件夹进行处理
     //对文件夹名称进行替换
     //    NSEnumerator * enumerator = [self.fileGroupNameSet objectEnumerator];
@@ -239,52 +254,44 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     //        //修改物理文件夹名称  https://blog.csdn.net/hsf_study/article/details/46993099
     //    }
     
-    NSString *configPath = [self.rootPath stringByAppendingPathComponent:@"config.json"];
-    NSError *error;
-    [[jsonObject jsonString] writeToFile:configPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    if (error) {
-        printf("Pbxproj配置数据生成失败，失败原因：%s\n", [error.localizedDescription UTF8String]);
-        return NO;
-    }else{
-        printf("Pbxproj配置数据生成成功\n");
-        //修改
-        return [self replaceImportFile:realFileNameDict];
-    }
 }
 
 #pragma mark - 替换import
 
-- (BOOL)replaceImportFile:(NSDictionary *)fileNameDict {
+- (BOOL)replaceImportFile:(NSDictionary *)fileNameDict files:(NSArray<MixFile *> *)files{
     
-    printf("开始替换import文件\n");
-    for (MixObject *object in self.objects) {
+    for (MixFile *file in files) {
         //
         @autoreleasepool {
-            MixFile *hFile = object.classFile.hFile;
-            [self handleMixFile:hFile fileNameDict:fileNameDict];
-            
-            MixFile *mFile = object.classFile.mFile;
-            [self handleMixFile:mFile fileNameDict:fileNameDict];
+            if (file.subFiles.count>0) {
+                return [self replaceImportFile:fileNameDict files:file.subFiles];
+            }else {
+                if (file.fileType == MixFileTypeH ||
+                    file.fileType == MixFileTypeM ||
+                    file.fileType == MixFileTypeMM ||
+                    file.fileType == MixFileTypePch) {
+                    [self handleMixFile:file fileNameDict:fileNameDict];
+                    if (file.fileType == MixFileTypePch) {
+                        NSLog(@"123");
+                    }
+                }
+            }
         }
     }
-    //替换pch里的import
-    for (MixFile *file in [MixConfig sharedSingleton].pchFile) {
-        if (file.path && !file.data) {
-            NSData * data = [NSData dataWithContentsOfFile:file.path options:NSDataReadingUncached error:nil];
-            file.data  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        }
-        [self handleMixFile:file fileNameDict:fileNameDict];
-    }
-    printf("结束替换import文件\n");
+
     return YES;
 }
 
 - (void)handleMixFile:(MixFile *)file fileNameDict:(NSDictionary *)fileNameDict {
     
-    if (!file.data) {
+    NSString *string = file.data;
+    if (!string || string.length == 0) {
+        NSData * data = [NSData dataWithContentsOfFile:file.path options:NSDataReadingUncached error:nil];
+        string  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    }
+    if (!string || string.length == 0) {
         return;
     }
-    NSString *string = file.data;
     NSArray *lineList = [string componentsSeparatedByString:@"\n"];
     NSMutableArray *tmpList = [NSMutableArray arrayWithArray:lineList];
     for (NSString *key in fileNameDict) {
