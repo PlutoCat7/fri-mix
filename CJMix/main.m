@@ -50,6 +50,7 @@ int main(int argc, const char * argv[]) {
         NSString * sdkPath = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
 
         
+
         printf("拷贝文件中..\n");
         BOOL isSuccess = [MixFileStrategy copyItemAtPath:rootPath toPath:copyPath overwrite:YES error:nil];
         if (!isSuccess) {
@@ -93,7 +94,7 @@ int main(int argc, const char * argv[]) {
         }else {
             printf("替换Protocol名称出错了\n");
         }
-        
+
         printf("开始替换文件名称\n");
         if ([MixFileNameStrategy start:copyObjects rootPath:rootPath]) {
             printf("替换文件名称成功\n");
