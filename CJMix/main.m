@@ -14,9 +14,10 @@
 #import "Strategy/MixObjectStrategy.h"
 #import "Strategy/MixMainStrategy.h"
 #import "Strategy/MixReferenceStrategy.h"
+#import "Strategy/MixMethodStrategy.h"
 #import "Config/MixConfig.h"
-#import "Strategy/MixFileNameStrategy.h"
-#import "Strategy/MixProtocolStrategy.h"
+#import "Strategy/file/MixFileNameStrategy.h"
+#import "Strategy/protocol/MixProtocolStrategy.h"
 
 
 int main(int argc, const char * argv[]) {
@@ -28,24 +29,20 @@ int main(int argc, const char * argv[]) {
         [MixConfig sharedSingleton].openLog = NO;
 
 
-        NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
-        //NSString * rootPath = @"/Users/wangsw/wangle/majiabao/najiabao-file";
-        NSString * rootPath = @"/Users/wangsw/wangle/majiabao/AudioRoom";
+//        NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
+//        NSString * rootPath = @"/Users/wangsw/wangle/majiabao/AudioRoom";
         
 
         
         
-//        NSString * referencePath = @"/Users/wn/Desktop/Reference";
-//        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
+        NSString * referencePath = @"/Users/wn/Desktop/Reference";
+        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
   
 //        NSString * referencePath = @"/Users/wn/Documents/git/CJMix/Demo1";
 //        NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
         
         
         NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
-        
-        NSString * sdkPath = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
-
         
         printf("拷贝文件中..\n");
         BOOL isSuccess = [MixFileStrategy copyItemAtPath:rootPath toPath:copyPath overwrite:YES error:nil];
@@ -63,40 +60,38 @@ int main(int argc, const char * argv[]) {
         printf("开始替换类名\n");
         [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
         printf("结束替换类名\n");
-        
-        
         printf("获取系统对象\n");
-//        NSArray <MixObject*>* systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
-        NSArray <MixObject*>* systemObjects = nil;
-        if (![MixConfig sharedSingleton].systemObjects) {
-            systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
-            [MixConfig sharedSingleton].systemObjects = systemObjects;
-        } else {
-            systemObjects = [MixConfig sharedSingleton].systemObjects;
-        }
+//        NSArray <MixObject*>* systemObjects = nil;
+//        if (![MixConfig sharedSingleton].systemObjects) {
+//            systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
+//            [MixConfig sharedSingleton].systemObjects = systemObjects;
+//        } else {
+//            systemObjects = [MixConfig sharedSingleton].systemObjects;
+//        }
         
+        NSArray <NSString *> * systemMethods = [MixMethodStrategy systemMethods];
         
-//        printf("获取替换方法名\n");
-//        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
-//        printf("开始替换方法（请耐心等待）\n");
-//        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemObjects:systemObjects];
-//        printf("结束替换方法\n");
-        
-        
-
-        printf("开始替换Protocol名称\n");
-        if ([MixProtocolStrategy start]) {
-            printf("替换Protocol名称成功\n");
-        }else {
-            printf("替换Protocol名称出错了\n");
-        }
-        
-        printf("开始替换文件名称\n");
-        if ([MixFileNameStrategy start:copyObjects rootPath:rootPath]) {
-            printf("替换文件名称成功\n");
-        }else {
-            printf("替换文件名称出错了\n");
-        }
+        printf("获取替换方法名\n");
+        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
+        printf("开始替换方法（请耐心等待）\n");
+        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemMethods:systemMethods];
+        printf("结束替换方法\n");
+//
+//
+//
+//        printf("开始替换Protocol名称\n");
+//        if ([MixProtocolStrategy start]) {
+//            printf("替换Protocol名称成功\n");
+//        }else {
+//            printf("替换Protocol名称出错了\n");
+//        }
+//
+//        printf("开始替换文件名称\n");
+//        if ([MixFileNameStrategy start:copyObjects rootPath:rootPath]) {
+//            printf("替换文件名称成功\n");
+//        }else {
+//            printf("替换文件名称出错了\n");
+//        }
 
     }
     return 0;

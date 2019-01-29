@@ -63,9 +63,6 @@
                     break;
                 }
                 
-                if ([classStr isEqualToString:@"TZAlbumPickerController"]) {
-                    
-                }
                 
                 if (classStr && ![MixJudgeStrategy isSystemClass:classStr]) {
                     

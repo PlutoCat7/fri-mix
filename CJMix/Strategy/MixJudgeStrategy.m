@@ -8,7 +8,7 @@
 
 #import "MixJudgeStrategy.h"
 #import "../Config/MixConfig.h"
-
+#import "../Strategy/MixStringStrategy.h"
 
 @implementation MixJudgeStrategy
 
@@ -40,6 +40,37 @@
         }
     }
     return NO;
+}
+
++ (BOOL)isLegalMethodFrontSymbol:(NSString *)symbol {
+    
+    if ([MixStringStrategy isAlphaNum:symbol] && ![symbol isEqualToString:@"_"]) {
+        return NO;
+    }
+    return YES;
+    
+//    NSArray <NSString *> * array = @[@".",@" ",@")",@"_"];
+//    for (NSString * str in array) {
+//        if ([symbol isEqualToString:str]) {
+//            return YES;
+//        }
+//    }
+//    return NO;
+}
+
++ (BOOL)isLegalMethodBackSymbol:(NSString *)symbol {
+    
+    if ([MixStringStrategy isAlphaNum:symbol] && ![symbol isEqualToString:@"_"]) {
+        return NO;
+    }
+    return YES;
+//    NSArray <NSString *> * array = @[@":",@"]",@";",@" ",@")",@"\"];
+//    for (NSString * str in array) {
+//        if ([symbol isEqualToString:str]) {
+//            return YES;
+//        }
+//    }
+//    return NO;
 }
 
 + (BOOL)isShieldWithPath:(NSString *)path {
@@ -74,7 +105,19 @@
         return YES;
     }
     
+    if ([method hasPrefix:@"set"]) {
+        return YES;
+    }
+    
     if ([MixJudgeStrategy isSystemClass:method]) {
+        return YES;
+    }
+    
+    if ([method containsString:@"sharedInstance"] || [method containsString:@"show"] || [method containsString:@"encodeDouble"]) {
+        return YES;
+    }
+    
+    if (method.length < 10) {
         return YES;
     }
     

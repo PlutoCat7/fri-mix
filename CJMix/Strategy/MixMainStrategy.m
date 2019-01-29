@@ -20,7 +20,7 @@
 
 #pragma mark 替换方法名
 
-+ (void)replaceMethod:(NSArray <MixObject *>*)objects methods:(NSArray <NSString *>*)methods systemObjects:(NSArray <MixObject*>*)systemObjects {
++ (void)replaceMethod:(NSArray <MixObject *>*)objects methods:(NSArray <NSString *>*)methods systemMethods:(NSArray <NSString*>*)systemMethods {
     
     NSMutableArray <NSString *>* validClassMethods = [NSMutableArray arrayWithCapacity:0];
     NSMutableArray <NSString *>* validExampleMethods = [NSMutableArray arrayWithCapacity:0];
@@ -28,13 +28,13 @@
         for (MixClass * class in object.hClasses) {
             
             for (NSString * method in class.method.classMethods) {
-                if (![validClassMethods containsObject:method] && ![MixMainStrategy repetition:method systemObjects:systemObjects]) {
+                if (![validClassMethods containsObject:method] && ![MixMainStrategy repetition:method systemMethod:systemMethods]) {
                     [validClassMethods addObject:method];
                 }
             }
             
             for (NSString * method in class.method.exampleMethods) {
-                if (![validExampleMethods containsObject:method] && ![MixMainStrategy repetition:method systemObjects:systemObjects]) {
+                if (![validExampleMethods containsObject:method] && ![MixMainStrategy repetition:method systemMethod:systemMethods]) {
                     [validExampleMethods addObject:method];
                 }
             }
@@ -46,27 +46,94 @@
     NSAssert(methods.count >= validCount, @"方法数量不足");
     
     NSMutableArray <NSString *>* newMethods = [NSMutableArray arrayWithArray:methods];
-    NSMutableArray <NSString *>* worker = [NSMutableArray arrayWithArray:methods];
+    NSMutableArray <NSString *>* worker = [NSMutableArray arrayWithCapacity:0];
     
     [newMethods enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([MixMainStrategy repetition:obj systemObjects:systemObjects]) {
-            [worker removeObject:obj];
+        NSString * str = [MixMainStrategy trueMethod:obj];
+        if (![MixMainStrategy repetition:str systemMethod:systemMethods] && ![worker containsObject:str]) {
+            [worker addObject:str];
         }
     }];
     
     newMethods = worker;
     
     for (NSString * method in validClassMethods) {
-        if (![MixMainStrategy repetition:method systemObjects:systemObjects]) {
+        if (![MixMainStrategy repetition:method systemMethod:systemMethods]) {
             [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
         }
     }
     
     for (NSString * method in validExampleMethods) {
-        if (![MixMainStrategy repetition:method systemObjects:systemObjects]) {
+        if (![MixMainStrategy repetition:method systemMethod:systemMethods]) {
             [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
         }
     }
+    
+    
+}
+
+
+//+ (void)replaceMethod:(NSArray <MixObject *>*)objects methods:(NSArray <NSString *>*)methods systemObjects:(NSArray <MixObject*>*)systemObjects {
+//
+//    NSMutableArray <NSString *>* validClassMethods = [NSMutableArray arrayWithCapacity:0];
+//    NSMutableArray <NSString *>* validExampleMethods = [NSMutableArray arrayWithCapacity:0];
+//    for (MixObject * object in objects) {
+//        for (MixClass * class in object.hClasses) {
+//
+//            for (NSString * method in class.method.classMethods) {
+//                if (![validClassMethods containsObject:method] && ![MixMainStrategy repetition:method systemObjects:systemObjects]) {
+//                    [validClassMethods addObject:method];
+//                }
+//            }
+//
+//            for (NSString * method in class.method.exampleMethods) {
+//                if (![validExampleMethods containsObject:method] && ![MixMainStrategy repetition:method systemObjects:systemObjects]) {
+//                    [validExampleMethods addObject:method];
+//                }
+//            }
+//        }
+//    }
+//
+//    NSInteger validCount = validClassMethods.count + validExampleMethods.count;
+//
+//    NSAssert(methods.count >= validCount, @"方法数量不足");
+//
+//    NSMutableArray <NSString *>* newMethods = [NSMutableArray arrayWithArray:methods];
+//    NSMutableArray <NSString *>* worker = [NSMutableArray arrayWithArray:methods];
+//
+//    [newMethods enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if ([MixMainStrategy repetition:obj systemObjects:systemObjects]) {
+//            [worker removeObject:obj];
+//        }
+//    }];
+//
+//    newMethods = worker;
+//
+//    for (NSString * method in validClassMethods) {
+//        if (![MixMainStrategy repetition:method systemObjects:systemObjects]) {
+//            [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
+//        }
+//    }
+//
+//    for (NSString * method in validExampleMethods) {
+//        if (![MixMainStrategy repetition:method systemObjects:systemObjects]) {
+//            [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
+//        }
+//    }
+//
+//}
+
++ (BOOL)repetition:(NSString *)method systemMethod:(NSArray <NSString*>*)systemMethods {
+
+    for (NSString * systemMethod in systemMethods) {
+        NSString * newMethod = [MixMainStrategy trueMethod:systemMethod];
+        NSString * oldMethod = [MixMainStrategy trueMethod:method];
+        
+        if ([newMethod containsString:oldMethod] || [oldMethod containsString:newMethod]) {
+            return YES;
+        }
+    }
+    return NO;
     
 }
 
@@ -94,9 +161,6 @@
 + (void)replaceMethod:(NSArray <MixObject *>*)objects oldMethod:(NSString *)oldMethod newMethods:(NSMutableArray <NSString *>*)newMethods {
     
     NSString * oldTrueMethod = [MixMainStrategy trueMethod:oldMethod];
-    if (oldTrueMethod.length < 9 || [oldTrueMethod containsString:@"sharedInstance"]) {
-        return;
-    }
     
     if ([MixJudgeStrategy isShieldWithMethod:oldTrueMethod]) {
         return;
@@ -109,8 +173,8 @@
     NSString * newTrueMethod = [MixMainStrategy trueMethod:newMethod];
     
     for (MixObject * object in objects) {
-        [MixMainStrategy replaceMethod:object oldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.hFile];
-        [MixMainStrategy replaceMethod:object oldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.mFile];
+        [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.hFile];
+        [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.mFile];
     }
     
     
@@ -128,13 +192,55 @@
     return trueMethod;
 }
 
-+ (void)replaceMethod:(MixObject *)object oldMethod:(NSString *)oldMethod newMethod:(NSString *)newMethod file:(MixFile *)file {
++ (void)replaceMethodOldMethod:(NSString *)oldMethod newMethod:(NSString *)newMethod file:(MixFile *)file {
     if (!file || !file.data || !oldMethod || !newMethod) {
         return;
     }
     
-    NSString * substitute = [file.data stringByReplacingOccurrencesOfString:oldMethod withString:newMethod];
+    NSArray * division = [file.data componentsSeparatedByString:oldMethod];
     
+    NSString * dataCopy = [NSString stringWithFormat:@"%@",file.data];
+    NSString * substitute = [dataCopy stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
+
+    
+    for (int ii = 0; ii < division.count; ii++) {
+        NSRange range = [substitute rangeOfString:oldMethod];
+        if (range.location != NSNotFound) {
+            bool interface = NO;
+            if (range.location > 15) {
+                NSRange frontRange = NSMakeRange(range.location - 15, 15);
+                NSString * frontSymbol = [substitute substringWithRange:frontRange];
+                if ([frontSymbol containsString:@"@interface"]) {
+                    interface = YES;
+                }
+                
+            }
+            
+            NSRange frontRange = NSMakeRange(range.location - 1, 1);
+            NSRange backRange = NSMakeRange(range.location + range.length, 1);
+            NSString * frontSymbol = [substitute substringWithRange:frontRange];
+            NSString * backSymbol = [substitute substringWithRange:backRange];
+            
+            if ([MixJudgeStrategy isLegalMethodFrontSymbol:frontSymbol] && [MixJudgeStrategy isLegalMethodBackSymbol:backSymbol] && !interface) {
+                
+                NSString * front = [substitute substringToIndex:range.location];
+                NSString * back = [substitute substringFromIndex:range.location + range.length];
+                substitute = [NSString stringWithFormat:@"%@%@%@",front,newMethod,back];
+                
+            } else {
+                NSString * front = [substitute substringToIndex:range.location];
+                NSString * back = [substitute substringFromIndex:range.location + range.length];
+                NSString * encrypt = [NSString stringWithFormat:@"######&&&&&&$$$$$******"];
+                substitute = [NSString stringWithFormat:@"%@%@%@",front,encrypt,back];
+            }
+            
+        }
+    }
+    
+    NSString * substituteCopy = [substitute stringByReplacingOccurrencesOfString:@"######&&&&&&$$$$$******" withString:oldMethod];
+    substitute = substituteCopy;
+    
+
     if (![substitute isEqualToString:file.data]) {
         file.data = substitute;
         [MixFileStrategy writeFileAtPath:file.path content:substitute];
@@ -215,16 +321,6 @@
 + (void)replace:(NSArray <MixClass *>*)classes newNames:(NSMutableArray<NSString *>*)newNmaes allObject:(NSArray <MixObject *>*)allObject {
     for (MixClass * class in classes) {
         NSString * oldClassName = class.className;
-        
-        if ([oldClassName isEqualToString:@"TZAlbumPickerController"]) {
-            
-            
-            
-            
-            
-            
-            
-        }
         
         if ([MixJudgeStrategy isSystemClass:oldClassName] || [MixJudgeStrategy isShieldWithClass:oldClassName]) {
             continue;
