@@ -79,12 +79,6 @@
 }
 
 + (BOOL)isShieldWithMethod:(NSString *)method {
-    NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldMethods];
-    for (NSString * str in array) {
-        if ([method isEqualToString:str]) {
-            return YES;
-        }
-    }
     
     if ([method hasPrefix:@"init"]) {
         return YES;
@@ -100,6 +94,13 @@
     
     if ([method containsString:@"sharedInstance"]) {
         return YES;
+    }
+    
+    NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldMethods];
+    for (NSString * str in array) {
+        if ([method isEqualToString:str]) {
+            return YES;
+        }
     }
     
     

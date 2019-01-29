@@ -39,9 +39,12 @@
     
     [MixConfig sharedSingleton].shieldSystemMethodNames =   [MixMainStrategy shieldSystemMethodName:systemMethods];
     
-    
+    NSInteger count = 0;
     for (NSString * method in validMethods) {
         [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
+        count ++;
+        
+        printf("完成进度%0.2f %%\n",(float)count/(float)validMethods.count*100);
     }
     
 }
