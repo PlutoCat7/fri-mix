@@ -82,10 +82,14 @@ int main(int argc, const char * argv[]) {
         NSString * podPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/Pods";
         NSArray <NSString *> * podsMethods = [MixMethodStrategy methodsWithPath:podPath];
         
+        NSString * thirdPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/AudioRoom/Classes/ThirdModule";
+        NSArray <NSString *> * thirdMethods = [MixMethodStrategy methodsWithPath:thirdPath];
+        
         NSMutableArray * methods = [NSMutableArray arrayWithCapacity:0];
         [methods addObjectsFromArray:systemMethods];
         [methods addObjectsFromArray:podsMethods];
-
+        [methods addObjectsFromArray:thirdMethods];
+        
         printf("获取替换方法名\n");
         NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
         printf("开始替换方法（请耐心等待）\n");
