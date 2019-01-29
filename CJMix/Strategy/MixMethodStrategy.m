@@ -138,9 +138,7 @@
     NSMutableArray <NSString *> * methods = [NSMutableArray arrayWithCapacity:0];
     
     [hmFiles enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.fileType == MixFileTypeH ||obj.fileType == MixFileTypeM || obj.fileType == MixFileTypeMM) {
-            [methods addObjectsFromArray:[MixMethodStrategy methodsWithData:obj.data]];
-        }
+        [methods addObjectsFromArray:[MixMethodStrategy methodsWithData:obj.data]];
     }];
     
     return methods;
@@ -175,16 +173,14 @@
     }
     NSMutableArray <NSString *>* methods = [NSMutableArray arrayWithCapacity:0];
     
-    
     NSArray <NSString *>* classes = [data componentsSeparatedByString:@"@interface"];
     
     [classes enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSRange range = [obj rangeOfString:@"@end"];
         if (range.location != NSNotFound) {
-            NSString * str = [obj substringFromIndex:range.location];
+            NSString * str = [obj substringToIndex:range.location];
             [methods addObjectsFromArray:[MixMethodStrategy methodsWithClassData:str]];
         }
-        
     }];
     
     return methods;
@@ -192,7 +188,7 @@
 
 + (NSArray <NSString *>*)methodsWithClassData:(NSString *)data {
     
-    NSMutableArray <NSString *>* methods = [NSMutableArray arrayWithCapacity:0];
+    __block NSMutableArray <NSString *>* methods = [NSMutableArray arrayWithCapacity:0];
     
     NSArray <NSString *>* addMethodData = [data componentsSeparatedByString:@"+"];
     NSArray <NSString *>* subMethodData = [data componentsSeparatedByString:@"-"];
@@ -201,10 +197,6 @@
         if (idx != 0) {
             NSString * group = [NSString stringWithFormat:@"+%@",obj];
             NSString * method = [MixMethodStrategy methodFromData:group];
-            
-            if ([method containsString:@"getkInviteFriendUrl"] || [method containsString:@"rippleVoiceWithUid"]) {
-                
-            }
             
             if (method && ![methods containsObject:method]) {
                 [methods addObject:method];
