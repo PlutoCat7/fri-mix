@@ -11,6 +11,6 @@
 
 @interface MixFileNameStrategy : NSObject
 
-+ (BOOL)start:(NSArray<MixObject *> *)objects rootPath:(NSString *)rootPath;
++ (BOOL)start:(NSArray<MixObject *> *)objects rootPath:(NSString *)rootPath mixPath:(NSString *)mixPath;
 
 @end

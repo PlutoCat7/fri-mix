@@ -30,6 +30,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 
 @property (nonatomic, strong) NSArray<MixObject *> *objects;
 @property (nonatomic, copy) NSString *rootPath;
+@property (nonatomic, copy) NSString *mixPath;
 
 //旧类名、新类名
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSDictionary *> *classNameDict;
@@ -57,11 +58,12 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 
 #pragma mark - Public
 
-+ (BOOL)start:(NSArray<MixObject *> *)objects rootPath:(NSString *)rootPath {
++ (BOOL)start:(NSArray<MixObject *> *)objects rootPath:(NSString *)rootPath mixPath:(NSString *)mixPath{
     
     MixFileNameStrategy *strategy = [[MixFileNameStrategy alloc] init];
     strategy.objects = objects;
     strategy.rootPath = rootPath;
+    strategy.mixPath = mixPath;
     
     //生成类字段
     for (MixObject *object in objects) {
@@ -89,10 +91,16 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     }
     
     //读取工程文件  提取文件名称  和文件夹
-    if ([strategy initPbxproj]) {
+    NSString *projectJsonPath = [strategy parsePbxproj];
+    if (projectJsonPath) {
         //生成配置文件
-        return [strategy makeConfigurationJson];
+        BOOL res = [strategy makeConfigurationJson];
+        //移除中间生成的文件
+        [NSThread sleepForTimeInterval:2.f];
+        [[NSFileManager defaultManager] removeItemAtPath:projectJsonPath error:nil];
+        return res;
     }
+    
     return NO;
 }
 
@@ -138,13 +146,13 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     [NSThread sleepForTimeInterval:3.f];
 }
 
-- (BOOL)initPbxproj {
+- (NSString *)parsePbxproj {
     [self executeConverWithPath:self.rootPath];
     NSString *jsonPath = [self.rootPath stringByAppendingPathComponent:@"pbxproj.json"];   //已通过plutil -convert json -s -r -o ./../pbxproj.json project.pbxproj 转成json
     NSData *data = [NSData dataWithContentsOfFile:jsonPath];
     if (!data) {
         printf("pbxproj文件出错了");
-        return NO;
+        return nil;
     }
     NSError *error = nil;
     id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
@@ -170,7 +178,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             }
         }
     }
-    return YES;
+    return jsonPath;
 }
 
 //读取文件夹数据 生成数组
@@ -275,9 +283,15 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
         return NO;
     }else{
         printf("Pbxproj配置数据生成成功\n");
+        //pbxprojhelper
+        
+        //移除生成的config.json文件
+        //[[NSFileManager defaultManager] removeItemAtPath:configPath error:nil];
+        
         //修改
         return YES;
     }
+    
     
     //暂时不对文件夹进行处理
     //对文件夹名称进行替换
