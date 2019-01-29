@@ -15,8 +15,8 @@
 #import "Strategy/MixMainStrategy.h"
 #import "Strategy/MixReferenceStrategy.h"
 #import "Config/MixConfig.h"
-#import "Strategy/MixFileNameStrategy.h"
-#import "Strategy/MixProtocolStrategy.h"
+#import "Strategy/file/MixFileNameStrategy.h"
+#import "Strategy/protocol/MixProtocolStrategy.h"
 
 
 int main(int argc, const char * argv[]) {
@@ -27,11 +27,14 @@ int main(int argc, const char * argv[]) {
         
         [MixConfig sharedSingleton].openLog = NO;
 
-
+#if 0
         NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
         //NSString * rootPath = @"/Users/wangsw/wangle/majiabao/najiabao-file";
         NSString * rootPath = @"/Users/wangsw/wangle/majiabao/AudioRoom";
-        
+#else
+        NSString * referencePath = @"/Users/yegaofei/Desktop/ygf_project/Rongle/wangle_src/Reference";
+        NSString * rootPath = @"/Users/yegaofei/Desktop/ygf_project/Rongle/wangle_src/WonderVoice/Trunk/AudioRoom";
+#endif
 
         
         
