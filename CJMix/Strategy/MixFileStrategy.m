@@ -11,12 +11,12 @@
 
 @implementation MixFileStrategy
 
-+ (NSArray <MixFile *>*)filesWithPath:(NSString *)path {
++ (NSArray <MixFile *>*)filesWithPath:(NSString *)path framework:(BOOL)framework {
     NSFileManager *fm = [NSFileManager defaultManager];
     NSArray <NSString *>* paths = [fm contentsOfDirectoryAtPath:path error:NULL];
     __block NSMutableArray <MixFile *> *files = [NSMutableArray arrayWithCapacity:0];
     [paths enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        MixFile * file = [MixFileStrategy fileWithPath:[NSString stringWithFormat:@"%@/%@",path,obj]];
+        MixFile * file = [MixFileStrategy fileWithPath:[NSString stringWithFormat:@"%@/%@",path,obj] framework:framework];
         if (file) {
             [files addObject:file];
         }
@@ -48,18 +48,7 @@
     return PCHFiles;
 }
 
-+ (MixFile *)projectWithFilesWithPath:(NSString *)path {
-    __block MixFile * file = nil;
-    NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:path];
-    [files enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.fileType == MixFileTypeProject) {
-            file = obj;
-        }
-    }];
-    return file;
-}
-
-+ (MixFile *)fileWithPath:(NSString *)path {
++ (MixFile *)fileWithPath:(NSString *)path framework:(BOOL)framework {
     MixFile * file = [[MixFile alloc] init];
 
     if ([MixFileStrategy isDirectoryAtPath:path error:nil]) {
@@ -76,7 +65,7 @@
         } else {
             file.fileType = MixFileTypeFolder;
         }
-        file.subFiles = [MixFileStrategy filesWithPath:path];
+        file.subFiles = [MixFileStrategy filesWithPath:path framework:framework];
     } else {
         if ([path hasSuffix:@".h"]) {
             file.fileType = MixFileTypeH;
@@ -89,7 +78,11 @@
         }
     }
     
-    if (file.fileType == MixFileTypeUnknown || file.fileType == MixFileTypePodFolder || file.fileType == MixFileTypeFramework) {
+    if (file.fileType == MixFileTypeUnknown) {
+        return nil;
+    }
+    
+    if ((file.fileType == MixFileTypeFramework|| file.fileType == MixFileTypePodFolder ) && !framework) {
         return nil;
     }
     

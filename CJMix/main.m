@@ -14,11 +14,11 @@
 #import "Strategy/MixObjectStrategy.h"
 #import "Strategy/MixMainStrategy.h"
 #import "Strategy/MixReferenceStrategy.h"
+#import "Strategy/MixMethodStrategy.h"
 #import "Config/MixConfig.h"
 #import "Strategy/file/MixFileNameStrategy.h"
 #import "Strategy/protocol/MixProtocolStrategy.h"
-#import "MixYAHCategoryStrategy.h"
-
+#import "Strategy/category/MixYAHCategoryStrategy.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -28,6 +28,7 @@ int main(int argc, const char * argv[]) {
         
         [MixConfig sharedSingleton].openLog = NO;
 
+
 #if 1
         NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
         //NSString * rootPath = @"/Users/wangsw/wangle/majiabao/najiabao-file";
@@ -36,21 +37,11 @@ int main(int argc, const char * argv[]) {
         NSString * referencePath = @"/Users/yegaofei/Desktop/ygf_project/Rongle/wangle_src/Reference";
         NSString * rootPath = @"/Users/yegaofei/Desktop/ygf_project/Rongle/wangle_src/WonderVoice/Trunk/AudioRoom";
 #endif
-
-        
-        
-//        NSString * referencePath = @"/Users/wn/Desktop/Reference";
-//        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
-  
-//        NSString * referencePath = @"/Users/wn/Documents/git/CJMix/Demo1";
-//        NSString * rootPath = @"/Users/wn/Documents/git/CJMix/Demo2";
-        
         
         NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
         
         NSString * sdkPath = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
 
-        
 
         printf("拷贝文件中..\n");
         BOOL isSuccess = [MixFileStrategy copyItemAtPath:rootPath toPath:copyPath overwrite:YES error:nil];
@@ -60,9 +51,17 @@ int main(int argc, const char * argv[]) {
         }
         printf("拷贝文件成功\n");
         printf("获取替换对象\n");
-        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
+
+        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsForKey:@"mix_reference"];
+        if (!referenceObjects) {
+            referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
+        }
+        [MixObjectStrategy saveObjects:referenceObjects key:@"mix_reference"];
+        
         printf("获取需要被替换对象\n");
         NSArray <MixObject*>* copyObjects = [MixObjectStrategy objectsWithPath:copyPath saveConfig:YES];
+        
+        
         printf("获取替换类名\n");
         NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
         printf("开始替换类名\n");
@@ -70,24 +69,25 @@ int main(int argc, const char * argv[]) {
         printf("结束替换类名\n");
         
         
+    
         printf("获取系统对象\n");
-//        NSArray <MixObject*>* systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
-        NSArray <MixObject*>* systemObjects = nil;
-        if (![MixConfig sharedSingleton].systemObjects) {
-            systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
-            [MixConfig sharedSingleton].systemObjects = systemObjects;
-        } else {
-            systemObjects = [MixConfig sharedSingleton].systemObjects;
-        }
+        NSArray <NSString *> * systemMethods = [MixMethodStrategy systemMethods];
+        NSString * podPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/Pods";
+        NSArray <NSString *> * podsMethods = [MixMethodStrategy methodsWithPath:podPath];
         
+        NSString * thirdPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/AudioRoom/Classes/ThirdModule";
+        NSArray <NSString *> * thirdMethods = [MixMethodStrategy methodsWithPath:thirdPath];
         
-//        printf("获取替换方法名\n");
-//        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
-//        printf("开始替换方法（请耐心等待）\n");
-//        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemObjects:systemObjects];
-//        printf("结束替换方法\n");
+        NSMutableArray * methods = [NSMutableArray arrayWithCapacity:0];
+        [methods addObjectsFromArray:systemMethods];
+        [methods addObjectsFromArray:podsMethods];
+        [methods addObjectsFromArray:thirdMethods];
         
-        
+        printf("获取替换方法名\n");
+        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
+        printf("开始替换方法（请耐心等待）\n");
+        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemMethods:methods];
+        printf("结束替换方法\n");
 
         printf("开始替换Protocol名称\n");
         if ([MixProtocolStrategy startWithPath:rootPath]) {
@@ -109,6 +109,7 @@ int main(int argc, const char * argv[]) {
         }else {
             printf("替换文件名称出错了\n");
         }
+
 
     }
     return 0;

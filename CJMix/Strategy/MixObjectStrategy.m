@@ -16,7 +16,7 @@
 
 + (NSArray <MixObject *>*)objectsWithPath:(NSString *)path saveConfig:(BOOL)saveConfig {
     //获取所有文件（包括文件夹）
-    NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:path];
+    NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:path framework:NO];
 #warning 先这么处理， 后期可在配置初始化
     if (saveConfig) { //
         [MixConfig sharedSingleton].allFile = files;
@@ -44,7 +44,7 @@
 }
 
 + (NSArray <MixObject *>*)objectsWithPath:(NSString *)path {
-    return [MixCategoryStrategy integrateCategoryMethod:[MixObjectStrategy objectsWithPath:path saveConfig:NO]];
+    return [MixObjectStrategy objectsWithPath:path saveConfig:NO];
 }
 
 + (NSArray <MixObject*>*)fileToObject:(NSArray <MixClassFile *>*)classFiles {

@@ -28,6 +28,8 @@
 
 @property (nonatomic , copy) NSArray <NSString *>* shieldClass;
 
+@property (nonatomic , copy) NSArray <NSString *>* shieldSystemMethodNames;
+
 @property (nonatomic , copy) NSArray <MixFile *>* pchFile;
 
 @property (nonatomic , copy) NSArray <MixFile *>* allFile;  //所有文件

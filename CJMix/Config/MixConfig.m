@@ -92,7 +92,7 @@
 
 - (NSArray <NSString *>*)shieldMethods {
     if (!_shieldMethods) {
-        _shieldMethods = @[@"copy",@"strong",@"assign",@"retain",@"weak",@"nonatomic",@"atomic",@"NSInteger",@"instancetype"];
+        _shieldMethods = @[@"copy",@"strong",@"assign",@"retain",@"weak",@"nonatomic",@"atomic",@"NSInteger",@"instancetype",@"interface",@"implementation",@"property",@"void"];
     }
     return _shieldMethods;
 }
