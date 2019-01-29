@@ -92,9 +92,15 @@
         return YES;
     }
     
-    if ([method containsString:@"sharedInstance"]) {
-        return YES;
+    
+
+    NSArray * arr = @[@"titleLabel",@"SDExternalCompletionBlock",@"dispatch_block_t",@"CFHTTPMessageRef",@"fillMode",@"allKeys",@"dispatch_time_t",@"addObject",@"sharedInstance"];
+    for (NSString *str in arr) {
+        if ([method containsString:str]) {
+            return YES;
+        }
     }
+    
     
     NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldMethods];
     for (NSString * str in array) {

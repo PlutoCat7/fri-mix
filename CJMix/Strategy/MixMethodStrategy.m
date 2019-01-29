@@ -221,31 +221,31 @@
     
     
     NSArray <NSString *>* propertyMethodData = [data componentsSeparatedByString:@"@property"];
-    
+
     [propertyMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
+
         NSRange range = [obj rangeOfString:@";"];
         if (range.location != NSNotFound) {
-            
+
             NSString * property = [obj substringToIndex:range.location];
-            
+
             if ([property containsString:@"atomic"] || [property containsString:@"nonatomic"]) {
-                
-                BOOL isOnlyRead = [property containsString:@"readonly"];
-                
+
+//                BOOL isOnlyRead = [property containsString:@"readonly"];
+
                 NSString * propertyName = nil;
-                
+
                 if ([property containsString:@"*"]) {
                     //强引用
                     NSArray * strs = [property componentsSeparatedByString:@"*"];
                     if (strs.count) {
                         NSString * lastStr = strs.lastObject;
-                        lastStr = [lastStr stringByReplacingOccurrencesOfString:@" " withString:@" "];
+                        lastStr = [lastStr stringByReplacingOccurrencesOfString:@" " withString:@""];
                         if ([MixStringStrategy isAlphaNum:lastStr]) {
                             propertyName = lastStr;
                         }
                     }
-                    
+
                 } else {
                     //弱引用
                     NSArray * strs = [property componentsSeparatedByString:@" "];
@@ -254,36 +254,37 @@
                         if (str.length) {
                             if ([MixStringStrategy isAlphaNum:str]) {
                                 propertyName = str;
+                                break;
                             }
                         }
                     }
-                    
+
                 }
-                
+
                 if (propertyName.length) {
-                    
+
                     if (![methods containsObject:propertyName]) {
                         [methods addObject:propertyName];
                     }
-                    
-                    if (!isOnlyRead) {
-                        NSString * setPropertyName = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[propertyName substringToIndex:1] uppercaseString]];
-                        
-                        setPropertyName = [NSString stringWithFormat:@"set%@:",setPropertyName];
-                        
-                        if (![methods containsObject:setPropertyName]) {
-                            [methods addObject:setPropertyName];
-                        }
-                        
-                    }
+
+//                    if (!isOnlyRead) {
+//                        NSString * setPropertyName = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[propertyName substringToIndex:1] uppercaseString]];
+//
+//                        setPropertyName = [NSString stringWithFormat:@"set%@:",setPropertyName];
+//
+//                        if (![methods containsObject:setPropertyName]) {
+//                            [methods addObject:setPropertyName];
+//                        }
+//
+//                    }
                 }
-                
-                
-                
+
+
+
             }
         }
-        
-        
+
+
         
     }];
     

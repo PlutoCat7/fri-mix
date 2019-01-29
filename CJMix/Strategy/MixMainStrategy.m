@@ -45,6 +45,10 @@
         [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
         count ++;
         
+        if (count == 500) {
+            break;
+        }
+        
         printf("完成进度%0.2f %%\n",(float)count/(float)validMethods.count*100);
     }
     
@@ -71,6 +75,10 @@
 + (void)replaceMethod:(NSArray <MixObject *>*)objects oldMethod:(NSString *)oldMethod newMethods:(NSMutableArray <NSString *>*)newMethods {
     
     NSString * oldTrueMethod = [MixMainStrategy trueMethod:oldMethod];
+    
+    if ([oldTrueMethod containsString:@"GiftSendHandle"]) {
+        
+    }
     
     if ([[MixConfig sharedSingleton].shieldSystemMethodNames containsObject:oldTrueMethod]) {
         return;
