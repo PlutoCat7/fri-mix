@@ -17,6 +17,7 @@
 #import "Config/MixConfig.h"
 #import "Strategy/file/MixFileNameStrategy.h"
 #import "Strategy/protocol/MixProtocolStrategy.h"
+#import "MixYAHCategoryStrategy.h"
 
 
 int main(int argc, const char * argv[]) {
@@ -27,7 +28,7 @@ int main(int argc, const char * argv[]) {
         
         [MixConfig sharedSingleton].openLog = NO;
 
-#if 0
+#if 1
         NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
         //NSString * rootPath = @"/Users/wangsw/wangle/majiabao/najiabao-file";
         NSString * rootPath = @"/Users/wangsw/wangle/majiabao/AudioRoom";
@@ -93,6 +94,13 @@ int main(int argc, const char * argv[]) {
             printf("替换Protocol名称成功\n");
         }else {
             printf("替换Protocol名称出错了\n");
+        }
+        
+        printf("开始替换Category名称\n");
+        if ([[MixYAHCategoryStrategy shareInstance] start]) {
+            printf("替换Category名称成功\n");
+        }else {
+            printf("替换Category名称出错了\n");
         }
 
         printf("开始替换文件名称\n");

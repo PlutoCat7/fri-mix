@@ -17,7 +17,6 @@
 
 @property (nonatomic, strong) NSMutableArray<NSString *> *resetProtocolList; //新的protocol名称
 @property (nonatomic, strong) NSMutableDictionary *protocolDict;
-@property (nonatomic, strong) NSMutableArray<MixFile *> *handleFileList; //需要处理的文件列表
 
 @end
 
@@ -36,6 +35,7 @@
         printf("查找旧Protocol失败\n");
         return NO;
     }
+    printf("替换的Protocol个数:%s\n", [@(strategy.protocolDict.allKeys.count).stringValue UTF8String]);
     result = [strategy replaceProtocolQuote];
     if (!result) {
         printf("替换Protocol失败\n");
@@ -50,7 +50,6 @@
 {
     self = [super init];
     if (self) {
-        _handleFileList = [NSMutableArray arrayWithCapacity:1];
         _protocolDict = [NSMutableDictionary dictionaryWithCapacity:1];
         _rootPath = rootPath;
         [self initWhiteData];
@@ -65,6 +64,8 @@
     NSString *jsonPath = [self.rootPath stringByAppendingPathComponent:@"AudioRoom-Protocol-WhiteList.json"];
     NSData *data = [NSData dataWithContentsOfFile:jsonPath];
     if (!data) {
+#warning 防止文件未拷贝
+        self.whiteFolderList = [MixConfig sharedSingleton].shieldPaths;
         return;
     }
     NSError *error = nil;
@@ -101,10 +102,6 @@
                 NSString *tmpString = [lineString copy];
                 if (![lineString containsString:@"@protocol"]) {
                     continue;
-                }
-                //加入到处理列表中，减少for循环
-                if (![self.handleFileList containsObject:file]) {
-                    [self.handleFileList addObject:file];
                 }
                 //去除空格
                 tmpString = [lineString stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -143,14 +140,16 @@
             file.fileType == MixFileTypePch) {
             
             NSString *string = file.data;
+            
+            if (![string containsString:@"@protocol"]) {//可过滤大部分文件
+                continue;
+            }
+            
             NSArray *lineList = [string componentsSeparatedByString:@"\n"];
             NSMutableArray *tmpList = [NSMutableArray arrayWithArray:lineList];
             for (NSInteger index =0; index<lineList.count; index++) {
                 NSString *lineString = lineList[index];
                 NSString *tmpString = [lineString copy];
-                if (![lineString containsString:@"@protocol"]) {
-                    continue;
-                }
                 //去除空格
                 tmpString = [lineString stringByReplacingOccurrencesOfString:@" " withString:@""];
                 NSRange curRange = [tmpString rangeOfString:@"(?<=@protocol).*(?=<)" options:NSRegularExpressionSearch];
@@ -264,7 +263,9 @@
                         NSString *curStr = [tmpString substringWithRange:curRange];
                         //正则有问题  先这样处理
                         NSRange range = [curStr rangeOfString:@")"];
-                        curStr = [curStr substringToIndex:range.location];
+                        if (range.location != NSNotFound) {
+                            curStr = [curStr substringToIndex:range.location];
+                        }
                         if ([curStr isEqualToString:oldProtocol]) {
                             tmpString = [tmpString stringByReplacingOccurrencesOfString:oldProtocol withString:newProtocol];
                             continue;
@@ -314,6 +315,10 @@
         if (file.subFiles>0 && [folder isEqualToString:file.fileName]) {
             return YES;
         }
+    }
+#warning 可以优化下名称
+    if (file.fileType != MixFileTypeFolder) {
+        return YES;
     }
     return NO;
 }
