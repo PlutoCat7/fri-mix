@@ -110,7 +110,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 
 - (void)executeConverWithPath:(NSString *)exePath{
     //plutil -convert json -s -r -o pbxproj.json project.pbxproj
-    NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:exePath];
+    NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:exePath framework:NO];
     NSString *projectFolderName = nil;
     for (MixFile *itemFile in files) {
         if (itemFile.fileType == MixFileTypeProjectFolder) {
