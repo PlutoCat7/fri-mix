@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MixProtocolStrategy : NSObject
 
-+ (BOOL)start;
++ (BOOL)startWithPath:(NSString *)path;
 
 @end
 

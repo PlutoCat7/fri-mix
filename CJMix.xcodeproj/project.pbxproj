@@ -45,6 +45,7 @@
 /* Begin PBXFileReference section */
 		2C59506D21FEEB880039E1A3 /* MixProtocolStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixProtocolStrategy.h; sourceTree = "<group>"; };
 		2C59506E21FEEB880039E1A3 /* MixProtocolStrategy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixProtocolStrategy.m; sourceTree = "<group>"; };
+		2CCDE00F21FFFF6D00743B75 /* AudioRoom-Protocol-WhiteList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "AudioRoom-Protocol-WhiteList.json"; sourceTree = "<group>"; };
 		B75DB02D21FAAC94006FDB86 /* MixFileNameModifyJsonInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixFileNameModifyJsonInfo.h; sourceTree = "<group>"; };
 		B75DB02E21FAAC94006FDB86 /* MixFileNameStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixFileNameStrategy.m; sourceTree = "<group>"; };
 		B75DB02F21FAAC94006FDB86 /* MixFileNameModifyJsonInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixFileNameModifyJsonInfo.m; sourceTree = "<group>"; };
@@ -101,6 +102,7 @@
 		2C59506C21FEEB600039E1A3 /* protocol */ = {
 			isa = PBXGroup;
 			children = (
+				2CCDE00F21FFFF6D00743B75 /* AudioRoom-Protocol-WhiteList.json */,
 				2C59506D21FEEB880039E1A3 /* MixProtocolStrategy.h */,
 				2C59506E21FEEB880039E1A3 /* MixProtocolStrategy.m */,
 			);

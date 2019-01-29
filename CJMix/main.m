@@ -87,7 +87,7 @@ int main(int argc, const char * argv[]) {
 //        }
         
         printf("开始替换Protocol名称\n");
-        if ([MixProtocolStrategy start]) {
+        if ([MixProtocolStrategy startWithPath:rootPath]) {
             printf("替换Protocol名称成功\n");
         }else {
             printf("替换Protocol名称出错了\n");
