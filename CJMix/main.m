@@ -79,11 +79,17 @@ int main(int argc, const char * argv[]) {
 //        }
         printf("获取系统对象\n");
         NSArray <NSString *> * systemMethods = [MixMethodStrategy systemMethods];
+        NSString * podPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/Pods";
+        NSArray <NSString *> * podsMethods = [MixMethodStrategy methodsWithPath:podPath];
+        
+        NSMutableArray * methods = [NSMutableArray arrayWithCapacity:0];
+        [methods addObjectsFromArray:systemMethods];
+        [methods addObjectsFromArray:podsMethods];
 
         printf("获取替换方法名\n");
         NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
         printf("开始替换方法（请耐心等待）\n");
-        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemMethods:systemMethods];
+        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemMethods:methods];
         printf("结束替换方法\n");
 
         

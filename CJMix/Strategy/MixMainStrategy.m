@@ -28,6 +28,7 @@
     NSMutableArray <NSString *>* newMethods = [NSMutableArray arrayWithArray:methods];
     NSMutableArray <NSString *>* worker = [NSMutableArray arrayWithCapacity:0];
     
+    
     [newMethods enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString * str = [MixMainStrategy trueMethod:obj];
         if (![worker containsObject:str]) {
