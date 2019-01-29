@@ -46,31 +46,31 @@
     
     if ([MixStringStrategy isAlphaNum:symbol] && ![symbol isEqualToString:@"_"]) {
         return NO;
+    } else {
+        NSArray <NSString *> * array = @[@".",@" ",@")",@"_",@"(",@":",@"*",@"]",@"["];
+        for (NSString * str in array) {
+            if ([symbol isEqualToString:str]) {
+                return YES;
+            }
+        }
+
     }
-    return YES;
-    
-//    NSArray <NSString *> * array = @[@".",@" ",@")",@"_"];
-//    for (NSString * str in array) {
-//        if ([symbol isEqualToString:str]) {
-//            return YES;
-//        }
-//    }
-//    return NO;
+    return NO;
 }
 
 + (BOOL)isLegalMethodBackSymbol:(NSString *)symbol {
     
     if ([MixStringStrategy isAlphaNum:symbol] && ![symbol isEqualToString:@"_"]) {
         return NO;
+    } else {
+        NSArray <NSString *> * array = @[@":",@"]",@";",@" ",@")",@"\"",@"|",@"(",@"&",@".",@"{",@"\n"];
+        for (NSString * str in array) {
+            if ([symbol isEqualToString:str]) {
+                return YES;
+            }
+        }
     }
-    return YES;
-//    NSArray <NSString *> * array = @[@":",@"]",@";",@" ",@")",@"\"];
-//    for (NSString * str in array) {
-//        if ([symbol isEqualToString:str]) {
-//            return YES;
-//        }
-//    }
-//    return NO;
+    return NO;
 }
 
 + (BOOL)isShieldWithPath:(NSString *)path {
@@ -109,15 +109,11 @@
         return YES;
     }
     
-    if ([MixJudgeStrategy isSystemClass:method]) {
+    if (method.length < 6) {
         return YES;
     }
     
-    if ([method containsString:@"sharedInstance"] || [method containsString:@"show"] || [method containsString:@"encodeDouble"]) {
-        return YES;
-    }
-    
-    if (method.length < 10) {
+    if ([method containsString:@"sharedInstance"] || [method containsString:@"show"] || [method containsString:@"encodeDouble"] || [method containsString:@"withObject"] || [method containsString:@"resizingMode"] || [method containsString:@"endEditing"]) {
         return YES;
     }
     

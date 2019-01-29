@@ -52,15 +52,24 @@ int main(int argc, const char * argv[]) {
         }
         printf("拷贝文件成功\n");
         printf("获取替换对象\n");
-        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
+
+        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsForKey:@"mix_reference"];
+        if (!referenceObjects) {
+            referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
+        }
+        [MixObjectStrategy saveObjects:referenceObjects key:@"mix_reference"];
+        
         printf("获取需要被替换对象\n");
         NSArray <MixObject*>* copyObjects = [MixObjectStrategy objectsWithPath:copyPath saveConfig:YES];
-        printf("获取替换类名\n");
-        NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
-        printf("开始替换类名\n");
-        [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
-        printf("结束替换类名\n");
-        printf("获取系统对象\n");
+//        printf("获取替换类名\n");
+//        NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
+//        printf("开始替换类名\n");
+//        [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
+//        printf("结束替换类名\n");
+        
+        
+        
+//        printf("获取系统对象\n");
 //        NSArray <MixObject*>* systemObjects = nil;
 //        if (![MixConfig sharedSingleton].systemObjects) {
 //            systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
@@ -68,16 +77,16 @@ int main(int argc, const char * argv[]) {
 //        } else {
 //            systemObjects = [MixConfig sharedSingleton].systemObjects;
 //        }
-        
+        printf("获取系统对象\n");
         NSArray <NSString *> * systemMethods = [MixMethodStrategy systemMethods];
-        
+
         printf("获取替换方法名\n");
         NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
         printf("开始替换方法（请耐心等待）\n");
         [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemMethods:systemMethods];
         printf("结束替换方法\n");
-//
-//
+
+        
 //
 //        printf("开始替换Protocol名称\n");
 //        if ([MixProtocolStrategy start]) {

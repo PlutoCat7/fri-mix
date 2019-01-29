@@ -13,6 +13,7 @@
 #import "MixClassFileStrategy.h"
 #import "MixObjectStrategy.h"
 #import "MixJudgeStrategy.h"
+#import "MixMethodStrategy.h"
 #import "file/MixFileNameStrategy.h"
 #import "../Config/MixConfig.h"
 
@@ -22,26 +23,9 @@
 
 + (void)replaceMethod:(NSArray <MixObject *>*)objects methods:(NSArray <NSString *>*)methods systemMethods:(NSArray <NSString*>*)systemMethods {
     
-    NSMutableArray <NSString *>* validClassMethods = [NSMutableArray arrayWithCapacity:0];
-    NSMutableArray <NSString *>* validExampleMethods = [NSMutableArray arrayWithCapacity:0];
-    for (MixObject * object in objects) {
-        for (MixClass * class in object.hClasses) {
-            
-            for (NSString * method in class.method.classMethods) {
-                if (![validClassMethods containsObject:method] && ![MixMainStrategy repetition:method systemMethod:systemMethods]) {
-                    [validClassMethods addObject:method];
-                }
-            }
-            
-            for (NSString * method in class.method.exampleMethods) {
-                if (![validExampleMethods containsObject:method] && ![MixMainStrategy repetition:method systemMethod:systemMethods]) {
-                    [validExampleMethods addObject:method];
-                }
-            }
-        }
-    }
+    NSMutableArray <NSString *>* validMethods = [NSMutableArray arrayWithArray:[MixMethodStrategy methods:objects]];
     
-    NSInteger validCount = validClassMethods.count + validExampleMethods.count;
+    NSInteger validCount = validMethods.count;
     
     NSAssert(methods.count >= validCount, @"方法数量不足");
     
@@ -57,106 +41,30 @@
     
     newMethods = worker;
     
-    for (NSString * method in validClassMethods) {
+    for (NSString * method in validMethods) {
+        
         if (![MixMainStrategy repetition:method systemMethod:systemMethods]) {
             [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
         }
     }
-    
-    for (NSString * method in validExampleMethods) {
-        if (![MixMainStrategy repetition:method systemMethod:systemMethods]) {
-            [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
-        }
-    }
-    
     
 }
 
-
-//+ (void)replaceMethod:(NSArray <MixObject *>*)objects methods:(NSArray <NSString *>*)methods systemObjects:(NSArray <MixObject*>*)systemObjects {
-//
-//    NSMutableArray <NSString *>* validClassMethods = [NSMutableArray arrayWithCapacity:0];
-//    NSMutableArray <NSString *>* validExampleMethods = [NSMutableArray arrayWithCapacity:0];
-//    for (MixObject * object in objects) {
-//        for (MixClass * class in object.hClasses) {
-//
-//            for (NSString * method in class.method.classMethods) {
-//                if (![validClassMethods containsObject:method] && ![MixMainStrategy repetition:method systemObjects:systemObjects]) {
-//                    [validClassMethods addObject:method];
-//                }
-//            }
-//
-//            for (NSString * method in class.method.exampleMethods) {
-//                if (![validExampleMethods containsObject:method] && ![MixMainStrategy repetition:method systemObjects:systemObjects]) {
-//                    [validExampleMethods addObject:method];
-//                }
-//            }
-//        }
-//    }
-//
-//    NSInteger validCount = validClassMethods.count + validExampleMethods.count;
-//
-//    NSAssert(methods.count >= validCount, @"方法数量不足");
-//
-//    NSMutableArray <NSString *>* newMethods = [NSMutableArray arrayWithArray:methods];
-//    NSMutableArray <NSString *>* worker = [NSMutableArray arrayWithArray:methods];
-//
-//    [newMethods enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        if ([MixMainStrategy repetition:obj systemObjects:systemObjects]) {
-//            [worker removeObject:obj];
-//        }
-//    }];
-//
-//    newMethods = worker;
-//
-//    for (NSString * method in validClassMethods) {
-//        if (![MixMainStrategy repetition:method systemObjects:systemObjects]) {
-//            [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
-//        }
-//    }
-//
-//    for (NSString * method in validExampleMethods) {
-//        if (![MixMainStrategy repetition:method systemObjects:systemObjects]) {
-//            [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
-//        }
-//    }
-//
-//}
-
+//是否重复
 + (BOOL)repetition:(NSString *)method systemMethod:(NSArray <NSString*>*)systemMethods {
 
     for (NSString * systemMethod in systemMethods) {
-        NSString * newMethod = [MixMainStrategy trueMethod:systemMethod];
-        NSString * oldMethod = [MixMainStrategy trueMethod:method];
-        
-        if ([newMethod containsString:oldMethod] || [oldMethod containsString:newMethod]) {
-            return YES;
+        NSArray * sysMethods = [systemMethod componentsSeparatedByString:@":"];
+        for (NSString * str in sysMethods) {
+            if ([method containsString:str]) {
+                return YES;
+            }
         }
     }
     return NO;
     
 }
 
-+ (BOOL)repetition:(NSString *)method systemObjects:(NSArray <MixObject*>*)systemObjects  {
-    
-    for (MixObject * object in systemObjects) {
-        for (MixClass * class in object.hClasses) {
-            for (NSString * classMethod in class.method.classMethods) {
-                if ([classMethod containsString:method] || [method containsString:classMethod]) {
-                    return YES;
-                }
-            }
-            
-            for (NSString * exampleMethod in class.method.exampleMethods) {
-                if ([exampleMethod containsString:method] || [method containsString:exampleMethod]) {
-                    return YES;
-                }
-            }
-        }
-    }
-    return NO;
-
-}
 
 + (void)replaceMethod:(NSArray <MixObject *>*)objects oldMethod:(NSString *)oldMethod newMethods:(NSMutableArray <NSString *>*)newMethods {
     
@@ -166,6 +74,9 @@
         return;
     }
     
+    if (!newMethods.count) {
+        return;
+    }
     
     NSString * newMethod = newMethods.firstObject;
     [newMethods removeObjectAtIndex:0];

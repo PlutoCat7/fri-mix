@@ -18,5 +18,7 @@
 
 + (NSArray <NSString *>*)systemMethods;
 
++ (NSArray <NSString *>*)methodsWithPath:(NSString *)path;
+
 @end
 

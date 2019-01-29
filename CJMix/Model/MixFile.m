@@ -47,7 +47,7 @@
 - (NSString *)data {
     
     if (!_data) {
-        NSData *data = [NSData dataWithContentsOfFile:self.path options:NSDataReadingUncached error:nil];
+        NSData *data = [NSData dataWithContentsOfFile:self.path options:NSDataReadingMappedIfSafe error:nil];
         NSString * text  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         _data = text;
     }

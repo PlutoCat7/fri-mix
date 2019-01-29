@@ -16,56 +16,123 @@
     
     //判断无参数方法
     NSRange bracketRange = [data rangeOfString:@")"];
+    NSString * methodStr = nil;
     if (bracketRange.location != NSNotFound) {
-        
-        NSString * methodStr = [data substringFromIndex:bracketRange.location + bracketRange.length];
-        if ([methodStr hasSuffix:@";"]) {
-            methodStr = [methodStr substringToIndex:methodStr.length - 1];
+        methodStr = [data substringFromIndex:bracketRange.location + bracketRange.length];
+        if ([methodStr hasSuffix:@"{"] || [methodStr hasSuffix:@";"]) {
+            NSRange range1 = [methodStr rangeOfString:@"{"];
+            NSRange range2 = [methodStr rangeOfString:@";"];
+            NSInteger location = NSNotFound;
+            if (range1.location != NSNotFound) {
+                location = range1.location;
+            }
+            if (range2.location != NSNotFound) {
+                if (range2.location < location) {
+                    location = range2.location;
+                }
+            }
+            
+            if (location != NSNotFound) {
+                methodStr = [methodStr substringToIndex:location];
+            } else {
+                methodStr = nil;
+            }
+            
         }
         
+    }
+    
+    
+    if (!methodStr) {
+        return nil;
+    }
+    
+    if ([methodStr containsString:@":"]) {
+        //如果有
+        
+        NSArray <NSString *>* names = [data componentsSeparatedByString:@":"];
+        
+        if (names.count) {
+            NSMutableArray <NSString *>* methodNames = [NSMutableArray arrayWithCapacity:0];
+            for (NSString * name in names) {
+                NSRange range = [name rangeOfString:@")"];
+                if (range.location != NSNotFound) {
+                    NSString * methodStr = [name substringFromIndex:range.location + range.length];
+                    
+                    if ([name isEqual:names.lastObject]) {
+                        //最后一个
+                        NSRange range1 = [methodStr rangeOfString:@" "];
+                        NSRange range2 = [methodStr rangeOfString:@";"];
+                        NSInteger location = NSNotFound;
+                        if (range1.location != NSNotFound) {
+                            location = range1.location;
+                        }
+                        if (range2.location != NSNotFound) {
+                            if (range2.location < location) {
+                                location = range2.location;
+                            }
+                        }
+                        
+                        if (location != NSNotFound) {
+                            methodStr = [methodStr substringToIndex:location];
+                            if ([MixStringStrategy isAlphaNum:methodStr]) {
+                                [methodNames addObject:methodStr];
+                            }
+                        }
+                        break;
+                    }
+                    
+                    if ([MixStringStrategy isAlphaNum:methodStr]) {
+                        [methodNames addObject:methodStr];
+                    } else {
+
+                        if ([methodStr containsString:@" "]) {
+                            
+                            NSRange blankRange = [methodStr rangeOfString:@" "];
+                            methodStr = [methodStr substringFromIndex:blankRange.location + blankRange.length];
+                            if ([MixStringStrategy isAlphaNum:methodStr]) {
+                                [methodNames addObject:methodStr];
+                            }
+                            
+                        }
+                        
+                        
+                        
+                    }
+                } else {
+                    if ([MixStringStrategy isAlphaNum:name]) {
+                        [methodNames addObject:name];
+                    }
+                }
+                
+            }
+            NSString *methodInfo = nil;
+            
+            if (methodNames.count) {
+                methodInfo = [NSString stringWithFormat:@"%@:",[methodNames componentsJoinedByString:@":"]];
+            }
+            
+            return methodInfo;
+        }
+        
+    } else {
+        methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
         if ([MixStringStrategy isAlphaNum:methodStr]) {
             return methodStr;
         }
     }
-    
-    NSArray <NSString *>* names = [data componentsSeparatedByString:@":"];
-    
-    if (names.count) {
-        NSMutableArray <NSString *>* methodNames = [NSMutableArray arrayWithCapacity:0];
-        for (NSString * name in names) {
-            NSRange range = [name rangeOfString:@")"];
-            if (range.location != NSNotFound) {
-                NSString * methodStr = [name substringFromIndex:range.location + range.length];
-                if ([MixStringStrategy isAlphaNum:methodStr]) {
-                    [methodNames addObject:methodStr];
-                }
-            } else {
-                if ([MixStringStrategy isAlphaNum:name]) {
-                    [methodNames addObject:name];
-                }
-            }
-            
-        }
-        NSString *methodInfo = nil;
-        
-        if (methodNames.count) {
-            methodInfo = [NSString stringWithFormat:@"%@:",[methodNames componentsJoinedByString:@":"]];
-        }
-        
-        
-        return methodInfo;
-        
-    }
-    
-    
+   
     
     return nil;
 }
 
 + (NSArray <NSString *>*)systemMethods {
-    
     NSString * sdkPath = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
-    NSArray <MixFile *> *files = [MixFileStrategy filesWithPath:sdkPath framework:YES];
+    return [MixMethodStrategy methodsWithPath:sdkPath];
+}
+
++ (NSArray <NSString *>*)methodsWithPath:(NSString *)path {
+    NSArray <MixFile *> *files = [MixFileStrategy filesWithPath:path framework:YES];
     NSArray<MixFile *> *hmFiles = [MixFileStrategy filesToHMFiles:files];
     
     NSMutableArray <NSString *> * methods = [NSMutableArray arrayWithCapacity:0];
@@ -124,17 +191,21 @@
 }
 
 + (NSArray <NSString *>*)methodsWithClassData:(NSString *)data {
+    
     NSMutableArray <NSString *>* methods = [NSMutableArray arrayWithCapacity:0];
     
-    NSString * newData = [MixStringStrategy filterOutImpurities:data];
-    
-    NSArray <NSString *>* addMethodData = [newData componentsSeparatedByString:@"+"];
-    NSArray <NSString *>* subMethodData = [newData componentsSeparatedByString:@"-"];
+    NSArray <NSString *>* addMethodData = [data componentsSeparatedByString:@"+"];
+    NSArray <NSString *>* subMethodData = [data componentsSeparatedByString:@"-"];
     
     [addMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx != 0) {
             NSString * group = [NSString stringWithFormat:@"+%@",obj];
             NSString * method = [MixMethodStrategy methodFromData:group];
+            
+            if ([method containsString:@"getkInviteFriendUrl"] || [method containsString:@"rippleVoiceWithUid"]) {
+                
+            }
+            
             if (method && ![methods containsObject:method]) {
                 [methods addObject:method];
             }
@@ -145,6 +216,11 @@
         if (idx != 0) {
             NSString * group = [NSString stringWithFormat:@"-%@",obj];
             NSString * method = [MixMethodStrategy methodFromData:group];
+            
+            if ([method containsString:@"getkInviteFriendUrl"] || [method containsString:@"rippleVoiceWithUid"]) {
+                
+            }
+            
             if (method && ![methods containsObject:method]) {
                 [methods addObject:method];
             }
