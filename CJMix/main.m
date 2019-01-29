@@ -24,11 +24,17 @@ int main(int argc, const char * argv[]) {
         
         [MixConfig sharedSingleton].shieldPaths = @[@"imkit",@"imsdk",@"FDFullscreenPopGesture",@"UIAlertView+BlocksKit",@"V8HorizontalPickerView",@"MJExtension",@"FBKVOController",@"countly-sdk-ios",@"Hockey-iOS",@"ElvaChatServiceSDK"];
         
-        
+#if 0
         NSString * referencePath = @"/Users/wn/Desktop/Reference";
         NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
+#else
+        NSString * referencePath = @"/Users/yegaofei/Desktop/ygf_project/Rongle/wangle_src/Reference";
+        NSString * rootPath = @"/Users/yegaofei/Desktop/ygf_project/Rongle/wangle_src/WonderVoice/Trunk/AudioRoom";
+#endif
+
+
         NSString * path = [NSString stringWithFormat:@"%@_copy",rootPath];
-        
+
         printf("拷贝文件中..\n");
         BOOL isSuccess = [MixFileStrategy copyItemAtPath:rootPath toPath:path overwrite:YES error:nil];
         if (!isSuccess) {
@@ -51,6 +57,7 @@ int main(int argc, const char * argv[]) {
             printf("工程文件不存在\n");
         }
         //
+        
         printf("开始替换文件名称\n");
         if ([MixFileNameStrategy start:objects rootPath:rootPath]) {
             printf("成功替换文件名称\n");

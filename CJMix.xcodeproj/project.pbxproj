@@ -96,11 +96,9 @@
 			isa = PBXGroup;
 			children = (
 				B75DB02D21FAAC94006FDB86 /* MixFileNameModifyJsonInfo.h */,
-				B75DB02E21FAAC94006FDB86 /* MixFileNameStrategy.m */,
 				B75DB02F21FAAC94006FDB86 /* MixFileNameModifyJsonInfo.m */,
 				B75DB03021FAAC94006FDB86 /* MixFileNameStrategy.h */,
 				B75DB02E21FAAC94006FDB86 /* MixFileNameStrategy.m */,
-				B75DB03121FAAC94006FDB86 /* pbxproj.json */,
 			);
 			path = file;
 			sourceTree = "<group>";
@@ -382,6 +380,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -391,6 +390,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};

@@ -8,6 +8,7 @@
 
 #import "MixFileNameStrategy.h"
 #import "MixFileNameModifyJsonInfo.h"
+#import "MixFileStrategy.h"
 
 typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     yah_MixFileType_UnKnow,
@@ -77,9 +78,49 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 
 #pragma mark - Private
 
-- (BOOL)initPbxproj {
+- (void)executeConverWithPath:(NSString *)exePath{
+    //plutil -convert json -s -r -o pbxproj.json project.pbxproj
+    NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:exePath];
+    NSString *projectFolderName = nil;
+    for (MixFile *itemFile in files) {
+        if (itemFile.fileType == MixFileTypeProjectFolder) {
+            projectFolderName = itemFile.fileName;
+            break;
+        }
+    }
+    NSTask *task = [[NSTask alloc]init];
+    [task setLaunchPath: @"/bin/sh"];
+    NSString *projectFilePath = [exePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/project.pbxproj",projectFolderName]];
+    NSString *jsonPath = [exePath stringByAppendingPathComponent:@"pbxproj.json"];
+    NSString *commandStr = [NSString stringWithFormat:@"plutil -convert json -s -r -o %@ %@",jsonPath,projectFilePath];
+    NSArray *arguments = [NSArray arrayWithObjects:@"-c",commandStr,nil];
+    NSLog(@"arguments : %@",arguments);
+    [task setArguments: arguments];
+    NSPipe *pipe;
+    pipe = [NSPipe pipe];
+    [task setStandardOutput: pipe];
     
-    NSString *jsonPath = [self.rootPath stringByAppendingPathComponent:@"pbxproj.json"];   //已通过plutil -convert json -s -r -o my.json project.pbxproj 转成json
+    NSFileHandle *file;
+    file = [pipe fileHandleForReading];
+    
+    [task launch];
+    
+    NSData *data;
+    data = [file readDataToEndOfFile];
+    
+    NSString *string;
+    string = [[NSString alloc] initWithData: data
+                                   encoding: NSUTF8StringEncoding];
+    
+    NSLog (@"got\n %@", string);
+    
+    //确保命令执行结束文件生成
+    [NSThread sleepForTimeInterval:3.f];
+}
+
+- (BOOL)initPbxproj {
+    [self executeConverWithPath:self.rootPath];
+    NSString *jsonPath = [self.rootPath stringByAppendingPathComponent:@"pbxproj.json"];   //已通过plutil -convert json -s -r -o ./../pbxproj.json project.pbxproj 转成json
     NSData *data = [NSData dataWithContentsOfFile:jsonPath];
     if (!data) {
         NSLog(@"pbxproj文件出错了");

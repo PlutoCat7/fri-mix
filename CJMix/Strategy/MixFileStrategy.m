@@ -41,6 +41,8 @@
     if ([MixFileStrategy isDirectoryAtPath:path error:nil]) {
         if ([path hasSuffix:@".pbxproj"]) {
             file.fileType = MixFileTypeProject;
+        }else if([path hasSuffix:@"xcodeproj"]){
+            file.fileType = MixFileTypeProjectFolder;
         } else if ([path hasSuffix:@"Pods"]) {
             file.fileType = MixFileTypePodFolder;
         } else if ([path hasSuffix:@".framework"]) {
