@@ -10,7 +10,7 @@
 #import "MixFileNameModifyJsonInfo.h"
 #import "MixFileStrategy.h"
 #import "MixConfig.h"
-#import "MixYAHCategoryStrategy.h"
+#import "../category/MixYAHCategoryStrategy.h"
 
 
 typedef NS_ENUM(NSUInteger, yah_MixFileType) {
