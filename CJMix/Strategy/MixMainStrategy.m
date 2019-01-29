@@ -25,50 +25,52 @@
     
     NSMutableArray <NSString *>* validMethods = [NSMutableArray arrayWithArray:[MixMethodStrategy methods:objects]];
     
-    NSInteger validCount = validMethods.count;
-    
-    NSAssert(methods.count >= validCount, @"方法数量不足");
-    
     NSMutableArray <NSString *>* newMethods = [NSMutableArray arrayWithArray:methods];
     NSMutableArray <NSString *>* worker = [NSMutableArray arrayWithCapacity:0];
     
     [newMethods enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString * str = [MixMainStrategy trueMethod:obj];
-        if (![MixMainStrategy repetition:str systemMethod:systemMethods] && ![worker containsObject:str]) {
+        if (![worker containsObject:str]) {
             [worker addObject:str];
         }
     }];
     
     newMethods = worker;
     
+    [MixConfig sharedSingleton].shieldSystemMethodNames =   [MixMainStrategy shieldSystemMethodName:systemMethods];
+    
+    
     for (NSString * method in validMethods) {
-        
-        if (![MixMainStrategy repetition:method systemMethod:systemMethods]) {
-            [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
-        }
+        [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
     }
     
 }
 
-//是否重复
-+ (BOOL)repetition:(NSString *)method systemMethod:(NSArray <NSString*>*)systemMethods {
 
++ (NSArray <NSString *>*)shieldSystemMethodName:(NSArray <NSString*>*)systemMethods {
+    NSMutableArray * strs = [NSMutableArray arrayWithCapacity:0];
     for (NSString * systemMethod in systemMethods) {
         NSArray * sysMethods = [systemMethod componentsSeparatedByString:@":"];
         for (NSString * str in sysMethods) {
-            if ([method containsString:str]) {
-                return YES;
+            if (str.length > 4) {
+                [strs addObject:str];
             }
         }
     }
-    return NO;
     
+    return strs;
 }
+
+
 
 
 + (void)replaceMethod:(NSArray <MixObject *>*)objects oldMethod:(NSString *)oldMethod newMethods:(NSMutableArray <NSString *>*)newMethods {
     
     NSString * oldTrueMethod = [MixMainStrategy trueMethod:oldMethod];
+    
+    if ([[MixConfig sharedSingleton].shieldSystemMethodNames containsObject:oldTrueMethod]) {
+        return;
+    }
     
     if ([MixJudgeStrategy isShieldWithMethod:oldTrueMethod]) {
         return;
