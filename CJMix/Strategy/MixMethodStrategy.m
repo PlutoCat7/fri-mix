@@ -265,16 +265,16 @@
                         [methods addObject:propertyName];
                     }
 
-                    if (!isOnlyRead) {
-                        NSString * setPropertyName = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[propertyName substringToIndex:1] uppercaseString]];
-
-                        setPropertyName = [NSString stringWithFormat:@"set%@:",setPropertyName];
-
-                        if (![methods containsObject:setPropertyName]) {
-                            [methods addObject:setPropertyName];
-                        }
-
-                    }
+//                    if (!isOnlyRead) {
+//                        NSString * setPropertyName = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[propertyName substringToIndex:1] uppercaseString]];
+//
+//                        setPropertyName = [NSString stringWithFormat:@"set%@:",setPropertyName];
+//
+//                        if (![methods containsObject:setPropertyName]) {
+//                            [methods addObject:setPropertyName];
+//                        }
+//
+//                    }
                 }
 
 
