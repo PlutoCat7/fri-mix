@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TeamDataShareHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="103"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AeW-TY-e2g">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="103"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rZX-tP-dnA" customClass="GBAvatorView">
+                            <rect key="frame" x="81" y="14" width="75" height="75"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="rZX-tP-dnA" secondAttribute="height" multiplier="1:1" id="zJd-fg-jOG"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="皇家马德里" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FsI-61-iKC">
+                            <rect key="frame" x="177" y="25" width="82" height="19.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="成立时间 : 2017年5月26日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WoY-Hw-kYD">
+                            <rect key="frame" x="177" y="52" width="187.5" height="12"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <color key="textColor" red="0.61960784310000006" green="0.64705882349999999" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="城       市 : 福州市" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTv-Cb-W56">
+                            <rect key="frame" x="177" y="68" width="81" height="12"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <color key="textColor" red="0.61960784310000006" green="0.64705882349999999" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.031884681433439255" green="0.11440969258546829" blue="0.23701953887939453" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="WoY-Hw-kYD" firstAttribute="width" secondItem="AeW-TY-e2g" secondAttribute="width" multiplier="0.5" id="4pv-9i-xyh"/>
+                        <constraint firstItem="lTv-Cb-W56" firstAttribute="leading" secondItem="WoY-Hw-kYD" secondAttribute="leading" id="5xb-a7-vNM"/>
+                        <constraint firstItem="FsI-61-iKC" firstAttribute="top" secondItem="AeW-TY-e2g" secondAttribute="bottom" multiplier="25:103" id="CJd-mo-dNz"/>
+                        <constraint firstItem="rZX-tP-dnA" firstAttribute="centerY" secondItem="AeW-TY-e2g" secondAttribute="centerY" id="FEt-3e-oWJ"/>
+                        <constraint firstItem="FsI-61-iKC" firstAttribute="leading" secondItem="AeW-TY-e2g" secondAttribute="trailing" multiplier="177:375" id="Ng7-BO-gZa"/>
+                        <constraint firstItem="WoY-Hw-kYD" firstAttribute="top" secondItem="AeW-TY-e2g" secondAttribute="bottom" multiplier="52:103" id="ccr-DK-gOc"/>
+                        <constraint firstItem="rZX-tP-dnA" firstAttribute="height" secondItem="AeW-TY-e2g" secondAttribute="height" multiplier="75:103" id="fJg-6F-wMI"/>
+                        <constraint firstItem="rZX-tP-dnA" firstAttribute="leading" secondItem="AeW-TY-e2g" secondAttribute="trailing" multiplier="81:375" id="tqo-JA-rUA"/>
+                        <constraint firstItem="WoY-Hw-kYD" firstAttribute="leading" secondItem="FsI-61-iKC" secondAttribute="leading" id="wl7-Uj-0Pn"/>
+                        <constraint firstItem="lTv-Cb-W56" firstAttribute="top" secondItem="WoY-Hw-kYD" secondAttribute="bottom" constant="4" id="zUR-iQ-7VS"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="AeW-TY-e2g" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="AJz-Iw-f4t"/>
+                <constraint firstItem="AeW-TY-e2g" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CBA-m8-jnB"/>
+                <constraint firstAttribute="bottom" secondItem="AeW-TY-e2g" secondAttribute="bottom" id="t89-ro-jUM"/>
+                <constraint firstAttribute="trailing" secondItem="AeW-TY-e2g" secondAttribute="trailing" id="znl-Jz-HeH"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="avatorView" destination="rZX-tP-dnA" id="zgL-ev-eJg"/>
+                <outlet property="dateLabel" destination="WoY-Hw-kYD" id="h1i-y3-rd5"/>
+                <outlet property="regionLabel" destination="lTv-Cb-W56" id="F0e-W3-O4z"/>
+                <outlet property="teanNameLabel" destination="FsI-61-iKC" id="6Qb-8y-tui"/>
+            </connections>
+            <point key="canvasLocation" x="24.5" y="52.5"/>
+        </view>
+    </objects>
+</document>

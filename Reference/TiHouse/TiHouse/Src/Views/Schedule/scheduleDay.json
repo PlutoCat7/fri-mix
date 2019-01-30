@@ -1,0 +1,267 @@
+{
+    "data": {
+        "date": "2018-01",
+        "list": [
+                 {
+                 "day": 31,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 1,
+                 "scheduleList": [
+                                  {
+                                  "scheduleid": 1,
+                                  "schedulename": "买餐桌餐椅，注意确买餐桌餐",
+                                  "scheduletype": 0,
+                                  "schedulecolor": "CCCCCC",
+                                  "startDay":"2018-01-01"
+                                  },
+                                  {
+                                  "scheduleid": 2,
+                                  "schedulename": "窗帘尾款",
+                                  "scheduletype": 1,
+                                  "schedulecolor": "F13838",
+                                  "startDay":"2018-01-01"
+                                  }
+                                  ]
+                 },
+                 {
+                 "day": 2,
+                 "scheduleList": [
+                                  {
+                                  "scheduleid": 1,
+                                  "schedulename": "买餐桌餐椅，注意确买餐桌餐",
+                                  "scheduletype": 0,
+                                  "schedulecolor": "CCCCCC",
+                                  "startDay":"2018-01-01"
+                                  },
+                                  {
+                                  "scheduleid": 2,
+                                  "schedulename": "窗帘尾款",
+                                  "scheduletype": 1,
+                                  "schedulecolor": "F13838",
+                                  "startDay":"2018-01-01"
+                                  }
+                                  ]
+                 },
+                 {
+                 "day": 3,
+                 "scheduleList": [
+                                  {
+                                  "scheduleid": 6,
+                                  "schedulename": "注意餐桌颜色",
+                                  "scheduletype": 0,
+                                  "schedulecolor": "2CD2FF",
+                                  "startDay":"2018-01-03"
+                                  },
+                                  {
+                                  "scheduleid": 1,
+                                  "schedulename": "买餐桌餐椅，注意确买餐桌餐",
+                                  "scheduletype": 0,
+                                  "schedulecolor": "CCCCCC",
+                                  "startDay":"2018-01-01"
+                                  }
+                                  ]
+                 },
+                 {
+                 "day": 4,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 5,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 6,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 7,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 8,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 9,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 10,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 11,
+                 "scheduleList": [
+                                  {
+                                  "scheduleid": 3,
+                                  "schedulename": "买餐桌餐椅",
+                                  "scheduletype": 1,
+                                  "schedulecolor": "8FDBD7",
+                                  "startDay":"2018-01-11"
+                                 
+                                  },
+                                  {
+                                  "scheduleid": 5,
+                                  "schedulename": "买餐桌餐椅",
+                                  "scheduletype": 1,
+                                  "schedulecolor": "9BD0AC",
+                                  "startDay":"2018-01-11"
+                                 
+                                  },
+                                  {
+                                  "scheduleid": 4,
+                                  "schedulename": "买餐桌餐椅，注意颜色，和质量",
+                                  "scheduletype": 1,
+                                  "schedulecolor": "CD8FB1",
+                                  "startDay":"2018-01-11"
+                                  }
+                                  ]
+                 },
+                 {
+                 "day": 12,
+                 "scheduleList": [{
+                                  "scheduleid": 4,
+                                  "schedulename": "买餐桌餐椅，注意颜色，和质量",
+                                  "scheduletype": 1,
+                                  "schedulecolor": "CD8FB1",
+                                  "startDay":"2018-01-11"
+                                  },
+                                  {
+                                  "scheduleid": 9,
+                                  "schedulename": "注意颜色",
+                                  "scheduletype": 1,
+                                  "schedulecolor": "FBA376",
+                                  "startDay":"2018-01-12"
+                                  },
+                                  {
+                                  "scheduleid": 8,
+                                  "schedulename": "买和质量",
+                                  "scheduletype": 0,
+                                  "schedulecolor": "4FC53B",
+                                  "startDay":"2018-01-12"
+                                  },
+                                  {
+                                  "scheduleid": 10,
+                                  "schedulename": "买和质量",
+                                  "scheduletype": 1,
+                                  "schedulecolor": "E6F6FF",
+                                  "startDay":"2018-01-12"
+                                  }
+                                  ]
+                 },
+                 {
+                 "day": 13,
+                 "scheduleList": [
+                                  
+                                  {
+                                  "scheduleid": 4,
+                                  "schedulename": "买餐桌餐椅，注意颜色，和质量",
+                                  "scheduletype": 1,
+                                  "schedulecolor": "CD8FB1",
+                                  "startDay":"2018-01-11"
+                                  },
+                                  {
+                                  "scheduleid": 10,
+                                  "schedulename": "买和质量",
+                                  "scheduletype": 1,
+                                  "schedulecolor": "E6F6FF",
+                                  "startDay":"2018-01-12"
+                                  }
+                                  ]
+                 },
+                 {
+                 "day": 14,
+                 "scheduleList": [{
+                                  "scheduleid": 4,
+                                  "schedulename": "买餐桌餐椅，注意颜色，和质量",
+                                  "scheduletype": 1,
+                                  "schedulecolor": "CD8FB1",
+                                  "startDay":"2018-01-11"
+                                  }
+                                  ]
+                 },
+                 {
+                 "day": 15,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 16,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 17,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 18,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 19,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 20,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 21,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 22,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 23,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 24,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 25,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 26,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 27,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 28,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 29,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 30,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 31,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 1,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 2,
+                 "scheduleList": []
+                 },
+                 {
+                 "day": 3,
+                 "scheduleList": []
+                 }
+                 ]
+    }
+}

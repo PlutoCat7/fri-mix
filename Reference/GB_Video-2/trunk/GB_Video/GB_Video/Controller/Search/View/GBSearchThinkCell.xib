@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="GBSearchThinkCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="50.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nal-hI-a9a">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="50.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QzJ-PD-1BB" userLabel="Line">
+                                <rect key="frame" x="16" y="49.5" width="359" height="1"/>
+                                <color key="backgroundColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="qCg-Kx-fEh"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="find_record" translatesAutoresizingMaskIntoConstraints="NO" id="dGG-aw-o1j">
+                                <rect key="frame" x="16" y="18" width="15" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="15" id="L5u-WD-9go"/>
+                                    <constraint firstAttribute="width" secondItem="dGG-aw-o1j" secondAttribute="height" id="laH-xW-VyW"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hub-72-6wa">
+                                <rect key="frame" x="47" y="0.0" width="328" height="50.5"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="梅西">
+                                        <attributes>
+                                            <color key="NSColor" red="0.35686274509803922" green="0.35686274509803922" blue="0.35686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="16" name=".PingFangSC-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Hub-72-6wa" firstAttribute="height" secondItem="nal-hI-a9a" secondAttribute="height" id="8fN-BM-vJ8"/>
+                            <constraint firstItem="QzJ-PD-1BB" firstAttribute="leading" secondItem="nal-hI-a9a" secondAttribute="leading" constant="16" id="Bb4-e3-Kio"/>
+                            <constraint firstItem="dGG-aw-o1j" firstAttribute="centerY" secondItem="nal-hI-a9a" secondAttribute="centerY" id="F8I-f8-dES"/>
+                            <constraint firstItem="Hub-72-6wa" firstAttribute="centerY" secondItem="nal-hI-a9a" secondAttribute="centerY" id="SwU-iD-hoC"/>
+                            <constraint firstItem="dGG-aw-o1j" firstAttribute="leading" secondItem="nal-hI-a9a" secondAttribute="leading" constant="16" id="bXR-bU-r9e"/>
+                            <constraint firstAttribute="bottom" secondItem="QzJ-PD-1BB" secondAttribute="bottom" id="gdh-V1-58u"/>
+                            <constraint firstAttribute="trailing" secondItem="QzJ-PD-1BB" secondAttribute="trailing" id="hMo-dA-Rgd"/>
+                            <constraint firstItem="Hub-72-6wa" firstAttribute="leading" secondItem="dGG-aw-o1j" secondAttribute="trailing" constant="16" id="jDp-WD-7L0"/>
+                            <constraint firstAttribute="trailing" secondItem="Hub-72-6wa" secondAttribute="trailing" id="kAj-0z-rKD"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="nal-hI-a9a" secondAttribute="trailing" id="AyE-jJ-5Cg"/>
+                    <constraint firstAttribute="bottom" secondItem="nal-hI-a9a" secondAttribute="bottom" id="KBV-LS-0eJ"/>
+                    <constraint firstItem="nal-hI-a9a" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jdq-7Q-LOv"/>
+                    <constraint firstItem="nal-hI-a9a" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="uOt-iO-WZS"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="icon" destination="dGG-aw-o1j" id="BGn-V8-HzE"/>
+                <outlet property="thinkLabel" destination="Hub-72-6wa" id="hmp-3e-BU7"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="find_record" width="15" height="15"/>
+    </resources>
+</document>

@@ -1,0 +1,14 @@
+/* 
+  InfoPlist.strings
+  GB_Football
+
+  Created by gxd on 16/10/26.
+  Copyright © 2016年 Go Brother. All rights reserved.
+*/
+"NSBluetoothPeripheralUsageDescription" = "请点击“好”以允许访问。链接手环设备必须要用到此权限。";
+"NSCameraUsageDescription" = "请点击“好”以允许访问。若不允许，你将无法扫描手环的二维码进行绑定，也无法拍摄照片作为头像。";
+"NSContactsUsageDescription" = "T-Goal将上传手机通讯录至服务器以匹配及推荐朋友。T-Goal仅使用特征码用于匹配识别，不会保存你的通讯录内容。";
+"NSLocationWhenInUseUsageDescription" = "请点击“允许”以允许访问。若不允许，你将无法定位球场，也无法搜索到附近的比赛。";
+"NSPhotoLibraryUsageDescription" = "点击“好”以允许访问。若不允许，你将无法上传用户头像。";
+"NSMicrophoneUsageDescription" = "请点击“好”以允许访问。若不允许，你上传的视频没有声音";
+"NSPhotoLibraryAddUsageDescription" = "请点击“好”以允许访问。若不允许，你无法保存拍摄的照片或者视频";

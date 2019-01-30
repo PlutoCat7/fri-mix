@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12121"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GBBar2ChartViewController">
+            <connections>
+                <outlet property="chartView" destination="KDS-3T-T4v" id="oBb-9a-UdN"/>
+                <outlet property="topView" destination="cKB-b2-rYN" id="XHV-Fo-Q7I"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="265"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dLj-bh-rrH" userLabel="参考层">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="265"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8sp-6n-cz5" userLabel="背景层">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="265"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rG9-i1-v53" userLabel="容器层">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="265"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKB-b2-rYN" userLabel="TopView" customClass="ChartTopView">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                            <color key="backgroundColor" red="0.031342316420000002" green="0.11858283729999999" blue="0.23283624650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDS-3T-T4v" customClass="HorizontalBarChartView" customModule="YAHCharts">
+                                            <rect key="frame" x="10" y="50" width="356.5" height="215"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="KDS-3T-T4v" firstAttribute="width" secondItem="rG9-i1-v53" secondAttribute="width" multiplier="0.95" id="3zZ-WF-JRw"/>
+                                        <constraint firstItem="cKB-b2-rYN" firstAttribute="top" secondItem="rG9-i1-v53" secondAttribute="top" id="BBq-CY-aJT"/>
+                                        <constraint firstItem="KDS-3T-T4v" firstAttribute="centerX" secondItem="rG9-i1-v53" secondAttribute="centerX" id="N6R-CG-a7b"/>
+                                        <constraint firstAttribute="bottom" secondItem="KDS-3T-T4v" secondAttribute="bottom" id="StW-eX-uv9"/>
+                                        <constraint firstItem="cKB-b2-rYN" firstAttribute="width" secondItem="rG9-i1-v53" secondAttribute="width" id="VM3-Gz-ifS"/>
+                                        <constraint firstItem="cKB-b2-rYN" firstAttribute="height" secondItem="rG9-i1-v53" secondAttribute="height" multiplier="40:265" id="aoK-5z-d5B"/>
+                                        <constraint firstItem="cKB-b2-rYN" firstAttribute="centerX" secondItem="rG9-i1-v53" secondAttribute="centerX" id="hq1-bZ-vQ7"/>
+                                        <constraint firstItem="KDS-3T-T4v" firstAttribute="top" secondItem="cKB-b2-rYN" secondAttribute="bottom" constant="10" id="vAE-aV-0a2"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="8sp-6n-cz5" firstAttribute="leading" secondItem="dLj-bh-rrH" secondAttribute="leading" id="ETX-ed-lRM"/>
+                        <constraint firstItem="rG9-i1-v53" firstAttribute="top" secondItem="dLj-bh-rrH" secondAttribute="top" id="Lqv-wH-zlz"/>
+                        <constraint firstAttribute="trailing" secondItem="8sp-6n-cz5" secondAttribute="trailing" id="O7L-oy-gWh"/>
+                        <constraint firstAttribute="trailing" secondItem="rG9-i1-v53" secondAttribute="trailing" id="P72-yY-T2U"/>
+                        <constraint firstAttribute="bottom" secondItem="8sp-6n-cz5" secondAttribute="bottom" id="aqs-BT-VBg"/>
+                        <constraint firstItem="rG9-i1-v53" firstAttribute="leading" secondItem="dLj-bh-rrH" secondAttribute="leading" id="p4j-IH-deh"/>
+                        <constraint firstItem="8sp-6n-cz5" firstAttribute="top" secondItem="dLj-bh-rrH" secondAttribute="top" id="pAs-Wi-h8z"/>
+                        <constraint firstAttribute="bottom" secondItem="rG9-i1-v53" secondAttribute="bottom" id="t9n-WL-TaH"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="dLj-bh-rrH" secondAttribute="bottom" id="cZk-NT-Goz"/>
+                <constraint firstItem="dLj-bh-rrH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="efS-Xv-vBX"/>
+                <constraint firstAttribute="trailing" secondItem="dLj-bh-rrH" secondAttribute="trailing" id="ovK-d0-bMG"/>
+                <constraint firstItem="dLj-bh-rrH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wHL-o5-uD0"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

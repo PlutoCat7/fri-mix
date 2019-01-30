@@ -1,0 +1,29 @@
+//
+//  OperatedIconCell.h
+//  TiHouse
+//
+//  Created by Teen Ma on 2018/4/11.
+//  Copyright © 2018年 Confused小伟. All rights reserved.
+//
+
+#import "BaseTableViewCell.h"
+
+@class OperatedIconViewModel;
+
+@protocol OperatedIconCellDelegate;
+
+@interface OperatedIconCell : BaseTableViewCell
+
+@end
+
+@protocol OperatedIconCellDelegate<NSObject>
+
+- (void)operatedIconCell:(OperatedIconCell *)cell clickFirstIconWithViewModel:(OperatedIconViewModel *)viewModel;
+
+- (void)operatedIconCell:(OperatedIconCell *)cell clickSecondIconWithViewModel:(OperatedIconViewModel *)viewModel;
+
+- (void)operatedIconCell:(OperatedIconCell *)cell clickThirdIconWithViewModel:(OperatedIconViewModel *)viewModel;
+
+- (void)operatedIconCell:(OperatedIconCell *)cell clickRightButtonWithViewModel:(OperatedIconViewModel *)viewModel;
+
+@end

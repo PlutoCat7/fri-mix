@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GBMatchInviteViewController">
+            <connections>
+                <outlet property="collectionView" destination="A1n-oI-3wV" id="auv-Tw-bPN"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CHu-XU-I3u" userLabel="参考层">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="umU-mP-dQx" userLabel="背景层">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVS-s3-hCD" userLabel="容器层">
+                                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                    <subviews>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="A1n-oI-3wV">
+                                            <rect key="frame" x="0.0" y="-0.5" width="375" height="603"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1bW-yC-MbW">
+                                                <size key="itemSize" width="50" height="50"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                            <connections>
+                                                <outlet property="dataSource" destination="-1" id="Qrm-Su-JiH"/>
+                                                <outlet property="delegate" destination="-1" id="rIX-pl-1dP"/>
+                                            </connections>
+                                        </collectionView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="A1n-oI-3wV" firstAttribute="centerY" secondItem="hVS-s3-hCD" secondAttribute="centerY" id="2qe-gY-HeQ"/>
+                                        <constraint firstItem="A1n-oI-3wV" firstAttribute="width" secondItem="hVS-s3-hCD" secondAttribute="width" id="3Vl-Vr-g0l"/>
+                                        <constraint firstItem="A1n-oI-3wV" firstAttribute="height" secondItem="hVS-s3-hCD" secondAttribute="height" id="KAu-39-144"/>
+                                        <constraint firstItem="A1n-oI-3wV" firstAttribute="centerX" secondItem="hVS-s3-hCD" secondAttribute="centerX" id="oR7-R4-RsM"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.090196080509999998" green="0.090196080509999998" blue="0.090196080509999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="umU-mP-dQx" secondAttribute="trailing" id="7ze-wt-iCn"/>
+                        <constraint firstItem="umU-mP-dQx" firstAttribute="top" secondItem="CHu-XU-I3u" secondAttribute="top" id="Elt-g9-9Ku"/>
+                        <constraint firstAttribute="bottom" secondItem="umU-mP-dQx" secondAttribute="bottom" id="Kvm-Ez-ZNm"/>
+                        <constraint firstAttribute="bottom" secondItem="hVS-s3-hCD" secondAttribute="bottom" id="LQj-W8-XoE"/>
+                        <constraint firstAttribute="trailing" secondItem="hVS-s3-hCD" secondAttribute="trailing" id="cVw-CA-XoG"/>
+                        <constraint firstItem="hVS-s3-hCD" firstAttribute="leading" secondItem="CHu-XU-I3u" secondAttribute="leading" id="gqc-M1-NuJ"/>
+                        <constraint firstItem="hVS-s3-hCD" firstAttribute="top" secondItem="CHu-XU-I3u" secondAttribute="top" constant="64" identifier="Layout_TopConstraint" id="hus-CB-yOE"/>
+                        <constraint firstItem="umU-mP-dQx" firstAttribute="leading" secondItem="CHu-XU-I3u" secondAttribute="leading" id="sOR-Ha-5rD"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="CHu-XU-I3u" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="3aL-9G-5ES"/>
+                <constraint firstItem="CHu-XU-I3u" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="GwL-MR-EoH"/>
+                <constraint firstItem="CHu-XU-I3u" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="QGh-DW-F8M"/>
+                <constraint firstItem="CHu-XU-I3u" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="SgO-QY-baA"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

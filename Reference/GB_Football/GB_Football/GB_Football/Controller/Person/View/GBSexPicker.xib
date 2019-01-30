@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GBSexPicker">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ut9-Vm-pqc" userLabel="BackView">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XXi-vb-DVu" userLabel="底部图">
+                            <rect key="frame" x="0.0" y="1002" width="375" height="265"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e8e-m3-CRD" userLabel="Bar" customClass="EXTView">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择您的性别" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnG-ic-Xnt">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.56470588239999997" green="0.56470588239999997" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xzj-gt-Jpv">
+                                            <rect key="frame" x="0.0" y="0.0" width="90" height="43"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <state key="normal" title="取消">
+                                                <color key="titleColor" red="0.0039215686269999999" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="actionCancel:" destination="iN0-l3-epB" eventType="touchUpInside" id="zos-Mq-1IH"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAk-PB-BnU">
+                                            <rect key="frame" x="285" y="0.0" width="90" height="43"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <state key="normal" title="保存">
+                                                <color key="titleColor" red="0.0039215686269999999" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="actionSave:" destination="iN0-l3-epB" eventType="touchUpInside" id="bzc-2u-1xT"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="jnG-ic-Xnt" firstAttribute="leading" secondItem="e8e-m3-CRD" secondAttribute="leading" id="0pD-fP-oLd"/>
+                                        <constraint firstItem="jnG-ic-Xnt" firstAttribute="centerY" secondItem="e8e-m3-CRD" secondAttribute="centerY" id="1IZ-9k-bTR"/>
+                                        <constraint firstAttribute="trailing" secondItem="jnG-ic-Xnt" secondAttribute="trailing" id="8ZM-cp-yM6"/>
+                                        <constraint firstItem="CAk-PB-BnU" firstAttribute="width" secondItem="Xzj-gt-Jpv" secondAttribute="width" id="DJS-t8-7hz"/>
+                                        <constraint firstItem="jnG-ic-Xnt" firstAttribute="height" secondItem="e8e-m3-CRD" secondAttribute="height" id="Evy-dY-off"/>
+                                        <constraint firstItem="Xzj-gt-Jpv" firstAttribute="leading" secondItem="e8e-m3-CRD" secondAttribute="leading" id="SuN-KB-4UY"/>
+                                        <constraint firstItem="CAk-PB-BnU" firstAttribute="height" secondItem="Xzj-gt-Jpv" secondAttribute="height" id="UOl-la-OXK"/>
+                                        <constraint firstItem="Xzj-gt-Jpv" firstAttribute="height" secondItem="e8e-m3-CRD" secondAttribute="height" id="Uaw-Jv-TWc"/>
+                                        <constraint firstItem="Xzj-gt-Jpv" firstAttribute="centerY" secondItem="e8e-m3-CRD" secondAttribute="centerY" id="aLu-AD-SuQ"/>
+                                        <constraint firstItem="CAk-PB-BnU" firstAttribute="centerY" secondItem="Xzj-gt-Jpv" secondAttribute="centerY" id="cb6-5v-oxY"/>
+                                        <constraint firstItem="Xzj-gt-Jpv" firstAttribute="width" secondItem="e8e-m3-CRD" secondAttribute="width" multiplier="180:750" id="fdf-9b-xPD"/>
+                                        <constraint firstAttribute="trailing" secondItem="CAk-PB-BnU" secondAttribute="trailing" id="lL0-9O-0sR"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="bgStartColor">
+                                            <color key="value" red="0.14901961389999999" green="0.15294118230000001" blue="0.17254902420000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="bgEndColor">
+                                            <color key="value" red="0.066666670139999995" green="0.066666670139999995" blue="0.066666670139999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7YE-xq-1hW" userLabel="PickerBack">
+                                    <rect key="frame" x="0.0" y="43" width="375" height="222"/>
+                                    <subviews>
+                                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tar-a6-uF6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="222"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="iN0-l3-epB" id="wUK-mF-IxF"/>
+                                                <outlet property="delegate" destination="iN0-l3-epB" id="lSH-UK-cJs"/>
+                                            </connections>
+                                        </pickerView>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.10980392160000001" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="tar-a6-uF6" secondAttribute="trailing" id="VLp-iJ-1an"/>
+                                        <constraint firstAttribute="bottom" secondItem="tar-a6-uF6" secondAttribute="bottom" id="ceC-kX-s0Q"/>
+                                        <constraint firstItem="tar-a6-uF6" firstAttribute="leading" secondItem="7YE-xq-1hW" secondAttribute="leading" id="pEr-Ks-PGn"/>
+                                        <constraint firstItem="tar-a6-uF6" firstAttribute="top" secondItem="7YE-xq-1hW" secondAttribute="top" id="xey-eJ-I0W"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="e8e-m3-CRD" firstAttribute="width" secondItem="XXi-vb-DVu" secondAttribute="width" id="BXk-Bz-00f"/>
+                                <constraint firstItem="7YE-xq-1hW" firstAttribute="height" secondItem="XXi-vb-DVu" secondAttribute="height" multiplier="444:530" id="J8v-VR-GOB"/>
+                                <constraint firstItem="7YE-xq-1hW" firstAttribute="width" secondItem="XXi-vb-DVu" secondAttribute="width" id="Zvg-Mv-4Pm"/>
+                                <constraint firstItem="e8e-m3-CRD" firstAttribute="centerX" secondItem="XXi-vb-DVu" secondAttribute="centerX" id="p48-rj-eQ4"/>
+                                <constraint firstItem="e8e-m3-CRD" firstAttribute="height" secondItem="XXi-vb-DVu" secondAttribute="height" multiplier="86:530" id="shV-Zv-AWk"/>
+                                <constraint firstAttribute="bottom" secondItem="7YE-xq-1hW" secondAttribute="bottom" id="t0H-rm-c1r"/>
+                                <constraint firstItem="e8e-m3-CRD" firstAttribute="top" secondItem="XXi-vb-DVu" secondAttribute="top" id="yiR-ah-g13"/>
+                                <constraint firstItem="7YE-xq-1hW" firstAttribute="centerX" secondItem="XXi-vb-DVu" secondAttribute="centerX" id="zLO-V2-G6R"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="XXi-vb-DVu" firstAttribute="height" secondItem="ut9-Vm-pqc" secondAttribute="height" multiplier="530:1334" id="9r8-5X-fLb"/>
+                        <constraint firstItem="XXi-vb-DVu" firstAttribute="width" secondItem="ut9-Vm-pqc" secondAttribute="width" id="Hhm-lT-cqA"/>
+                        <constraint firstItem="XXi-vb-DVu" firstAttribute="centerX" secondItem="ut9-Vm-pqc" secondAttribute="centerX" id="Jal-Ao-neX"/>
+                        <constraint firstAttribute="bottom" secondItem="XXi-vb-DVu" secondAttribute="bottom" constant="-600" id="KjO-i5-9Mt"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="37L-q3-smd" appends="YES" id="ciS-89-M9v"/>
+                    </connections>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="ut9-Vm-pqc" secondAttribute="bottom" id="7Wj-z2-HSO"/>
+                <constraint firstAttribute="trailing" secondItem="ut9-Vm-pqc" secondAttribute="trailing" id="Lwa-vC-cpv"/>
+                <constraint firstItem="ut9-Vm-pqc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Zji-TK-fKB"/>
+                <constraint firstItem="ut9-Vm-pqc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="tct-RS-v7O"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <connections>
+                <outlet property="backView" destination="ut9-Vm-pqc" id="oyA-7n-ZkS"/>
+                <outlet property="cancelBtn" destination="Xzj-gt-Jpv" id="pAX-Tn-dEV"/>
+                <outlet property="container" destination="XXi-vb-DVu" id="FZu-jn-S44"/>
+                <outlet property="pickerView" destination="tar-a6-uF6" id="Mi8-kr-M0A"/>
+                <outlet property="saveBtn" destination="CAk-PB-BnU" id="fXL-ew-EMM"/>
+                <outlet property="sexStLbl" destination="jnG-ic-Xnt" id="2e8-KP-D6I"/>
+            </connections>
+        </view>
+        <tapGestureRecognizer id="37L-q3-smd">
+            <connections>
+                <action selector="actionTapDismiss:" destination="iN0-l3-epB" id="PGc-44-RPU"/>
+                <outlet property="delegate" destination="-1" id="dTB-4u-1ce"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+</document>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FindSearchArtViewController">
+            <connections>
+                <outlet property="tableView" destination="L9M-uY-K1w" id="PyT-jd-md6"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Anl-UH-jfp" userLabel="参考层">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="603-t7-khD" userLabel="背景层">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="snB-u4-wj6" userLabel="容器层">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <subviews>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="L9M-uY-K1w">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                            <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="-1" id="x6F-60-UKb"/>
+                                                <outlet property="delegate" destination="-1" id="oav-eb-fVd"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="L9M-uY-K1w" firstAttribute="leading" secondItem="snB-u4-wj6" secondAttribute="leading" id="COh-bb-pIA"/>
+                                        <constraint firstAttribute="trailing" secondItem="L9M-uY-K1w" secondAttribute="trailing" id="WPB-YA-FcH"/>
+                                        <constraint firstItem="L9M-uY-K1w" firstAttribute="top" secondItem="snB-u4-wj6" secondAttribute="top" id="kC1-mn-2Gu"/>
+                                        <constraint firstAttribute="bottom" secondItem="L9M-uY-K1w" secondAttribute="bottom" id="pGb-5Q-7Ud"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="snB-u4-wj6" secondAttribute="bottom" id="50J-7d-GeA"/>
+                        <constraint firstItem="603-t7-khD" firstAttribute="leading" secondItem="Anl-UH-jfp" secondAttribute="leading" id="8pO-84-duB"/>
+                        <constraint firstAttribute="trailing" secondItem="snB-u4-wj6" secondAttribute="trailing" id="M9F-sc-MGJ"/>
+                        <constraint firstItem="603-t7-khD" firstAttribute="top" secondItem="Anl-UH-jfp" secondAttribute="top" id="Pn8-kO-YQe"/>
+                        <constraint firstItem="snB-u4-wj6" firstAttribute="leading" secondItem="Anl-UH-jfp" secondAttribute="leading" id="QVX-Kl-jdh"/>
+                        <constraint firstItem="snB-u4-wj6" firstAttribute="top" secondItem="Anl-UH-jfp" secondAttribute="top" id="brG-Iw-e6g"/>
+                        <constraint firstAttribute="bottom" secondItem="603-t7-khD" secondAttribute="bottom" id="mKb-0K-cjh"/>
+                        <constraint firstAttribute="trailing" secondItem="603-t7-khD" secondAttribute="trailing" id="onn-nu-aPI"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Anl-UH-jfp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9YT-0F-r0W"/>
+                <constraint firstAttribute="trailing" secondItem="Anl-UH-jfp" secondAttribute="trailing" id="Ame-kc-TKx"/>
+                <constraint firstAttribute="bottom" secondItem="Anl-UH-jfp" secondAttribute="bottom" id="Zwd-Pc-ARl"/>
+                <constraint firstItem="Anl-UH-jfp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="kug-2s-fWM"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

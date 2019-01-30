@@ -1,0 +1,16 @@
+/* 
+  InfoPlist.strings
+  GB_Football
+
+  Created by gxd on 16/10/26.
+  Copyright © 2016年 Go Brother. All rights reserved.
+*/
+"NSBluetoothPeripheralUsageDescription" = "Click \"Allow\" to allow access.You must have this permission for the connected device。";
+"NSCameraUsageDescription" = "Click \"Allow\" to allow access.You must have this permission to scan two-dimensional code and take pictures";
+"NSContactsUsageDescription" = "T-Goal will upload your address book to its server to help you find out which mobile contacts use T-Goal.Your uploaded data is only used for contacts matching and won't be saved.";
+"NSLocationWhenInUseUsageDescription" = "Click \"OK\" to allow access.If you choose \"Don't Allow\",T-Goal's location-based services(i.e.,People Nearby) will be unavailable and you cannot share your location with friends.";
+"NSPhotoLibraryUsageDescription" = "Click \"OK\" to allow access.If you choose \"Don't Allow\",you will not be able to send and save images.";
+"NSMicrophoneUsageDescription" = "Click \"Allow\" to allow access.If you choose \"Don't Allow\",your video will not sound";
+"NSPhotoLibraryAddUsageDescription" = "Click \"Allow\" to allow access.If you choose \"Don't Allow\",you can not save a photo or video";
+
+

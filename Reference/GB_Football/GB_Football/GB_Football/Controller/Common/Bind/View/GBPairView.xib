@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GBPairView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iKx-y6-IyP">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="65F-WQ-WWB" userLabel="PhoneGroup">
+                            <rect key="frame" x="46" y="102" width="95" height="95"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pair_phone_green" translatesAutoresizingMaskIntoConstraints="NO" id="Zgh-Q1-gO2">
+                                    <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="Zgh-Q1-gO2" secondAttribute="height" multiplier="1:1" id="gVv-Zy-iXe"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pair_phone_gray" translatesAutoresizingMaskIntoConstraints="NO" id="HYm-74-B1l">
+                                    <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="HYm-74-B1l" secondAttribute="height" multiplier="1:1" id="STC-5a-ZSb"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="65F-WQ-WWB" secondAttribute="height" multiplier="1:1" id="51k-aP-HbC"/>
+                                <constraint firstItem="Zgh-Q1-gO2" firstAttribute="top" secondItem="65F-WQ-WWB" secondAttribute="top" id="A6h-jD-Tcu"/>
+                                <constraint firstItem="HYm-74-B1l" firstAttribute="leading" secondItem="65F-WQ-WWB" secondAttribute="leading" id="Cdi-MS-yEO"/>
+                                <constraint firstItem="Zgh-Q1-gO2" firstAttribute="leading" secondItem="65F-WQ-WWB" secondAttribute="leading" id="KXQ-K3-Rm6"/>
+                                <constraint firstAttribute="bottom" secondItem="Zgh-Q1-gO2" secondAttribute="bottom" id="Sew-e2-E6H"/>
+                                <constraint firstAttribute="trailing" secondItem="HYm-74-B1l" secondAttribute="trailing" id="bAZ-g9-yCQ"/>
+                                <constraint firstAttribute="bottom" secondItem="HYm-74-B1l" secondAttribute="bottom" id="eBg-re-nI5"/>
+                                <constraint firstAttribute="trailing" secondItem="Zgh-Q1-gO2" secondAttribute="trailing" id="ep8-8k-gZg"/>
+                                <constraint firstItem="HYm-74-B1l" firstAttribute="top" secondItem="65F-WQ-WWB" secondAttribute="top" id="hvx-aZ-ELG"/>
+                                <constraint firstItem="Zgh-Q1-gO2" firstAttribute="width" secondItem="Zgh-Q1-gO2" secondAttribute="height" multiplier="1:1" id="mdG-yp-dvI"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X7Z-Ct-FOo" userLabel="RingGroup">
+                            <rect key="frame" x="234" y="103" width="95" height="95"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pair_ring_green" translatesAutoresizingMaskIntoConstraints="NO" id="plS-vX-IWS">
+                                    <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="plS-vX-IWS" secondAttribute="height" multiplier="1:1" id="Bwf-mO-uuE"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pair_ring_gray" translatesAutoresizingMaskIntoConstraints="NO" id="ci2-fO-Kfj">
+                                    <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="ci2-fO-Kfj" secondAttribute="height" multiplier="1:1" id="2kh-xC-C0U"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="ci2-fO-Kfj" firstAttribute="top" secondItem="X7Z-Ct-FOo" secondAttribute="top" id="2d9-yq-pch"/>
+                                <constraint firstItem="ci2-fO-Kfj" firstAttribute="leading" secondItem="X7Z-Ct-FOo" secondAttribute="leading" id="3Qy-BE-ddC"/>
+                                <constraint firstItem="plS-vX-IWS" firstAttribute="leading" secondItem="X7Z-Ct-FOo" secondAttribute="leading" id="5gI-6N-hBZ"/>
+                                <constraint firstAttribute="width" secondItem="X7Z-Ct-FOo" secondAttribute="height" multiplier="1:1" id="BBp-Cg-O2b"/>
+                                <constraint firstAttribute="bottom" secondItem="plS-vX-IWS" secondAttribute="bottom" id="Jzk-sM-l0N"/>
+                                <constraint firstAttribute="trailing" secondItem="plS-vX-IWS" secondAttribute="trailing" id="RPF-5S-pjS"/>
+                                <constraint firstItem="plS-vX-IWS" firstAttribute="top" secondItem="X7Z-Ct-FOo" secondAttribute="top" id="Ydr-fj-wmV"/>
+                                <constraint firstItem="ci2-fO-Kfj" firstAttribute="width" secondItem="ci2-fO-Kfj" secondAttribute="height" multiplier="1:1" id="YpE-N6-ly1"/>
+                                <constraint firstAttribute="bottom" secondItem="ci2-fO-Kfj" secondAttribute="bottom" id="sSl-EN-SAb"/>
+                                <constraint firstAttribute="trailing" secondItem="ci2-fO-Kfj" secondAttribute="trailing" id="wCU-UN-daZ"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A6g-Hr-CCN" customClass="GBWaveView">
+                            <rect key="frame" x="160" y="138" width="56" height="24"/>
+                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="A6g-Hr-CCN" secondAttribute="height" multiplier="7:3" id="gmU-Cb-tSV"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E41-9M-Nyk" userLabel="参照max">
+                            <rect key="frame" x="130" y="92.5" width="115" height="115"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="E41-9M-Nyk" secondAttribute="height" id="E9O-Qo-RaA"/>
+                            </constraints>
+                        </view>
+                        <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pair_shake" translatesAutoresizingMaskIntoConstraints="NO" id="cDe-n7-URR">
+                            <rect key="frame" x="245" y="92.5" width="24" height="115"/>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="65F-WQ-WWB" firstAttribute="centerY" secondItem="iKx-y6-IyP" secondAttribute="centerY" id="0uV-Qh-Iep"/>
+                        <constraint firstItem="E41-9M-Nyk" firstAttribute="trailing" secondItem="cDe-n7-URR" secondAttribute="leading" id="2EJ-iL-k2D"/>
+                        <constraint firstItem="A6g-Hr-CCN" firstAttribute="centerX" secondItem="iKx-y6-IyP" secondAttribute="centerX" id="8Ii-G2-reE"/>
+                        <constraint firstItem="65F-WQ-WWB" firstAttribute="centerX" secondItem="iKx-y6-IyP" secondAttribute="centerX" multiplier="0.5" id="DYq-Wf-STR"/>
+                        <constraint firstItem="E41-9M-Nyk" firstAttribute="width" secondItem="iKx-y6-IyP" secondAttribute="width" multiplier="230:750" id="YSZ-xg-J9d"/>
+                        <constraint firstItem="cDe-n7-URR" firstAttribute="width" secondItem="iKx-y6-IyP" secondAttribute="width" multiplier="48:750" id="cd9-NQ-at5"/>
+                        <constraint firstItem="cDe-n7-URR" firstAttribute="centerY" secondItem="E41-9M-Nyk" secondAttribute="centerY" id="deO-WE-0p1"/>
+                        <constraint firstItem="X7Z-Ct-FOo" firstAttribute="centerY" secondItem="iKx-y6-IyP" secondAttribute="centerY" id="dty-Xw-WDB"/>
+                        <constraint firstItem="65F-WQ-WWB" firstAttribute="width" secondItem="iKx-y6-IyP" secondAttribute="width" multiplier="190:750" id="gCE-1s-kkT"/>
+                        <constraint firstItem="X7Z-Ct-FOo" firstAttribute="centerX" secondItem="iKx-y6-IyP" secondAttribute="centerX" multiplier="1.5" id="hvr-89-2W4"/>
+                        <constraint firstItem="X7Z-Ct-FOo" firstAttribute="width" secondItem="iKx-y6-IyP" secondAttribute="width" multiplier="190:750" id="sFe-Z0-Weh"/>
+                        <constraint firstItem="A6g-Hr-CCN" firstAttribute="centerY" secondItem="iKx-y6-IyP" secondAttribute="centerY" id="u4K-Jk-ZhM"/>
+                        <constraint firstItem="A6g-Hr-CCN" firstAttribute="width" secondItem="iKx-y6-IyP" secondAttribute="width" multiplier="112:750" id="vDP-YI-aW3"/>
+                        <constraint firstItem="cDe-n7-URR" firstAttribute="height" secondItem="E41-9M-Nyk" secondAttribute="height" id="x9e-y3-9dX"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="iKx-y6-IyP" secondAttribute="bottom" id="Iuq-i9-TLH"/>
+                <constraint firstItem="E41-9M-Nyk" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="N6u-pB-9qf"/>
+                <constraint firstItem="iKx-y6-IyP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Xdw-Kf-Dvo"/>
+                <constraint firstItem="E41-9M-Nyk" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="b7z-qq-9oC"/>
+                <constraint firstItem="iKx-y6-IyP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="g8v-cF-dPk"/>
+                <constraint firstAttribute="trailing" secondItem="iKx-y6-IyP" secondAttribute="trailing" id="kyu-f6-DbO"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="phoneGray" destination="HYm-74-B1l" id="bb1-ky-uE4"/>
+                <outlet property="phoneGreen" destination="Zgh-Q1-gO2" id="yju-MH-h2q"/>
+                <outlet property="phoneGroup" destination="65F-WQ-WWB" id="QSx-Be-NMT"/>
+                <outlet property="ringGray" destination="ci2-fO-Kfj" id="aMB-L6-EEE"/>
+                <outlet property="ringGreen" destination="plS-vX-IWS" id="fga-nu-T2s"/>
+                <outlet property="ringGroup" destination="X7Z-Ct-FOo" id="Lld-7M-krm"/>
+                <outlet property="shake" destination="cDe-n7-URR" id="b15-VZ-IzZ"/>
+                <outlet property="waveView" destination="A6g-Hr-CCN" id="Oir-qR-OtA"/>
+            </connections>
+            <point key="canvasLocation" x="32.5" y="71"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="pair_phone_gray" width="95" height="95"/>
+        <image name="pair_phone_green" width="95" height="95"/>
+        <image name="pair_ring_gray" width="115" height="115"/>
+        <image name="pair_ring_green" width="115" height="115"/>
+        <image name="pair_shake" width="24" height="115"/>
+    </resources>
+</document>

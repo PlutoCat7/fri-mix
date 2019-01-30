@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FindDraftViewController">
+            <connections>
+                <outlet property="containerView" destination="jYl-Ol-Bh3" id="jSA-VH-rsU"/>
+                <outlet property="tableView" destination="QSZ-wg-Zlo" id="bpH-Wd-AgS"/>
+                <outlet property="tableViewTopLayoutConstraint" destination="3Zb-oX-tfG" id="enL-Rq-WdU"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZb-Jl-qSG" userLabel="参考层">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQC-kU-CkC" userLabel="背景层">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYl-Ol-Bh3" userLabel="容器层">
+                                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                    <subviews>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QSZ-wg-Zlo">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                            <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="-1" id="S79-13-C7e"/>
+                                                <outlet property="delegate" destination="-1" id="9wD-B6-ae7"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="QSZ-wg-Zlo" firstAttribute="top" secondItem="jYl-Ol-Bh3" secondAttribute="top" id="3Zb-oX-tfG"/>
+                                        <constraint firstAttribute="trailing" secondItem="QSZ-wg-Zlo" secondAttribute="trailing" id="71i-yV-pTA"/>
+                                        <constraint firstItem="QSZ-wg-Zlo" firstAttribute="leading" secondItem="jYl-Ol-Bh3" secondAttribute="leading" id="ZcY-eB-ehv"/>
+                                        <constraint firstAttribute="bottom" secondItem="QSZ-wg-Zlo" secondAttribute="bottom" id="uAd-iL-3QN"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.96462160350000004" green="0.96475988629999998" blue="0.96459132430000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="uQC-kU-CkC" secondAttribute="bottom" id="Bxg-qM-Kso"/>
+                        <constraint firstItem="uQC-kU-CkC" firstAttribute="leading" secondItem="uZb-Jl-qSG" secondAttribute="leading" id="Dlo-Jq-lYv"/>
+                        <constraint firstAttribute="trailing" secondItem="jYl-Ol-Bh3" secondAttribute="trailing" id="Evf-42-5lx"/>
+                        <constraint firstItem="uQC-kU-CkC" firstAttribute="top" secondItem="uZb-Jl-qSG" secondAttribute="top" id="QSf-IM-xLL"/>
+                        <constraint firstAttribute="trailing" secondItem="uQC-kU-CkC" secondAttribute="trailing" id="RMM-Pc-z9B"/>
+                        <constraint firstItem="jYl-Ol-Bh3" firstAttribute="top" secondItem="uZb-Jl-qSG" secondAttribute="top" constant="64" identifier="Layout_TopConstraint" id="aOE-qD-IRd"/>
+                        <constraint firstAttribute="bottom" secondItem="jYl-Ol-Bh3" secondAttribute="bottom" id="gDK-3k-kWU"/>
+                        <constraint firstItem="jYl-Ol-Bh3" firstAttribute="leading" secondItem="uZb-Jl-qSG" secondAttribute="leading" id="h6V-SU-YeD"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="uZb-Jl-qSG" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="Mob-5m-4yl"/>
+                <constraint firstItem="uZb-Jl-qSG" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="clR-Nd-9k7"/>
+                <constraint firstItem="uZb-Jl-qSG" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="hKZ-x7-AVQ"/>
+                <constraint firstItem="uZb-Jl-qSG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sck-1G-0p9"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

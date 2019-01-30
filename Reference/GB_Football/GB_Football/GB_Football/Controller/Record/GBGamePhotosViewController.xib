@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GBGamePhotosViewController">
+            <connections>
+                <outlet property="collectionView" destination="vWN-OK-63q" id="QiN-hT-mR8"/>
+                <outlet property="flowLayout" destination="diI-xo-58S" id="EKR-2S-J17"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="526"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHn-Hy-XnJ" userLabel="背景层">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="526"/>
+                    <subviews>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vWN-OK-63q">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="526"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="12" minimumInteritemSpacing="8" id="diI-xo-58S">
+                                <size key="itemSize" width="50" height="50"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="MNu-MR-aPK"/>
+                                <outlet property="delegate" destination="-1" id="rm7-Oi-sxM"/>
+                            </connections>
+                        </collectionView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.054901960784313725" green="0.058823529411764705" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="vWN-OK-63q" firstAttribute="centerX" secondItem="AHn-Hy-XnJ" secondAttribute="centerX" id="Lmo-u5-1xw"/>
+                        <constraint firstItem="vWN-OK-63q" firstAttribute="centerY" secondItem="AHn-Hy-XnJ" secondAttribute="centerY" id="fRP-36-df4"/>
+                        <constraint firstItem="vWN-OK-63q" firstAttribute="height" secondItem="AHn-Hy-XnJ" secondAttribute="height" id="fpc-XX-QbY"/>
+                        <constraint firstItem="vWN-OK-63q" firstAttribute="width" secondItem="AHn-Hy-XnJ" secondAttribute="width" id="rJT-B4-AqF"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="AHn-Hy-XnJ" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="4Bo-F7-nAE"/>
+                <constraint firstItem="AHn-Hy-XnJ" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="DA6-8g-mYJ"/>
+                <constraint firstItem="AHn-Hy-XnJ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="WDw-OS-I8P"/>
+                <constraint firstItem="AHn-Hy-XnJ" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="qAj-4G-82j"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

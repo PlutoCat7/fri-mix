@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GBGamesStatisticsViewController">
+            <connections>
+                <outlet property="contentScrollView" destination="Go7-CJ-1Fc" id="a1A-dQ-ITb"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="526"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FhE-56-l7a" userLabel="背景层">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="526"/>
+                    <subviews>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Go7-CJ-1Fc">
+                            <rect key="frame" x="-0.5" y="0.0" width="375" height="526"/>
+                            <color key="backgroundColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </scrollView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.054901960784313725" green="0.058823529411764705" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="Go7-CJ-1Fc" firstAttribute="height" secondItem="FhE-56-l7a" secondAttribute="height" id="9Wb-OQ-WQq"/>
+                        <constraint firstItem="Go7-CJ-1Fc" firstAttribute="centerY" secondItem="FhE-56-l7a" secondAttribute="centerY" id="CgM-88-SmX"/>
+                        <constraint firstItem="Go7-CJ-1Fc" firstAttribute="width" secondItem="FhE-56-l7a" secondAttribute="width" id="KoQ-os-5dI"/>
+                        <constraint firstItem="Go7-CJ-1Fc" firstAttribute="centerX" secondItem="FhE-56-l7a" secondAttribute="centerX" id="b6z-ph-aA3"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="FhE-56-l7a" secondAttribute="trailing" id="38s-GR-UKG"/>
+                <constraint firstAttribute="bottom" secondItem="FhE-56-l7a" secondAttribute="bottom" id="CdD-qW-waj"/>
+                <constraint firstItem="FhE-56-l7a" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="FwT-5P-lEc"/>
+                <constraint firstItem="FhE-56-l7a" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yqC-qc-gwv"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

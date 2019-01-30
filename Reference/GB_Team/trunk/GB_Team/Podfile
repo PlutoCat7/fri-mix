@@ -1,0 +1,23 @@
+platform:ios,'8.0'
+
+inhibit_all_warnings!
+
+target 'GB_Team' do
+    use_frameworks!
+
+pod 'Zip', 			'0.6.0'
+pod 'AFNetworking',		'3.0.4'
+pod 'MJRefresh',		'3.1.12'
+pod 'IQKeyboardManager',	'3.3.7'
+pod 'SDWebImage',		'3.7.5'
+pod 'pop',			'1.0.9'
+pod 'JPush', 			'3.0.2'
+pod 'AMapLocation',		‘2.3.1’
+pod 'AMap3DMap', 		'4.6.1'
+pod 'AMapSearch',		'4.5.0'
+pod 'DZNEmptyDataSet', 	'1.8.1'
+pod 'UMengAnalytics', 		'4.1.8'
+pod 'EXTView', 			'0.1.0'
+pod 'RTLabel', 			'1.0.1'
+
+end

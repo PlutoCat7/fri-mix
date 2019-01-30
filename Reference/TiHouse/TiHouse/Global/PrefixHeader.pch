@@ -1,0 +1,300 @@
+//
+//  PrefixHeader.pch
+//  RongKouBei
+//
+//  Created by 融口碑 on 2017/3/21.
+//  Copyright © 2017年 融口碑. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+
+
+
+#ifdef __OBJC__
+#import "AppDelegate.h"
+
+
+#import <Masonry/Masonry.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <AFNetworking/AFNetworking.h>
+#import <MJExtension/MJExtension.h>
+#import <MJRefresh/MJRefresh.h>
+#import "UIImageView+WebCache.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACEXTScope.h>
+#import <NYXImagesKit/NYXImagesKit.h>
+#import <YYModel.h>
+
+//#import <UIImageView+WebCache.h>
+//#import "MBProgressHUD+JQ.h"
+//#include "UIView+Extebsion.h"
+#import "UILabel+Common.h"
+#import "UIImage+Common.h"
+#import "UIView+Common.h"
+#import "UIColor+expanded.h"
+#import "NSString+Common.h"
+#import "NSObject+ObjectMap.h"
+#import "NSString+Emojize.h"
+#import "NSObject+Common.h"
+#import "WRNavigationBar.h"
+#import "SDPhotoBrowser.h"
+#import "TiHouse_NetAPIManager.h"
+#import "UIHelp.h"
+#import "Tally_Header.h"
+#import "WebImageView.h"
+
+#import "UIFont+AdjustFont.h"
+#import "KitFactory.h" 
+
+#import "BaseView.h"
+#import "NSUtils.h"
+#import "URLString.h"
+#import "SHValue.h"
+
+#endif
+
+#if __has_feature(objc_instancetype)
+
+#undef	AS_SINGLETON
+#define AS_SINGLETON
+
+#undef	AS_SINGLETON
+#define AS_SINGLETON( ... ) \
+- (instancetype)sharedInstance; \
++ (instancetype)sharedInstance;
+
+#undef	DEF_SINGLETON
+#define DEF_SINGLETON \
+- (instancetype)sharedInstance \
+{ \
+return [[self class] sharedInstance]; \
+} \
++ (instancetype)sharedInstance \
+{ \
+static dispatch_once_t once; \
+static id __singleton__; \
+dispatch_once( &once, ^{ __singleton__ = [[self alloc] init]; } ); \
+return __singleton__; \
+}
+
+#undef	DEF_SINGLETON
+#define DEF_SINGLETON( ... ) \
+- (instancetype)sharedInstance \
+{ \
+return [[self class] sharedInstance]; \
+} \
++ (instancetype)sharedInstance \
+{ \
+static dispatch_once_t once; \
+static id __singleton__; \
+dispatch_once( &once, ^{ __singleton__ = [[self alloc] init]; } ); \
+return __singleton__; \
+}
+
+#else	// #if __has_feature(objc_instancetype)
+
+#undef	AS_SINGLETON
+#define AS_SINGLETON( __class ) \
+- (__class *)sharedInstance; \
++ (__class *)sharedInstance;
+
+#undef	DEF_SINGLETON
+#define DEF_SINGLETON( __class ) \
+- (__class *)sharedInstance \
+{ \
+return [__class sharedInstance]; \
+} \
++ (__class *)sharedInstance \
+{ \
+static dispatch_once_t once; \
+static __class * __singleton__; \
+dispatch_once( &once, ^{ __singleton__ = [[[self class] alloc] init]; } ); \
+return __singleton__; \
+}
+
+#endif	// #if __has_feature(objc_instancetype)
+
+
+#define XWUserDefault [NSUserDefaults standardUserDefaults]
+// 当前系统版本> 8
+#define kIOS8Later [[[UIDevice currentDevice]systemVersion] floatValue]>=8
+
+
+/* *
+ 屏幕适配
+ */
+
+#define IphoneX CGRectEqualToRect([UIScreen mainScreen].bounds,CGRectMake(0, 0, 375, 812))
+
+#define kDevice_Is_iPhone4 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_Is_iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_Is_iPhone6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_Is_iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+
+#define kKeyWindow [UIApplication sharedApplication].keyWindow
+#define kScreen_Bounds [UIScreen mainScreen].bounds
+#define kScreen_Height [UIScreen mainScreen].bounds.size.height
+#define kScreen_Width [UIScreen mainScreen].bounds.size.width
+
+
+#define kUnReadKey_messages @"messages"
+#define kUnReadKey_notifications @"notifications"
+#define kUnReadKey_project_update_count @"project_update_count"
+#define kUnReadKey_notification_know @"notification_know"
+#define kUnReadKey_notification_Find @"notification_find"
+#define kUnReadKey_notification_Me @"notification_me"
+#define kUnreadKey_mineProfileShouldReload @"kUnreadKey_mineProfileShouldReload"
+
+#define kNAVHEIGHT 44
+#define kSTATUSBARH 20
+#define kSTATUSBARHANDNAV 64
+#define kTABBARH (kDevice_Is_iPhoneX ? 83 : 49)
+#define kNavigationBarHeight (kDevice_Is_iPhoneX ? 88 : 64)
+#define kNavigationBarTop (kDevice_Is_iPhoneX ? 24 : 0)
+#define kRKBWIDTH(v) (kScreen_Width *(v)/375) //获取在不同屏幕的宽度
+#define kRKBHEIGHT(v) (kScreen_Height *(v)/667) //获取在不同屏幕的高度
+#define pxRKBWIDTH(v) (kRKBWIDTH(v)/2) //获取在不同屏幕的宽度单位PX
+#define pxRKBHEIGHT(v) (kRKBHEIGHT(v)/2) //获取在不同屏幕的高度单位PX
+
+
+/** 弱引用 */
+#define WEAKSELF __weak typeof(self) weakSelf = self;
+#define STRONGSELF __weak typeof(weakSelf) strongSelf = weakSelf;
+
+//版本号
+#define kVersion_Coding [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
+#define kVersionBuild_Coding [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
+/* *
+  输出
+ */
+// 开发的时候打印，但是发布的时候不打印的NSLog
+#ifdef DEBUG
+#define XWLog(FORMAT, ...) fprintf(stderr,"%s 第%d行 %s\n\n", __FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#define XWLog(...)
+#endif
+
+#define USERAGENT @"Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B206 Safari/7534.48.3"
+
+
+
+
+
+/* *
+ 系统颜色配置
+ */
+
+#define kColorD8DDE4 XWColorFromHex(0xD8DDE4)
+
+// RGB颜色
+#define XWColorFromRGB(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+// 随机色
+#define XWRandomColor RFBColorFromRGB(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+//十六进制颜色
+#define XWColorFromHex(hexValue) [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:1.0]
+//十六进制颜色 透明色
+#define XWColorFromHexAlpha(hexValue,alphaValue) [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:alphaValue]
+
+//主题色
+#define kTiMainBgColor XWColorFromHex(0xfdf086)
+//背景颜色
+#define kRKBViewControllerBgColor XWColorFromHex(0xf8f8f8)
+//首页NVA标题字颜色
+#define kRKBNAVBLACK XWColorFromHex(0x383838)
+//登录按钮字颜色
+#define kLOGINBTNCOLOR XWColorFromHex(0x44444b)
+//首页黑色背景色
+#define kRKBHomeBlackColor XWColorFromHex(0x323232)
+
+
+//主体文字颜色
+//黑色
+#define kTitleBlcakCOLOR XWColorFromHex(0x000000)
+#define kTitleAddHouseCOLOR XWColorFromHex(0x666666)
+#define kTitleAddHouseTitleCOLOR XWColorFromHex(0x606060)
+
+//黑色
+#define kTitleGaryCOLOR XWColorFromHex(0xbfbfbf)
+//首页白色颜色文字
+#define kRKBHomeWhitColor XWColorFromHex(0xf2f2f2)
+//注释文字
+#define kRKBNOTELABELCOLOR XWColorFromHex(0xbfbfbf)
+//我的商户背景色
+#define kRKBCOMMCOLOR XWColorFromRGB(228, 228, 228)
+//修饰线颜色
+#define kLineColer XWColorFromRGB(235, 235, 235)
+
+//字体大小
+#define KUIScreenWidth [UIScreen mainScreen].bounds.size.width
+#define kUISCREENWIDTH [UIScreen mainScreen].bounds.size.width
+#define SizeScale (kUISCREENWIDTH == 320 ? 1 : 1.2)
+#define ZISIZE(value) [UIFont systemFontOfSize:value * SizeScale]
+#define ZISIZEAB(a,b) kUISCREENWIDTH==320?a:b
+
+#define KFirstHouseInfo @"firstHouseInfo"
+
+
+#define kPaddingLeftWidth 15.0
+#define kLoginPaddingLeftWidth 18.0
+#define kMySegmentControl_Height 44.0
+#define kMySegmentControlIcon_Height 70.0
+
+#define  kBackButtonFontSize 16
+#define  kNavTitleFontSize 18
+#define  kBadgeTipStr @"badgeTip"
+
+#define kDefaultLastId [NSNumber numberWithInteger:99999999]
+
+//#define kColorNavBG [UIColor colorWithHexString:@"0xF8F8F8"]
+#define kColorNavBG [UIColor colorWithHexString:@"0xFFFFFF" andAlpha:1.0]
+#define kColorNavTitle [UIColor colorWithHexString:@"0x323A45"]
+#define kColorTableBG [UIColor colorWithHexString:@"0xFFFFFF"]
+#define kColorTableSectionBg [UIColor colorWithHexString:@"0xF2F4F6"]
+#define kColor222 [UIColor colorWithHexString:@"0x222222"]
+#define kColor333 [UIColor colorWithHexString:@"0x333333"]
+#define kColor666 [UIColor colorWithHexString:@"0x666666"]
+#define kColor999 [UIColor colorWithHexString:@"0x999999"]
+//#define kColorDDD [UIColor colorWithHexString:@"0xDDDDDD"]
+//#define kColorCCC [UIColor colorWithHexString:@"0xCCCCCC"]
+#define kColorDDD kColorD8DDE4
+#define kColorCCC kColorD8DDE4
+#define kColorD8DDE4 [UIColor colorWithHexString:@"0xD8DDE4"]
+#define kColorBrandGreen [UIColor colorWithHexString:@"0x606060"]
+#define kColorBrandRed [UIColor colorWithHexString:@"0xF56061"]
+#define kColorBrandOrange [UIColor colorWithHexString:@"0xF68435"]
+
+#pragma mark New Color
+#define kColorDark3 [UIColor colorWithHexString:@"0x323A45"]
+#define kColorDark4 [UIColor colorWithHexString:@"0x606060"]
+#define kColorDark7 [UIColor colorWithHexString:@"0x76808E"]
+#define kColorDarkA [UIColor colorWithHexString:@"0xA9B3BE"]
+#define kColorDarkD [UIColor colorWithHexString:@"0xD8DDE4"]
+#define kColorDarkF [UIColor colorWithHexString:@"0xF2F4F6"]
+#define kColorWhite [UIColor colorWithHexString:@"0xFFFFFF"]
+#define kColorActionGreen [UIColor colorWithHexString:@"0x2EBE76"]
+#define kColorActionRed [UIColor colorWithHexString:@"0xF56061"]
+#define kColorActionYellow [UIColor colorWithHexString:@"0xF3C033"]
+
+//链接颜色
+#define kLinkAttributes     @{(__bridge NSString *)kCTUnderlineStyleAttributeName : [NSNumber numberWithBool:NO],(NSString *)kCTFontAttributeName : (__bridge id)CTFontCreateWithName((CFStringRef)[UIFont boldSystemFontOfSize:13].fontName ,13 ,NULL)}
+#define kLinkAttributesActive       @{(NSString *)kCTUnderlineStyleAttributeName : [NSNumber numberWithBool:NO],(NSString *)kCTForegroundColorAttributeName : (__bridge id)[[UIColor colorWithHexString:@"0x1b9d59"] CGColor]}
+
+// 生产环境
+#define RY_APP_KEY @"8w7jv4qb8cvyy"
+#define RY_KEFU_ID @"KEFU152533147558218"
+
+// 测试环境
+//#define RY_APP_KEY @"mgb7ka1nmwkyg"
+//#define RY_KEFU_ID @"KEFU151730237565274"
+
+//blockcycle
+#define MTWeakBlock(type)  __weak typeof(type) weak##type = type;
+#define kLineHeight 1.0/[UIScreen mainScreen].scale
+#define kLineColor RGB(238, 238, 238)
+
+#define TALLY_RELOAD_NOTIFICATION @"tallyReloadNotification" // 账本操作相关通知
+
+#endif /* PrefixHeader_pch */

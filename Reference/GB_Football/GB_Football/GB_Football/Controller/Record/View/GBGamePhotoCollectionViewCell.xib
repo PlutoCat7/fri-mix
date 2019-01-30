@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="GBGamePhotoCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b5g-ZH-o2r">
+                        <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo_default2" translatesAutoresizingMaskIntoConstraints="NO" id="qu2-Nz-uhQ">
+                                <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play298" translatesAutoresizingMaskIntoConstraints="NO" id="ZCD-sT-kV0">
+                                <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZCD-sT-kV0" firstAttribute="centerX" secondItem="b5g-ZH-o2r" secondAttribute="centerX" id="2oT-5h-zCt"/>
+                            <constraint firstItem="qu2-Nz-uhQ" firstAttribute="height" secondItem="b5g-ZH-o2r" secondAttribute="height" id="G6h-4g-Eqt"/>
+                            <constraint firstItem="qu2-Nz-uhQ" firstAttribute="centerY" secondItem="b5g-ZH-o2r" secondAttribute="centerY" id="I2q-BV-cQq"/>
+                            <constraint firstItem="ZCD-sT-kV0" firstAttribute="width" secondItem="b5g-ZH-o2r" secondAttribute="width" id="Tnl-h6-1Fg"/>
+                            <constraint firstItem="qu2-Nz-uhQ" firstAttribute="width" secondItem="b5g-ZH-o2r" secondAttribute="width" id="XCK-Ri-cNC"/>
+                            <constraint firstItem="qu2-Nz-uhQ" firstAttribute="centerX" secondItem="b5g-ZH-o2r" secondAttribute="centerX" id="aCY-cA-ytW"/>
+                            <constraint firstItem="ZCD-sT-kV0" firstAttribute="height" secondItem="b5g-ZH-o2r" secondAttribute="height" id="pFA-bU-gCJ"/>
+                            <constraint firstItem="ZCD-sT-kV0" firstAttribute="centerY" secondItem="b5g-ZH-o2r" secondAttribute="centerY" id="xAe-j2-MUA"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="b5g-ZH-o2r" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="BFF-1Z-c1I"/>
+                <constraint firstItem="b5g-ZH-o2r" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="CLf-0B-Gqu"/>
+                <constraint firstItem="b5g-ZH-o2r" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" id="I5L-LV-ydh"/>
+                <constraint firstItem="b5g-ZH-o2r" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="ze3-vQ-VWy"/>
+            </constraints>
+            <connections>
+                <outlet property="imageView" destination="qu2-Nz-uhQ" id="qOt-0h-MEr"/>
+                <outlet property="playImageView" destination="ZCD-sT-kV0" id="aoW-xH-QBZ"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="photo_default2" width="100" height="100"/>
+        <image name="play298" width="75" height="75"/>
+    </resources>
+</document>

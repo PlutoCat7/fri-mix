@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FindArticlePreViewController">
+            <connections>
+                <outlet property="scrollView" destination="Cig-nt-gIZ" id="nr6-va-yF7"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cNf-2a-J8d" userLabel="参考层">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6fi-tu-A5C" userLabel="背景层">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdm-C3-VCX" userLabel="容器层">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <subviews>
+                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cig-nt-gIZ">
+                                            <rect key="frame" x="-0.5" y="-0.5" width="375" height="667"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="-1" id="A9w-kr-Mx9"/>
+                                            </connections>
+                                        </scrollView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="Cig-nt-gIZ" firstAttribute="centerX" secondItem="pdm-C3-VCX" secondAttribute="centerX" id="LPF-am-9FS"/>
+                                        <constraint firstItem="Cig-nt-gIZ" firstAttribute="width" secondItem="pdm-C3-VCX" secondAttribute="width" id="Pre-GI-KRQ"/>
+                                        <constraint firstItem="Cig-nt-gIZ" firstAttribute="centerY" secondItem="pdm-C3-VCX" secondAttribute="centerY" id="Xkg-1f-csp"/>
+                                        <constraint firstItem="Cig-nt-gIZ" firstAttribute="height" secondItem="pdm-C3-VCX" secondAttribute="height" id="aT5-gk-BIi"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.96462160350000004" green="0.96475988629999998" blue="0.96459132430000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="6fi-tu-A5C" secondAttribute="bottom" id="3OZ-zw-Qkf"/>
+                        <constraint firstItem="6fi-tu-A5C" firstAttribute="leading" secondItem="cNf-2a-J8d" secondAttribute="leading" id="7DB-Vn-u2R"/>
+                        <constraint firstAttribute="bottom" secondItem="pdm-C3-VCX" secondAttribute="bottom" id="7eR-u6-9bP"/>
+                        <constraint firstAttribute="trailing" secondItem="pdm-C3-VCX" secondAttribute="trailing" id="BVS-DP-R46"/>
+                        <constraint firstAttribute="trailing" secondItem="6fi-tu-A5C" secondAttribute="trailing" id="DZe-DF-BkE"/>
+                        <constraint firstItem="6fi-tu-A5C" firstAttribute="top" secondItem="cNf-2a-J8d" secondAttribute="top" id="ONs-5w-Xck"/>
+                        <constraint firstItem="pdm-C3-VCX" firstAttribute="top" secondItem="cNf-2a-J8d" secondAttribute="top" id="Vc4-W8-P6s"/>
+                        <constraint firstItem="pdm-C3-VCX" firstAttribute="leading" secondItem="cNf-2a-J8d" secondAttribute="leading" id="sgT-yv-bcs"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="cNf-2a-J8d" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="4Uw-D5-TAi"/>
+                <constraint firstItem="cNf-2a-J8d" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="XnS-es-Y7Q"/>
+                <constraint firstItem="cNf-2a-J8d" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="als-0G-cr4"/>
+                <constraint firstItem="cNf-2a-J8d" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="hj4-k7-sOG"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

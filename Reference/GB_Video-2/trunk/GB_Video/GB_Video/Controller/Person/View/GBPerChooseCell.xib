@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="GBPerChooseCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="45.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8cJ-Il-DgE">
+                        <rect key="frame" x="30" y="0.0" width="315" height="46"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="男" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAM-2L-7vN" userLabel="nameLbl">
+                                <rect key="frame" x="0.0" y="0.0" width="290" height="46"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.14901960780000001" green="0.15686274510000001" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="choose_g" translatesAutoresizingMaskIntoConstraints="NO" id="Iqe-mW-dJx" userLabel="selImage">
+                                <rect key="frame" x="294" y="12" width="21" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="21" id="8st-AR-mRj"/>
+                                    <constraint firstAttribute="height" constant="21" id="gSZ-m1-Iz2"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="MAM-2L-7vN" firstAttribute="leading" secondItem="8cJ-Il-DgE" secondAttribute="leading" id="3Wz-dd-XaV"/>
+                            <constraint firstItem="Iqe-mW-dJx" firstAttribute="leading" secondItem="MAM-2L-7vN" secondAttribute="trailing" constant="4" id="BoL-R5-jlQ"/>
+                            <constraint firstItem="Iqe-mW-dJx" firstAttribute="centerY" secondItem="8cJ-Il-DgE" secondAttribute="centerY" id="C44-AT-czd"/>
+                            <constraint firstAttribute="trailing" secondItem="Iqe-mW-dJx" secondAttribute="trailing" id="CEo-nh-rjD"/>
+                            <constraint firstAttribute="bottom" secondItem="MAM-2L-7vN" secondAttribute="bottom" id="b7f-kX-xXH"/>
+                            <constraint firstItem="MAM-2L-7vN" firstAttribute="top" secondItem="8cJ-Il-DgE" secondAttribute="top" id="jN2-sj-8p6"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G36-Ce-GS5" userLabel="Line View">
+                        <rect key="frame" x="30" y="45" width="345" height="1"/>
+                        <color key="backgroundColor" red="0.8862745098" green="0.8862745098" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="cPn-uS-6bi"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="8cJ-Il-DgE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="7Nt-lH-2Iu"/>
+                    <constraint firstItem="G36-Ce-GS5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="FVj-yu-q7H"/>
+                    <constraint firstAttribute="trailing" secondItem="8cJ-Il-DgE" secondAttribute="trailing" constant="30" id="dgR-Jr-ENK"/>
+                    <constraint firstItem="8cJ-Il-DgE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ggv-Fy-BXV"/>
+                    <constraint firstAttribute="bottom" secondItem="8cJ-Il-DgE" secondAttribute="bottom" id="j9z-20-bnf"/>
+                    <constraint firstAttribute="trailing" secondItem="G36-Ce-GS5" secondAttribute="trailing" id="lFt-QP-Dw4"/>
+                    <constraint firstItem="G36-Ce-GS5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="45" id="oy3-cz-a5i"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="lineView" destination="G36-Ce-GS5" id="Wdv-h4-SYK"/>
+                <outlet property="nameLbl" destination="MAM-2L-7vN" id="Z4a-OW-PsG"/>
+                <outlet property="selImageView" destination="Iqe-mW-dJx" id="aIX-DZ-WH4"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="choose_g" width="16" height="16"/>
+    </resources>
+</document>

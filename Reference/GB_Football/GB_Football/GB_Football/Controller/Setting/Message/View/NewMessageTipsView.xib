@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12121"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view userInteractionEnabled="NO" contentMode="scaleToFill" id="iN0-l3-epB" customClass="NewMessageTipsView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T1s-TN-na2" customClass="EXTView">
+                    <rect key="frame" x="22" y="32" width="8" height="8"/>
+                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="8" id="lGG-nR-3Qr"/>
+                        <constraint firstAttribute="width" secondItem="T1s-TN-na2" secondAttribute="height" multiplier="1:1" id="yRs-rk-caN"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FgW-cK-4fB" customClass="EXTView">
+                    <rect key="frame" x="145" y="32" width="8" height="8"/>
+                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="FgW-cK-4fB" secondAttribute="height" multiplier="1:1" id="Gvm-D5-Nwl"/>
+                        <constraint firstAttribute="width" constant="8" id="Hjm-iK-1X3"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxe-Y6-0AW" customClass="EXTView">
+                    <rect key="frame" x="270" y="32" width="8" height="8"/>
+                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="8" id="dUe-55-lWG"/>
+                        <constraint firstAttribute="width" secondItem="bxe-Y6-0AW" secondAttribute="height" multiplier="1:1" id="eUz-CI-wUz"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="FgW-cK-4fB" firstAttribute="centerY" secondItem="T1s-TN-na2" secondAttribute="centerY" id="38P-Dh-jbh"/>
+                <constraint firstItem="bxe-Y6-0AW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="trailing" multiplier="270:375" id="8AQ-K9-vNM"/>
+                <constraint firstItem="T1s-TN-na2" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="AxX-Ld-Xev"/>
+                <constraint firstItem="bxe-Y6-0AW" firstAttribute="height" secondItem="FgW-cK-4fB" secondAttribute="height" id="Dno-Eb-5Ti"/>
+                <constraint firstItem="FgW-cK-4fB" firstAttribute="width" secondItem="FgW-cK-4fB" secondAttribute="height" multiplier="1:1" id="UQJ-VP-CRd"/>
+                <constraint firstItem="bxe-Y6-0AW" firstAttribute="width" secondItem="FgW-cK-4fB" secondAttribute="width" id="cqS-JI-u2i"/>
+                <constraint firstItem="T1s-TN-na2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="trailing" multiplier="22:375" id="elV-V1-h5O"/>
+                <constraint firstItem="FgW-cK-4fB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="trailing" multiplier="145:375" id="i4e-Ba-5jf"/>
+                <constraint firstItem="bxe-Y6-0AW" firstAttribute="centerY" secondItem="FgW-cK-4fB" secondAttribute="centerY" id="mLU-Nu-iZk"/>
+                <constraint firstItem="bxe-Y6-0AW" firstAttribute="width" secondItem="bxe-Y6-0AW" secondAttribute="height" multiplier="1:1" id="psa-1m-Q5A"/>
+                <constraint firstItem="bxe-Y6-0AW" firstAttribute="width" secondItem="bxe-Y6-0AW" secondAttribute="height" multiplier="1:1" id="xBE-zI-lmf"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="matchInviteMessageView" destination="FgW-cK-4fB" id="UHa-S7-fWr"/>
+                <outlet property="systemMessageView" destination="T1s-TN-na2" id="uGa-vy-Lqv"/>
+                <outlet property="teamMessageView" destination="bxe-Y6-0AW" id="E0X-ZW-Obp"/>
+            </connections>
+            <point key="canvasLocation" x="25.5" y="52"/>
+        </view>
+    </objects>
+</document>

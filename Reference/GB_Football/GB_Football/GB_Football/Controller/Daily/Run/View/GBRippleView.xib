@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GBRippleView">
+            <rect key="frame" x="0.0" y="0.0" width="145" height="145"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="duu-Tn-897">
+                    <rect key="frame" x="12" y="12" width="122" height="122"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="running_go_an" translatesAutoresizingMaskIntoConstraints="NO" id="XEV-IA-2dQ">
+                            <rect key="frame" x="0.0" y="0.0" width="122" height="122"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i8d-fS-eeq">
+                            <rect key="frame" x="0.0" y="0.0" width="122" height="122"/>
+                            <connections>
+                                <action selector="actionClickBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="0Ak-pt-HQM"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开始" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGl-Fl-W68">
+                            <rect key="frame" x="34.5" y="45.5" width="53" height="31.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="i8d-fS-eeq" firstAttribute="leading" secondItem="duu-Tn-897" secondAttribute="leading" id="3gl-fm-iFg"/>
+                        <constraint firstAttribute="trailing" secondItem="XEV-IA-2dQ" secondAttribute="trailing" id="800-UC-yMe"/>
+                        <constraint firstItem="i8d-fS-eeq" firstAttribute="top" secondItem="duu-Tn-897" secondAttribute="top" id="CFV-ci-Uzi"/>
+                        <constraint firstAttribute="bottom" secondItem="i8d-fS-eeq" secondAttribute="bottom" id="Icx-eF-TiZ"/>
+                        <constraint firstItem="XEV-IA-2dQ" firstAttribute="top" secondItem="duu-Tn-897" secondAttribute="top" id="MGk-25-SVs"/>
+                        <constraint firstAttribute="trailing" secondItem="i8d-fS-eeq" secondAttribute="trailing" id="ebP-P0-kB5"/>
+                        <constraint firstAttribute="bottom" secondItem="XEV-IA-2dQ" secondAttribute="bottom" id="fUN-t3-Dp1"/>
+                        <constraint firstItem="ZGl-Fl-W68" firstAttribute="centerX" secondItem="duu-Tn-897" secondAttribute="centerX" id="hFG-Bq-Fr3"/>
+                        <constraint firstItem="XEV-IA-2dQ" firstAttribute="leading" secondItem="duu-Tn-897" secondAttribute="leading" id="n1r-ET-dyO"/>
+                        <constraint firstItem="ZGl-Fl-W68" firstAttribute="centerY" secondItem="duu-Tn-897" secondAttribute="centerY" id="w2s-Ns-ZNG"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="duu-Tn-897" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="122:145" id="1Sg-1j-Bro"/>
+                <constraint firstItem="duu-Tn-897" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="HpC-XS-Nfx"/>
+                <constraint firstItem="duu-Tn-897" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="J0C-La-MjA"/>
+                <constraint firstItem="duu-Tn-897" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="122:145" id="gga-1L-3YW"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="actionButton" destination="i8d-fS-eeq" id="zuC-8v-q6v"/>
+                <outlet property="animView" destination="duu-Tn-897" id="IuN-qS-dWw"/>
+                <outlet property="buttonImageView" destination="XEV-IA-2dQ" id="DsP-0G-NBS"/>
+                <outlet property="buttonLabel" destination="ZGl-Fl-W68" id="OkE-oE-SPO"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="running_go_an" width="122" height="122"/>
+    </resources>
+</document>

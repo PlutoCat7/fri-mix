@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GBCoursePageViewController">
+            <connections>
+                <outlet property="closeButton" destination="6Tq-8W-pwc" id="AVk-Bj-zzx"/>
+                <outlet property="pageView" destination="MLW-Sj-PCx" id="tjh-rN-ivr"/>
+                <outlet property="seeAgainButton" destination="R8F-Nd-XyQ" id="C8K-xy-XvP"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MLW-Sj-PCx" customClass="SDCycleScrollView">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" red="0.22570824619999999" green="0.59811955689999996" blue="0.85571831460000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Tq-8W-pwc">
+                    <rect key="frame" x="73" y="490" width="230" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="6Tq-8W-pwc" secondAttribute="height" multiplier="460:100" id="Gsr-XV-TJF"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="closecourse">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="actionClose:" destination="-1" eventType="touchUpInside" id="LyE-cv-1hV"/>
+                    </connections>
+                </button>
+                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8F-Nd-XyQ">
+                    <rect key="frame" x="73" y="556" width="230" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <state key="normal" backgroundImage="replay">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="actionAgain:" destination="-1" eventType="touchUpInside" id="oLe-NA-Hir"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="MLW-Sj-PCx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="03G-HV-CVg"/>
+                <constraint firstItem="R8F-Nd-XyQ" firstAttribute="height" secondItem="6Tq-8W-pwc" secondAttribute="height" id="4OC-CX-KZa"/>
+                <constraint firstItem="R8F-Nd-XyQ" firstAttribute="top" secondItem="6Tq-8W-pwc" secondAttribute="bottom" constant="16" id="HYa-8G-Iem"/>
+                <constraint firstItem="R8F-Nd-XyQ" firstAttribute="centerX" secondItem="6Tq-8W-pwc" secondAttribute="centerX" id="LC1-fc-qYE"/>
+                <constraint firstItem="R8F-Nd-XyQ" firstAttribute="width" secondItem="6Tq-8W-pwc" secondAttribute="width" id="PvI-kd-m0k"/>
+                <constraint firstItem="MLW-Sj-PCx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="QBs-nE-xmM"/>
+                <constraint firstItem="6Tq-8W-pwc" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="an0-1l-zbc"/>
+                <constraint firstAttribute="trailing" secondItem="MLW-Sj-PCx" secondAttribute="trailing" id="gw1-RU-jkO"/>
+                <constraint firstAttribute="bottom" secondItem="MLW-Sj-PCx" secondAttribute="bottom" id="mHz-My-m1j"/>
+                <constraint firstItem="6Tq-8W-pwc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="bottom" multiplier="980:1334" id="op2-Bw-JMT"/>
+                <constraint firstItem="6Tq-8W-pwc" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="460:750" id="uBf-fA-1Fi"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="26.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="closecourse" width="230" height="50"/>
+        <image name="replay" width="230" height="50"/>
+    </resources>
+</document>

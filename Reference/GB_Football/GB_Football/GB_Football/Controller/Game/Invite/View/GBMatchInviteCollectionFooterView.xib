@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="GBMatchInviteCollectionFooterView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V2q-2w-TVJ">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjH-6k-d7C">
+                            <rect key="frame" x="94" y="0.5" width="187.5" height="40"/>
+                            <state key="normal" image="time_division_Pack_half"/>
+                            <connections>
+                                <action selector="actionFold:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="zPw-uv-uax"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="fjH-6k-d7C" firstAttribute="height" secondItem="V2q-2w-TVJ" secondAttribute="height" id="6L5-hJ-gGn"/>
+                        <constraint firstItem="fjH-6k-d7C" firstAttribute="width" secondItem="V2q-2w-TVJ" secondAttribute="width" multiplier="0.5" id="B7Q-v7-PX6"/>
+                        <constraint firstItem="fjH-6k-d7C" firstAttribute="centerX" secondItem="V2q-2w-TVJ" secondAttribute="centerX" id="TGY-HX-CMx"/>
+                        <constraint firstItem="fjH-6k-d7C" firstAttribute="centerY" secondItem="V2q-2w-TVJ" secondAttribute="centerY" id="zam-eU-1tp"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="V2q-2w-TVJ" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="1qI-qH-o8D"/>
+                <constraint firstAttribute="trailing" secondItem="V2q-2w-TVJ" secondAttribute="trailing" id="S5d-WF-aiI"/>
+                <constraint firstItem="V2q-2w-TVJ" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="Xuh-iX-5yG"/>
+                <constraint firstAttribute="bottom" secondItem="V2q-2w-TVJ" secondAttribute="bottom" id="Ylh-YB-vac"/>
+            </constraints>
+            <connections>
+                <outlet property="arrowButton" destination="fjH-6k-d7C" id="jqc-VO-l0S"/>
+            </connections>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="time_division_Pack_half" width="15" height="15"/>
+    </resources>
+</document>

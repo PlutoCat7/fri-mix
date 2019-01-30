@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnl-E6-gtM" userLabel="LineView">
+                    <rect key="frame" x="0.0" y="49.5" width="320" height="0.5"/>
+                    <color key="backgroundColor" red="0.67415320869999995" green="0.67856007809999996" blue="0.68239283559999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="SlE-UM-upQ"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="bnl-E6-gtM" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="6Fb-2A-8ib"/>
+                <constraint firstItem="bnl-E6-gtM" firstAttribute="width" secondItem="U6b-Vx-4bR" secondAttribute="width" id="QTy-CB-5n5"/>
+                <constraint firstAttribute="bottom" secondItem="bnl-E6-gtM" secondAttribute="bottom" id="q29-fV-CsE"/>
+            </constraints>
+        </collectionReusableView>
+    </objects>
+</document>

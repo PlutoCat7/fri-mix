@@ -1,0 +1,22 @@
+//
+//  PrefixHeader.pch
+//  CarOilSupermarket
+//
+//  Created by yahua on 2017/7/31.
+//  Copyright © 2017年 yahua. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "COSDefine.h"
+#import "NotificationConstants.h"
+#import "YHCommon.h"
+#import "YAHLayoutHeader.h"
+#import "ColorManager.h"
+#import "UIViewController+YHToast.h"
+#import "UIView+YHToast.h"
+#import "RawCacheManager.h"
+#import "LogicManager.h"
+
+#endif /* PrefixHeader_pch */

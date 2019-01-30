@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WMDragView">
+            <rect key="frame" x="0.0" y="0.0" width="25" height="35"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z4T-VT-xCO">
+                    <rect key="frame" x="0.0" y="0.0" width="25" height="35"/>
+                    <subviews>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iBb-Vp-IEd">
+                            <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                            <color key="backgroundColor" red="0.24705882352941178" green="0.63137254901960782" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="iBb-Vp-IEd" secondAttribute="height" multiplier="1:1" id="eT9-vs-XOI"/>
+                            </constraints>
+                        </view>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nzx-fk-OUt">
+                            <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="44" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PnJ-0f-e7M">
+                            <rect key="frame" x="4" y="5.5" width="17" height="14.5"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="张三" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="al7-tS-dln">
+                            <rect key="frame" x="4.5" y="25" width="16.5" height="10"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="PnJ-0f-e7M" firstAttribute="centerY" secondItem="iBb-Vp-IEd" secondAttribute="centerY" id="4HO-eW-Q9I"/>
+                        <constraint firstItem="iBb-Vp-IEd" firstAttribute="width" secondItem="z4T-VT-xCO" secondAttribute="width" id="77p-70-2I8"/>
+                        <constraint firstItem="al7-tS-dln" firstAttribute="centerX" secondItem="z4T-VT-xCO" secondAttribute="centerX" id="Cfy-wN-X6F"/>
+                        <constraint firstItem="PnJ-0f-e7M" firstAttribute="centerX" secondItem="iBb-Vp-IEd" secondAttribute="centerX" id="T3z-v0-cj1"/>
+                        <constraint firstItem="iBb-Vp-IEd" firstAttribute="leading" secondItem="z4T-VT-xCO" secondAttribute="leading" id="VW4-t0-LU9"/>
+                        <constraint firstItem="nzx-fk-OUt" firstAttribute="centerY" secondItem="iBb-Vp-IEd" secondAttribute="centerY" id="XvX-pb-KKp"/>
+                        <constraint firstItem="nzx-fk-OUt" firstAttribute="centerX" secondItem="iBb-Vp-IEd" secondAttribute="centerX" id="c1L-F0-mmc"/>
+                        <constraint firstItem="nzx-fk-OUt" firstAttribute="height" secondItem="iBb-Vp-IEd" secondAttribute="height" id="gg9-d1-BdY"/>
+                        <constraint firstAttribute="bottom" secondItem="al7-tS-dln" secondAttribute="bottom" id="sKA-Qy-hkr"/>
+                        <constraint firstItem="nzx-fk-OUt" firstAttribute="width" secondItem="iBb-Vp-IEd" secondAttribute="width" id="t9q-kw-iZy"/>
+                        <constraint firstItem="iBb-Vp-IEd" firstAttribute="top" secondItem="z4T-VT-xCO" secondAttribute="top" id="tEV-J7-3vt"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="z4T-VT-xCO" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="GRB-uf-xbY"/>
+                <constraint firstItem="z4T-VT-xCO" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="acO-WD-c2s"/>
+                <constraint firstItem="z4T-VT-xCO" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="cgc-KZ-SXu"/>
+                <constraint firstItem="z4T-VT-xCO" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="oVz-zb-egf"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="imageView" destination="nzx-fk-OUt" id="0il-7v-a6x"/>
+                <outlet property="nameLabel" destination="al7-tS-dln" id="MjG-Ks-Dxz"/>
+                <outlet property="numberLabel" destination="PnJ-0f-e7M" id="ixq-M5-hoi"/>
+                <outlet property="posView" destination="iBb-Vp-IEd" id="g2M-WI-TGb"/>
+            </connections>
+        </view>
+    </objects>
+</document>

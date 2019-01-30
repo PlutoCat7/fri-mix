@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="GBMatchInviteNotAcceptFriendCollectionCell">
+            <rect key="frame" x="0.0" y="0.0" width="70" height="108"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="70" height="108"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Awv-jf-3Fv" userLabel="内容层">
+                        <rect key="frame" x="0.0" y="0.0" width="70" height="108"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="portrait_b-1" translatesAutoresizingMaskIntoConstraints="NO" id="cys-6Y-siF">
+                                <rect key="frame" x="12.5" y="16" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="cys-6Y-siF" secondAttribute="height" multiplier="1:1" id="C8E-AU-02w"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="portrait" translatesAutoresizingMaskIntoConstraints="NO" id="l6a-pL-ipj">
+                                <rect key="frame" x="14.5" y="18" width="41" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="l6a-pL-ipj" secondAttribute="height" multiplier="1:1" id="4ob-hR-q4Z"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="罗纳尔多" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HoC-sf-Ys7">
+                                <rect key="frame" x="0.0" y="66" width="70" height="13.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="17C-kd-ji6">
+                                <rect key="frame" x="12.5" y="84.5" width="45" height="18"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <state key="normal" title="重新邀请">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJQ-Lp-9d8">
+                                <rect key="frame" x="0.0" y="66" width="70" height="42"/>
+                                <connections>
+                                    <action selector="actionRetry:" destination="gTV-IL-0wX" eventType="touchUpInside" id="uRE-IL-Csq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="l6a-pL-ipj" firstAttribute="centerX" secondItem="cys-6Y-siF" secondAttribute="centerX" id="1Pi-1M-OA0"/>
+                            <constraint firstItem="l6a-pL-ipj" firstAttribute="centerY" secondItem="cys-6Y-siF" secondAttribute="centerY" id="Bms-Jy-J3r"/>
+                            <constraint firstItem="HoC-sf-Ys7" firstAttribute="top" secondItem="cys-6Y-siF" secondAttribute="bottom" constant="5" id="D8c-Nh-DD9"/>
+                            <constraint firstAttribute="bottom" secondItem="VJQ-Lp-9d8" secondAttribute="bottom" id="DMS-nm-v7d"/>
+                            <constraint firstItem="17C-kd-ji6" firstAttribute="top" secondItem="HoC-sf-Ys7" secondAttribute="bottom" constant="5" id="DcB-Lo-piu"/>
+                            <constraint firstItem="cys-6Y-siF" firstAttribute="centerX" secondItem="Awv-jf-3Fv" secondAttribute="centerX" id="Icn-S1-9eR"/>
+                            <constraint firstItem="cys-6Y-siF" firstAttribute="top" secondItem="Awv-jf-3Fv" secondAttribute="bottom" multiplier="16:108" id="XBX-AX-qlf"/>
+                            <constraint firstItem="l6a-pL-ipj" firstAttribute="width" secondItem="cys-6Y-siF" secondAttribute="width" multiplier="41:44" id="XgQ-il-o3K"/>
+                            <constraint firstItem="cys-6Y-siF" firstAttribute="width" secondItem="Awv-jf-3Fv" secondAttribute="width" multiplier="45:70" id="gq4-gd-zwX"/>
+                            <constraint firstItem="HoC-sf-Ys7" firstAttribute="centerX" secondItem="Awv-jf-3Fv" secondAttribute="centerX" id="gsS-ki-LV6"/>
+                            <constraint firstItem="17C-kd-ji6" firstAttribute="centerX" secondItem="HoC-sf-Ys7" secondAttribute="centerX" id="iGc-r7-p6n"/>
+                            <constraint firstItem="VJQ-Lp-9d8" firstAttribute="centerX" secondItem="Awv-jf-3Fv" secondAttribute="centerX" id="mTU-na-htJ"/>
+                            <constraint firstItem="HoC-sf-Ys7" firstAttribute="width" secondItem="Awv-jf-3Fv" secondAttribute="width" id="oaA-lr-Jih"/>
+                            <constraint firstItem="VJQ-Lp-9d8" firstAttribute="width" secondItem="Awv-jf-3Fv" secondAttribute="width" id="omE-OP-O9L"/>
+                            <constraint firstItem="17C-kd-ji6" firstAttribute="width" secondItem="Awv-jf-3Fv" secondAttribute="width" multiplier="45:70" id="pkZ-TR-JN3"/>
+                            <constraint firstItem="VJQ-Lp-9d8" firstAttribute="top" secondItem="HoC-sf-Ys7" secondAttribute="top" id="sCH-Qf-eyf"/>
+                            <constraint firstItem="17C-kd-ji6" firstAttribute="height" secondItem="Awv-jf-3Fv" secondAttribute="height" multiplier="18:108" id="sZp-cM-bee"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Awv-jf-3Fv" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="NnV-JA-T36"/>
+                <constraint firstItem="Awv-jf-3Fv" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="mS9-Le-Kof"/>
+                <constraint firstItem="Awv-jf-3Fv" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="vCf-zn-lOv"/>
+                <constraint firstItem="Awv-jf-3Fv" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" id="z1o-Rn-8ia"/>
+            </constraints>
+            <connections>
+                <outlet property="avatorImageView" destination="l6a-pL-ipj" id="y2q-Qu-hjB"/>
+                <outlet property="inviteButton" destination="17C-kd-ji6" id="Vbw-rt-ToJ"/>
+                <outlet property="userNameLabel" destination="HoC-sf-Ys7" id="pN7-YN-xN5"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="portrait" width="78" height="78"/>
+        <image name="portrait_b-1" width="94" height="94"/>
+    </resources>
+</document>

@@ -1,0 +1,23 @@
+//
+//  AdvertisementsOptionTitleCell.h
+//  TiHouse
+//
+//  Created by Teen Ma on 2018/4/8.
+//  Copyright © 2018年 Confused小伟. All rights reserved.
+//
+
+#import "BaseTableViewCell.h"
+
+@class AdvertisementsOptionTitleViewModel;
+
+@protocol AdvertisementsOptionTitleCellDelegate;
+
+@interface AdvertisementsOptionTitleCell : BaseTableViewCell
+
+@end
+
+@protocol AdvertisementsOptionTitleCellDelegate <NSObject>
+
+- (void)advertisementsOptionTitleCell:(AdvertisementsOptionTitleCell *)cell clickRightViewWithViewModel:(AdvertisementsOptionTitleViewModel *)viewModel;
+
+@end

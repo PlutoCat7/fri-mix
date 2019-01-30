@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GBLoginTextField">
+            <rect key="frame" x="0.0" y="0.0" width="380" height="62"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1da-V5-hCI" userLabel="BackView">
+                    <rect key="frame" x="0.0" y="0.0" width="380" height="62"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hwD-a9-taQ" userLabel="LeftImage">
+                            <rect key="frame" x="15" y="21" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="kQ9-jk-JGb"/>
+                                <constraint firstAttribute="height" constant="20" id="wgv-3r-Iao"/>
+                            </constraints>
+                        </imageView>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E4Y-jL-ozb" userLabel="TextField">
+                            <rect key="frame" x="50" y="0.0" width="270" height="62"/>
+                            <color key="textColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="regsiter_x.png" translatesAutoresizingMaskIntoConstraints="NO" id="Mog-YD-4rs" userLabel="RightImage">
+                            <rect key="frame" x="340" y="21" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="fjX-Ug-VHO"/>
+                                <constraint firstAttribute="height" constant="20" id="k6G-dW-KGc"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.18431372939999999" green="0.18431372939999999" blue="0.18431372939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="Mog-YD-4rs" firstAttribute="leading" secondItem="E4Y-jL-ozb" secondAttribute="trailing" constant="20" id="HPs-XX-wkF"/>
+                        <constraint firstAttribute="trailing" secondItem="Mog-YD-4rs" secondAttribute="trailing" constant="20" id="IV1-Gj-9Xa"/>
+                        <constraint firstItem="hwD-a9-taQ" firstAttribute="centerY" secondItem="1da-V5-hCI" secondAttribute="centerY" id="Ib5-Ir-WPk"/>
+                        <constraint firstAttribute="bottom" secondItem="E4Y-jL-ozb" secondAttribute="bottom" id="K3o-bO-z5L"/>
+                        <constraint firstItem="hwD-a9-taQ" firstAttribute="leading" secondItem="1da-V5-hCI" secondAttribute="leading" constant="15" id="RTn-bR-6mO"/>
+                        <constraint firstItem="Mog-YD-4rs" firstAttribute="centerY" secondItem="1da-V5-hCI" secondAttribute="centerY" id="SnD-At-L0m"/>
+                        <constraint firstItem="E4Y-jL-ozb" firstAttribute="leading" secondItem="hwD-a9-taQ" secondAttribute="trailing" constant="15" id="Swa-x7-9nX"/>
+                        <constraint firstItem="E4Y-jL-ozb" firstAttribute="top" secondItem="1da-V5-hCI" secondAttribute="top" id="ZtQ-Z5-1aT"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="1da-V5-hCI" secondAttribute="bottom" id="7ki-nf-JFe"/>
+                <constraint firstItem="1da-V5-hCI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Zh0-ub-PvY"/>
+                <constraint firstAttribute="trailing" secondItem="1da-V5-hCI" secondAttribute="trailing" id="krB-Po-pNs"/>
+                <constraint firstItem="1da-V5-hCI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="rK9-ak-ORG"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="leftImageView" destination="hwD-a9-taQ" id="2aI-VY-Oi5"/>
+                <outlet property="rightImageView" destination="Mog-YD-4rs" id="iAI-YB-wLF"/>
+                <outlet property="textField" destination="E4Y-jL-ozb" id="tRg-W5-7tA"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="regsiter_x.png" width="38" height="38"/>
+    </resources>
+</document>

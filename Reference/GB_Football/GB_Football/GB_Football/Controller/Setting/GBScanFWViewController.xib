@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GBScanFWViewController">
+            <connections>
+                <outlet property="tableView" destination="HmL-mI-sBK" id="Yu6-iH-x5i"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yvr-ot-O2z" userLabel="参考层">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lyM-hK-7Lx" userLabel="背景层">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ls6-hH-q2U" userLabel="内容层">
+                                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XNL-zt-2m8" userLabel="BackView">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                            <subviews>
+                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="HmL-mI-sBK">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="-1" id="63D-Vw-J84"/>
+                                                        <outlet property="delegate" destination="-1" id="ksC-BJ-TNm"/>
+                                                    </connections>
+                                                </tableView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="HmL-mI-sBK" secondAttribute="bottom" id="Ba8-wd-Epn"/>
+                                                <constraint firstItem="HmL-mI-sBK" firstAttribute="top" secondItem="XNL-zt-2m8" secondAttribute="top" id="QaG-ZJ-7os"/>
+                                                <constraint firstAttribute="trailing" secondItem="HmL-mI-sBK" secondAttribute="trailing" id="WIF-Rp-emj"/>
+                                                <constraint firstItem="HmL-mI-sBK" firstAttribute="leading" secondItem="XNL-zt-2m8" secondAttribute="leading" id="wzi-v3-faE"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="XNL-zt-2m8" secondAttribute="bottom" id="31w-02-Tcg"/>
+                                        <constraint firstAttribute="trailing" secondItem="XNL-zt-2m8" secondAttribute="trailing" id="be7-PZ-DXv"/>
+                                        <constraint firstItem="XNL-zt-2m8" firstAttribute="top" secondItem="ls6-hH-q2U" secondAttribute="top" id="byn-8b-b9G"/>
+                                        <constraint firstItem="XNL-zt-2m8" firstAttribute="leading" secondItem="ls6-hH-q2U" secondAttribute="leading" id="nHP-cc-xCU"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.090196080509999998" green="0.090196080509999998" blue="0.090196080509999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="ls6-hH-q2U" firstAttribute="top" secondItem="lyM-hK-7Lx" secondAttribute="top" constant="64" identifier="Layout_TopConstraint" id="MGR-bu-Vtu"/>
+                                <constraint firstAttribute="bottom" secondItem="ls6-hH-q2U" secondAttribute="bottom" id="NEk-Fk-g1W"/>
+                                <constraint firstAttribute="trailing" secondItem="ls6-hH-q2U" secondAttribute="trailing" id="f72-CO-F1U"/>
+                                <constraint firstItem="ls6-hH-q2U" firstAttribute="leading" secondItem="lyM-hK-7Lx" secondAttribute="leading" id="iFe-FF-MsF"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="lyM-hK-7Lx" secondAttribute="trailing" id="7JW-pM-oEP"/>
+                        <constraint firstItem="lyM-hK-7Lx" firstAttribute="leading" secondItem="yvr-ot-O2z" secondAttribute="leading" id="exR-Rq-jdw"/>
+                        <constraint firstItem="lyM-hK-7Lx" firstAttribute="top" secondItem="yvr-ot-O2z" secondAttribute="top" id="qwj-2o-t2F"/>
+                        <constraint firstAttribute="bottom" secondItem="lyM-hK-7Lx" secondAttribute="bottom" id="yFN-Vu-iI8"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="yvr-ot-O2z" secondAttribute="bottom" id="dGT-R9-kGQ"/>
+                <constraint firstItem="yvr-ot-O2z" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qGX-je-aOF"/>
+                <constraint firstItem="yvr-ot-O2z" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="s9Z-xm-nXC"/>
+                <constraint firstAttribute="trailing" secondItem="yvr-ot-O2z" secondAttribute="trailing" id="z9Z-PH-ucY"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+        </view>
+    </objects>
+</document>

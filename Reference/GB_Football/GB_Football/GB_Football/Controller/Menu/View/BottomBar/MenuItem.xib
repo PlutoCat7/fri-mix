@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MenuItem">
+            <rect key="frame" x="0.0" y="0.0" width="30" height="118"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="30" height="118"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cDj-JH-B3B" userLabel="容器层">
+                        <rect key="frame" x="0.0" y="0.0" width="30" height="118"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vf0-xD-W0C">
+                                <rect key="frame" x="0.0" y="44" width="30" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="vf0-xD-W0C" secondAttribute="height" multiplier="1:1" id="4i3-MJ-Ze3"/>
+                                </constraints>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_new" translatesAutoresizingMaskIntoConstraints="NO" id="M8b-FI-iNr">
+                                <rect key="frame" x="0.0" y="21" width="30" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="M8b-FI-iNr" secondAttribute="height" multiplier="15:8" id="jvU-4H-twd"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="vf0-xD-W0C" firstAttribute="centerY" secondItem="cDj-JH-B3B" secondAttribute="centerY" id="33C-FI-XOy"/>
+                            <constraint firstItem="vf0-xD-W0C" firstAttribute="centerX" secondItem="cDj-JH-B3B" secondAttribute="centerX" id="8tJ-cU-nas"/>
+                            <constraint firstItem="vf0-xD-W0C" firstAttribute="width" secondItem="cDj-JH-B3B" secondAttribute="width" id="Gpw-vE-dtt"/>
+                            <constraint firstItem="M8b-FI-iNr" firstAttribute="centerX" secondItem="cDj-JH-B3B" secondAttribute="centerX" id="jYJ-Uk-fea"/>
+                            <constraint firstItem="vf0-xD-W0C" firstAttribute="top" secondItem="M8b-FI-iNr" secondAttribute="bottom" constant="7" id="l9s-mo-an9"/>
+                            <constraint firstItem="M8b-FI-iNr" firstAttribute="width" secondItem="cDj-JH-B3B" secondAttribute="width" id="nOf-Ii-TrS"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="cDj-JH-B3B" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="2bf-4G-xg9"/>
+                <constraint firstAttribute="bottom" secondItem="cDj-JH-B3B" secondAttribute="bottom" id="35p-fZ-e2e"/>
+                <constraint firstAttribute="trailing" secondItem="cDj-JH-B3B" secondAttribute="trailing" id="P3C-Gq-s38"/>
+                <constraint firstItem="cDj-JH-B3B" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="oQi-oo-dWd"/>
+            </constraints>
+            <connections>
+                <outlet property="imageIcon" destination="vf0-xD-W0C" id="ci9-dZ-Rbn"/>
+                <outlet property="tipImageIcon" destination="M8b-FI-iNr" id="8IQ-kc-8iL"/>
+            </connections>
+            <point key="canvasLocation" x="-143" y="-5"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="home_new" width="30" height="16"/>
+    </resources>
+</document>

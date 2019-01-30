@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="GBMessageTeamCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tmV-OW-dSJ" userLabel="内容view">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ukB-Dp-fkC" userLabel="背景层">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="罗纳尔多将您踢出球队巴塞罗那队伍点点滴滴的" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uoV-mS-fXz">
+                                        <rect key="frame" x="23" y="10" width="230" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.56470588235294117" green="0.56470588235294117" blue="0.56470588235294117" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017-06-05" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTh-gl-1PQ">
+                                        <rect key="frame" x="286" y="12" width="69" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.56470588239999997" green="0.56470588239999997" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebe-34-ctA" customClass="GBHightLightButton">
+                                        <rect key="frame" x="275" y="36" width="80" height="31"/>
+                                        <color key="backgroundColor" red="0.0039215688589999999" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="ebe-34-ctA" secondAttribute="height" multiplier="86:33" id="XZC-bI-lA4"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" title="同意">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="agreeAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="LXM-tl-a26"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pBU-OQ-dSr" customClass="GBHightLightButton">
+                                        <rect key="frame" x="191" y="36" width="80" height="31"/>
+                                        <color key="backgroundColor" red="0.090185560286045074" green="0.090201966464519501" blue="0.090179957449436188" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="pBU-OQ-dSr" secondAttribute="height" multiplier="86:33" id="LHr-WK-Zjc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" title="拒绝">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="refuseButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VUJ-cy-OyF"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="pBU-OQ-dSr" firstAttribute="height" secondItem="ebe-34-ctA" secondAttribute="height" id="2UQ-bg-dG0"/>
+                                    <constraint firstItem="UTh-gl-1PQ" firstAttribute="trailing" secondItem="ukB-Dp-fkC" secondAttribute="trailing" multiplier="355:375" id="9rt-av-MFQ"/>
+                                    <constraint firstItem="uoV-mS-fXz" firstAttribute="top" secondItem="ukB-Dp-fkC" secondAttribute="top" constant="10" id="FTG-La-hDQ"/>
+                                    <constraint firstItem="pBU-OQ-dSr" firstAttribute="width" secondItem="ebe-34-ctA" secondAttribute="width" id="IQw-Ap-WZo"/>
+                                    <constraint firstItem="ebe-34-ctA" firstAttribute="width" secondItem="ukB-Dp-fkC" secondAttribute="width" multiplier="80:375" id="PWW-d3-guh"/>
+                                    <constraint firstItem="pBU-OQ-dSr" firstAttribute="width" secondItem="pBU-OQ-dSr" secondAttribute="height" multiplier="86:33" id="TM0-xs-paZ"/>
+                                    <constraint firstItem="uoV-mS-fXz" firstAttribute="width" secondItem="ukB-Dp-fkC" secondAttribute="width" multiplier="230:375" id="WNq-nC-F08"/>
+                                    <constraint firstAttribute="bottom" secondItem="ebe-34-ctA" secondAttribute="bottom" constant="12" id="bt3-Af-V7D"/>
+                                    <constraint firstItem="ebe-34-ctA" firstAttribute="trailing" secondItem="UTh-gl-1PQ" secondAttribute="trailing" id="fAB-5Y-C5J"/>
+                                    <constraint firstItem="ebe-34-ctA" firstAttribute="leading" secondItem="pBU-OQ-dSr" secondAttribute="trailing" constant="4" id="hmG-2u-lei"/>
+                                    <constraint firstItem="uoV-mS-fXz" firstAttribute="leading" secondItem="ukB-Dp-fkC" secondAttribute="trailing" multiplier="23:375" id="k8S-bX-PyH"/>
+                                    <constraint firstItem="UTh-gl-1PQ" firstAttribute="top" secondItem="ukB-Dp-fkC" secondAttribute="top" constant="12" id="z88-wR-Jmg"/>
+                                    <constraint firstItem="pBU-OQ-dSr" firstAttribute="centerY" secondItem="ebe-34-ctA" secondAttribute="centerY" id="zzm-X2-7yM"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8e-FH-efa">
+                                <rect key="frame" x="23" y="0.0" width="24" height="79.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="gZi-kv-Mz7"/>
+                                </constraints>
+                                <state key="normal" image="invite_checkboxmark"/>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Arr-Ep-xAD">
+                                <rect key="frame" x="0.0" y="78.5" width="375" height="1"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="0kr-kW-UTZ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="a8e-FH-efa" firstAttribute="leading" secondItem="tmV-OW-dSJ" secondAttribute="trailing" multiplier="23:375" id="0Ow-d0-KKV"/>
+                            <constraint firstItem="a8e-FH-efa" firstAttribute="centerY" secondItem="tmV-OW-dSJ" secondAttribute="centerY" id="5Dm-RZ-etD"/>
+                            <constraint firstItem="Arr-Ep-xAD" firstAttribute="width" secondItem="tmV-OW-dSJ" secondAttribute="width" id="7d0-mn-1YL"/>
+                            <constraint firstItem="ukB-Dp-fkC" firstAttribute="leading" secondItem="tmV-OW-dSJ" secondAttribute="leading" id="B2H-jX-XGh"/>
+                            <constraint firstAttribute="bottom" secondItem="ukB-Dp-fkC" secondAttribute="bottom" id="D8N-LU-XIA"/>
+                            <constraint firstItem="a8e-FH-efa" firstAttribute="height" secondItem="tmV-OW-dSJ" secondAttribute="height" id="XfN-hO-zOv"/>
+                            <constraint firstAttribute="trailing" secondItem="ukB-Dp-fkC" secondAttribute="trailing" id="aFo-u5-I50"/>
+                            <constraint firstItem="ukB-Dp-fkC" firstAttribute="top" secondItem="tmV-OW-dSJ" secondAttribute="top" id="n5i-Yz-BdI"/>
+                            <constraint firstItem="Arr-Ep-xAD" firstAttribute="centerX" secondItem="tmV-OW-dSJ" secondAttribute="centerX" id="pwy-xq-4hS"/>
+                            <constraint firstAttribute="bottom" secondItem="Arr-Ep-xAD" secondAttribute="bottom" id="vrf-Xk-Q6F"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="tmV-OW-dSJ" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="OwL-UU-bi3"/>
+                    <constraint firstItem="tmV-OW-dSJ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="tXG-0Y-y7b"/>
+                    <constraint firstItem="tmV-OW-dSJ" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="u3T-Hb-dFW"/>
+                    <constraint firstItem="tmV-OW-dSJ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="uYP-4P-ZcU"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.1709715426" green="0.1838825047" blue="0.20519828800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="agreeButton" destination="ebe-34-ctA" id="68c-4D-X0a"/>
+                <outlet property="containerView" destination="ukB-Dp-fkC" id="joR-uv-qq9"/>
+                <outlet property="contentLabel" destination="uoV-mS-fXz" id="hua-ab-oPa"/>
+                <outlet property="dateLabel" destination="UTh-gl-1PQ" id="cDJ-H2-d8X"/>
+                <outlet property="refuseButton" destination="pBU-OQ-dSr" id="F7p-hI-hCm"/>
+                <outlet property="selectButton" destination="a8e-FH-efa" id="bQh-tG-7if"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="invite_checkboxmark" width="24" height="24"/>
+    </resources>
+</document>

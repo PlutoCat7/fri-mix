@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GBScanQRView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qUc-i6-NsT">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4bs-RL-Vsz" customClass="BackView">
+                            <rect key="frame" x="-0.5" y="0.0" width="375" height="375"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vaO-5B-mxW">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mNm-Sa-CtC">
+                                    <rect key="frame" x="0.0" y="318" width="375" height="57"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xdy-G1-WMR">
+                                    <rect key="frame" x="0.0" y="58" width="58.5" height="260"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fch-Fo-w3X">
+                                    <rect key="frame" x="318.5" y="58" width="56.5" height="260"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="vaO-5B-mxW" firstAttribute="top" secondItem="4bs-RL-Vsz" secondAttribute="top" id="JAZ-IQ-Ppb"/>
+                                <constraint firstAttribute="trailing" secondItem="Fch-Fo-w3X" secondAttribute="trailing" id="JBk-kf-3Mc"/>
+                                <constraint firstItem="xdy-G1-WMR" firstAttribute="top" secondItem="vaO-5B-mxW" secondAttribute="bottom" id="PGY-zy-vZm"/>
+                                <constraint firstItem="mNm-Sa-CtC" firstAttribute="centerX" secondItem="4bs-RL-Vsz" secondAttribute="centerX" id="YQf-5h-Ecw"/>
+                                <constraint firstItem="mNm-Sa-CtC" firstAttribute="top" secondItem="xdy-G1-WMR" secondAttribute="bottom" id="YZV-X8-kJQ"/>
+                                <constraint firstAttribute="bottom" secondItem="mNm-Sa-CtC" secondAttribute="bottom" id="bEi-5Z-Wad"/>
+                                <constraint firstItem="vaO-5B-mxW" firstAttribute="centerX" secondItem="4bs-RL-Vsz" secondAttribute="centerX" id="eAy-w8-jnO"/>
+                                <constraint firstItem="mNm-Sa-CtC" firstAttribute="width" secondItem="4bs-RL-Vsz" secondAttribute="width" id="gaH-RQ-JYs"/>
+                                <constraint firstItem="Fch-Fo-w3X" firstAttribute="top" secondItem="vaO-5B-mxW" secondAttribute="bottom" id="j5u-GS-JSN"/>
+                                <constraint firstItem="vaO-5B-mxW" firstAttribute="width" secondItem="4bs-RL-Vsz" secondAttribute="width" id="kqQ-hd-4Z3"/>
+                                <constraint firstItem="xdy-G1-WMR" firstAttribute="leading" secondItem="4bs-RL-Vsz" secondAttribute="leading" id="oQD-f4-5qe"/>
+                                <constraint firstItem="mNm-Sa-CtC" firstAttribute="top" secondItem="Fch-Fo-w3X" secondAttribute="bottom" id="s3E-8k-8GZ"/>
+                            </constraints>
+                        </view>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="code_box.png" translatesAutoresizingMaskIntoConstraints="NO" id="xHV-jJ-XAx">
+                            <rect key="frame" x="58" y="58" width="260" height="260"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="xHV-jJ-XAx" secondAttribute="height" multiplier="1:1" id="B8R-Vu-JeK"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scan_line.png" translatesAutoresizingMaskIntoConstraints="NO" id="08c-Eh-Ty1">
+                            <rect key="frame" x="58" y="58" width="260" height="2"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="2" id="x9V-wj-pVd"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="xHV-jJ-XAx" firstAttribute="leading" secondItem="xdy-G1-WMR" secondAttribute="trailing" id="6Yv-jf-h9a"/>
+                        <constraint firstItem="xHV-jJ-XAx" firstAttribute="width" secondItem="qUc-i6-NsT" secondAttribute="width" multiplier="520:750" id="Aqf-xh-fnd"/>
+                        <constraint firstItem="08c-Eh-Ty1" firstAttribute="centerX" secondItem="xHV-jJ-XAx" secondAttribute="centerX" id="ELX-eT-Zrb"/>
+                        <constraint firstItem="4bs-RL-Vsz" firstAttribute="height" secondItem="qUc-i6-NsT" secondAttribute="height" id="FOG-B0-R5Q"/>
+                        <constraint firstItem="mNm-Sa-CtC" firstAttribute="top" secondItem="xHV-jJ-XAx" secondAttribute="bottom" id="Fs2-GN-pEC"/>
+                        <constraint firstItem="4bs-RL-Vsz" firstAttribute="centerX" secondItem="qUc-i6-NsT" secondAttribute="centerX" id="Ghg-tp-JY0"/>
+                        <constraint firstItem="xHV-jJ-XAx" firstAttribute="centerX" secondItem="qUc-i6-NsT" secondAttribute="centerX" id="MIA-UN-Htj"/>
+                        <constraint firstItem="4bs-RL-Vsz" firstAttribute="centerY" secondItem="qUc-i6-NsT" secondAttribute="centerY" id="Nqe-0O-V2k"/>
+                        <constraint firstItem="4bs-RL-Vsz" firstAttribute="width" secondItem="qUc-i6-NsT" secondAttribute="width" id="PAm-fO-Ztp"/>
+                        <constraint firstItem="xHV-jJ-XAx" firstAttribute="top" secondItem="vaO-5B-mxW" secondAttribute="bottom" id="bOt-8e-Pwl"/>
+                        <constraint firstItem="Fch-Fo-w3X" firstAttribute="leading" secondItem="xHV-jJ-XAx" secondAttribute="trailing" id="kMS-gf-c24"/>
+                        <constraint firstItem="08c-Eh-Ty1" firstAttribute="top" secondItem="xHV-jJ-XAx" secondAttribute="top" id="tVx-kT-IQZ"/>
+                        <constraint firstItem="xHV-jJ-XAx" firstAttribute="centerY" secondItem="qUc-i6-NsT" secondAttribute="centerY" id="v26-YW-Swa"/>
+                        <constraint firstItem="08c-Eh-Ty1" firstAttribute="width" secondItem="xHV-jJ-XAx" secondAttribute="width" id="w4g-cd-EdM"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="qUc-i6-NsT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7SV-WG-Wv6"/>
+                <constraint firstAttribute="trailing" secondItem="qUc-i6-NsT" secondAttribute="trailing" id="8s9-ww-O1x"/>
+                <constraint firstItem="qUc-i6-NsT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="IKX-Ja-QkN"/>
+                <constraint firstAttribute="bottom" secondItem="qUc-i6-NsT" secondAttribute="bottom" id="gm2-fa-arX"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="imgBK" destination="xHV-jJ-XAx" id="KyL-ZE-4hX"/>
+                <outlet property="line" destination="08c-Eh-Ty1" id="qDx-b8-iWf"/>
+                <outlet property="viewBK" destination="4bs-RL-Vsz" id="BUm-66-TtB"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="code_box.png" width="552" height="552"/>
+        <image name="scan_line.png" width="681" height="9"/>
+    </resources>
+</document>

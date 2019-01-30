@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TimeDivisionFooterView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Voa-DC-UWU">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                    <connections>
+                        <action selector="actionClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="qsw-ZK-ZsP"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收起热点图" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ztk-Ei-uEW">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time_division_Pack_half" translatesAutoresizingMaskIntoConstraints="NO" id="1tF-3q-kVb">
+                    <rect key="frame" x="180" y="36" width="15" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="15" id="CCC-tq-yek"/>
+                        <constraint firstAttribute="width" secondItem="1tF-3q-kVb" secondAttribute="height" multiplier="1:1" id="LNX-8o-vNS"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="ztk-Ei-uEW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="0Uz-vP-HVo"/>
+                <constraint firstItem="Voa-DC-UWU" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="77D-aA-Pnd"/>
+                <constraint firstItem="Voa-DC-UWU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="BN3-ue-j3V"/>
+                <constraint firstItem="ztk-Ei-uEW" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.6" id="BbJ-Dy-inV"/>
+                <constraint firstItem="1tF-3q-kVb" firstAttribute="top" secondItem="ztk-Ei-uEW" secondAttribute="bottom" id="Col-BE-eic"/>
+                <constraint firstItem="Voa-DC-UWU" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="hbm-vV-4Nb"/>
+                <constraint firstItem="ztk-Ei-uEW" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="o1P-sa-8Zl"/>
+                <constraint firstItem="1tF-3q-kVb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="o1R-X6-Qv8"/>
+                <constraint firstItem="ztk-Ei-uEW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="wqU-E7-mrd"/>
+                <constraint firstItem="Voa-DC-UWU" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="zCy-9b-631"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="arrowImageView" destination="1tF-3q-kVb" id="qBA-gF-CUN"/>
+                <outlet property="tipsLabel" destination="ztk-Ei-uEW" id="yRs-0C-nT4"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="time_division_Pack_half" width="15" height="15"/>
+    </resources>
+</document>

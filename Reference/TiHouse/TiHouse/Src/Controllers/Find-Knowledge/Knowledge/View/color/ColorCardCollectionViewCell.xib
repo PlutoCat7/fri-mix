@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ColorCardCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="160" height="210"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="160" height="210"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Yo-hF-6W9">
+                        <rect key="frame" x="0.0" y="0.0" width="160" height="210"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hce-bF-0lu">
+                        <rect key="frame" x="0.0" y="0.0" width="160" height="210"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wpc-xN-Hg1">
+                                <rect key="frame" x="8" y="8" width="144" height="194"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HyM-oj-2zU">
+                                <rect key="frame" x="102" y="8" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="HyM-oj-2zU" secondAttribute="height" multiplier="1:1" id="MfJ-K2-ivv"/>
+                                    <constraint firstAttribute="width" constant="50" id="lqD-5Z-sHK"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="kcolorfavor"/>
+                                <connections>
+                                    <action selector="actionFavor:" destination="gTV-IL-0wX" eventType="touchUpInside" id="8de-xh-hqf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wpc-xN-Hg1" firstAttribute="top" secondItem="hce-bF-0lu" secondAttribute="top" constant="8" id="9AT-Sm-Eqd"/>
+                            <constraint firstAttribute="trailing" secondItem="HyM-oj-2zU" secondAttribute="trailing" constant="8" id="Neo-5C-6Yg"/>
+                            <constraint firstAttribute="bottom" secondItem="wpc-xN-Hg1" secondAttribute="bottom" constant="8" id="Y0f-YQ-gOj"/>
+                            <constraint firstItem="HyM-oj-2zU" firstAttribute="top" secondItem="hce-bF-0lu" secondAttribute="top" constant="8" id="epg-na-k5n"/>
+                            <constraint firstAttribute="trailing" secondItem="wpc-xN-Hg1" secondAttribute="trailing" constant="8" id="myD-Nm-7q5"/>
+                            <constraint firstItem="wpc-xN-Hg1" firstAttribute="leading" secondItem="hce-bF-0lu" secondAttribute="leading" constant="8" id="znD-fv-1a7"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="hce-bF-0lu" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="9Gc-Db-ovE"/>
+                <constraint firstAttribute="bottom" secondItem="hce-bF-0lu" secondAttribute="bottom" id="UzJ-ww-rmA"/>
+                <constraint firstItem="hce-bF-0lu" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Xlf-jV-Be6"/>
+                <constraint firstItem="9Yo-hF-6W9" firstAttribute="height" secondItem="hce-bF-0lu" secondAttribute="height" id="YWf-B6-paH"/>
+                <constraint firstItem="9Yo-hF-6W9" firstAttribute="centerY" secondItem="hce-bF-0lu" secondAttribute="centerY" id="fX7-t0-VIj"/>
+                <constraint firstItem="9Yo-hF-6W9" firstAttribute="width" secondItem="hce-bF-0lu" secondAttribute="width" id="i86-8v-uc4"/>
+                <constraint firstAttribute="trailing" secondItem="hce-bF-0lu" secondAttribute="trailing" id="mMF-7V-lBD"/>
+                <constraint firstItem="9Yo-hF-6W9" firstAttribute="centerX" secondItem="hce-bF-0lu" secondAttribute="centerX" id="mtO-nL-Bzo"/>
+            </constraints>
+            <connections>
+                <outlet property="bgShadowView" destination="9Yo-hF-6W9" id="gQt-Ip-ZoD"/>
+                <outlet property="bgView" destination="hce-bF-0lu" id="d83-Hm-CaK"/>
+                <outlet property="cardImageView" destination="wpc-xN-Hg1" id="GTS-r4-mcN"/>
+                <outlet property="favorButton" destination="HyM-oj-2zU" id="cfT-yl-tGJ"/>
+                <outlet property="hSpace" destination="Neo-5C-6Yg" id="zZC-Fs-YvW"/>
+                <outlet property="vSpace" destination="epg-na-k5n" id="CDE-HD-ttI"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="kcolorfavor" width="50" height="50"/>
+    </resources>
+</document>

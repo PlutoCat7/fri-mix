@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PosterViewController">
+            <connections>
+                <outlet property="tableView" destination="76u-5D-hlz" id="zbW-3w-GnV"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7uh-F5-EsZ" userLabel="参考层">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OxM-7r-NSj" userLabel="背景层">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zzh-64-bQ7" userLabel="容器层">
+                                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                    <subviews>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="76u-5D-hlz">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="-1" id="LCK-Ob-5TJ"/>
+                                                <outlet property="delegate" destination="-1" id="BNe-MC-Tq8"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="76u-5D-hlz" firstAttribute="leading" secondItem="Zzh-64-bQ7" secondAttribute="leading" id="APJ-zh-klJ"/>
+                                        <constraint firstItem="76u-5D-hlz" firstAttribute="top" secondItem="Zzh-64-bQ7" secondAttribute="top" id="HlN-hX-Ync"/>
+                                        <constraint firstAttribute="trailing" secondItem="76u-5D-hlz" secondAttribute="trailing" id="JP9-b7-mA7"/>
+                                        <constraint firstAttribute="bottom" secondItem="76u-5D-hlz" secondAttribute="bottom" id="k8R-cY-RYJ"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="OxM-7r-NSj" firstAttribute="top" secondItem="7uh-F5-EsZ" secondAttribute="top" id="0L7-xu-Jqa"/>
+                        <constraint firstAttribute="trailing" secondItem="OxM-7r-NSj" secondAttribute="trailing" id="5Lf-9c-LRh"/>
+                        <constraint firstAttribute="trailing" secondItem="Zzh-64-bQ7" secondAttribute="trailing" id="Gc3-Qm-Ia3"/>
+                        <constraint firstItem="Zzh-64-bQ7" firstAttribute="top" secondItem="7uh-F5-EsZ" secondAttribute="top" constant="64" identifier="Layout_TopConstraint" id="Tsa-dg-ZCT"/>
+                        <constraint firstAttribute="bottom" secondItem="OxM-7r-NSj" secondAttribute="bottom" id="XL9-ch-VcO"/>
+                        <constraint firstItem="Zzh-64-bQ7" firstAttribute="leading" secondItem="7uh-F5-EsZ" secondAttribute="leading" id="YkS-zj-3Fn"/>
+                        <constraint firstItem="OxM-7r-NSj" firstAttribute="leading" secondItem="7uh-F5-EsZ" secondAttribute="leading" id="kRs-Qr-DrE"/>
+                        <constraint firstAttribute="bottom" secondItem="Zzh-64-bQ7" secondAttribute="bottom" id="lOm-cm-ZDE"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="7uh-F5-EsZ" secondAttribute="trailing" id="K41-o8-X6Z"/>
+                <constraint firstItem="7uh-F5-EsZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Kq8-vP-6Tb"/>
+                <constraint firstAttribute="bottom" secondItem="7uh-F5-EsZ" secondAttribute="bottom" id="ONV-aA-a3o"/>
+                <constraint firstItem="7uh-F5-EsZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="zp7-Da-Knh"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
