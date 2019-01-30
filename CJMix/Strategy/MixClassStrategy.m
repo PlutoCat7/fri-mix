@@ -63,14 +63,11 @@
                     break;
                 }
                 
-                if ([classStr isEqualToString:@"TZAlbumPickerController"]) {
-                    
-                }
                 
                 if (classStr && ![MixJudgeStrategy isSystemClass:classStr]) {
                     
                     MixClass * class = [[MixClass alloc] initWithClassName:classStr];
-                    [class methodFromData:obj];
+//                    [class methodFromData:obj];
                     [classNames addObject:class];
                 }
             }

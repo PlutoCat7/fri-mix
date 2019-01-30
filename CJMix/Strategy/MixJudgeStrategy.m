@@ -8,7 +8,7 @@
 
 #import "MixJudgeStrategy.h"
 #import "../Config/MixConfig.h"
-
+#import "../Strategy/MixStringStrategy.h"
 
 @implementation MixJudgeStrategy
 
@@ -42,6 +42,22 @@
     return NO;
 }
 
++ (BOOL)isLegalMethodFrontSymbol:(NSString *)symbol {
+    if ([MixStringStrategy isProperty:symbol]) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
++ (BOOL)isLegalMethodBackSymbol:(NSString *)symbol {
+    if ([MixStringStrategy isProperty:symbol]) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
 + (BOOL)isShieldWithPath:(NSString *)path {
     NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldPaths];
     for (NSString * str in array) {
@@ -63,19 +79,34 @@
 }
 
 + (BOOL)isShieldWithMethod:(NSString *)method {
-    NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldMethods];
-    for (NSString * str in array) {
-        if ([method isEqualToString:str]) {
-            return YES;
-        }
-    }
     
     if ([method hasPrefix:@"init"]) {
         return YES;
     }
     
-    if ([MixJudgeStrategy isSystemClass:method]) {
+    if ([method hasPrefix:@"set"]) {
         return YES;
+    }
+    
+    if (method.length < 5) {
+        return YES;
+    }
+    
+    
+
+    NSArray * arr = @[@"titleLabel",@"SDExternalCompletionBlock",@"dispatch_block_t",@"CFHTTPMessageRef",@"fillMode",@"allKeys",@"dispatch_time_t",@"addObject",@"sharedInstance"];
+    for (NSString *str in arr) {
+        if ([method containsString:str]) {
+            return YES;
+        }
+    }
+    
+    
+    NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldMethods];
+    for (NSString * str in array) {
+        if ([method isEqualToString:str]) {
+            return YES;
+        }
     }
     
     

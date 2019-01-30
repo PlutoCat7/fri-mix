@@ -16,6 +16,10 @@
 
 + (BOOL)isLegalClassBackSymbol:(NSString *)symbol;
 
++ (BOOL)isLegalMethodFrontSymbol:(NSString *)symbol;
+
++ (BOOL)isLegalMethodBackSymbol:(NSString *)symbol;
+
 + (BOOL)isShieldWithPath:(NSString *)path;
 
 + (BOOL)isShieldWithClass:(NSString *)className;
