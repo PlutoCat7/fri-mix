@@ -34,12 +34,12 @@ int main(int argc, const char * argv[]) {
 
 #if 1
 
-        NSString * referencePath = @"/Users/wangsw/CJMix/Reference";
+//        NSString * referencePath = @"/Users/wangsw/CJMix/Reference";
         //NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
-        NSString * rootPath = @"/Users/wangsw/wangle/majiabao/AudioRoom";
+//        NSString * rootPath = @"/Users/wangsw/wangle/majiabao/AudioRoom";
 
-//        NSString * referencePath = @"/Users/wn/Desktop/Reference";
-//        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
+        NSString * referencePath = @"/Users/wn/Desktop/Reference";
+        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
 #else
         NSString * referencePath = @"/Users/yegaofei/Desktop/ygf_project/Rongle/wangle_src/Reference";
         NSString * rootPath = @"/Users/yegaofei/Desktop/ygf_project/Rongle/wangle_src/WonderVoice/Trunk/AudioRoom";
