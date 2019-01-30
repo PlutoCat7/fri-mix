@@ -108,7 +108,7 @@
                 NSRange curRange = [tmpString rangeOfString:@"(?<=@protocol).*(?=<)" options:NSRegularExpressionSearch];
                 if (curRange.location == NSNotFound)
                     continue;
-                NSString *curStr = [NSString stringWithFormat:@"Mix%@", [tmpString substringWithRange:curRange]];
+                NSString *curStr = [NSString stringWithFormat:@"%@%@",  [MixConfig sharedSingleton].mixPrefix, [tmpString substringWithRange:curRange]];
                 if (![list containsObject:curStr]) {
                     [list addObject:curStr];
                 }

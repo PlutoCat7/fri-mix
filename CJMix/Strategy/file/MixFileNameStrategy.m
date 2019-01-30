@@ -243,7 +243,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
         NSString *newClassName = [dataDict objectForKey:@"name"];
         if (newClassName && newClassName.length>0) { //找到了
             
-            NSString *newFileName = [[NSMutableString stringWithString:oldFileName] stringByReplacingOccurrencesOfString:oldClassName withString:newClassName];
+            NSString *newFileName = [oldFileName stringByReplacingOccurrencesOfString:oldClassName withString:newClassName];
             //先修改物理文件路径
             MixObject *object = [dataDict objectForKey:@"object"];
             NSString *oldPath = nil;
@@ -254,7 +254,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             }
             if (oldPath && oldPath.length>0) {
                 
-                NSString *newPath = [[NSMutableString stringWithString:oldPath] stringByReplacingOccurrencesOfString:oldFileName withString:newFileName];
+                NSString *newPath = [oldPath stringByReplacingOccurrencesOfString:oldFileName withString:newFileName];
                 BOOL isSuccess = [[NSFileManager defaultManager] moveItemAtPath:oldPath toPath:newPath error:nil];
                 if (isSuccess) {
                     NSString *key = [self keyWithUDID:info.UDID];

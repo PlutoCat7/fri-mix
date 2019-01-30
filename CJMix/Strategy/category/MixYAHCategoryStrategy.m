@@ -100,7 +100,7 @@
                 if (curStr.length==0) {
                     continue;
                 }
-                curStr = [NSString stringWithFormat:@"Mix%@", curStr];
+                curStr = [NSString stringWithFormat:@"%@%@", [MixConfig sharedSingleton].mixPrefix, curStr];
                 if (![list containsObject:curStr]) {
                     [list addObject:curStr];
                 }
