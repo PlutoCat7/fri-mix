@@ -7,10 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "../Model/MixObject.h"
+
 
 @interface MixMethodStrategy : NSObject
 
 + (NSString *)methodFromData:(NSString *)data;
+
++ (NSArray <NSString *>*)methods:(NSArray <MixObject *>*)objects;
+
++ (NSArray <NSString *>*)systemMethods;
+
++ (NSArray <NSString *>*)methodsWithPath:(NSString *)path;
 
 @end
 
