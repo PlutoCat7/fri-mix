@@ -42,14 +42,21 @@
     
     NSInteger count = 0;
     for (NSString * method in validMethods) {
-        [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
         count ++;
-//        
-//        if (count == 500) {
-//            break;
+//        if (count<1000) {
+//            continue;
 //        }
         
-        printf("完成进度%0.2f %%\n",(float)count/(float)validMethods.count*100);
+        [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
+        
+        if ((float)count/(float)validMethods.count*100 > 50) {
+            return;
+        }
+        
+        printf("完成进度%0.2f %%  \n",(float)count/(float)validMethods.count*100);
+        
+        
+        
     }
     
 }
@@ -76,13 +83,14 @@
     
     NSString * oldTrueMethod = [MixMainStrategy trueMethod:oldMethod];
     
-    if ([oldTrueMethod containsString:@"GiftSendHandle"]) {
-        
+    for (NSString * str in [MixConfig sharedSingleton].shieldSystemMethodNames) {
+        if ([str containsString:oldTrueMethod] || [oldTrueMethod containsString:str]) {
+            return;
+        }
     }
-    
-    if ([[MixConfig sharedSingleton].shieldSystemMethodNames containsObject:oldTrueMethod]) {
-        return;
-    }
+//    if ([[MixConfig sharedSingleton].shieldSystemMethodNames containsObject:oldTrueMethod]) {
+//        return;
+//    }
     
     if ([MixJudgeStrategy isShieldWithMethod:oldTrueMethod]) {
         return;
@@ -97,9 +105,16 @@
     
     NSString * newTrueMethod = [MixMainStrategy trueMethod:newMethod];
     
+    
+    
+    
     for (MixObject * object in objects) {
         [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.hFile];
         [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.mFile];
+    }
+    
+    for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
+        [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:file];
     }
     
     
@@ -147,6 +162,21 @@
             NSString * backSymbol = [substitute substringWithRange:backRange];
             
             if ([MixJudgeStrategy isLegalMethodFrontSymbol:frontSymbol] && [MixJudgeStrategy isLegalMethodBackSymbol:backSymbol] && !interface) {
+                
+                if ([backSymbol isEqualToString:@"."]) {
+                    NSRange newBackRange = NSMakeRange(range.location + range.length, 3);
+                    NSString * newBackSymbol = [substitute substringWithRange:newBackRange];
+                    if ([newBackSymbol isEqualToString:@".h\n"]||[newBackSymbol isEqualToString:@".h\t"]||[newBackSymbol isEqualToString:@".h\""]||[newBackSymbol isEqualToString:@".h "]) {
+                        
+                        NSString * front = [substitute substringToIndex:range.location];
+                        NSString * back = [substitute substringFromIndex:range.location + range.length];
+                        NSString * encrypt = [NSString stringWithFormat:@"######&&&&&&$$$$$******"];
+                        substitute = [NSString stringWithFormat:@"%@%@%@",front,encrypt,back];
+                        
+                        continue;
+                    }
+                }
+                
                 
                 NSString * front = [substitute substringToIndex:range.location];
                 NSString * back = [substitute substringFromIndex:range.location + range.length];

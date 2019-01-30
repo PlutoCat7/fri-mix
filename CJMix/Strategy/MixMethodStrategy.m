@@ -117,6 +117,8 @@
         
     } else {
         methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+        
+        
         if ([MixStringStrategy isAlphaNum:methodStr]) {
             return methodStr;
         }
@@ -208,10 +210,6 @@
         if (idx != 0) {
             NSString * group = [NSString stringWithFormat:@"-%@",obj];
             NSString * method = [MixMethodStrategy methodFromData:group];
-            
-            if ([method containsString:@"getkInviteFriendUrl"] || [method containsString:@"rippleVoiceWithUid"]) {
-                
-            }
             
             if (method && ![methods containsObject:method]) {
                 [methods addObject:method];
