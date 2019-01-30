@@ -38,20 +38,15 @@
     
     newMethods = worker;
     
-    [MixConfig sharedSingleton].shieldSystemMethodNames =   [MixMainStrategy shieldSystemMethodName:systemMethods];
+    [MixConfig sharedSingleton].shieldSystemMethodNames = [MixMainStrategy shieldSystemMethodName:systemMethods];
     
     NSInteger count = 0;
     for (NSString * method in validMethods) {
         count ++;
-//        if (count<1000) {
-//            continue;
-//        }
-        
-        [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
-        
-        if ((float)count/(float)validMethods.count*100 > 50) {
+        if ((float)count/(float)validMethods.count*100 > 10) {
             return;
         }
+        [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
         
         printf("完成进度%0.2f %%  \n",(float)count/(float)validMethods.count*100);
         
