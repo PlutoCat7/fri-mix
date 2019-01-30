@@ -12,6 +12,7 @@
 #import "MixConfig.h"
 #import "CJMix-swift.h"
 #import "MixYAHCategoryStrategy.h"
+#import "../category/MixYAHCategoryStrategy.h"
 
 
 typedef NS_ENUM(NSUInteger, yah_MixFileType) {
@@ -111,7 +112,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 
 - (void)executeConverWithPath:(NSString *)exePath{
     //plutil -convert json -s -r -o pbxproj.json project.pbxproj
-    NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:exePath];
+    NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:exePath framework:NO];
     NSString *projectFolderName = nil;
     for (MixFile *itemFile in files) {
         if (itemFile.fileType == MixFileTypeProjectFolder) {
@@ -293,7 +294,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             NSMutableDictionary *originalPropertyList = [NSMutableDictionary dictionary];
             id currentPropertyList = [PropertyListHandler applyWithJson:data onProjectData:originalPropertyList forward:YES];
             NSLog(@"currentPropertyList:%@",currentPropertyList);
-            NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:self.mixPath];
+            NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:self.mixPath framework:YES];
             NSString *projectFolderPath = nil;
             for (MixFile *itemFile in files) {
                 if (itemFile.fileType == MixFileTypeProjectFolder) {

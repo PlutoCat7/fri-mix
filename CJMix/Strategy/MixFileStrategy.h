@@ -11,13 +11,11 @@
 
 @interface MixFileStrategy : NSObject
 
-+ (NSArray <MixFile *>*)filesWithPath:(NSString *)path;
++ (NSArray <MixFile *>*)filesWithPath:(NSString *)path framework:(BOOL)framework;
 
 + (NSArray <MixFile *>*)filesToHMFiles:(NSArray <MixFile *>*)files;
 
 + (NSArray <MixFile *>*)filesToPCHFiles:(NSArray <MixFile *>*)files;
-
-+ (MixFile *)projectWithFilesWithPath:(NSString *)path;
 
 
 
