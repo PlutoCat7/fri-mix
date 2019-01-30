@@ -44,8 +44,7 @@ int main(int argc, const char * argv[]) {
 #endif
         
         NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
-        
-        NSString * sdkPath = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
+
 
         printf("拷贝文件中..\n");
         BOOL isSuccess = [MixFileStrategy copyItemAtPath:rootPath toPath:copyPath overwrite:YES error:nil];
