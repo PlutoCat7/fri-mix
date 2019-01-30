@@ -78,9 +78,26 @@
 #pragma mark - 初始化新的protocol名称列表
 - (BOOL)initResetProtocolData {
     
-    _resetProtocolList = [[NSMutableArray alloc] initWithCapacity:1];
+    NSString *path = @"/Users/wangsw/CJMix/Reference/cache/protocol.json";
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    if (data) {
+        NSError *error = nil;
+        id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+        if ([result isKindOfClass:NSArray.class]) {
+            _resetProtocolList = [NSMutableArray arrayWithArray:result];
+        }
+    }
     
-    [self recursiveFile:[MixConfig sharedSingleton].referenceAllFile resetList:_resetProtocolList];
+    if (!_resetProtocolList) {
+        _resetProtocolList = [[NSMutableArray alloc] initWithCapacity:1];
+        [self recursiveFile:[MixConfig sharedSingleton].referenceAllFile resetList:_resetProtocolList];
+    }
+    
+    //保存到文件中
+//    NSString *path = @"/Users/wangsw/CJMix/Reference/cache/protocol.json";
+//    NSData *data=[NSJSONSerialization dataWithJSONObject:_resetProtocolList options:NSJSONWritingPrettyPrinted error:nil];
+//    NSString *jsonStr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+//    [jsonStr writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
     return YES;
 }

@@ -60,22 +60,22 @@ int main(int argc, const char * argv[]) {
         NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
         printf("获取需要被替换对象\n");
         NSArray <MixObject*>* copyObjects = [MixObjectStrategy objectsWithPath:copyPath saveConfig:YES];
-//        printf("获取替换类名\n");
-//        NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
-//        printf("开始替换类名\n");
-//        [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
-//        printf("结束替换类名\n");
+        printf("获取替换类名\n");
+        NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
+        printf("开始替换类名\n");
+        [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
+        printf("结束替换类名\n");
         
         
-//        printf("获取系统对象\n");
-////        NSArray <MixObject*>* systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
-//        NSArray <MixObject*>* systemObjects = nil;
-//        if (![MixConfig sharedSingleton].systemObjects) {
-//            systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
-//            [MixConfig sharedSingleton].systemObjects = systemObjects;
-//        } else {
-//            systemObjects = [MixConfig sharedSingleton].systemObjects;
-//        }
+        printf("获取系统对象\n");
+//        NSArray <MixObject*>* systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
+        NSArray <MixObject*>* systemObjects = nil;
+        if (![MixConfig sharedSingleton].systemObjects) {
+            systemObjects = [MixObjectStrategy objectsWithPath:sdkPath];
+            [MixConfig sharedSingleton].systemObjects = systemObjects;
+        } else {
+            systemObjects = [MixConfig sharedSingleton].systemObjects;
+        }
         
         
 //        printf("获取替换方法名\n");
