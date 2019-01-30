@@ -9,6 +9,7 @@
 #import "MixProtocolStrategy.h"
 #import "MixConfig.h"
 #import "MixFileStrategy.h"
+#import "MixDefine.h"
 
 @interface MixProtocolStrategy ()
 
@@ -27,18 +28,17 @@
     MixProtocolStrategy *strategy = [[MixProtocolStrategy alloc] initWithRootPath:path];
     BOOL result = [strategy initResetProtocolData];
     if (!result) {
-        printf("初始化ResetProtocolData数据失败\n");
+        MixLog(@"初始化ResetProtocolData数据失败\n");
         return NO;
     }
     result = [strategy findOldProtocol];
     if (!result) {
-        printf("查找旧Protocol失败\n");
+        MixLog(@"查找旧Protocol失败\n");
         return NO;
     }
-    printf("替换的Protocol个数:%s\n", [@(strategy.protocolDict.allKeys.count).stringValue UTF8String]);
     result = [strategy replaceProtocolQuote];
     if (!result) {
-        printf("替换Protocol失败\n");
+        MixLog(@"替换Protocol失败\n");
         return NO;
     }
     
@@ -176,7 +176,7 @@
                 //替换新protocol
                 NSString *resetProtocol = self.resetProtocolList.firstObject;
                 if (!resetProtocol) {
-                    printf("新的protocol个数不足,无法替换完全\n");
+                    MixLog(@"新的protocol个数不足,无法替换完全\n");
                     return;
                 }
                 tmpString = [lineString stringByReplacingOccurrencesOfString:curStr withString:resetProtocol];
@@ -216,20 +216,30 @@
                   file.fileType == MixFileTypePch) {
             //
             NSString *string = file.data;
-            if (!string || string.length == 0) {
+
+            //简单的过滤
+            NSMutableDictionary *findDict = [NSMutableDictionary dictionaryWithCapacity:1];
+            for (NSString *oldProtocol in dict) {
+                if ([string containsString:oldProtocol]) {
+                    [findDict setObject:dict[oldProtocol] forKey:oldProtocol];
+                }
+            }
+            if (findDict.count==0) {
                 continue;
             }
+            
+            
             NSArray *lineList = [string componentsSeparatedByString:@"\n"];
             NSMutableArray *tmpList = [NSMutableArray arrayWithArray:lineList];
             for (NSInteger index =0; index<lineList.count; index++) {
                 NSString *lineString = lineList[index];
                 NSString *tmpString = [lineString copy];
-                for (NSString *oldProtocol in dict) {
-                    NSString *newProtocol = dict[oldProtocol];
+                for (NSString *oldProtocol in findDict) {
                     //简单的判断
                     if (![lineString containsString:oldProtocol]) {
                         continue;
                     }
+                    NSString *newProtocol = findDict[oldProtocol];
                     //去空格处理
                     NSString *removeSpaceString = [lineString stringByReplacingOccurrencesOfString:@" " withString:@""];
                     //第一种  id<xxDelagate>   一行只有一个delegate

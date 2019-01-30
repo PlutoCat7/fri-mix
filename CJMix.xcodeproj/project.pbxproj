@@ -46,6 +46,7 @@
 /* Begin PBXFileReference section */
 		2B210DBE22007B7E0088ABBE /* CJMix-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CJMix-Bridging-Header.h"; sourceTree = "<group>"; };
 		2B210E03220085510088ABBE /* PropertyListHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyListHandler.swift; sourceTree = "<group>"; };
+		2C554D0D2201918400D953C7 /* MixDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixDefine.h; sourceTree = "<group>"; };
 		2C59506D21FEEB880039E1A3 /* MixProtocolStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixProtocolStrategy.h; sourceTree = "<group>"; };
 		2C59506E21FEEB880039E1A3 /* MixProtocolStrategy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixProtocolStrategy.m; sourceTree = "<group>"; };
 		B75DB02D21FAAC94006FDB86 /* MixFileNameModifyJsonInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixFileNameModifyJsonInfo.h; sourceTree = "<group>"; };
@@ -172,6 +173,7 @@
 				B78CED2821FAA0A600811586 /* Model */,
 				B78CED3521FAA0A600811586 /* Strategy */,
 				B78CED2121FAA09E00811586 /* main.m */,
+				2C554D0D2201918400D953C7 /* MixDefine.h */,
 			);
 			path = CJMix;
 			sourceTree = "<group>";
