@@ -90,6 +90,11 @@
             return;
         }
     }
+    
+    if ([[MixConfig sharedSingleton].allProperty containsObject:oldTrueMethod]) {
+        return;
+    }
+    
 //    if ([[MixConfig sharedSingleton].shieldSystemMethodNames containsObject:oldTrueMethod]) {
 //        return;
 //    }
@@ -117,23 +122,23 @@
     }
     
     
-    if (oldSetTrueMethod) {
-        
-        NSString * newSetTrueMethod = [newTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[newTrueMethod substringToIndex:1] uppercaseString]];
-        newSetTrueMethod = [NSString stringWithFormat:@"set%@",newSetTrueMethod];
-        //有可能存在set方法
-        
-        for (MixObject * object in objects) {
-            [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:object.classFile.hFile];
-            [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:object.classFile.mFile];
-        }
-        
-        for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
-            [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:file];
-        }
-        
-        
-    }
+//    if (oldSetTrueMethod) {
+//        
+//        NSString * newSetTrueMethod = [newTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[newTrueMethod substringToIndex:1] uppercaseString]];
+//        newSetTrueMethod = [NSString stringWithFormat:@"set%@",newSetTrueMethod];
+//        //有可能存在set方法
+//        
+//        for (MixObject * object in objects) {
+//            [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:object.classFile.hFile];
+//            [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:object.classFile.mFile];
+//        }
+//        
+//        for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
+//            [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:file];
+//        }
+//        
+//        
+//    }
     
     
 }

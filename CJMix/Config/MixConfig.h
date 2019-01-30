@@ -34,6 +34,7 @@
 
 @property (nonatomic , copy) NSArray <MixFile *>* allFile;  //所有文件
 @property (nonatomic , copy) NSArray <MixFile *>* referenceAllFile;  //参考工程的所有文件
+@property (nonatomic , copy) NSMutableArray <NSString *>* allProperty;
 
 @property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassFrontSymbols;
 
