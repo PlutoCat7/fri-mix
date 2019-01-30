@@ -18,7 +18,6 @@
 #import "Strategy/file/MixFileNameStrategy.h"
 #import "Strategy/protocol/MixProtocolStrategy.h"
 
-
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
@@ -48,8 +47,6 @@ int main(int argc, const char * argv[]) {
         NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
         
         NSString * sdkPath = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
-
-        
 
         printf("拷贝文件中..\n");
         BOOL isSuccess = [MixFileStrategy copyItemAtPath:rootPath toPath:copyPath overwrite:YES error:nil];
@@ -101,7 +98,6 @@ int main(int argc, const char * argv[]) {
         }else {
             printf("替换文件名称出错了\n");
         }
-
     }
     return 0;
 }

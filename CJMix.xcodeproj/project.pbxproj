@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B210E04220085510088ABBE /* PropertyListHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B210E03220085510088ABBE /* PropertyListHandler.swift */; };
 		2C59506F21FEEB880039E1A3 /* MixProtocolStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C59506E21FEEB880039E1A3 /* MixProtocolStrategy.m */; };
 		B75DB03221FAAC94006FDB86 /* MixFileNameStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DB02E21FAAC94006FDB86 /* MixFileNameStrategy.m */; };
 		B75DB03321FAAC94006FDB86 /* MixFileNameModifyJsonInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DB02F21FAAC94006FDB86 /* MixFileNameModifyJsonInfo.m */; };
@@ -43,6 +44,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2B210DBE22007B7E0088ABBE /* CJMix-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CJMix-Bridging-Header.h"; sourceTree = "<group>"; };
+		2B210E03220085510088ABBE /* PropertyListHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyListHandler.swift; sourceTree = "<group>"; };
 		2C59506D21FEEB880039E1A3 /* MixProtocolStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixProtocolStrategy.h; sourceTree = "<group>"; };
 		2C59506E21FEEB880039E1A3 /* MixProtocolStrategy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixProtocolStrategy.m; sourceTree = "<group>"; };
 		B75DB02D21FAAC94006FDB86 /* MixFileNameModifyJsonInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixFileNameModifyJsonInfo.h; sourceTree = "<group>"; };
@@ -98,6 +101,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B210DAB220062C10088ABBE /* SwiftCode */ = {
+			isa = PBXGroup;
+			children = (
+				2B210E03220085510088ABBE /* PropertyListHandler.swift */,
+				2B210DBE22007B7E0088ABBE /* CJMix-Bridging-Header.h */,
+			);
+			path = SwiftCode;
+			sourceTree = "<group>";
+		};
 		2C59506C21FEEB600039E1A3 /* protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +158,7 @@
 		B78CED2021FAA09E00811586 /* CJMix */ = {
 			isa = PBXGroup;
 			children = (
+				2B210DAB220062C10088ABBE /* SwiftCode */,
 				B75DB03421FAAF71006FDB86 /* Config */,
 				B78CED2821FAA0A600811586 /* Model */,
 				B78CED3521FAA0A600811586 /* Strategy */,
@@ -271,6 +284,7 @@
 				B78CED4F21FAA0A700811586 /* MixClassStrategy.m in Sources */,
 				B78CED4E21FAA0A700811586 /* MixStringStrategy.m in Sources */,
 				B78CED5321FAA0A700811586 /* MixFileStrategy.m in Sources */,
+				2B210E04220085510088ABBE /* PropertyListHandler.swift in Sources */,
 				B78CED5421FAA0A700811586 /* MixClassFileStrategy.m in Sources */,
 				B75DB03D21FB1CFA006FDB86 /* MixDataStrategy.m in Sources */,
 				2C59506F21FEEB880039E1A3 /* MixProtocolStrategy.m in Sources */,
@@ -400,9 +414,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CJMix/SwiftCode/CJMix-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -410,9 +427,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CJMix/SwiftCode/CJMix-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

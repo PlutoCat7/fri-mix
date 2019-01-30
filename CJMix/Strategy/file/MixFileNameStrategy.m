@@ -10,6 +10,7 @@
 #import "MixFileNameModifyJsonInfo.h"
 #import "MixFileStrategy.h"
 #import "MixConfig.h"
+#import "CJMix-swift.h"
 
 
 typedef NS_ENUM(NSUInteger, yah_MixFileType) {
@@ -284,9 +285,31 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     }else{
         printf("Pbxproj配置数据生成成功\n");
         //pbxprojhelper
-        
+        id data = [PropertyListHandler parseJSONWithFileURL:[NSURL fileURLWithPath:configPath]];
+        if (data) {
+            NSURL *jsonFileURL = [NSURL fileURLWithPath:configPath];
+            NSMutableDictionary *originalPropertyList = [NSMutableDictionary dictionary];
+            id currentPropertyList = [PropertyListHandler applyWithJson:data onProjectData:originalPropertyList forward:YES];
+            NSLog(@"currentPropertyList:%@",currentPropertyList);
+            NSArray<MixFile *> *files = [MixFileStrategy filesWithPath:self.mixPath];
+            NSString *projectFolderPath = nil;
+            for (MixFile *itemFile in files) {
+                if (itemFile.fileType == MixFileTypeProjectFolder) {
+                    projectFolderPath = itemFile.path;
+                    break;
+                }
+            }
+            NSURL *propertyURL = [NSURL fileURLWithPath:projectFolderPath];
+            NSURL *jsonURL = jsonFileURL;
+            id propertyListData = [PropertyListHandler parseProjectWithFileURL:propertyURL];
+            id jsonFileData = [PropertyListHandler parseJSONWithFileURL:jsonURL];
+            originalPropertyList = propertyListData;
+            currentPropertyList = [PropertyListHandler applyWithJson:jsonFileData onProjectData:originalPropertyList forward:YES];
+            [PropertyListHandler generateProjectWithFileURL:propertyURL withPropertyList:currentPropertyList];
+        }
+        [NSThread sleepForTimeInterval:3.f];
         //移除生成的config.json文件
-        //[[NSFileManager defaultManager] removeItemAtPath:configPath error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:configPath error:nil];
         
         //修改
         return YES;
