@@ -11,6 +11,7 @@
 #import "MixFileStrategy.h"
 #import "MixConfig.h"
 #import "CJMix-swift.h"
+#import "MixYAHCategoryStrategy.h"
 
 
 typedef NS_ENUM(NSUInteger, yah_MixFileType) {
@@ -74,10 +75,11 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             //遍历已有的类获取 修改后的文件名称
             for (MixObject *subObject in objects) {
                 NSString *className = [oldName componentsSeparatedByString:@"+"].firstObject;
+                NSString *categoryName = [oldName componentsSeparatedByString:@"+"].lastObject;
                 if ([subObject.classFile.classFileName isEqualToString:className]) {
                     NSString *newClassName = subObject.classFile.resetFileName;
                     if (newClassName && newClassName.length>0) {
-                        newName = [oldName stringByReplacingOccurrencesOfString:className withString:subObject.classFile.resetFileName];
+                        newName = [NSString stringWithFormat:@"%@+%@", newClassName, [[MixYAHCategoryStrategy shareInstance] getNewCategoryNameWithOld:categoryName]];
                     }
                     break;
                 }
