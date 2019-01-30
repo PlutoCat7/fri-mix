@@ -9,6 +9,7 @@
 #import "MixProtocolStrategy.h"
 #import "MixConfig.h"
 #import "MixFileStrategy.h"
+#import "MixDefine.h"
 
 @interface MixProtocolStrategy ()
 
@@ -27,18 +28,17 @@
     MixProtocolStrategy *strategy = [[MixProtocolStrategy alloc] initWithRootPath:path];
     BOOL result = [strategy initResetProtocolData];
     if (!result) {
-        printf("初始化ResetProtocolData数据失败\n");
+        MixLog(@"初始化ResetProtocolData数据失败\n");
         return NO;
     }
     result = [strategy findOldProtocol];
     if (!result) {
-        printf("查找旧Protocol失败\n");
+        MixLog(@"查找旧Protocol失败\n");
         return NO;
     }
-    printf("替换的Protocol个数:%s\n", [@(strategy.protocolDict.allKeys.count).stringValue UTF8String]);
     result = [strategy replaceProtocolQuote];
     if (!result) {
-        printf("替换Protocol失败\n");
+        MixLog(@"替换Protocol失败\n");
         return NO;
     }
     
@@ -176,7 +176,7 @@
                 //替换新protocol
                 NSString *resetProtocol = self.resetProtocolList.firstObject;
                 if (!resetProtocol) {
-                    printf("新的protocol个数不足,无法替换完全\n");
+                    MixLog(@"新的protocol个数不足,无法替换完全\n");
                     return;
                 }
                 tmpString = [lineString stringByReplacingOccurrencesOfString:curStr withString:resetProtocol];

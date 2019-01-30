@@ -10,6 +10,8 @@
 #import "MixConfig.h"
 #import "MixFileStrategy.h"
 
+#import "MixDefine.h"
+
 @interface MixYAHCategoryStrategy ()
 
 @property (nonatomic, strong) NSMutableArray<NSString *> *resetCategoryList;
@@ -172,7 +174,7 @@
                     resetCategory = self.resetCategoryList.firstObject;;
                 }
                 if (!resetCategory) {
-                    printf("新的Category个数不足,无法替换完全\n");
+                    MixLog(@"新的Category个数不足,无法替换完全\n");
                     return;
                 }
                 tmpString = [lineString stringByReplacingOccurrencesOfString:curStr withString:resetCategory];
