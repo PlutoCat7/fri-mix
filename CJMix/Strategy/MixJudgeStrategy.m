@@ -94,7 +94,7 @@
     
     
 
-    NSArray * arr = @[@"titleLabel",@"SDExternalCompletionBlock",@"dispatch_block_t",@"CFHTTPMessageRef",@"fillMode",@"allKeys",@"dispatch_time_t",@"addObject",@"sharedInstance"];
+    NSArray * arr = @[@"titleLabel",@"SDExternalCompletionBlock",@"dispatch_block_t",@"CFHTTPMessageRef",@"fillMode",@"allKeys",@"dispatch_time_t",@"addObject",@"sharedInstance",@"isRefreshing",@"longitude",@"latitude",@"stroke",@"sharedManager",@"systemUptime",@"animationType"];
     for (NSString *str in arr) {
         if ([method containsString:str]) {
             return YES;
