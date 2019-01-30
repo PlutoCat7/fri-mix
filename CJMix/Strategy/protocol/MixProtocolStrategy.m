@@ -216,20 +216,30 @@
                   file.fileType == MixFileTypePch) {
             //
             NSString *string = file.data;
-            if (!string || string.length == 0) {
+
+            //简单的过滤
+            NSMutableDictionary *findDict = [NSMutableDictionary dictionaryWithCapacity:1];
+            for (NSString *oldProtocol in dict) {
+                if ([string containsString:oldProtocol]) {
+                    [findDict setObject:dict[oldProtocol] forKey:oldProtocol];
+                }
+            }
+            if (findDict.count==0) {
                 continue;
             }
+            
+            
             NSArray *lineList = [string componentsSeparatedByString:@"\n"];
             NSMutableArray *tmpList = [NSMutableArray arrayWithArray:lineList];
             for (NSInteger index =0; index<lineList.count; index++) {
                 NSString *lineString = lineList[index];
                 NSString *tmpString = [lineString copy];
-                for (NSString *oldProtocol in dict) {
-                    NSString *newProtocol = dict[oldProtocol];
+                for (NSString *oldProtocol in findDict) {
                     //简单的判断
                     if (![lineString containsString:oldProtocol]) {
                         continue;
                     }
+                    NSString *newProtocol = findDict[oldProtocol];
                     //去空格处理
                     NSString *removeSpaceString = [lineString stringByReplacingOccurrencesOfString:@" " withString:@""];
                     //第一种  id<xxDelagate>   一行只有一个delegate

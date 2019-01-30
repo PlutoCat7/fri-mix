@@ -214,15 +214,24 @@
                   file.fileType == MixFileTypePch) {
             //
             NSString *string = file.data;
-            if (!string || string.length == 0) {
+            
+            //简单的过滤
+            NSMutableDictionary *findDict = [NSMutableDictionary dictionaryWithCapacity:1];
+            for (NSString *oldCategory in dict) {
+                if ([string containsString:oldCategory]) {
+                    [findDict setObject:dict[oldCategory] forKey:oldCategory];
+                }
+            }
+            if (findDict.count==0) {
                 continue;
             }
+            
             NSArray *lineList = [string componentsSeparatedByString:@"\n"];
             NSMutableArray *tmpList = [NSMutableArray arrayWithArray:lineList];
             for (NSInteger index =0; index<lineList.count; index++) {
                 NSString *lineString = lineList[index];
                 NSString *tmpString = [lineString copy];
-                for (NSString *oldCategory in dict) {
+                for (NSString *oldCategory in findDict) {
                     //简单的判断
                     if (![lineString containsString:oldCategory]) {
                         continue;
