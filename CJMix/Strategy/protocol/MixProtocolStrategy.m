@@ -78,15 +78,15 @@
 #pragma mark - 初始化新的protocol名称列表
 - (BOOL)initResetProtocolData {
     
-    NSString *path = @"/Users/wangsw/CJMix/Reference/cache/protocol.json";
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    if (data) {
-        NSError *error = nil;
-        id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-        if ([result isKindOfClass:NSArray.class]) {
-            _resetProtocolList = [NSMutableArray arrayWithArray:result];
-        }
-    }
+    //NSString *path = @"/Users/wangsw/CJMix/Reference/cache/protocol.json";
+//    NSData *data = [NSData dataWithContentsOfFile:path];
+//    if (data) {
+//        NSError *error = nil;
+//        id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+//        if ([result isKindOfClass:NSArray.class]) {
+//            _resetProtocolList = [NSMutableArray arrayWithArray:result];
+//        }
+//    }
     
     if (!_resetProtocolList) {
         _resetProtocolList = [[NSMutableArray alloc] initWithCapacity:1];

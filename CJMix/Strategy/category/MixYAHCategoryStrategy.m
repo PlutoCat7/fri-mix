@@ -63,15 +63,15 @@
 
 - (BOOL)initResetCategoryData {
     
-    NSString *path = @"/Users/wangsw/CJMix/Reference/cache/category.json";
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    if (data) {
-        NSError *error = nil;
-        id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-        if ([result isKindOfClass:NSArray.class]) {
-            _resetCategoryList = [NSMutableArray arrayWithArray:result];
-        }
-    }
+//    NSString *path = @"/Users/wangsw/CJMix/Reference/cache/category.json";
+//    NSData *data = [NSData dataWithContentsOfFile:path];
+//    if (data) {
+//        NSError *error = nil;
+//        id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+//        if ([result isKindOfClass:NSArray.class]) {
+//            _resetCategoryList = [NSMutableArray arrayWithArray:result];
+//        }
+//    }
     if (!_resetCategoryList) {
         _resetCategoryList = [[NSMutableArray alloc] initWithCapacity:1];
         [self recursiveFile:[MixConfig sharedSingleton].referenceAllFile resetList:_resetCategoryList];
