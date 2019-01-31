@@ -98,6 +98,13 @@
     return _shieldMethods;
 }
 
+- (NSMutableArray <NSString *>*)allProperty {
+    if (!_allProperty) {
+        _allProperty = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _allProperty;
+}
+
 
 - (void)setSystemObjects:(NSArray<MixObject *> *)systemObjects {
     _systemObjects = systemObjects;

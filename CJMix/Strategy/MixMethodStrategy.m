@@ -9,6 +9,7 @@
 #import "MixMethodStrategy.h"
 #import "MixStringStrategy.h"
 #import "MixFileStrategy.h"
+#import "../Config/MixConfig.h"
 
 @implementation MixMethodStrategy
 
@@ -229,7 +230,7 @@
 
             if ([property containsString:@"atomic"] || [property containsString:@"nonatomic"]) {
 
-//                BOOL isOnlyRead = [property containsString:@"readonly"];
+                BOOL isOnlyRead = [property containsString:@"readonly"];
 
                 NSString * propertyName = nil;
 
@@ -261,9 +262,14 @@
 
                 if (propertyName.length) {
 
-                    if (![methods containsObject:propertyName]) {
-                        [methods addObject:propertyName];
+//                    if (![methods containsObject:propertyName]) {
+//                        [methods addObject:propertyName];
+//                    }
+                    
+                    if (![[MixConfig sharedSingleton].allProperty containsObject:propertyName]) {
+                        [[MixConfig sharedSingleton].allProperty addObject:propertyName];
                     }
+                    
 
 //                    if (!isOnlyRead) {
 //                        NSString * setPropertyName = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[propertyName substringToIndex:1] uppercaseString]];

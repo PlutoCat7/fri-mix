@@ -14,6 +14,7 @@
 #import "MixObjectStrategy.h"
 #import "MixJudgeStrategy.h"
 #import "MixMethodStrategy.h"
+#import "MixStringStrategy.h"
 #import "file/MixFileNameStrategy.h"
 #import "../Config/MixConfig.h"
 
@@ -38,24 +39,20 @@
     
     newMethods = worker;
     
-    [MixConfig sharedSingleton].shieldSystemMethodNames =   [MixMainStrategy shieldSystemMethodName:systemMethods];
+    [MixConfig sharedSingleton].shieldSystemMethodNames = [MixMainStrategy shieldSystemMethodName:systemMethods];
     
     NSInteger count = 0;
     for (NSString * method in validMethods) {
         count ++;
-//        if (count<1000) {
-//            continue;
+//        if ((float)count/(float)validMethods.count*100 > 50) {
+//            return;
 //        }
         
-        [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
-        
-        if ((float)count/(float)validMethods.count*100 > 50) {
-            return;
+        @autoreleasepool {
+            [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
         }
         
         printf("完成进度%0.2f %%  \n",(float)count/(float)validMethods.count*100);
-        
-        
         
     }
     
@@ -82,12 +79,23 @@
 + (void)replaceMethod:(NSArray <MixObject *>*)objects oldMethod:(NSString *)oldMethod newMethods:(NSMutableArray <NSString *>*)newMethods {
     
     NSString * oldTrueMethod = [MixMainStrategy trueMethod:oldMethod];
+    NSString * oldSetTrueMethod = nil;
+    if (![oldMethod containsString:@":"]) {
+        oldSetTrueMethod = [oldTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[oldTrueMethod substringToIndex:1] uppercaseString]];
+        oldSetTrueMethod = [NSString stringWithFormat:@"set%@",oldSetTrueMethod];
+    }
+    
     
     for (NSString * str in [MixConfig sharedSingleton].shieldSystemMethodNames) {
         if ([str containsString:oldTrueMethod] || [oldTrueMethod containsString:str]) {
             return;
         }
     }
+    
+    if ([[MixConfig sharedSingleton].allProperty containsObject:oldTrueMethod]) {
+        return;
+    }
+    
 //    if ([[MixConfig sharedSingleton].shieldSystemMethodNames containsObject:oldTrueMethod]) {
 //        return;
 //    }
@@ -105,17 +113,37 @@
     
     NSString * newTrueMethod = [MixMainStrategy trueMethod:newMethod];
     
-    
-    
-    
     for (MixObject * object in objects) {
-        [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.hFile];
-        [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.mFile];
+        @autoreleasepool {
+            [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.hFile];
+            [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.mFile];
+        };
     }
     
     for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
-        [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:file];
+        @autoreleasepool {
+            [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:file];
+        }
     }
+    
+    
+//    if (oldSetTrueMethod) {
+//        
+//        NSString * newSetTrueMethod = [newTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[newTrueMethod substringToIndex:1] uppercaseString]];
+//        newSetTrueMethod = [NSString stringWithFormat:@"set%@",newSetTrueMethod];
+//        //有可能存在set方法
+//        
+//        for (MixObject * object in objects) {
+//            [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:object.classFile.hFile];
+//            [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:object.classFile.mFile];
+//        }
+//        
+//        for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
+//            [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:file];
+//        }
+//        
+//        
+//    }
     
     
 }
@@ -137,70 +165,84 @@
         return;
     }
     
-    NSArray * division = [file.data componentsSeparatedByString:oldMethod];
+    if (![file.data containsString:oldMethod]) {
+        return;
+    }
     
-    NSString * dataCopy = [NSString stringWithFormat:@"%@",file.data];
-    NSString * substitute = [dataCopy stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
-
-    
-    for (int ii = 0; ii < division.count; ii++) {
-        NSRange range = [substitute rangeOfString:oldMethod];
-        if (range.location != NSNotFound) {
-            bool interface = NO;
-            if (range.location > 15) {
-                NSRange frontRange = NSMakeRange(range.location - 15, 15);
-                NSString * frontSymbol = [substitute substringWithRange:frontRange];
-                if ([frontSymbol containsString:@"@interface"]) {
-                    interface = YES;
-                }
-                
-            }
-            
-            NSRange frontRange = NSMakeRange(range.location - 1, 1);
-            NSRange backRange = NSMakeRange(range.location + range.length, 1);
-            NSString * frontSymbol = [substitute substringWithRange:frontRange];
-            NSString * backSymbol = [substitute substringWithRange:backRange];
-            
-            if ([MixJudgeStrategy isLegalMethodFrontSymbol:frontSymbol] && [MixJudgeStrategy isLegalMethodBackSymbol:backSymbol] && !interface) {
-                
-                if ([backSymbol isEqualToString:@"."]) {
-                    NSRange newBackRange = NSMakeRange(range.location + range.length, 3);
-                    NSString * newBackSymbol = [substitute substringWithRange:newBackRange];
-                    if ([newBackSymbol isEqualToString:@".h\n"]||[newBackSymbol isEqualToString:@".h\t"]||[newBackSymbol isEqualToString:@".h\""]||[newBackSymbol isEqualToString:@".h "]) {
-                        
-                        NSString * front = [substitute substringToIndex:range.location];
-                        NSString * back = [substitute substringFromIndex:range.location + range.length];
-                        NSString * encrypt = [NSString stringWithFormat:@"######&&&&&&$$$$$******"];
-                        substitute = [NSString stringWithFormat:@"%@%@%@",front,encrypt,back];
-                        
-                        continue;
+    [MixStringStrategy encryption:file.data originals:nil block:^(NSArray<NSString *> *originals, NSArray<NSString *> *replaces, NSString *encryptionData) {
+        
+        NSArray * division = [encryptionData componentsSeparatedByString:oldMethod];
+        
+        NSString * dataCopy = [NSString stringWithFormat:@"%@",encryptionData];
+        NSString * substitute = [dataCopy stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
+        
+        
+        for (int ii = 0; ii < division.count; ii++) {
+            NSRange range = [substitute rangeOfString:oldMethod];
+            if (range.location != NSNotFound) {
+                bool interface = NO;
+                if (range.location > 15) {
+                    NSRange frontRange = NSMakeRange(range.location - 15, 15);
+                    NSString * frontSymbol = [substitute substringWithRange:frontRange];
+                    if ([frontSymbol containsString:@"@interface"]) {
+                        interface = YES;
                     }
+                    
                 }
                 
+                NSRange frontRange = NSMakeRange(range.location - 1, 1);
+                NSRange backRange = NSMakeRange(range.location + range.length, 1);
+                NSString * frontSymbol = [substitute substringWithRange:frontRange];
+                NSString * backSymbol = [substitute substringWithRange:backRange];
                 
-                NSString * front = [substitute substringToIndex:range.location];
-                NSString * back = [substitute substringFromIndex:range.location + range.length];
-                substitute = [NSString stringWithFormat:@"%@%@%@",front,newMethod,back];
+                if ([MixJudgeStrategy isLegalMethodFrontSymbol:frontSymbol] && [MixJudgeStrategy isLegalMethodBackSymbol:backSymbol] && !interface) {
+                    
+                    if ([backSymbol isEqualToString:@"."]) {
+                        NSRange newBackRange = NSMakeRange(range.location + range.length, 3);
+                        NSString * newBackSymbol = [substitute substringWithRange:newBackRange];
+                        if ([newBackSymbol isEqualToString:@".h\n"]||[newBackSymbol isEqualToString:@".h\t"]||[newBackSymbol isEqualToString:@".h\""]||[newBackSymbol isEqualToString:@".h "]) {
+                            
+                            NSString * front = [substitute substringToIndex:range.location];
+                            NSString * back = [substitute substringFromIndex:range.location + range.length];
+                            NSString * encrypt = [NSString stringWithFormat:@"######&&&&&&$$$$$******"];
+                            substitute = [NSString stringWithFormat:@"%@%@%@",front,encrypt,back];
+                            
+                            continue;
+                        }
+                    }
+                    
+                    
+                    NSString * front = [substitute substringToIndex:range.location];
+                    NSString * back = [substitute substringFromIndex:range.location + range.length];
+                    substitute = [NSString stringWithFormat:@"%@%@%@",front,newMethod,back];
+                    
+                } else {
+                    NSString * front = [substitute substringToIndex:range.location];
+                    NSString * back = [substitute substringFromIndex:range.location + range.length];
+                    NSString * encrypt = [NSString stringWithFormat:@"######&&&&&&$$$$$******"];
+                    substitute = [NSString stringWithFormat:@"%@%@%@",front,encrypt,back];
+                }
                 
-            } else {
-                NSString * front = [substitute substringToIndex:range.location];
-                NSString * back = [substitute substringFromIndex:range.location + range.length];
-                NSString * encrypt = [NSString stringWithFormat:@"######&&&&&&$$$$$******"];
-                substitute = [NSString stringWithFormat:@"%@%@%@",front,encrypt,back];
             }
-            
         }
-    }
-    
-    NSString * substituteCopy = [substitute stringByReplacingOccurrencesOfString:@"######&&&&&&$$$$$******" withString:oldMethod];
-    substitute = substituteCopy;
-    
+        
+        NSString * substituteCopy = [substitute stringByReplacingOccurrencesOfString:@"######&&&&&&$$$$$******" withString:oldMethod];
+        substitute = substituteCopy;
+        
+        substitute = [MixStringStrategy decoding:substitute originals:originals replaces:replaces];
+        
+        
+        if (![substitute isEqualToString:file.data]) {
+            file.data = substitute;
+            [MixFileStrategy writeFileAtPath:file.path content:substitute];
+        }
 
-    if (![substitute isEqualToString:file.data]) {
-        file.data = substitute;
-        [MixFileStrategy writeFileAtPath:file.path content:substitute];
-    }
-
+        
+        
+        
+    }];
+    
+    
     
 }
 

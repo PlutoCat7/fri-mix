@@ -13,6 +13,7 @@
 #import "CJMix-swift.h"
 #import "MixYAHCategoryStrategy.h"
 #import "../category/MixYAHCategoryStrategy.h"
+#import "MixDefine.h"
 
 
 typedef NS_ENUM(NSUInteger, yah_MixFileType) {
@@ -155,7 +156,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     NSString *jsonPath = [self.rootPath stringByAppendingPathComponent:@"pbxproj.json"];   //已通过plutil -convert json -s -r -o ./../pbxproj.json project.pbxproj 转成json
     NSData *data = [NSData dataWithContentsOfFile:jsonPath];
     if (!data) {
-        printf("pbxproj文件出错了");
+        MixLog(@"pbxproj文件出错了");
         return nil;
     }
     NSError *error = nil;
@@ -244,7 +245,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
         NSString *newClassName = [dataDict objectForKey:@"name"];
         if (newClassName && newClassName.length>0) { //找到了
             
-            NSString *newFileName = [[NSMutableString stringWithString:oldFileName] stringByReplacingOccurrencesOfString:oldClassName withString:newClassName];
+            NSString *newFileName = [oldFileName stringByReplacingOccurrencesOfString:oldClassName withString:newClassName];
             //先修改物理文件路径
             MixObject *object = [dataDict objectForKey:@"object"];
             NSString *oldPath = nil;
@@ -255,7 +256,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             }
             if (oldPath && oldPath.length>0) {
                 
-                NSString *newPath = [[NSMutableString stringWithString:oldPath] stringByReplacingOccurrencesOfString:oldFileName withString:newFileName];
+                NSString *newPath = [oldPath stringByReplacingOccurrencesOfString:oldFileName withString:newFileName];
                 BOOL isSuccess = [[NSFileManager defaultManager] moveItemAtPath:oldPath toPath:newPath error:nil];
                 if (isSuccess) {
                     NSString *key = [self keyWithUDID:info.UDID];
@@ -271,22 +272,24 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
                         object.classFile.mFile.path = newPath;
                     }
                 }else {
-                    printf("%s文件修改失败", [[NSString stringWithFormat:@"%@.%@", newFileName, suffix] UTF8String]);
+                    NSString *log = [NSString stringWithFormat:@"%@.%@文件修改失败", newFileName, suffix];
+                    MixLog(log);
                 }
             }
         }
     }
-    printf("替换#import...\n");
+    MixLog(@"替换#import...\n");
     [self replaceImportFile:realFileNameDict files:[MixConfig sharedSingleton].allFile];
     
     NSString *configPath = [self.rootPath stringByAppendingPathComponent:@"config.json"];
     NSError *error;
     [[jsonObject jsonString] writeToFile:configPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error) {
-        printf("Pbxproj配置数据生成失败，失败原因：%s\n", [error.localizedDescription UTF8String]);
+        NSString *log = [NSString stringWithFormat:@"Pbxproj配置数据生成失败，失败原因：%@\n", error.localizedDescription];
+        MixLog(log);
         return NO;
     }else{
-        printf("Pbxproj配置数据生成成功\n");
+        MixLog(@"Pbxproj配置数据生成成功\n");
         //pbxprojhelper
         id data = [PropertyListHandler parseJSONWithFileURL:[NSURL fileURLWithPath:configPath]];
         if (data) {

@@ -10,6 +10,8 @@
 #import "MixConfig.h"
 #import "MixFileStrategy.h"
 
+#import "MixDefine.h"
+
 @interface MixYAHCategoryStrategy ()
 
 @property (nonatomic, strong) NSMutableArray<NSString *> *resetCategoryList;
@@ -61,9 +63,24 @@
 
 - (BOOL)initResetCategoryData {
     
-    _resetCategoryList = [[NSMutableArray alloc] initWithCapacity:1];
+    NSString *path = @"/Users/wangsw/CJMix/Reference/cache/category.json";
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    if (data) {
+        NSError *error = nil;
+        id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+        if ([result isKindOfClass:NSArray.class]) {
+            _resetCategoryList = [NSMutableArray arrayWithArray:result];
+        }
+    }
+    if (!_resetCategoryList) {
+        _resetCategoryList = [[NSMutableArray alloc] initWithCapacity:1];
+        [self recursiveFile:[MixConfig sharedSingleton].referenceAllFile resetList:_resetCategoryList];
+    }
     
-    [self recursiveFile:[MixConfig sharedSingleton].referenceAllFile resetList:_resetCategoryList];
+    //保存到json文件中
+//    NSData *data=[NSJSONSerialization dataWithJSONObject:_resetCategoryList options:NSJSONWritingPrettyPrinted error:nil];
+//    NSString *jsonStr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+//    [jsonStr writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
     return YES;
 }
@@ -100,7 +117,7 @@
                 if (curStr.length==0) {
                     continue;
                 }
-                curStr = [NSString stringWithFormat:@"Mix%@", curStr];
+                curStr = [NSString stringWithFormat:@"%@%@", [MixConfig sharedSingleton].mixPrefix, curStr];
                 if (![list containsObject:curStr]) {
                     [list addObject:curStr];
                 }
@@ -157,7 +174,7 @@
                     resetCategory = self.resetCategoryList.firstObject;;
                 }
                 if (!resetCategory) {
-                    printf("新的Category个数不足,无法替换完全\n");
+                    MixLog(@"新的Category个数不足,无法替换完全\n");
                     return;
                 }
                 tmpString = [lineString stringByReplacingOccurrencesOfString:curStr withString:resetCategory];
@@ -197,15 +214,24 @@
                   file.fileType == MixFileTypePch) {
             //
             NSString *string = file.data;
-            if (!string || string.length == 0) {
+            
+            //简单的过滤
+            NSMutableDictionary *findDict = [NSMutableDictionary dictionaryWithCapacity:1];
+            for (NSString *oldCategory in dict) {
+                if ([string containsString:oldCategory]) {
+                    [findDict setObject:dict[oldCategory] forKey:oldCategory];
+                }
+            }
+            if (findDict.count==0) {
                 continue;
             }
+            
             NSArray *lineList = [string componentsSeparatedByString:@"\n"];
             NSMutableArray *tmpList = [NSMutableArray arrayWithArray:lineList];
             for (NSInteger index =0; index<lineList.count; index++) {
                 NSString *lineString = lineList[index];
                 NSString *tmpString = [lineString copy];
-                for (NSString *oldCategory in dict) {
+                for (NSString *oldCategory in findDict) {
                     //简单的判断
                     if (![lineString containsString:oldCategory]) {
                         continue;
