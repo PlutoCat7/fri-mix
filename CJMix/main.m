@@ -81,10 +81,23 @@ int main(int argc, const char * argv[]) {
         NSString * thirdPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/AudioRoom/Classes/ThirdModule";
         NSArray <NSString *> * thirdMethods = [MixMethodStrategy methodsWithPath:thirdPath];
         
+        NSString * imkitPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/imkit";
+        NSArray <NSString *> * imkitMethods = [MixMethodStrategy methodsWithPath:imkitPath];
+        
+        NSString * imsdkPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/imsdk";
+        NSArray <NSString *> * imsdkMethods = [MixMethodStrategy methodsWithPath:imsdkPath];
+        
+        NSString * FDPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/FDFullscreenPopGesture";
+        NSArray <NSString *> * FDMethods = [MixMethodStrategy methodsWithPath:FDPath];
+        
         NSMutableArray * methods = [NSMutableArray arrayWithCapacity:0];
         [methods addObjectsFromArray:systemMethods];
         [methods addObjectsFromArray:podsMethods];
         [methods addObjectsFromArray:thirdMethods];
+        [methods addObjectsFromArray:imkitMethods];
+        [methods addObjectsFromArray:imsdkMethods];
+        [methods addObjectsFromArray:FDMethods];
+        
         
         MixLog(@"获取替换方法名\n");
         NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
