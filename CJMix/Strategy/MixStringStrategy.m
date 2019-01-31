@@ -49,10 +49,10 @@
     
     NSRange curRange = [copyData rangeOfString:@"(?<=\")([\\S]+?)(?=\")" options:NSRegularExpressionSearch];
     if (curRange.location != NSNotFound) {
-        NSString * front = [copyData substringToIndex:curRange.location-1];
+        NSString * front = [copyData substringToIndex:curRange.location - 1];
         NSString * back = [copyData substringFromIndex:curRange.location + curRange.length+1];
         NSString * placeholder = [MixStringStrategy placeholder:originals.count];
-        NSString * string = [copyData substringWithRange:curRange];
+        NSString * string = [copyData substringWithRange:NSMakeRange(curRange.location - 1, curRange.length + 2)];
         [originals addObject:string];
         NSString * encryptionData = [NSString stringWithFormat:@"%@%@%@",front,placeholder,back];
         [MixStringStrategy encryption:encryptionData originals:originals block:block];
