@@ -26,6 +26,8 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
+        
+        
         char a[1000];
         MixLog(@"请输入mix.plist文件路径\n");
         scanf("%s",a);
@@ -57,6 +59,7 @@ int main(int argc, const char * argv[]) {
             [MixObjectStrategy saveObjects:referenceObjects key:@"mix_reference"];
         }
         
+        
         MixLog(@"获取需要被替换对象\n");
         NSArray <MixObject*>* copyObjects = [MixObjectStrategy objectsWithPath:copyPath saveConfig:YES];
         
@@ -66,8 +69,7 @@ int main(int argc, const char * argv[]) {
         [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
         MixLog(@"结束替换类名\n");
 
-        MixLog(@"获取框架方法\n");
-        
+        MixLog(@"获取框架方法名\n");
         NSMutableArray * frameworkMethods = [NSMutableArray arrayWithCapacity:0];
         for (NSString * framework in [MixConfig sharedSingleton].frameworkPaths) {
             NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:framework];
