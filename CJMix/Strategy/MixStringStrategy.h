@@ -22,4 +22,6 @@ typedef void (^MixEncryptionBlock)(NSArray <NSString*>* originals ,NSArray <NSSt
 
 + (NSString *)decoding:(NSString*)data originals:(NSArray <NSString*>*)originals replaces:(NSArray <NSString*>*)replaces;
 
++ (NSString *)capitalizeTheFirstLetter:(NSString *)string;
+
 @end

@@ -26,27 +26,20 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
+        char a[1000];
+        MixLog(@"请输入mix.plist文件路径\n");
+        scanf("%s",a);
+        NSString * path = [NSString stringWithFormat:@"%s", a];
+        [MixConfig sharedSingleton].mixPlistPath = path;
         
-        [MixConfig sharedSingleton].shieldPaths = @[@"imkit",@"imsdk",@"FDFullscreenPopGesture",@"ThirdModule",@"FBKVOController",@"MJExtension"];
-        [MixConfig sharedSingleton].shieldClass = @[@"VoiceGiftModel",@"WLPropModel",@"WLSVGBaseModel",@"LaunchAdvertItem",@"HabibiRoomSearchCellModel",@"WLSenderGiftModel",@"WLHabibiGameDefaultResultModel",@"WLSVGBaseModel",@"VoiceFreeGiftModel",@"VoiceTopupMode",@"SVGAParser",@"ResourceConfigModel",@"ResourceMedalItem",@"ResourceNobleItem",@"ResourceLevelItem",@"ResourceGiftItem",@"FriendModel",@"UserAttributeMedalItem",@"UserAttributeModel",@"ResourceConfigModel",@"BaseItem"];
-        
-        [MixConfig sharedSingleton].openLog = NO;
-
-
-#if 1
-
-//        NSString * referencePath = @"/Users/wangsw/CJMix/Reference";
-        //NSString * referencePath = @"/Users/wangsw/wangle/majiabao/Reference";
-//        NSString * rootPath = @"/Users/wangsw/wangle/majiabao/AudioRoom";
-
-        NSString * referencePath = @"/Users/wn/Desktop/Reference";
-        NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
-#else
-        NSString * referencePath = @"/Users/yegaofei/Desktop/ygf_project/Rongle/wangle_src/Reference";
-        NSString * rootPath = @"/Users/yegaofei/Desktop/ygf_project/Rongle/wangle_src/WonderVoice/Trunk/AudioRoom";
-#endif
-        
+        NSString * referencePath = [MixConfig sharedSingleton].referencePath;
+        NSString * rootPath = [MixConfig sharedSingleton].rootPath;
         NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
+        
+        if (!referencePath || !rootPath) {
+            MixLog(@"请检查配置\n");
+            return 0;
+        }
 
 
         MixLog(@"拷贝文件中..\n");
@@ -73,36 +66,18 @@ int main(int argc, const char * argv[]) {
         [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
         MixLog(@"结束替换类名\n");
 
-        MixLog(@"获取系统方法\n");
-        NSArray <NSString *> * systemMethods = [MixMethodStrategy systemMethods];
-        NSString * podPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/Pods";
-        NSArray <NSString *> * podsMethods = [MixMethodStrategy methodsWithPath:podPath];
+        MixLog(@"获取框架方法\n");
         
-        NSString * thirdPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/AudioRoom/Classes/ThirdModule";
-        NSArray <NSString *> * thirdMethods = [MixMethodStrategy methodsWithPath:thirdPath];
-        
-        NSString * imkitPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/imkit";
-        NSArray <NSString *> * imkitMethods = [MixMethodStrategy methodsWithPath:imkitPath];
-        
-        NSString * imsdkPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/imsdk";
-        NSArray <NSString *> * imsdkMethods = [MixMethodStrategy methodsWithPath:imsdkPath];
-        
-        NSString * FDPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom/FDFullscreenPopGesture";
-        NSArray <NSString *> * FDMethods = [MixMethodStrategy methodsWithPath:FDPath];
-        
-        NSMutableArray * methods = [NSMutableArray arrayWithCapacity:0];
-        [methods addObjectsFromArray:systemMethods];
-        [methods addObjectsFromArray:podsMethods];
-        [methods addObjectsFromArray:thirdMethods];
-        [methods addObjectsFromArray:imkitMethods];
-        [methods addObjectsFromArray:imsdkMethods];
-        [methods addObjectsFromArray:FDMethods];
-        
+        NSMutableArray * frameworkMethods = [NSMutableArray arrayWithCapacity:0];
+        for (NSString * framework in [MixConfig sharedSingleton].frameworkPaths) {
+            NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:framework];
+            [frameworkMethods addObjectsFromArray:methods];
+        }
         
         MixLog(@"获取替换方法名\n");
         NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
         MixLog(@"开始替换方法（请耐心等待）\n");
-        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemMethods:methods];
+        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemMethods:frameworkMethods];
         MixLog(@"结束替换方法\n");
 
         MixLog(@"开始替换Protocol名称\n");

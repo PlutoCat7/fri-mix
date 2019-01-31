@@ -42,6 +42,20 @@
     return [MixConfig sharedSingleton];
 }
 
+- (void)setMixPlistPath:(NSString *)mixPlistPath {
+    _mixPlistPath = mixPlistPath;
+    NSDictionary * dic = [NSDictionary dictionaryWithContentsOfFile:mixPlistPath];
+    self.mixMethodPrefix = [dic objectForKey:@"Prefix"];
+    self.mixMethodSuffix = [dic objectForKey:@"Suffix"];
+    self.shieldClass = [dic objectForKey:@"ShieldClass"];
+    self.shieldPaths = [dic objectForKey:@"ShieldPaths"];
+    self.rootPath = [dic objectForKey:@"RootPath"];
+    self.referencePath = [dic objectForKey:@"ReferencePath"];
+    self.mixPrefix = [dic objectForKey:@"ClassPrefix"];
+    self.openLog = [[dic objectForKey:@"OpenLog"] boolValue];
+    self.frameworkPaths = [dic objectForKey:@"FrameworkPaths"];
+}
+
 - (NSString *)mixPrefix {
     if (!_mixPrefix) {
         _mixPrefix = @"Mix";
@@ -49,11 +63,19 @@
     return _mixPrefix;
 }
 
-- (NSString *)mixMethodPrefix {
+- (NSArray *)mixMethodPrefix {
     if (!_mixMethodPrefix) {
-        _mixMethodPrefix = @"mix";
+        _mixMethodPrefix = @[@"mix",@"cj"];
     }
     return _mixMethodPrefix;
+}
+
+
+- (NSArray *)mixMethodSuffix {
+    if (!_mixMethodSuffix) {
+        _mixMethodSuffix = @[@"Mix",@"Cj"];
+    }
+    return _mixMethodSuffix;
 }
 
 - (NSArray <NSString *>*)systemPrefixs {
