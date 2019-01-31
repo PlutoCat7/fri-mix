@@ -20,6 +20,7 @@
 #import "Strategy/protocol/MixProtocolStrategy.h"
 #import "MixYAHCategoryStrategy.h"
 #import "Strategy/category/MixYAHCategoryStrategy.h"
+#import "Strategy/MixStringStrategy.h"
 
 #import "MixDefine.h"
 
