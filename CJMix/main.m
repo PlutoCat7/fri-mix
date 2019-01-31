@@ -29,6 +29,7 @@ int main(int argc, const char * argv[]) {
         
         
         char a[1000];
+        MixLog(@"欢迎使用CJMix （bug请联系467116811@qq.com）\n");
         MixLog(@"请输入mix.plist文件路径\n");
         scanf("%s",a);
         NSString * path = [NSString stringWithFormat:@"%s", a];
@@ -53,11 +54,13 @@ int main(int argc, const char * argv[]) {
         MixLog(@"拷贝文件成功\n");
         MixLog(@"获取替换对象\n");
 
-        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsForKey:@"mix_reference"];
-        if (!referenceObjects) {
-            referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
-            [MixObjectStrategy saveObjects:referenceObjects key:@"mix_reference"];
-        }
+//        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsForKey:@"mix_reference"];
+//        if (!referenceObjects) {
+//            referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
+//            [MixObjectStrategy saveObjects:referenceObjects key:@"mix_reference"];
+//        }
+        
+        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
         
         
         MixLog(@"获取需要被替换对象\n");
