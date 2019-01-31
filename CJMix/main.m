@@ -37,7 +37,7 @@ int main(int argc, const char * argv[]) {
         NSString * referencePath = @"/Users/wn/Desktop/Reference";
         NSString * rootPath = @"/Users/wn/Documents/git/WonderVoice/Trunk/AudioRoom";
 #else
-        NSString * referencePath = @"/Users/yegaofei/Desktop/ygf_project/Rongle/wangle_src/Reference";
+        NSString * referencePath = @"/Users/yegaofei/Desktop/ygf_project/Rongle/wangle_src/CJMix/Reference";
         NSString * rootPath = @"/Users/yegaofei/Desktop/ygf_project/Rongle/wangle_src/WonderVoice/Trunk/AudioRoom";
 #endif
         
