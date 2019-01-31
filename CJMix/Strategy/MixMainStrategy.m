@@ -114,12 +114,16 @@
     NSString * newTrueMethod = [MixMainStrategy trueMethod:newMethod];
     
     for (MixObject * object in objects) {
-        [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.hFile];
-        [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.mFile];
+        @autoreleasepool {
+            [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.hFile];
+            [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.mFile];
+        };
     }
     
     for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
-        [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:file];
+        @autoreleasepool {
+            [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:file];
+        }
     }
     
     

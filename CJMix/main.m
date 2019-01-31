@@ -27,16 +27,16 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
-//        
-//        
+//
+//
 //        NSString * data = [NSString stringWithContentsOfFile:@"/Users/wn/Desktop/gggg/gggg/main.m" encoding:NSUTF8StringEncoding error:nil];
-//        　
+//
 //        [MixStringStrategy encryption:data originals:nil block:^(NSArray<NSString *> *originals, NSArray<NSString *> *replaces, NSString *encryptionData) {
-//           
+//
 //            NSString * str = [MixStringStrategy decoding:encryptionData originals:originals replaces:replaces];
-//            
+//
 //            NSLog(@"%@",str);
-//            
+//
 //        }];
         
         
@@ -107,9 +107,9 @@ int main(int argc, const char * argv[]) {
         [methods addObjectsFromArray:systemMethods];
         [methods addObjectsFromArray:podsMethods];
         [methods addObjectsFromArray:thirdMethods];
-        [methods addObjectsFromArray:imkitMethods];
-        [methods addObjectsFromArray:imsdkMethods];
-        [methods addObjectsFromArray:FDMethods];
+//        [methods addObjectsFromArray:imkitMethods];
+//        [methods addObjectsFromArray:imsdkMethods];
+//        [methods addObjectsFromArray:FDMethods];
         
         
         MixLog(@"获取替换方法名\n");
