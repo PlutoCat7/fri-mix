@@ -27,19 +27,6 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
-//
-//
-//        NSString * data = [NSString stringWithContentsOfFile:@"/Users/wn/Desktop/gggg/gggg/main.m" encoding:NSUTF8StringEncoding error:nil];
-//
-//        [MixStringStrategy encryption:data originals:nil block:^(NSArray<NSString *> *originals, NSArray<NSString *> *replaces, NSString *encryptionData) {
-//
-//            NSString * str = [MixStringStrategy decoding:encryptionData originals:originals replaces:replaces];
-//
-//            NSLog(@"%@",str);
-//
-//        }];
-        
-        
         [MixConfig sharedSingleton].shieldPaths = @[@"imkit",@"imsdk",@"FDFullscreenPopGesture",@"ThirdModule",@"FBKVOController",@"MJExtension"];
         [MixConfig sharedSingleton].shieldClass = @[@"VoiceGiftModel",@"WLPropModel",@"WLSVGBaseModel",@"LaunchAdvertItem",@"HabibiRoomSearchCellModel",@"WLSenderGiftModel",@"WLHabibiGameDefaultResultModel",@"WLSVGBaseModel",@"VoiceFreeGiftModel",@"VoiceTopupMode",@"SVGAParser",@"ResourceConfigModel",@"ResourceMedalItem",@"ResourceNobleItem",@"ResourceLevelItem",@"ResourceGiftItem",@"FriendModel",@"UserAttributeMedalItem",@"UserAttributeModel",@"ResourceConfigModel",@"BaseItem"];
         
@@ -107,9 +94,9 @@ int main(int argc, const char * argv[]) {
         [methods addObjectsFromArray:systemMethods];
         [methods addObjectsFromArray:podsMethods];
         [methods addObjectsFromArray:thirdMethods];
-//        [methods addObjectsFromArray:imkitMethods];
-//        [methods addObjectsFromArray:imsdkMethods];
-//        [methods addObjectsFromArray:FDMethods];
+        [methods addObjectsFromArray:imkitMethods];
+        [methods addObjectsFromArray:imsdkMethods];
+        [methods addObjectsFromArray:FDMethods];
         
         
         MixLog(@"获取替换方法名\n");

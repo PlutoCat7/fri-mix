@@ -44,9 +44,9 @@
     NSInteger count = 0;
     for (NSString * method in validMethods) {
         count ++;
-        if ((float)count/(float)validMethods.count*100 > 50) {
-            return;
-        }
+//        if ((float)count/(float)validMethods.count*100 > 50) {
+//            return;
+//        }
         
         @autoreleasepool {
             [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
@@ -162,6 +162,10 @@
 
 + (void)replaceMethodOldMethod:(NSString *)oldMethod newMethod:(NSString *)newMethod file:(MixFile *)file {
     if (!file || !file.data || !oldMethod || !newMethod) {
+        return;
+    }
+    
+    if (![file.data containsString:oldMethod]) {
         return;
     }
     

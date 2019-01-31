@@ -40,46 +40,47 @@
 
 
 + (void)encryption:(NSString *)data originals:(NSMutableArray *)originals block:(MixEncryptionBlock)block {
-    
-    if (!originals) {
-        originals = [NSMutableArray arrayWithCapacity:0];
-    }
-    
-    NSString * copyData = [NSString stringWithFormat:@"%@",data];
-    
-    NSRange curRange = [copyData rangeOfString:@"(?<=\")([\\S]+?)(?=\")" options:NSRegularExpressionSearch];
-    if (curRange.location != NSNotFound) {
-        NSString * front = [copyData substringToIndex:curRange.location - 1];
-        NSString * back = [copyData substringFromIndex:curRange.location + curRange.length+1];
-        NSString * placeholder = [MixStringStrategy placeholder:originals.count];
-        NSString * string = [copyData substringWithRange:NSMakeRange(curRange.location - 1, curRange.length + 2)];
-        [originals addObject:string];
-        NSString * encryptionData = [NSString stringWithFormat:@"%@%@%@",front,placeholder,back];
-        [MixStringStrategy encryption:encryptionData originals:originals block:block];
-        
-    } else {
-        NSMutableArray * replaces = [NSMutableArray arrayWithCapacity:0];
-        for (int ii = 0; ii < originals.count; ii++) {
-            NSString * replace = [MixStringStrategy placeholder:ii];
-            [replaces addObject:replace];
+    @autoreleasepool {
+        if (!originals) {
+            originals = [NSMutableArray arrayWithCapacity:0];
         }
         
-        if (block) {
-            block(originals,replaces,copyData);
+        NSString * copyData = [NSString stringWithFormat:@"%@",data];
+        
+        NSRange curRange = [copyData rangeOfString:@"(?<=\")([\\S]+?)(?=\")" options:NSRegularExpressionSearch];
+        if (curRange.location != NSNotFound) {
+            NSString * front = [copyData substringToIndex:curRange.location - 1];
+            NSString * back = [copyData substringFromIndex:curRange.location + curRange.length+1];
+            NSString * placeholder = [MixStringStrategy placeholder:originals.count];
+            NSString * string = [copyData substringWithRange:NSMakeRange(curRange.location - 1, curRange.length + 2)];
+            [originals addObject:string];
+            NSString * encryptionData = [NSString stringWithFormat:@"%@%@%@",front,placeholder,back];
+            [MixStringStrategy encryption:encryptionData originals:originals block:block];
+            
+        } else {
+            NSMutableArray * replaces = [NSMutableArray arrayWithCapacity:0];
+            for (int ii = 0; ii < originals.count; ii++) {
+                NSString * replace = [MixStringStrategy placeholder:ii];
+                [replaces addObject:replace];
+            }
+            
+            if (block) {
+                block(originals,replaces,copyData);
+            }
         }
     }
-    
 }
 
 + (NSString *)decoding:(NSString*)data originals:(NSArray <NSString*>*)originals replaces:(NSArray <NSString*>*)replaces {
-    NSString * decoding = [NSString stringWithFormat:@"%@",data];
-    for (int ii = 0; ii < originals.count; ii++) {
-        NSString * original = originals[ii];
-        NSString * replace = replaces[ii];
-        decoding = [decoding stringByReplacingOccurrencesOfString:replace withString:original];
-    }
-    
+    @autoreleasepool {
+        NSString * decoding = [NSString stringWithFormat:@"%@",data];
+        for (int ii = 0; ii < originals.count; ii++) {
+            NSString * original = originals[ii];
+            NSString * replace = replaces[ii];
+            decoding = [decoding stringByReplacingOccurrencesOfString:replace withString:original];
+        }
     return decoding;
+    }
 }
 
 + (NSString *)placeholder:(NSInteger)index {
