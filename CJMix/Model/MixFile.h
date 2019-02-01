@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, MixFileType) {
 };
 
 
-@interface MixFile : NSObject
+@interface MixFile : NSObject <NSCoding>
 
 @property (nonatomic , assign) MixFileType fileType;
 

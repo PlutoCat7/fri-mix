@@ -9,7 +9,6 @@
 #import "MixConfig.h"
 #import "../Strategy/MixObjectStrategy.h"
 
-
 @interface MixConfig () {
     NSArray <NSString *>* _legalClassFrontSymbols;
     NSArray <NSString *>* _legalClassBackSymbols;

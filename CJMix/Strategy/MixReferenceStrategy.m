@@ -7,14 +7,14 @@
 //
 
 #import "MixReferenceStrategy.h"
-#import "../Model/MixObject.h"
-#import "../Model/MixFile.h"
 #import "MixFileStrategy.h"
 #import "MixClassFileStrategy.h"
 #import "MixObjectStrategy.h"
 #import "MixJudgeStrategy.h"
-#import "../Config/MixConfig.h"
 #import "MixStringStrategy.h"
+#import "../Model/MixObject.h"
+#import "../Model/MixFile.h"
+#import "../Config/MixConfig.h"
 
 
 #define kMinMethodLength 2

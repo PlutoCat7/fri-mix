@@ -7,8 +7,6 @@
 //
 
 #import "MixMainStrategy.h"
-#import "../Model/MixObject.h"
-#import "../Model/MixFile.h"
 #import "MixFileStrategy.h"
 #import "MixClassFileStrategy.h"
 #import "MixObjectStrategy.h"
@@ -16,6 +14,8 @@
 #import "MixMethodStrategy.h"
 #import "MixStringStrategy.h"
 #import "file/MixFileNameStrategy.h"
+#import "../Model/MixObject.h"
+#import "../Model/MixFile.h"
 #import "../Config/MixConfig.h"
 
 @implementation MixMainStrategy
@@ -25,6 +25,7 @@
 + (void)replaceMethod:(NSArray <MixObject *>*)objects methods:(NSArray <NSString *>*)methods systemMethods:(NSArray <NSString*>*)systemMethods {
     
     NSMutableArray <NSString *>* validMethods = [NSMutableArray arrayWithArray:[MixMethodStrategy methods:objects]];
+    
     
     NSMutableArray <NSString *>* newMethods = [NSMutableArray arrayWithArray:methods];
     NSMutableArray <NSString *>* worker = [NSMutableArray arrayWithCapacity:0];
@@ -44,15 +45,12 @@
     NSInteger count = 0;
     for (NSString * method in validMethods) {
         count ++;
-//        if ((float)count/(float)validMethods.count*100 > 50) {
-//            return;
-//        }
         
         @autoreleasepool {
             [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
         }
         
-        printf("完成进度%0.2f %%  \n",(float)count/(float)validMethods.count*100);
+        printf("完成进度%.2f %%  \n",(float)count/(float)validMethods.count*100);
         
     }
     
@@ -79,15 +77,16 @@
 + (void)replaceMethod:(NSArray <MixObject *>*)objects oldMethod:(NSString *)oldMethod newMethods:(NSMutableArray <NSString *>*)newMethods {
     
     NSString * oldTrueMethod = [MixMainStrategy trueMethod:oldMethod];
-    NSString * oldSetTrueMethod = nil;
-    if (![oldMethod containsString:@":"]) {
-        oldSetTrueMethod = [oldTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[oldTrueMethod substringToIndex:1] uppercaseString]];
-        oldSetTrueMethod = [NSString stringWithFormat:@"set%@",oldSetTrueMethod];
-    }
+    
+//    NSString * oldSetTrueMethod = nil;
+//    if (![oldMethod containsString:@":"]) {
+//        oldSetTrueMethod = [oldTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[oldTrueMethod substringToIndex:1] uppercaseString]];
+//        oldSetTrueMethod = [NSString stringWithFormat:@"set%@",oldSetTrueMethod];
+//    }
     
     
     for (NSString * str in [MixConfig sharedSingleton].shieldSystemMethodNames) {
-        if ([str containsString:oldTrueMethod] || [oldTrueMethod containsString:str]) {
+        if ([str containsString:oldTrueMethod]) {
             return;
         }
     }

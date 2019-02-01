@@ -145,7 +145,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     string = [[NSString alloc] initWithData: data
                                    encoding: NSUTF8StringEncoding];
     
-    NSLog (@"got\n %@", string);
+//    NSLog (@"got\n %@", string);
     
     //确保命令执行结束文件生成
     [NSThread sleepForTimeInterval:3.f];

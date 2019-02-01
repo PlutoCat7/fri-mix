@@ -176,7 +176,7 @@ import Cocoa
                             return resultValue
                         }
                         else {
-                            print("Wrong KeyPath")
+//                            print("Wrong KeyPath")
                         }
                     }
                     else {
