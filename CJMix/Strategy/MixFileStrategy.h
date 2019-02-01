@@ -19,7 +19,7 @@
 
 
 
-
++ (BOOL)isExistsAtPath:(NSString *)path;
 
 + (BOOL)copyItemAtPath:(NSString *)path toPath:(NSString *)toPath overwrite:(BOOL)overwrite error:(NSError *__autoreleasing *)error;
 

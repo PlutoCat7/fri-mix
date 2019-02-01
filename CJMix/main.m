@@ -27,13 +27,21 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
+        NSString * argvPath = [NSString stringWithFormat:@"%s",*argv];
+        NSString * argvFolderPath = argvPath.stringByDeletingLastPathComponent;
+        NSString * mixPlistPath = [NSString stringWithFormat:@"%@/mix.plist",argvFolderPath];
         
-        char a[1000];
         MixLog(@"欢迎使用CJMix （bug请联系467116811@qq.com）\n");
-        MixLog(@"请输入mix.plist文件路径\n");
-        scanf("%s",a);
-        NSString * path = [NSString stringWithFormat:@"%s", a];
-        [MixConfig sharedSingleton].mixPlistPath = path;
+        if ([MixFileStrategy isExistsAtPath:mixPlistPath]) {
+            MixLog(@"已找到mix.plist文件\n");
+        } else {
+            MixLog(@"未找到mix.plist文件请输入路径\n");
+            char a[1000];
+            scanf("%s",a);
+            mixPlistPath = [NSString stringWithFormat:@"%s", a];
+        }
+
+        [MixConfig sharedSingleton].mixPlistPath = mixPlistPath;
         
         NSString * referencePath = [MixConfig sharedSingleton].referencePath;
         NSString * rootPath = [MixConfig sharedSingleton].rootPath;
