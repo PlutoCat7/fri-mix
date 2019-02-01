@@ -45,7 +45,7 @@ int main(int argc, const char * argv[]) {
         
         NSString * referencePath = [MixConfig sharedSingleton].referencePath;
         NSString * rootPath = [MixConfig sharedSingleton].rootPath;
-        NSString * copyPath = [NSString stringWithFormat:@"%@_mix",rootPath];
+        NSString * copyPath = [NSString stringWithFormat:@"%@_AR",rootPath];
         
         if (!referencePath || !rootPath) {
             MixLog(@"请检查配置\n");
