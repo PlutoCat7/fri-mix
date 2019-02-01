@@ -125,11 +125,6 @@
     return nil;
 }
 
-+ (NSArray <NSString *>*)systemMethods {
-    NSString * sdkPath = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
-    return [MixMethodStrategy methodsWithPath:sdkPath];
-}
-
 + (NSArray <NSString *>*)methodsWithPath:(NSString *)path {
     NSArray <MixFile *> *files = [MixFileStrategy filesWithPath:path framework:YES];
     NSArray<MixFile *> *hmFiles = [MixFileStrategy filesToHMFiles:files];
@@ -175,7 +170,6 @@
     NSMutableArray <NSString *>* methods = [NSMutableArray arrayWithCapacity:0];
     
     NSArray <NSString *>* interface = [data componentsSeparatedByString:@"@interface"];
-    
     for (NSString * obj in interface) {
         NSRange range = [obj rangeOfString:@"@end"];
         if (range.location != NSNotFound) {
@@ -186,7 +180,6 @@
     
     
     NSArray <NSString *>* implementations = [data componentsSeparatedByString:@"@implementation"];
-    
     for (NSString * obj in implementations) {
         NSRange range = [obj rangeOfString:@"@end"];
         if (range.location != NSNotFound) {
