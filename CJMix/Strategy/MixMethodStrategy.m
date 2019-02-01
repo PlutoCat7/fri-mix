@@ -76,14 +76,14 @@
                         
                         if (location != NSNotFound) {
                             methodStr = [methodStr substringToIndex:location];
-                            if ([MixStringStrategy isAlphaNum:methodStr]) {
+                            if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
                                 [methodNames addObject:methodStr];
                             }
                         }
                         break;
                     }
                     
-                    if ([MixStringStrategy isAlphaNum:methodStr]) {
+                    if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
                         [methodNames addObject:methodStr];
                     } else {
 
@@ -91,13 +91,13 @@
                             
                             NSRange blankRange = [methodStr rangeOfString:@" "];
                             methodStr = [methodStr substringFromIndex:blankRange.location + blankRange.length];
-                            if ([MixStringStrategy isAlphaNum:methodStr]) {
+                            if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
                                 [methodNames addObject:methodStr];
                             }
                         }
                     }
                 } else {
-                    if ([MixStringStrategy isAlphaNum:name]) {
+                    if ([MixStringStrategy isAlphaNumUnderline:name]) {
                         [methodNames addObject:name];
                     }
                 }
@@ -116,7 +116,7 @@
         methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
         
         
-        if ([MixStringStrategy isAlphaNum:methodStr]) {
+        if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
             return methodStr;
         }
     }
@@ -236,7 +236,7 @@
                     if (strs.count) {
                         NSString * lastStr = strs.lastObject;
                         lastStr = [lastStr stringByReplacingOccurrencesOfString:@" " withString:@""];
-                        if ([MixStringStrategy isAlphaNum:lastStr]) {
+                        if ([MixStringStrategy isAlphaNumUnderline:lastStr]) {
                             propertyName = lastStr;
                         }
                     }
@@ -247,7 +247,7 @@
                     for (int i = (int)strs.count-1; i > 0; i--) {
                         NSString * str = strs[i];
                         if (str.length) {
-                            if ([MixStringStrategy isAlphaNum:str]) {
+                            if ([MixStringStrategy isAlphaNumUnderline:str]) {
                                 propertyName = str;
                                 break;
                             }

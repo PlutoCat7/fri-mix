@@ -12,11 +12,11 @@ typedef void (^MixEncryptionBlock)(NSArray <NSString*>* originals ,NSArray <NSSt
 
 @interface MixStringStrategy : NSObject
 
++ (BOOL)isAlphaNumUnderline:(NSString *)string;
+
 + (BOOL)isAlphaNum:(NSString *)string;
 
 + (NSString *)filterOutImpurities:(NSString *)string;
-
-+ (BOOL)isProperty:(NSString *)string;
 
 + (void)encryption:(NSString *)data originals:(NSMutableArray *)originals block:(MixEncryptionBlock)block;
 

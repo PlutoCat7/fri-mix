@@ -43,7 +43,7 @@
 }
 
 + (BOOL)isLegalMethodFrontSymbol:(NSString *)symbol {
-    if ([MixStringStrategy isProperty:symbol]) {
+    if ([MixStringStrategy isAlphaNum:symbol]) {
         return NO;
     } else {
         return YES;
@@ -51,7 +51,7 @@
 }
 
 + (BOOL)isLegalMethodBackSymbol:(NSString *)symbol {
-    if ([MixStringStrategy isProperty:symbol]) {
+    if ([MixStringStrategy isAlphaNum:symbol]) {
         return NO;
     } else {
         return YES;

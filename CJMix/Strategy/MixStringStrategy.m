@@ -10,7 +10,7 @@
 
 @implementation MixStringStrategy
 
-+ (BOOL)isAlphaNum:(NSString *)string {
++ (BOOL)isAlphaNumUnderline:(NSString *)string {
     NSString *regex =@"[a-zA-Z0-9_]+$";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
     if ([pred evaluateWithObject:string]) {
@@ -20,7 +20,7 @@
     
 }
 
-+ (BOOL)isProperty:(NSString *)string {
++ (BOOL)isAlphaNum:(NSString *)string {
     NSString *regex =@"[a-zA-Z0-9]+$";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
     if ([pred evaluateWithObject:string]) {

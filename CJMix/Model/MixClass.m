@@ -92,7 +92,7 @@
                     if (strs.count) {
                         NSString * lastStr = strs.lastObject;
                         lastStr = [lastStr stringByReplacingOccurrencesOfString:@" " withString:@" "];
-                        if ([MixStringStrategy isAlphaNum:lastStr]) {
+                        if ([MixStringStrategy isAlphaNumUnderline:lastStr]) {
                             propertyName = lastStr;
                         }
                     }
@@ -103,7 +103,7 @@
                     for (int i = (int)strs.count-1; i > 0; i--) {
                         NSString * str = strs[i];
                         if (str.length) {
-                            if ([MixStringStrategy isAlphaNum:str]) {
+                            if ([MixStringStrategy isAlphaNumUnderline:str]) {
                                 propertyName = str;
                             }
                         }
