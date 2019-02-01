@@ -16,11 +16,15 @@
 
 @property (nonatomic , assign) BOOL openLog;
 
+@property (nonatomic , assign) BOOL absolutePath;
+
 @property (nonatomic , copy) NSString * mixPrefix;
 
 @property (nonatomic , copy) NSArray * mixMethodPrefix;
 
 @property (nonatomic , copy) NSArray * mixMethodSuffix;
+
+@property (nonatomic , copy) NSString * argvFolderPath;
 
 @property (nonatomic , copy) NSString * mixPlistPath;
 

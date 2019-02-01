@@ -27,11 +27,12 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
+        MixLog(@"欢迎使用CJMix （BUG请联系467116811@qq.com 与 yahua523@163.com）\n");
+        
         NSString * argvPath = [NSString stringWithFormat:@"%s",*argv];
         NSString * argvFolderPath = argvPath.stringByDeletingLastPathComponent;
         NSString * mixPlistPath = [NSString stringWithFormat:@"%@/mix.plist",argvFolderPath];
         
-        MixLog(@"欢迎使用CJMix （bug请联系467116811@qq.com）\n");
         if ([MixFileStrategy isExistsAtPath:mixPlistPath]) {
             MixLog(@"已找到mix.plist文件\n");
         } else {
@@ -39,13 +40,19 @@ int main(int argc, const char * argv[]) {
             char a[1000];
             scanf("%s",a);
             mixPlistPath = [NSString stringWithFormat:@"%s", a];
+            
+            if (![MixFileStrategy isExistsAtPath:mixPlistPath]) {
+                MixLog(@"文件不存在\n");
+                return 0;
+            }
         }
-
+        
+        [MixConfig sharedSingleton].argvFolderPath = argvFolderPath;
         [MixConfig sharedSingleton].mixPlistPath = mixPlistPath;
         
         NSString * referencePath = [MixConfig sharedSingleton].referencePath;
         NSString * rootPath = [MixConfig sharedSingleton].rootPath;
-        NSString * copyPath = [NSString stringWithFormat:@"%@_AR",rootPath];
+        NSString * copyPath = [NSString stringWithFormat:@"%@_%@",rootPath,[MixConfig sharedSingleton].mixPrefix];
         
         if (!referencePath || !rootPath) {
             MixLog(@"请检查配置\n");
@@ -61,12 +68,6 @@ int main(int argc, const char * argv[]) {
         }
         MixLog(@"拷贝文件成功\n");
         MixLog(@"获取替换对象\n");
-
-//        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsForKey:@"mix_reference"];
-//        if (!referenceObjects) {
-//            referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
-//            [MixObjectStrategy saveObjects:referenceObjects key:@"mix_reference"];
-//        }
         
         NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
         
@@ -81,7 +82,12 @@ int main(int argc, const char * argv[]) {
 
         MixLog(@"获取框架方法名\n");
         NSMutableArray * frameworkMethods = [NSMutableArray arrayWithCapacity:0];
-        for (NSString * framework in [MixConfig sharedSingleton].frameworkPaths) {
+        
+        NSMutableArray * frameworkPaths = [NSMutableArray arrayWithArray:[MixConfig sharedSingleton].frameworkPaths];
+        NSString * systemPaths = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
+        [frameworkPaths addObject:systemPaths];
+        
+        for (NSString * framework in frameworkPaths) {
             NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:framework];
             [frameworkMethods addObjectsFromArray:methods];
         }

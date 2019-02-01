@@ -44,16 +44,47 @@
 
 - (void)setMixPlistPath:(NSString *)mixPlistPath {
     _mixPlistPath = mixPlistPath;
+    
     NSDictionary * dic = [NSDictionary dictionaryWithContentsOfFile:mixPlistPath];
-    self.mixMethodPrefix = [dic objectForKey:@"Prefix"];
-    self.mixMethodSuffix = [dic objectForKey:@"Suffix"];
+    self.openLog = [[dic objectForKey:@"OpenLog"] boolValue];
+    self.absolutePath = [[dic objectForKey:@"AbsolutePath"] boolValue];
+    self.mixPrefix = [dic objectForKey:@"ProjectPrefix"];
+    self.mixMethodPrefix = [dic objectForKey:@"MethodPrefix"];
+    self.mixMethodSuffix = [dic objectForKey:@"MethodSuffix"];
     self.shieldClass = [dic objectForKey:@"ShieldClass"];
     self.shieldPaths = [dic objectForKey:@"ShieldPaths"];
-    self.rootPath = [dic objectForKey:@"RootPath"];
-    self.referencePath = [dic objectForKey:@"ReferencePath"];
-    self.mixPrefix = [dic objectForKey:@"ClassPrefix"];
-    self.openLog = [[dic objectForKey:@"OpenLog"] boolValue];
-    self.frameworkPaths = [dic objectForKey:@"FrameworkPaths"];
+    [self setupPathsWithDic:dic absolutePath:self.absolutePath];
+}
+
+- (void)setupPathsWithDic:(NSDictionary *)dic absolutePath:(BOOL)absolutePath {
+    
+    if (absolutePath) {
+        self.rootPath = [dic objectForKey:@"RootPath"];
+        self.referencePath = [dic objectForKey:@"ReferencePath"];
+        self.frameworkPaths = [dic objectForKey:@"FrameworkPaths"];
+    } else {
+        self.rootPath = [self getAbsolutePaths:@[[dic objectForKey:@"RootPath"]]].firstObject;
+        self.referencePath = [self getAbsolutePaths:@[[dic objectForKey:@"ReferencePath"]]].firstObject;
+        self.frameworkPaths = [self getAbsolutePaths:[dic objectForKey:@"FrameworkPaths"]];
+        
+    }
+}
+
+- (NSArray <NSString *>*)getAbsolutePaths:(NSArray <NSString*>*)paths {
+    NSMutableArray * absolutePaths = [NSMutableArray arrayWithCapacity:0];
+    for (NSString * path in paths) {
+        NSString * lastPath = [path stringByReplacingOccurrencesOfString:@"../" withString:@""];
+
+        NSString * copyPath = [NSString stringWithFormat:@"%@",self.argvFolderPath];
+        //一个代表回退一次
+        NSInteger count = [path componentsSeparatedByString:@"../"].count;
+        for (int ii = 0; ii < count - 1; ii++) {
+            copyPath = copyPath.stringByDeletingLastPathComponent;
+        }
+        NSString * absolutePath = [NSString stringWithFormat:@"%@/%@",copyPath,lastPath];
+        [absolutePaths addObject:absolutePath];
+    }
+    return absolutePaths;
 }
 
 - (NSString *)mixPrefix {
