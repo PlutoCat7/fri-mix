@@ -18,9 +18,19 @@
 
 @property (nonatomic , copy) NSString * mixPrefix;
 
-@property (nonatomic , copy) NSString * mixMethodPrefix;
+@property (nonatomic , copy) NSArray * mixMethodPrefix;
+
+@property (nonatomic , copy) NSArray * mixMethodSuffix;
+
+@property (nonatomic , copy) NSString * mixPlistPath;
+
+@property (nonatomic , copy) NSString * rootPath;
+
+@property (nonatomic , copy) NSString * referencePath;
 
 @property (nonatomic , copy) NSArray <NSString *>* systemPrefixs;
+
+@property (nonatomic , copy) NSArray <NSString *>* frameworkPaths;
 
 @property (nonatomic , copy) NSArray <NSString *>* shieldPaths;
 

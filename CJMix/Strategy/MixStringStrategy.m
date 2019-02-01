@@ -30,6 +30,13 @@
     
 }
 
++ (NSString *)capitalizeTheFirstLetter:(NSString *)string {
+    if (!string.length) {
+        return string;
+    }
+    NSString * stringCopy = [string stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[string substringToIndex:1] uppercaseString]];
+    return stringCopy;
+}
 
 + (NSString *)filterOutImpurities:(NSString *)string {
     NSString * newData = [string stringByReplacingOccurrencesOfString:@" " withString:@""];

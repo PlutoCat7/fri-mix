@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FrameworkPaths</key>
+	<array>
+		<string>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform</string>
+	</array>
+	<key>ShieldPaths</key>
+	<array>
+		<string>FBKVOController</string>
+		<string>MJExtension</string>
+	</array>
+	<key>ShieldClass</key>
+	<array>
+		<string>BaseItem</string>
+	</array>
+	<key>Suffix</key>
+	<array>
+		<string>mix</string>
+		<string>cj</string>
+	</array>
+	<key>Prefix</key>
+	<array>
+		<string>mix</string>
+		<string>cj</string>
+	</array>
+	<key>RootPath</key>
+	<string>/Users/wn/Documents/git/CJMix</string>
+	<key>ReferencePath</key>
+	<string>/Users/wn/Documents/git/CJMix/Reference</string>
+	<key>ClassPrefix</key>
+	<string>Mix</string>
+	<key>OpenLog</key>
+	<true/>
+</dict>
+</plist>

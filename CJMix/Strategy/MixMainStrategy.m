@@ -291,7 +291,12 @@
     
     NSMutableArray<NSString *> * referenceClassNames = [NSMutableArray arrayWithArray:workers];
     
-    NSAssert(count <= referenceClassNames.count, @"类名不足\n需要替换类数量:%d 类名数量:%d\n",(int)count,(int)referenceClassNames.count);
+
+    if (count > referenceClassNames.count) {
+        printf("类名不足\n需要替换类数量:%d 类名数量:%d\n",(int)count,(int)referenceClassNames.count);
+        return;
+    }
+    
     
     for (MixObject * object in objects) {
         

@@ -230,7 +230,7 @@
 
             if ([property containsString:@"atomic"] || [property containsString:@"nonatomic"]) {
 
-                BOOL isOnlyRead = [property containsString:@"readonly"];
+//                BOOL isOnlyRead = [property containsString:@"readonly"];
 
                 NSString * propertyName = nil;
 
