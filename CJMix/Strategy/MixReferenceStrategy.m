@@ -32,45 +32,75 @@
     return classNames;
 }
 
-+ (NSMutableArray <NSString *> *)methodWithObjects:(NSArray <MixObject*>*)objects {
-    
+//+ (NSMutableArray <NSString *> *)methodWithObjects:(NSArray <MixObject*>*)objects {
+//    
+//    NSMutableArray <NSString *> * methods = [NSMutableArray arrayWithCapacity:0];
+//    
+//    [objects enumerateObjectsUsingBlock:^(MixObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        
+//        for (MixClass * class in obj.hClasses) {
+//            
+//            NSMutableArray * blend = [NSMutableArray arrayWithCapacity:0];
+//            [blend addObjectsFromArray:class.method.classMethods];
+//            [blend addObjectsFromArray:class.method.exampleMethods];
+//            
+//            for (NSString * method in blend) {
+//                
+//                NSString * prefix = [MixReferenceStrategy prefixWithMethod:method];
+//                NSString * suffix = [MixReferenceStrategy suffixWithMethod:method];
+//                suffix = [MixStringStrategy capitalizeTheFirstLetter:suffix];
+//                NSString * methodCopy = [MixStringStrategy capitalizeTheFirstLetter:method];
+//                NSRange range = [methodCopy rangeOfString:@":"];
+//                NSString * methodName = nil;
+//                if (range.location == NSNotFound) {
+//                    methodName = [NSString stringWithFormat:@"%@%@%@",prefix,methodCopy,suffix];
+//                } else {
+//                    NSString * front = [methodCopy substringToIndex:range.location];
+//                    NSString * back = [methodCopy substringFromIndex:range.location];
+//        
+//                    methodName = [NSString stringWithFormat:@"%@%@%@%@",prefix,front,suffix,back];
+//                }
+//                
+//                if (![methods containsObject:methodName]) {
+//                    [methods addObject:methodName];
+//                }
+//                
+//            }
+//            
+//        }
+//        
+//        
+//    }];
+//    return methods;
+//    
+//}
+
++ (NSMutableArray <NSString *> *)methodWithReferenceMethods:(NSArray <NSString*>*)referenceMethods {
     NSMutableArray <NSString *> * methods = [NSMutableArray arrayWithCapacity:0];
     
-    [objects enumerateObjectsUsingBlock:^(MixObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [referenceMethods enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        for (MixClass * class in obj.hClasses) {
+        NSString * prefix = [MixReferenceStrategy prefixWithMethod:obj];
+        NSString * suffix = [MixReferenceStrategy suffixWithMethod:obj];
+        suffix = [MixStringStrategy capitalizeTheFirstLetter:suffix];
+        NSString * methodCopy = [MixStringStrategy capitalizeTheFirstLetter:obj];
+        NSRange range = [methodCopy rangeOfString:@":"];
+        NSString * methodName = nil;
+        if (range.location == NSNotFound) {
+            methodName = [NSString stringWithFormat:@"%@%@%@",prefix,methodCopy,suffix];
+        } else {
+            NSString * front = [methodCopy substringToIndex:range.location];
+            NSString * back = [methodCopy substringFromIndex:range.location];
             
-            NSMutableArray * blend = [NSMutableArray arrayWithCapacity:0];
-            [blend addObjectsFromArray:class.method.classMethods];
-            [blend addObjectsFromArray:class.method.exampleMethods];
-            
-            for (NSString * method in blend) {
-                
-                NSString * prefix = [MixReferenceStrategy prefixWithMethod:method];
-                NSString * suffix = [MixReferenceStrategy suffixWithMethod:method];
-                suffix = [MixStringStrategy capitalizeTheFirstLetter:suffix];
-                NSString * methodCopy = [MixStringStrategy capitalizeTheFirstLetter:method];
-                NSRange range = [methodCopy rangeOfString:@":"];
-                NSString * methodName = nil;
-                if (range.location == NSNotFound) {
-                    methodName = [NSString stringWithFormat:@"%@%@%@",prefix,methodCopy,suffix];
-                } else {
-                    NSString * front = [methodCopy substringToIndex:range.location];
-                    NSString * back = [methodCopy substringFromIndex:range.location];
-        
-                    methodName = [NSString stringWithFormat:@"%@%@%@%@",prefix,front,suffix,back];
-                }
-                
-                if (![methods containsObject:methodName]) {
-                    [methods addObject:methodName];
-                }
-                
-            }
-            
+            methodName = [NSString stringWithFormat:@"%@%@%@%@",prefix,front,suffix,back];
         }
         
+        if (![methods containsObject:methodName]) {
+            [methods addObject:methodName];
+        }
         
     }];
+    
     return methods;
     
 }

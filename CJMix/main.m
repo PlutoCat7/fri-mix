@@ -62,7 +62,6 @@ int main(int argc, const char * argv[]) {
         
         NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
         
-        
         MixLog(@"获取需要被替换对象\n");
         NSArray <MixObject*>* copyObjects = [MixObjectStrategy objectsWithPath:copyPath saveConfig:YES];
         
@@ -78,9 +77,13 @@ int main(int argc, const char * argv[]) {
             NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:framework];
             [frameworkMethods addObjectsFromArray:methods];
         }
+        if (!frameworkMethods.count) {
+            MixLog(@"无框架方法名\n");
+        }
         
         MixLog(@"获取替换方法名\n");
-        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithObjects:referenceObjects];
+        NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:referencePath];
+        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithReferenceMethods:methods];
         MixLog(@"开始替换方法（请耐心等待）\n");
         [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemMethods:frameworkMethods];
         MixLog(@"结束替换方法\n");
