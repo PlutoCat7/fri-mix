@@ -15,12 +15,16 @@
 
 + (NSString *)methodFromData:(NSString *)data {
     
+    if ([data containsString:@"- (void)activityDescription"]) {
+        
+    }
+    
     //判断无参数方法
     NSRange bracketRange = [data rangeOfString:@")"];
     NSString * methodStr = nil;
     if (bracketRange.location != NSNotFound) {
         methodStr = [data substringFromIndex:bracketRange.location + bracketRange.length];
-        if ([methodStr hasSuffix:@"{"] || [methodStr hasSuffix:@";"]) {
+        if ([methodStr containsString:@"{"] || [methodStr containsString:@";"]) {
             NSRange range1 = [methodStr rangeOfString:@"{"];
             NSRange range2 = [methodStr rangeOfString:@";"];
             NSInteger location = NSNotFound;
@@ -140,9 +144,9 @@
     
     NSMutableArray <NSString *> * methods = [NSMutableArray arrayWithCapacity:0];
     
-    [hmFiles enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    for (MixFile * obj in hmFiles) {
         [methods addObjectsFromArray:[MixMethodStrategy methodsWithData:obj.data]];
-    }];
+    }
     
     return methods;
 }
@@ -152,21 +156,23 @@
     
     NSMutableArray <NSString *> * methods = [NSMutableArray arrayWithCapacity:0];
     
-    [objects enumerateObjectsUsingBlock:^(MixObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
+    for (MixObject * obj in objects) {
         if (obj.classFile.hFile) {
             [methods addObjectsFromArray:[MixMethodStrategy methodsWithData:obj.classFile.hFile.data]];
         }
         if (obj.classFile.mFile) {
             [methods addObjectsFromArray:[MixMethodStrategy methodsWithData:obj.classFile.mFile.data]];
         }
-        
-        
-        
-    }];
+    }
     
+    NSMutableArray * worker = [NSMutableArray arrayWithCapacity:0];
+    for (NSString * obj in objects) {
+        if (![worker containsObject:obj]) {
+            [worker addObject:obj];
+        }
+    }
     
-    return methods;
+    return worker;
 }
 
 
@@ -176,15 +182,26 @@
     }
     NSMutableArray <NSString *>* methods = [NSMutableArray arrayWithCapacity:0];
     
-    NSArray <NSString *>* classes = [data componentsSeparatedByString:@"@interface"];
+    NSArray <NSString *>* interface = [data componentsSeparatedByString:@"@interface"];
     
-    [classes enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    for (NSString * obj in interface) {
         NSRange range = [obj rangeOfString:@"@end"];
         if (range.location != NSNotFound) {
             NSString * str = [obj substringToIndex:range.location];
             [methods addObjectsFromArray:[MixMethodStrategy methodsWithClassData:str]];
         }
-    }];
+    }
+    
+    
+    NSArray <NSString *>* implementations = [data componentsSeparatedByString:@"@implementation"];
+    
+    for (NSString * obj in implementations) {
+        NSRange range = [obj rangeOfString:@"@end"];
+        if (range.location != NSNotFound) {
+            NSString * str = [obj substringToIndex:range.location];
+            [methods addObjectsFromArray:[MixMethodStrategy methodsWithClassData:str]];
+        }
+    }
     
     return methods;
 }
