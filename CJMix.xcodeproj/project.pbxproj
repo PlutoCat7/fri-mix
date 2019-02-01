@@ -89,7 +89,7 @@
 		B78CED4621FAA0A700811586 /* MixObjectStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixObjectStrategy.m; sourceTree = "<group>"; };
 		B790C95121FED1A20091AA4F /* MixCategoryStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixCategoryStrategy.h; sourceTree = "<group>"; };
 		B790C95221FED1A20091AA4F /* MixCategoryStrategy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixCategoryStrategy.m; sourceTree = "<group>"; };
-		B7DAFFF62202E988001809C0 /* demo_mix.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = demo_mix.plist; sourceTree = "<group>"; };
+		B7DA000B22041117001809C0 /* mix.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mix.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,7 +230,7 @@
 		B7DAFFF32202E89F001809C0 /* Plist */ = {
 			isa = PBXGroup;
 			children = (
-				B7DAFFF62202E988001809C0 /* demo_mix.plist */,
+				B7DA000B22041117001809C0 /* mix.plist */,
 			);
 			path = Plist;
 			sourceTree = "<group>";

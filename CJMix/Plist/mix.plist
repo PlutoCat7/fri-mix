@@ -4,7 +4,7 @@
 <dict>
 	<key>FrameworkPaths</key>
 	<array>
-		<string>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform</string>
+		<string>../Demo/Pods</string>
 	</array>
 	<key>ShieldPaths</key>
 	<array>
@@ -13,23 +13,25 @@
 	</array>
 	<key>ShieldClass</key>
 	<array>
-		<string>BaseItem</string>
+		<string>DemoModel</string>
 	</array>
-	<key>Suffix</key>
+	<key>MethodSuffix</key>
 	<array>
-		<string>mix</string>
-		<string>cj</string>
+		<string>demo0</string>
+		<string>demo1</string>
+		<string>demo2</string>
 	</array>
-	<key>Prefix</key>
+	<key>MethodPrefix</key>
 	<array>
-		<string>mix</string>
-		<string>cj</string>
+		<string>demo3</string>
+		<string>doom4</string>
+		<string>demo5</string>
 	</array>
 	<key>RootPath</key>
-	<string>/Users/wn/Documents/git/CJMix</string>
+	<string>../Demo</string>
 	<key>ReferencePath</key>
-	<string>/Users/wn/Documents/git/CJMix/Reference</string>
-	<key>ClassPrefix</key>
+	<string>../Reference</string>
+	<key>ProjectPrefix</key>
 	<string>Mix</string>
 	<key>OpenLog</key>
 	<true/>
