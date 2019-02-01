@@ -35,9 +35,10 @@ int main(int argc, const char * argv[]) {
             MixLog(@"偶遇mix.plist文件\n");
         } else {
             MixLog(@"丢失mix.plist文件！请输入路径：\n");
-            char a[1000];
-            scanf("%s",a);
-            mixPlistPath = [NSString stringWithFormat:@"%s", a];
+//            char a[1000];
+//            scanf("%s",a);
+//            mixPlistPath = [NSString stringWithFormat:@"%s", a];
+            mixPlistPath = @"/Users/wn/Documents/mix.plist";
             if (![MixFileStrategy isExistsAtPath:mixPlistPath]) {
                 MixLog(@"文件不存在\n");
                 return 0;
@@ -64,10 +65,11 @@ int main(int argc, const char * argv[]) {
         }
         MixLog(@"拷贝文件成功\n");
         
-        MixLog(@"获取替换对象\n");
-        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
+        
         MixLog(@"获取需要被替换对象\n");
         NSArray <MixObject*>* copyObjects = [MixObjectStrategy objectsWithPath:copyPath saveConfig:YES];
+        MixLog(@"获取替换对象\n");
+        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
         MixLog(@"获取替换类名\n");
         NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
         MixLog(@"开始替换类名\n");
@@ -79,7 +81,7 @@ int main(int argc, const char * argv[]) {
         NSMutableArray * frameworkPaths = [NSMutableArray arrayWithArray:[MixConfig sharedSingleton].frameworkPaths];
         NSString * systemPaths = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
         [frameworkPaths addObject:systemPaths];
-        
+
         for (NSString * framework in frameworkPaths) {
             NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:framework];
             [frameworkMethods addObjectsFromArray:methods];

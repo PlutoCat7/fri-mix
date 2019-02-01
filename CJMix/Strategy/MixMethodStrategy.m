@@ -15,10 +15,6 @@
 
 + (NSString *)methodFromData:(NSString *)data {
     
-    if ([data containsString:@"- (void)activityDescription"]) {
-        
-    }
-    
     //判断无参数方法
     NSRange bracketRange = [data rangeOfString:@")"];
     NSString * methodStr = nil;
@@ -98,11 +94,7 @@
                             if ([MixStringStrategy isAlphaNum:methodStr]) {
                                 [methodNames addObject:methodStr];
                             }
-                            
                         }
-                        
-                        
-                        
                     }
                 } else {
                     if ([MixStringStrategy isAlphaNum:name]) {
@@ -213,44 +205,38 @@
     NSArray <NSString *>* addMethodData = [data componentsSeparatedByString:@"+"];
     NSArray <NSString *>* subMethodData = [data componentsSeparatedByString:@"-"];
     
-    [addMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (idx != 0) {
-            NSString * group = [NSString stringWithFormat:@"+%@",obj];
-            NSString * method = [MixMethodStrategy methodFromData:group];
-            
-            if (method && ![methods containsObject:method]) {
-                [methods addObject:method];
-            }
+    for (NSString * obj in addMethodData) {
+        NSString * group = [NSString stringWithFormat:@"+%@",obj];
+        NSString * method = [MixMethodStrategy methodFromData:group];
+        
+        if (method && ![methods containsObject:method]) {
+            [methods addObject:method];
         }
-    }];
+    }
     
-    [subMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (idx != 0) {
-            NSString * group = [NSString stringWithFormat:@"-%@",obj];
-            NSString * method = [MixMethodStrategy methodFromData:group];
-            
-            if (method && ![methods containsObject:method]) {
-                [methods addObject:method];
-            }
+    for (NSString * obj in subMethodData) {
+        NSString * group = [NSString stringWithFormat:@"-%@",obj];
+        NSString * method = [MixMethodStrategy methodFromData:group];
+        
+        if (method && ![methods containsObject:method]) {
+            [methods addObject:method];
         }
-    }];
-    
+    }
     
     NSArray <NSString *>* propertyMethodData = [data componentsSeparatedByString:@"@property"];
-
-    [propertyMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-
+    
+    for (NSString * obj in propertyMethodData) {
         NSRange range = [obj rangeOfString:@";"];
         if (range.location != NSNotFound) {
-
+            
             NSString * property = [obj substringToIndex:range.location];
-
+            
             if ([property containsString:@"atomic"] || [property containsString:@"nonatomic"]) {
-
-//                BOOL isOnlyRead = [property containsString:@"readonly"];
-
+                
+                //                BOOL isOnlyRead = [property containsString:@"readonly"];
+                
                 NSString * propertyName = nil;
-
+                
                 if ([property containsString:@"*"]) {
                     //强引用
                     NSArray * strs = [property componentsSeparatedByString:@"*"];
@@ -261,7 +247,7 @@
                             propertyName = lastStr;
                         }
                     }
-
+                    
                 } else {
                     //弱引用
                     NSArray * strs = [property componentsSeparatedByString:@" "];
@@ -274,40 +260,39 @@
                             }
                         }
                     }
-
+                    
                 }
-
+                
                 if (propertyName.length) {
-
-//                    if (![methods containsObject:propertyName]) {
-//                        [methods addObject:propertyName];
-//                    }
+                    
+                    //                    if (![methods containsObject:propertyName]) {
+                    //                        [methods addObject:propertyName];
+                    //                    }
                     
                     if (![[MixConfig sharedSingleton].allProperty containsObject:propertyName]) {
                         [[MixConfig sharedSingleton].allProperty addObject:propertyName];
                     }
                     
-
-//                    if (!isOnlyRead) {
-//                        NSString * setPropertyName = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[propertyName substringToIndex:1] uppercaseString]];
-//
-//                        setPropertyName = [NSString stringWithFormat:@"set%@:",setPropertyName];
-//
-//                        if (![methods containsObject:setPropertyName]) {
-//                            [methods addObject:setPropertyName];
-//                        }
-//
-//                    }
+                    
+                    //                    if (!isOnlyRead) {
+                    //                        NSString * setPropertyName = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[propertyName substringToIndex:1] uppercaseString]];
+                    //
+                    //                        setPropertyName = [NSString stringWithFormat:@"set%@:",setPropertyName];
+                    //
+                    //                        if (![methods containsObject:setPropertyName]) {
+                    //                            [methods addObject:setPropertyName];
+                    //                        }
+                    //
+                    //                    }
                 }
-
-
-
+                
+                
+                
             }
         }
 
-
-        
-    }];
+    }
+    
     
     
     return methods;
