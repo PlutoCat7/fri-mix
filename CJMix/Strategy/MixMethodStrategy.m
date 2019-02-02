@@ -59,8 +59,7 @@
                     NSString * methodStr = [name substringFromIndex:range.location + range.length];
                     
                     if ([name isEqual:names.lastObject]) {
-                        //最后一个
-                        NSRange range1 = [methodStr rangeOfString:@" "];
+                        NSRange range1 = [methodStr rangeOfString:@"{"];
                         NSRange range2 = [methodStr rangeOfString:@";"];
                         NSInteger location = NSNotFound;
                         if (range1.location != NSNotFound) {
@@ -84,7 +83,6 @@
                     if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
                         [methodNames addObject:methodStr];
                     } else {
-
                         if ([methodStr containsString:@" "]) {
                             
                             NSRange blankRange = [methodStr rangeOfString:@" "];
