@@ -14,7 +14,7 @@
 @implementation MixMethodStrategy
 
 + (NSString *)methodFromData:(NSString *)data {
-    
+
     NSString * copyData = [data stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
     
     NSRange bracketRange = [copyData rangeOfString:@")"];
@@ -95,7 +95,16 @@
         
     } else {
         //无参数方法
-        methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSArray * names = [methodStr componentsSeparatedByString:@" "];
+        if (names.count) {
+            for (NSString * name in names) {
+                if (name.length) {
+                    methodStr = name;
+                    break;
+                }
+            }
+        }
+        
         if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
             return methodStr;
         }
