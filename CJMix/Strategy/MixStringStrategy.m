@@ -30,6 +30,21 @@
     
 }
 
++ (BOOL)isSemicolonOrRightBraceEnd:(NSString *)string {
+    NSString * front = [string stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    front = [front stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (!front.length) {
+        return NO;
+    }
+    front = [front substringFromIndex:front.length-1];
+    if ([front isEqualToString:@";"] || [front isEqualToString:@"}"]) {
+        return YES;
+    } else if ([front containsString:@"@interface"] || [front containsString:@"@implementation"] ) {
+        return YES;
+    }
+    return NO;
+}
+
 + (NSString *)capitalizeTheFirstLetter:(NSString *)string {
     if (!string.length) {
         return string;

@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CJMix/Strategy/MixMainStrategy.m"
-            timestampString = "570792990.245134"
+            filePath = "CJMix/Strategy/MixStringStrategy.m"
+            timestampString = "570797517.866257"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "+replaceMethod:methods:systemMethods:"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "+isSemicolonOrRightBraceEnd:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
