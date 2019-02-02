@@ -150,7 +150,7 @@
     front = [front substringFromIndex:front.length-1];
     if ([front isEqualToString:@";"] || [front isEqualToString:@"}"]) {
         return YES;
-    } else if ([front containsString:@"@interface"] || [front containsString:@"@implementation"] ) {
+    } else if ([string containsString:@"@interface"] || [string containsString:@"@implementation"] ) {
         return YES;
     }
     return NO;
