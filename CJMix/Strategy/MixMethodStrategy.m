@@ -95,7 +95,6 @@
         if (methodNames.count) {
             methodInfo = [NSString stringWithFormat:@"%@:",[methodNames componentsJoinedByString:@":"]];
         }
-        
         return methodInfo;
         
     } else {
@@ -203,20 +202,26 @@
     
     [addMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx != 0) {
-            NSString * group = [NSString stringWithFormat:@"+%@",obj];
-            NSString * method = [MixMethodStrategy methodFromData:group];
-            if (method && ![methods containsObject:method]) {
-                [methods addObject:method];
+            NSString * front = addMethodData[idx-1];
+            if ([MixStringStrategy isSemicolonOrRightBraceEnd:front]) {
+                NSString * group = [NSString stringWithFormat:@"+%@",obj];
+                NSString * method = [MixMethodStrategy methodFromData:group];
+                if (method && ![methods containsObject:method]) {
+                    [methods addObject:method];
+                }
             }
         }
     }];
     
     [subMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx != 0) {
-            NSString * group = [NSString stringWithFormat:@"-%@",obj];
-            NSString * method = [MixMethodStrategy methodFromData:group];
-            if (method && ![methods containsObject:method]) {
-                [methods addObject:method];
+            NSString * front = subMethodData[idx-1];
+            if ([MixStringStrategy isSemicolonOrRightBraceEnd:front]) {
+                NSString * group = [NSString stringWithFormat:@"-%@",obj];
+                NSString * method = [MixMethodStrategy methodFromData:group];
+                if (method && ![methods containsObject:method]) {
+                    [methods addObject:method];
+                }
             }
         }
     }];
