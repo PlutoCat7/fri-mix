@@ -53,9 +53,6 @@
 - (NSString *)getNewCategoryNameWithOld:(NSString *)old {
     
     NSString *newCategoryName = self.resetDict[old];
-    if (!newCategoryName) {
-        newCategoryName = @"AudioRoom";
-    }
     return newCategoryName;
 }
 
@@ -157,8 +154,7 @@
                 NSString *lineString = lineList[index];
                 NSString *tmpString = [lineString copy];
                 //去除空格
-                tmpString = [lineString stringByReplacingOccurrencesOfString:@" " withString:@""];
-                if (![tmpString hasPrefix:@"@interface"]) {
+                if (![[lineString stringByReplacingOccurrencesOfString:@" " withString:@""] hasPrefix:@"@interface"]) {
                     continue;
                 }
                 NSRange curRange = [tmpString rangeOfString:@"(?<=\\().*(?=\\))" options:NSRegularExpressionSearch];
@@ -171,7 +167,10 @@
                 //替换新protocol
                 NSString *resetCategory = self.resetDict[curStr]; //分类可重复
                 if (!resetCategory) {
-                    resetCategory = self.resetCategoryList.firstObject;;
+                    if (self.resetCategoryList.count>0) {
+                        resetCategory = self.resetCategoryList[0];
+                        [self.resetCategoryList removeObjectAtIndex:0];
+                    }
                 }
                 if (!resetCategory) {
                     MixLog(@"新的Category个数不足,无法替换完全\n");
@@ -181,7 +180,6 @@
                 [tmpList replaceObjectAtIndex:index withObject:tmpString];
                 
                 //保存数据
-                [self.resetCategoryList removeObjectAtIndex:0];
                 [self.resetDict setObject:resetCategory forKey:curStr];
             }
             string = [tmpList componentsJoinedByString:@"\n"];
@@ -193,7 +191,7 @@
     }
 }
 
-//替换protocol的使用
+//替换Category的使用
 - (BOOL)replaceCategoryQuote {
     
     [self recursiveReplaceCategoryWithFiles:[MixConfig sharedSingleton].allFile];
@@ -237,10 +235,10 @@
                         continue;
                     }
                     //去空格处理
-                    NSString *removeSpaceString = [lineString stringByReplacingOccurrencesOfString:@" " withString:@""];
-                    if (![removeSpaceString hasPrefix:@"@implementation"]) {
+                    if (![[lineString stringByReplacingOccurrencesOfString:@" " withString:@""] hasPrefix:@"@implementation"]) {
                         continue;
                     }
+                    
                     NSRange curRange = [tmpString rangeOfString:@"(?<=\\().*(?=\\))" options:NSRegularExpressionSearch];
                     if (curRange.location == NSNotFound)
                         continue;
@@ -249,11 +247,11 @@
                         continue;
                     }
                     //替换新protocol
-                    NSString *newCategory = dict[oldCategory];
-                    NSString *resetCategory = newCategory; //分类可重复
-                    if (resetCategory) {
-                        tmpString = [lineString stringByReplacingOccurrencesOfString:curStr withString:resetCategory];
+                    NSString *newCategory = findDict[curStr];
+                    if (newCategory) {
+                        tmpString = [lineString stringByReplacingCharactersInRange:curRange withString:newCategory];
                         [tmpList replaceObjectAtIndex:index withObject:tmpString];
+                        break;
                     }
                 }
             }

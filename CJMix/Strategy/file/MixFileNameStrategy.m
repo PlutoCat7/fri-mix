@@ -70,30 +70,33 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     strategy.mixPath = mixPath;
     
     //生成类字段
-    for (MixObject *object in objects) {
-        NSString *oldName = object.classFile.classFileName;
-        NSString *newName = object.classFile.resetFileName;
-        if (!newName && oldName && [oldName containsString:@"+"]) {//分类的情况
-            //遍历已有的类获取 修改后的文件名称
-            for (MixObject *subObject in objects) {
-                NSString *className = [oldName componentsSeparatedByString:@"+"].firstObject;
-                NSString *categoryName = [oldName componentsSeparatedByString:@"+"].lastObject;
-                if ([subObject.classFile.classFileName isEqualToString:className]) {
-                    NSString *newClassName = subObject.classFile.resetFileName;
-                    if (newClassName && newClassName.length>0) {
-                        newName = [NSString stringWithFormat:@"%@+%@", newClassName, [[MixYAHCategoryStrategy shareInstance] getNewCategoryNameWithOld:categoryName]];
-                    }
-                    break;
-                }
-            }
-        }
-        if (oldName && newName) {
-            NSDictionary *data = @{@"name":newName,
-                                   @"object":object
-                                   };
-            [strategy.classNameDict setObject:data forKey:oldName];
-        }
-    }
+//    for (MixObject *object in objects) {
+//        NSString *oldName = object.classFile.classFileName;
+//        NSString *newName = object.classFile.resetFileName;
+//        if (!newName && oldName && [oldName containsString:@"+"]) {//分类的情况
+//            //遍历已有的类获取 修改后的文件名称
+//            for (MixObject *subObject in objects) {
+//                NSString *className = [oldName componentsSeparatedByString:@"+"].firstObject;
+//                NSString *categoryName = [oldName componentsSeparatedByString:@"+"].lastObject;
+//                if ([subObject.classFile.classFileName isEqualToString:className]) {
+//                    NSString *newClassName = subObject.classFile.resetFileName;
+//                    if (newClassName && newClassName.length>0) {
+//                        newName = [NSString stringWithFormat:@"%@+%@", newClassName, [[MixYAHCategoryStrategy shareInstance] getNewCategoryNameWithOld:categoryName]];
+//                    }
+//                    break;
+//                }
+//            }
+//        }
+//        if (oldName && newName) {
+//            NSDictionary *data = @{@"name":newName,
+//                                   @"object":object
+//                                   };
+//            [strategy.classNameDict setObject:data forKey:oldName];
+//        }
+//    }
+    
+    //查找替换的类和所有分类
+    [strategy findNeedModefiyFiles];
     
     //读取工程文件  提取文件名称  和文件夹
     NSString *projectJsonPath = [strategy parsePbxproj];
@@ -186,33 +189,6 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
     return jsonPath;
 }
 
-//读取文件夹数据 生成数组
-- (void)readFileGroupData {
-    
-    NSString *jsonPath = [self.rootPath stringByAppendingPathComponent:@"fileGroup.json"];   //已通过plutil -convert json -s -r -o my.json project.pbxproj 转成json
-    NSData *data = [NSData dataWithContentsOfFile:jsonPath];
-    if (!data) {
-        return;
-    }
-    NSError *error = nil;
-    id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-    NSDictionary *list = [result objectForKey:@"objects"];
-    for (NSString *key in list) {
-        NSDictionary *dict = [list objectForKey:key];
-        if ([dict isKindOfClass:NSDictionary.class]) {
-            NSString *isa = [dict objectForKey:@"isa"];
-            if (isa && [isa isKindOfClass:NSString.class]) {
-                if ([isa isEqualToString:@"PBXGroup"]) {
-                    NSString *fileGroupName = [dict objectForKey:@"path"];
-                    if (fileGroupName.length>0) {
-                        [self.fileGroupNameSet addObject:fileGroupName];
-                    }
-                }
-            }
-        }
-    }
-}
-
 - (BOOL)checkFileValidWithSuffux:(NSString *)suffix {
     
     return ([suffix isEqualToString:@"h"] || [suffix isEqualToString:@"m"]
@@ -222,6 +198,109 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 - (NSString *)keyWithUDID:(NSString *)udid {
     
     return [NSString stringWithFormat:@"objects.%@.path", udid];
+}
+
+#pragma mark - 查找需要修改的文件名称
+
+- (void)findNeedModefiyFiles {
+    
+    [self recursiveFindFile:[MixConfig sharedSingleton].allFile];
+}
+
+- (void)recursiveFindFile:(NSArray *)files {
+    
+    for (MixFile *file in files) {
+        if (file.subFiles.count>0) {
+            if (![self checkIsWhiteFolder:file]) {
+                [self recursiveFindFile:file.subFiles];
+            }
+        }else if (file.fileType == MixFileTypeH ||
+                  file.fileType == MixFileTypeM ||
+                  file.fileType == MixFileTypeMM) {
+            //对类名进行修改
+            BOOL find = NO;
+            for (MixObject *object in self.objects) {
+                NSString *oldFileName = [file.fileName copy];
+                NSString *newFileName = [file.fileName copy];
+                if (object.classFile.hFile == file ||
+                    object.classFile.mFile == file) { //类名被修改了、进行类名替换
+                    NSString *oldClassName = object.classFile.classFileName;
+                    NSString *newClassName = object.classFile.resetFileName;
+                    if (!newClassName && [oldFileName containsString:@"+"]) {//分类的情况， 但是分类没有resetFileName, 需要从正常的类中读取
+                        //遍历已有的类获取 修改后的文件名称
+                        for (MixObject *subObject in self.objects) {
+                            NSString *className = [oldClassName componentsSeparatedByString:@"+"].firstObject;
+                            NSString *categoryName = [oldClassName componentsSeparatedByString:@"+"].lastObject;
+                            if ([subObject.classFile.classFileName isEqualToString:className]) {
+                                NSString *newClassName = subObject.classFile.resetFileName;
+                                if (newClassName && newClassName.length>0) {
+                                    NSString *newCategoryName = [[MixYAHCategoryStrategy shareInstance] getNewCategoryNameWithOld:categoryName];
+                                    if (!newCategoryName) {//未找到
+                                        newCategoryName = categoryName;
+                                    }
+                                    newClassName = [NSString stringWithFormat:@"%@+%@", newClassName, newCategoryName];
+                                    newFileName = [NSString stringWithFormat:@"%@.%@", newClassName, [oldFileName componentsSeparatedByString:@"."].lastObject];
+                                }
+                                break;
+                            }
+                        }
+                    }else if(newClassName){
+                        newFileName = [oldFileName stringByReplacingOccurrencesOfString:oldClassName withString:newClassName];
+                        newFileName = [NSString stringWithFormat:@"%@.%@", newFileName, [oldFileName componentsSeparatedByString:@"."].lastObject];
+                    }
+                    if (oldFileName && newFileName &&
+                        ![oldFileName isEqualToString:newFileName]) {
+                        [self saveFile:file oldFileName:oldFileName newFileName:newFileName];
+                        find = YES;
+                    }
+                    break;
+                }
+            }
+            if (find) {
+                continue;
+            }
+            //其它分类情况
+            if ([file.fileName containsString:@"+"]) {//
+                NSString *oldFileName = [file.fileName copy];
+                NSString *string = [oldFileName componentsSeparatedByString:@"."].firstObject;
+                NSString *suffx = [oldFileName componentsSeparatedByString:@"."].lastObject;
+                NSString *className = [string componentsSeparatedByString:@"+"].firstObject;
+                NSString *categoryName = [string componentsSeparatedByString:@"+"].lastObject;
+                NSString *newCategoryName = [[MixYAHCategoryStrategy shareInstance] getNewCategoryNameWithOld:categoryName];
+                if (newCategoryName && ![newCategoryName isEqualToString:categoryName]) {
+                    NSString *newFileName = [NSString stringWithFormat:@"%@+%@.%@", className, newCategoryName, suffx];
+                    [self saveFile:file oldFileName:oldFileName newFileName:newFileName];
+                }
+            }
+        }
+    }
+}
+
+- (void)saveFile:(MixFile *)file oldFileName:(NSString *)oldFileName newFileName:(NSString *)newFileName {
+    
+    //项目不规范可能会有多个文件名称相同的file
+    NSDictionary *data = [self.classNameDict objectForKey:oldFileName];
+    if (data) {
+        NSMutableArray *tmpList = [NSMutableArray arrayWithArray:data[@"file"]];
+        [tmpList addObject:file];
+        NSDictionary *data = @{@"name":newFileName,
+                               @"file":[tmpList copy]
+                               };
+        [self.classNameDict setObject:data forKey:oldFileName];
+    }else {
+        NSDictionary *data = @{@"name":newFileName,
+                               @"file":@[file]
+                               };
+        [self.classNameDict setObject:data forKey:oldFileName];
+    }
+}
+
+- (BOOL)checkIsWhiteFolder:(MixFile *)file {
+    
+    if (file.fileType != MixFileTypeFolder) {
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - 生成文件名称配置数据
@@ -238,42 +317,30 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
         if (![self checkFileValidWithSuffux:suffix]) {
             continue;
         }
-        //去除后缀 当做类名比对
         NSString *oldFileName = info.fileName;
-        NSString *oldClassName = [oldFileName componentsSeparatedByString:@"."].firstObject;
-        NSDictionary *dataDict = [self.classNameDict objectForKey:oldClassName];
-        NSString *newClassName = [dataDict objectForKey:@"name"];
-        if (newClassName && newClassName.length>0) { //找到了
-            
-            NSString *newFileName = [oldFileName stringByReplacingOccurrencesOfString:oldClassName withString:newClassName];
+        NSDictionary *dataDict = [self.classNameDict objectForKey:oldFileName];
+        NSString *newFileName = [dataDict objectForKey:@"name"];
+        if (newFileName && newFileName.length>0) { //找到了
             //先修改物理文件路径
-            MixObject *object = [dataDict objectForKey:@"object"];
-            NSString *oldPath = nil;
-            if ([suffix isEqualToString:@"h"]) {
-                oldPath = object.classFile.hFile.path;
-            }else {
-                oldPath = object.classFile.mFile.path;
-            }
-            if (oldPath && oldPath.length>0) {
-                
-                NSString *newPath = [oldPath stringByReplacingOccurrencesOfString:oldFileName withString:newFileName];
-                BOOL isSuccess = [[NSFileManager defaultManager] moveItemAtPath:oldPath toPath:newPath error:nil];
-                if (isSuccess) {
-                    NSString *key = [self keyWithUDID:info.UDID];
-                    [jsonObject.backward.modify setObject:oldFileName forKey:key];
-                    [jsonObject.forward.modify setObject:newFileName forKey:key];
-                    
-                    //eg：虽然文件名是A.h  但是#import "a.h" xcode也可以识别，所以对key做小写处理
-                    [realFileNameDict setObject:newFileName forKey:[oldFileName lowercaseString]];
-                    //修改数据
-                    if ([suffix isEqualToString:@"h"]) {
-                        object.classFile.hFile.path = newPath;
+            NSArray<MixFile *> *files = [dataDict objectForKey:@"file"];
+            for (MixFile *file in files) {
+                NSString *oldPath = file.path;
+                if (oldPath && oldPath.length>0) {
+                    NSString *newPath = [oldPath stringByReplacingOccurrencesOfString:oldFileName withString:newFileName];
+                    BOOL isSuccess = [[NSFileManager defaultManager] moveItemAtPath:oldPath toPath:newPath error:nil];
+                    if (isSuccess) {
+                        NSString *key = [self keyWithUDID:info.UDID];
+                        [jsonObject.backward.modify setObject:oldFileName forKey:key];
+                        [jsonObject.forward.modify setObject:newFileName forKey:key];
+                        
+                        //eg：虽然文件名是A.h  但是#import "a.h" xcode也可以识别，所以对key做小写处理
+                        [realFileNameDict setObject:newFileName forKey:[oldFileName lowercaseString]];
+                        //修改数据
+                        file.path = newPath;
                     }else {
-                        object.classFile.mFile.path = newPath;
+                        NSString *log = [NSString stringWithFormat:@"%@.%@文件修改失败", newFileName, suffix];
+                        MixLog(log);
                     }
-                }else {
-                    NSString *log = [NSString stringWithFormat:@"%@.%@文件修改失败", newFileName, suffix];
-                    MixLog(log);
                 }
             }
         }
