@@ -13,6 +13,7 @@
     NSArray <NSString *>* _legalClassFrontSymbols;
     NSArray <NSString *>* _legalClassBackSymbols;
     NSArray <MixObject*>* _systemObjects;
+    NSMutableDictionary * _encryptionDictionary;
 }
 
 @end
@@ -168,6 +169,13 @@
         _systemObjects = [MixObjectStrategy objectsForKey:@"mix_system"];
     }
     return _systemObjects;
+}
+
+- (NSMutableDictionary *)encryptionDictionary {
+    if (!_encryptionDictionary) {
+        _encryptionDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
+    }
+    return _encryptionDictionary;
 }
 
 

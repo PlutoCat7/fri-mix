@@ -56,5 +56,7 @@
 
 @property (nonatomic , copy) NSArray <MixObject*>* systemObjects;
 
+@property (nonatomic , copy) NSMutableDictionary * encryptionDictionary;
+
 @end
 

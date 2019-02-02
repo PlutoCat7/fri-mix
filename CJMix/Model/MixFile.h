@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MixEncryption.h"
+
 
 typedef NS_ENUM(NSUInteger, MixFileType) {
     MixFileTypeUnknown,
