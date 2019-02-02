@@ -15,10 +15,12 @@
 
 + (NSString *)methodFromData:(NSString *)data {
     
-    NSRange bracketRange = [data rangeOfString:@")"];
+    NSString * copyData = [data stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    
+    NSRange bracketRange = [copyData rangeOfString:@")"];
     NSString * methodStr = nil;
     if (bracketRange.location != NSNotFound) {
-        methodStr = [data substringFromIndex:bracketRange.location + bracketRange.length];
+        methodStr = [copyData substringFromIndex:bracketRange.location + bracketRange.length];
         if ([methodStr containsString:@"{"] || [methodStr containsString:@";"]) {
             NSRange range1 = [methodStr rangeOfString:@"{"];
             NSRange range2 = [methodStr rangeOfString:@";"];
@@ -37,9 +39,7 @@
             } else {
                 methodStr = nil;
             }
-            
         }
-        
     }
     
     
@@ -47,72 +47,54 @@
         return nil;
     }
     
-    methodStr = [methodStr stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-    
+    //已取到方法范围
     if ([methodStr containsString:@":"]) {
-
-        NSArray <NSString *>* names = [data componentsSeparatedByString:@":"];
+        //有参数方法
+        NSArray <NSString *>* names = [methodStr componentsSeparatedByString:@":"];
+        NSMutableArray <NSString *>* methodNames = [NSMutableArray arrayWithCapacity:0];
         
-        if (names.count) {
-            NSMutableArray <NSString *>* methodNames = [NSMutableArray arrayWithCapacity:0];
-            for (NSString * name in names) {
-                NSRange range = [name rangeOfString:@")"];
-                if (range.location != NSNotFound) {
-                    NSString * methodStr = [name substringFromIndex:range.location + range.length];
-                    
-                    if ([name isEqual:names.lastObject]) {
-                        NSRange range1 = [methodStr rangeOfString:@"{"];
-                        NSRange range2 = [methodStr rangeOfString:@";"];
-                        NSInteger location = NSNotFound;
-                        if (range1.location != NSNotFound) {
-                            location = range1.location;
-                        }
-                        if (range2.location != NSNotFound) {
-                            if (range2.location < location) {
-                                location = range2.location;
-                            }
-                        }
-                        
-                        if (location != NSNotFound) {
-                            methodStr = [methodStr substringToIndex:location];
-                            methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
-                            if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
-                                [methodNames addObject:methodStr];
-                            }
-                        }
-                        break;
-                    }
-                    methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
-                    if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
-                        [methodNames addObject:methodStr];
-                    } else {
-                        if ([methodStr containsString:@" "]) {
-                            NSRange blankRange = [methodStr rangeOfString:@" "];
-                            methodStr = [methodStr substringFromIndex:blankRange.location + blankRange.length];
-                            methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
-                            if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
-                                [methodNames addObject:methodStr];
-                            }
-                        }
-                    }
+        for (NSString * name in names) {
+            
+            //判断是否最后
+            if ([name isEqual:names.lastObject]) {
+                break;
+            }
+            
+            //是否有括号
+            NSRange range = [name rangeOfString:@")"];
+            if (range.location != NSNotFound) {
+                NSString * methodStr = [name substringFromIndex:range.location + range.length];
+                //只有方法参数
+                if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
+                    [methodNames addObject:methodStr];
                 } else {
-                    methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
-                    if ([MixStringStrategy isAlphaNumUnderline:name]) {
-                        [methodNames addObject:name];
+                    //说明有参数和方法参数
+                    if ([methodStr containsString:@" "]) {
+                        NSRange blankRange = [methodStr rangeOfString:@" " options:NSBackwardsSearch];
+                        methodStr = [methodStr substringFromIndex:blankRange.location + blankRange.length];
+                        methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+                        if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
+                            [methodNames addObject:methodStr];
+                        }
                     }
                 }
-                
+            } else {
+                NSString * minus = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
+                if ([MixStringStrategy isAlphaNumUnderline:minus]) {
+                    [methodNames addObject:minus];
+                }
             }
-            NSString *methodInfo = nil;
             
-            if (methodNames.count) {
-                methodInfo = [NSString stringWithFormat:@"%@:",[methodNames componentsJoinedByString:@":"]];
-            }
-            
-            return methodInfo;
         }
         
+        NSString *methodInfo = nil;
+        if (methodNames.count) {
+            methodInfo = [NSString stringWithFormat:@"%@:",[methodNames componentsJoinedByString:@":"]];
+        }
+        return methodInfo;
+        
     } else {
+        //无参数方法
         methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
         if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
             return methodStr;
