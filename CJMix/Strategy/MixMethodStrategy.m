@@ -9,6 +9,7 @@
 #import "MixMethodStrategy.h"
 #import "MixStringStrategy.h"
 #import "MixFileStrategy.h"
+#import "MixJudgeStrategy.h"
 #import "../Config/MixConfig.h"
 
 @implementation MixMethodStrategy
@@ -203,7 +204,7 @@
     [addMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx != 0) {
             NSString * front = addMethodData[idx-1];
-            if ([MixStringStrategy isSemicolonOrRightBraceEnd:front]) {
+            if ([MixJudgeStrategy isLegalMethodFront:front]) {
                 NSString * group = [NSString stringWithFormat:@"+%@",obj];
                 NSString * method = [MixMethodStrategy methodFromData:group];
                 if (method && ![methods containsObject:method]) {
@@ -216,7 +217,7 @@
     [subMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx != 0) {
             NSString * front = subMethodData[idx-1];
-            if ([MixStringStrategy isSemicolonOrRightBraceEnd:front]) {
+            if ([MixJudgeStrategy isLegalMethodFront:front]) {
                 NSString * group = [NSString stringWithFormat:@"-%@",obj];
                 NSString * method = [MixMethodStrategy methodFromData:group];
                 if (method && ![methods containsObject:method]) {
