@@ -24,14 +24,17 @@
 
 + (NSMutableArray <NSString *> *)classNamesWithObjects:(NSArray <MixObject*>*)objects {
     NSMutableArray * classNames = [NSMutableArray arrayWithCapacity:0];
-    [objects enumerateObjectsUsingBlock:^(MixObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    
+    for (MixObject * obj in objects) {
         for (MixClass * class in obj.hClasses) {
-            NSString * newClassName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixPrefix,class.className];
-            if ([MixJudgeStrategy isLegalNewClassName:newClassName] && ![classNames containsObject:newClassName]) {
-                [classNames addObject:newClassName];
+            @autoreleasepool {
+                NSString * newClassName = [NSString stringWithFormat:@"%@%@",[MixConfig sharedSingleton].mixPrefix,class.className];
+                if ([MixJudgeStrategy isLegalNewClassName:newClassName] && ![classNames containsObject:newClassName]) {
+                    [classNames addObject:newClassName];
+                }
             }
         }
-    }];
+    }
     
     return classNames;
 }
@@ -41,34 +44,37 @@
     NSMutableArray <NSString *> * methods = [NSMutableArray arrayWithCapacity:0];
     
     for (NSString * str in referenceMethods) {
-        NSString * methodCopy = [NSString stringWithFormat:@"%@",str];
-        if ([methodCopy hasPrefix:@"init"]) {
-            methodCopy = [methodCopy stringByReplacingOccurrencesOfString:@"init" withString:@""];
-        }
-        
-        if (methodCopy.length <= kMinMethodLength) {
-            continue;
-        }
-        
-        NSString * prefix = [MixReferenceStrategy prefixWithMethod:methodCopy];
-        NSString * suffix = [MixReferenceStrategy suffixWithMethod:methodCopy];
-        suffix = [MixStringStrategy capitalizeTheFirstLetter:suffix];
-        methodCopy = [MixStringStrategy capitalizeTheFirstLetter:methodCopy];
-        
-        NSRange range = [methodCopy rangeOfString:@":"];
-        NSString * methodName = nil;
-        if (range.location == NSNotFound) {
-            methodName = [NSString stringWithFormat:@"%@%@%@",prefix,methodCopy,suffix];
-        } else {
-            NSString * front = [methodCopy substringToIndex:range.location];
-            NSString * back = [methodCopy substringFromIndex:range.location];
+        @autoreleasepool {
+            NSString * methodCopy = [NSString stringWithFormat:@"%@",str];
+            if ([methodCopy hasPrefix:@"init"]) {
+                methodCopy = [methodCopy stringByReplacingOccurrencesOfString:@"init" withString:@""];
+            }
             
-            methodName = [NSString stringWithFormat:@"%@%@%@%@",prefix,front,suffix,back];
+            if (methodCopy.length <= kMinMethodLength) {
+                continue;
+            }
+            
+            NSString * prefix = [MixReferenceStrategy prefixWithMethod:methodCopy];
+            NSString * suffix = [MixReferenceStrategy suffixWithMethod:methodCopy];
+            suffix = [MixStringStrategy capitalizeTheFirstLetter:suffix];
+            methodCopy = [MixStringStrategy capitalizeTheFirstLetter:methodCopy];
+            
+            NSRange range = [methodCopy rangeOfString:@":"];
+            NSString * methodName = nil;
+            if (range.location == NSNotFound) {
+                methodName = [NSString stringWithFormat:@"%@%@%@",prefix,methodCopy,suffix];
+            } else {
+                NSString * front = [methodCopy substringToIndex:range.location];
+                NSString * back = [methodCopy substringFromIndex:range.location];
+                
+                methodName = [NSString stringWithFormat:@"%@%@%@%@",prefix,front,suffix,back];
+            }
+            
+            if (![methods containsObject:methodName]) {
+                [methods addObject:methodName];
+            }
         }
         
-        if (![methods containsObject:methodName]) {
-            [methods addObject:methodName];
-        }
     }
     
     

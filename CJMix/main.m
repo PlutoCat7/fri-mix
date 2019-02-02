@@ -25,7 +25,8 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
-        MixLog(@"欢迎使用CJMix （BUG请联系467116811@qq.com 与 yahua523@163.com）\n");
+        MixLog(@"欢迎使用CJMix混淆工具");
+        MixLog(@"（BUG请联系467116811@qq.com 与 yahua523@163.com）\n");
         
         NSString * argvPath = [NSString stringWithFormat:@"%s",*argv];
         NSString * argvFolderPath = argvPath.stringByDeletingLastPathComponent;
@@ -65,10 +66,9 @@ int main(int argc, const char * argv[]) {
         }
         MixLog(@"拷贝文件成功\n");
         
-        
         MixLog(@"获取需要被替换对象\n");
         NSArray <MixObject*>* copyObjects = [MixObjectStrategy objectsWithPath:copyPath saveConfig:YES];
-        MixLog(@"获取替换对象\n");
+        MixLog(@"获取参考替换对象\n");
         NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
         MixLog(@"获取替换类名\n");
         NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
@@ -79,12 +79,13 @@ int main(int argc, const char * argv[]) {
         MixLog(@"获取框架方法名\n");
         NSMutableArray * frameworkMethods = [NSMutableArray arrayWithCapacity:0];
         NSMutableArray * frameworkPaths = [NSMutableArray arrayWithArray:[MixConfig sharedSingleton].frameworkPaths];
-        NSString * systemPaths = @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform";
+        NSString * systemPaths = MixSDKPath;
         [frameworkPaths addObject:systemPaths];
-
-        for (NSString * framework in frameworkPaths) {
-            NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:framework];
-            [frameworkMethods addObjectsFromArray:methods];
+        @autoreleasepool {
+            for (NSString * framework in frameworkPaths) {
+                NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:framework];
+                [frameworkMethods addObjectsFromArray:methods];
+            }
         }
         if (!frameworkMethods.count) {
             MixLog(@"没有发现框架方法名\n");
@@ -96,7 +97,7 @@ int main(int argc, const char * argv[]) {
         MixLog(@"开始替换方法（请耐心等待）\n");
         [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemMethods:frameworkMethods];
         MixLog(@"结束替换方法\n");
-
+        
         MixLog(@"开始替换Protocol名称\n");
         if ([MixProtocolStrategy startWithPath:rootPath]) {
             MixLog(@"替换Protocol名称成功\n");

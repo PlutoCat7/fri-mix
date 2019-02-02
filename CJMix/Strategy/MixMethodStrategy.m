@@ -73,6 +73,7 @@
                         
                         if (location != NSNotFound) {
                             methodStr = [methodStr substringToIndex:location];
+                            methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
                             if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
                                 [methodNames addObject:methodStr];
                             }

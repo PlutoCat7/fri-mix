@@ -104,13 +104,15 @@
         saveHMFiles = [NSMutableArray arrayWithCapacity:0];
     }
     
-    [rootFiles enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.subFiles.count && obj.fileType!=MixFileTypeShield) {
-            [self hmFilesWithFiles:obj.subFiles saveHMFiles:saveHMFiles];
-        } else if (obj.fileType == MixFileTypeH || obj.fileType == MixFileTypeM || obj.fileType == MixFileTypeMM) {
-            [saveHMFiles addObject:obj];
+    for (MixFile * obj in rootFiles) {
+        @autoreleasepool {
+            if (obj.subFiles.count && obj.fileType!=MixFileTypeShield) {
+                [self hmFilesWithFiles:obj.subFiles saveHMFiles:saveHMFiles];
+            } else if (obj.fileType == MixFileTypeH || obj.fileType == MixFileTypeM || obj.fileType == MixFileTypeMM) {
+                [saveHMFiles addObject:obj];
+            }
         }
-    }];
+    }
     
     return saveHMFiles;
 }

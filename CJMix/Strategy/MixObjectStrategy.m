@@ -46,10 +46,12 @@
 + (NSArray <MixObject*>*)fileToObject:(NSArray <MixClassFile *>*)classFiles {
     NSMutableArray <MixObject*>* objects = [NSMutableArray arrayWithCapacity:0];
     
-    [classFiles enumerateObjectsUsingBlock:^(MixClassFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        MixObject * object = [[MixObject alloc] initWithClassFile:obj];
-        [objects addObject:object];
-    }];
+    for (MixClassFile * obj in classFiles) {
+        @autoreleasepool {
+            MixObject * object = [[MixObject alloc] initWithClassFile:obj];
+            [objects addObject:object];
+        }
+    }
     
     return objects;
 }

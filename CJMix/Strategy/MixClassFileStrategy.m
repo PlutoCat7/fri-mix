@@ -14,14 +14,16 @@
     NSMutableArray <MixClassFile *>*classFiles = [NSMutableArray arrayWithCapacity:0];
     
     for (MixFile * obj in hmFiles) {
-        if (obj.fileType == MixFileTypeH) {
-            MixFile * mFile = [self mFileOfHFile:obj classFiles:hmFiles];
-            MixClassFile * classFile = [[MixClassFile alloc] init];
-            classFile.hFile = obj;
-            if (mFile) {
-                classFile.mFile = mFile;
+        @autoreleasepool {
+            if (obj.fileType == MixFileTypeH) {
+                MixFile * mFile = [self mFileOfHFile:obj classFiles:hmFiles];
+                MixClassFile * classFile = [[MixClassFile alloc] init];
+                classFile.hFile = obj;
+                if (mFile) {
+                    classFile.mFile = mFile;
+                }
+                [classFiles addObject:classFile];
             }
-            [classFiles addObject:classFile];
         }
     }
 
