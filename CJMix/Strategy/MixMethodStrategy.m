@@ -15,7 +15,6 @@
 
 + (NSString *)methodFromData:(NSString *)data {
     
-    //判断无参数方法
     NSRange bracketRange = [data rangeOfString:@")"];
     NSString * methodStr = nil;
     if (bracketRange.location != NSNotFound) {
@@ -49,8 +48,7 @@
     }
     
     if ([methodStr containsString:@":"]) {
-        //如果有
-        
+
         NSArray <NSString *>* names = [data componentsSeparatedByString:@":"];
         
         if (names.count) {
@@ -115,7 +113,6 @@
     } else {
         methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
         
-        
         if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
             return methodStr;
         }
@@ -144,16 +141,18 @@
     NSMutableArray <NSString *> * methods = [NSMutableArray arrayWithCapacity:0];
     
     for (MixObject * obj in objects) {
-        if (obj.classFile.hFile) {
-            [methods addObjectsFromArray:[MixMethodStrategy methodsWithData:obj.classFile.hFile.data]];
-        }
-        if (obj.classFile.mFile) {
-            [methods addObjectsFromArray:[MixMethodStrategy methodsWithData:obj.classFile.mFile.data]];
+        @autoreleasepool {
+            if (obj.classFile.hFile) {
+                [methods addObjectsFromArray:[MixMethodStrategy methodsWithData:obj.classFile.hFile.data]];
+            }
+            if (obj.classFile.mFile) {
+                [methods addObjectsFromArray:[MixMethodStrategy methodsWithData:obj.classFile.mFile.data]];
+            }
         }
     }
     
     NSMutableArray * worker = [NSMutableArray arrayWithCapacity:0];
-    for (NSString * obj in objects) {
+    for (NSString * obj in methods) {
         if (![worker containsObject:obj]) {
             [worker addObject:obj];
         }
@@ -193,7 +192,7 @@
 
 + (NSArray <NSString *>*)methodsWithClassData:(NSString *)data {
     
-    __block NSMutableArray <NSString *>* methods = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray <NSString *>* methods = [NSMutableArray arrayWithCapacity:0];
     
     NSArray <NSString *>* addMethodData = [data componentsSeparatedByString:@"+"];
     NSArray <NSString *>* subMethodData = [data componentsSeparatedByString:@"-"];

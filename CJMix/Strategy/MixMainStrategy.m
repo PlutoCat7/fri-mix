@@ -18,6 +18,8 @@
 #import "../Model/MixFile.h"
 #import "../Config/MixConfig.h"
 
+#define kMixMinMethodLength 5
+
 @implementation MixMainStrategy
 
 #pragma mark 替换方法名
@@ -26,32 +28,24 @@
     
     NSMutableArray <NSString *>* validMethods = [NSMutableArray arrayWithArray:[MixMethodStrategy methods:objects]];
     
-    
     NSMutableArray <NSString *>* newMethods = [NSMutableArray arrayWithArray:methods];
     NSMutableArray <NSString *>* worker = [NSMutableArray arrayWithCapacity:0];
-    
-    
-    [newMethods enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    for (NSString * obj in newMethods) {
         NSString * str = [MixMainStrategy trueMethod:obj];
         if (![worker containsObject:str]) {
             [worker addObject:str];
         }
-    }];
-    
+    }
     newMethods = worker;
-    
     [MixConfig sharedSingleton].shieldSystemMethodNames = [MixMainStrategy shieldSystemMethodName:systemMethods];
     
     NSInteger count = 0;
     for (NSString * method in validMethods) {
         count ++;
-        
         @autoreleasepool {
             [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
         }
-        
         printf("完成进度%.2f %%  \n",(float)count/(float)validMethods.count*100);
-        
     }
     
 }
@@ -62,12 +56,11 @@
     for (NSString * systemMethod in systemMethods) {
         NSArray * sysMethods = [systemMethod componentsSeparatedByString:@":"];
         for (NSString * str in sysMethods) {
-            if (str.length > 4) {
+            if (str.length >= kMixMinMethodLength) {
                 [strs addObject:str];
             }
         }
     }
-    
     return strs;
 }
 
@@ -230,14 +223,10 @@
         
         substitute = [MixStringStrategy decoding:substitute originals:originals replaces:replaces];
         
-        
         if (![substitute isEqualToString:file.data]) {
             file.data = substitute;
             [MixFileStrategy writeFileAtPath:file.path content:substitute];
         }
-
-        
-        
         
     }];
     
@@ -302,7 +291,6 @@
         if (object.classFile.isAppDelegate) {
             continue;
         }
-        
         
         [MixMainStrategy replace:object.hClasses newNames:referenceClassNames allObject:objects];
         
@@ -418,7 +406,6 @@
 + (void)reference:(NSArray <MixObject *>*)objects oldName:(NSString*)oldName newName:(NSString *)newName {
     
     for (MixObject * object in objects) {
-        
         @autoreleasepool {
             [MixMainStrategy referenceDataAndWrite:object.classFile.hFile oldName:oldName newName:newName];
             [MixMainStrategy referenceDataAndWrite:object.classFile.mFile oldName:oldName newName:newName];
@@ -428,9 +415,6 @@
     for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
         [MixMainStrategy referenceDataAndWrite:file oldName:oldName newName:newName];
     }
-    
-    
-    
 }
 
 
