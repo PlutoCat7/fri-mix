@@ -47,6 +47,8 @@
         return nil;
     }
     
+    methodStr = [methodStr stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    
     if ([methodStr containsString:@":"]) {
 
         NSArray <NSString *>* names = [data componentsSeparatedByString:@":"];
@@ -80,20 +82,21 @@
                         }
                         break;
                     }
-                    
+                    methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
                     if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
                         [methodNames addObject:methodStr];
                     } else {
                         if ([methodStr containsString:@" "]) {
-                            
                             NSRange blankRange = [methodStr rangeOfString:@" "];
                             methodStr = [methodStr substringFromIndex:blankRange.location + blankRange.length];
+                            methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
                             if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
                                 [methodNames addObject:methodStr];
                             }
                         }
                     }
                 } else {
+                    methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
                     if ([MixStringStrategy isAlphaNumUnderline:name]) {
                         [methodNames addObject:name];
                     }
@@ -111,7 +114,6 @@
         
     } else {
         methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
-        
         if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
             return methodStr;
         }
@@ -128,7 +130,9 @@
     NSMutableArray <NSString *> * methods = [NSMutableArray arrayWithCapacity:0];
     
     for (MixFile * obj in hmFiles) {
-        [methods addObjectsFromArray:[MixMethodStrategy methodsWithData:obj.data]];
+        @autoreleasepool {
+            [methods addObjectsFromArray:[MixMethodStrategy methodsWithData:obj.data]];
+        }
     }
     
     return methods;
@@ -169,20 +173,24 @@
     
     NSArray <NSString *>* interface = [data componentsSeparatedByString:@"@interface"];
     for (NSString * obj in interface) {
-        NSRange range = [obj rangeOfString:@"@end"];
-        if (range.location != NSNotFound) {
-            NSString * str = [obj substringToIndex:range.location];
-            [methods addObjectsFromArray:[MixMethodStrategy methodsWithClassData:str]];
+        @autoreleasepool {
+            NSRange range = [obj rangeOfString:@"@end"];
+            if (range.location != NSNotFound) {
+                NSString * str = [obj substringToIndex:range.location];
+                [methods addObjectsFromArray:[MixMethodStrategy methodsWithClassData:str]];
+            }
         }
     }
     
     
     NSArray <NSString *>* implementations = [data componentsSeparatedByString:@"@implementation"];
     for (NSString * obj in implementations) {
-        NSRange range = [obj rangeOfString:@"@end"];
-        if (range.location != NSNotFound) {
-            NSString * str = [obj substringToIndex:range.location];
-            [methods addObjectsFromArray:[MixMethodStrategy methodsWithClassData:str]];
+        @autoreleasepool {
+            NSRange range = [obj rangeOfString:@"@end"];
+            if (range.location != NSNotFound) {
+                NSString * str = [obj substringToIndex:range.location];
+                [methods addObjectsFromArray:[MixMethodStrategy methodsWithClassData:str]];
+            }
         }
     }
     

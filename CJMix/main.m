@@ -81,12 +81,11 @@ int main(int argc, const char * argv[]) {
         NSMutableArray * frameworkPaths = [NSMutableArray arrayWithArray:[MixConfig sharedSingleton].frameworkPaths];
         NSString * systemPaths = MixSDKPath;
         [frameworkPaths addObject:systemPaths];
-        @autoreleasepool {
-            for (NSString * framework in frameworkPaths) {
-                NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:framework];
-                [frameworkMethods addObjectsFromArray:methods];
-            }
+        for (NSString * framework in frameworkPaths) {
+            NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:framework];
+            [frameworkMethods addObjectsFromArray:methods];
         }
+        
         if (!frameworkMethods.count) {
             MixLog(@"没有发现框架方法名\n");
         }
