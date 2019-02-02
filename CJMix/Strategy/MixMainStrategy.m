@@ -52,16 +52,18 @@
 
 
 + (NSArray <NSString *>*)shieldSystemMethodName:(NSArray <NSString*>*)systemMethods {
-    NSMutableArray * strs = [NSMutableArray arrayWithCapacity:0];
-    for (NSString * systemMethod in systemMethods) {
-        NSArray * sysMethods = [systemMethod componentsSeparatedByString:@":"];
-        for (NSString * str in sysMethods) {
-            if (str.length >= kMixMinMethodLength) {
-                [strs addObject:str];
+    @autoreleasepool {
+        NSMutableArray * strs = [NSMutableArray arrayWithCapacity:0];
+        for (NSString * systemMethod in systemMethods) {
+            NSArray * sysMethods = [systemMethod componentsSeparatedByString:@":"];
+            for (NSString * str in sysMethods) {
+                if (str.length >= kMixMinMethodLength) {
+                    [strs addObject:str];
+                }
             }
         }
+        return strs;
     }
-    return strs;
 }
 
 
