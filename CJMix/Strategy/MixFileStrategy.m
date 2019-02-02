@@ -14,18 +14,22 @@
 + (NSArray <MixFile *>*)filesWithPath:(NSString *)path framework:(BOOL)framework {
     NSFileManager *fm = [NSFileManager defaultManager];
     NSArray <NSString *>* paths = [fm contentsOfDirectoryAtPath:path error:NULL];
-    __block NSMutableArray <MixFile *> *files = [NSMutableArray arrayWithCapacity:0];
-    [paths enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        MixFile * file = [MixFileStrategy fileWithPath:[NSString stringWithFormat:@"%@/%@",path,obj] framework:framework];
-        if (file) {
-            [files addObject:file];
+    NSMutableArray <MixFile *> *files = [NSMutableArray arrayWithCapacity:0];
+    
+    for (NSString * obj in paths) {
+        @autoreleasepool {
+            MixFile * file = [MixFileStrategy fileWithPath:[NSString stringWithFormat:@"%@/%@",path,obj] framework:framework];
+            if (file) {
+                [files addObject:file];
+            }
         }
-    }];
+    }
+    
     return files;
 }
 
 + (NSArray <MixFile *>*)filesToPCHFiles:(NSArray <MixFile *>*)files {
-    __block NSMutableArray <MixFile *> *pchFiles = [MixFileStrategy pchFilesWithFiles:files savePCHFiles:nil];
+    NSMutableArray <MixFile *> *pchFiles = [MixFileStrategy pchFilesWithFiles:files savePCHFiles:nil];
     return pchFiles;
 }
 
@@ -37,13 +41,13 @@
         PCHFiles = [NSMutableArray arrayWithCapacity:0];
     }
     
-    [rootFiles enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    for (MixFile * obj in rootFiles) {
         if (obj.subFiles.count) {
             [self pchFilesWithFiles:obj.subFiles savePCHFiles:PCHFiles];
         } else if (obj.fileType == MixFileTypePch) {
             [PCHFiles addObject:obj];
         }
-    }];
+    }
     
     return PCHFiles;
 }
@@ -104,13 +108,15 @@
         saveHMFiles = [NSMutableArray arrayWithCapacity:0];
     }
     
-    [rootFiles enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.subFiles.count && obj.fileType!=MixFileTypeShield) {
-            [self hmFilesWithFiles:obj.subFiles saveHMFiles:saveHMFiles];
-        } else if (obj.fileType == MixFileTypeH || obj.fileType == MixFileTypeM || obj.fileType == MixFileTypeMM) {
-            [saveHMFiles addObject:obj];
+    for (MixFile * obj in rootFiles) {
+        @autoreleasepool {
+            if (obj.subFiles.count && obj.fileType!=MixFileTypeShield) {
+                [self hmFilesWithFiles:obj.subFiles saveHMFiles:saveHMFiles];
+            } else if (obj.fileType == MixFileTypeH || obj.fileType == MixFileTypeM || obj.fileType == MixFileTypeMM) {
+                [saveHMFiles addObject:obj];
+            }
         }
-    }];
+    }
     
     return saveHMFiles;
 }

@@ -10,13 +10,5 @@
 
 @implementation MixCategoryStrategy
 
-+ (NSArray <MixObject *>*)integrateCategoryMethod:(NSArray <MixObject *>*)objects {
-    
-    //将原有的类增加分类方法
-    
-    
-    return objects;
-    
-}
 
 @end

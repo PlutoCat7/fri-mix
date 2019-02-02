@@ -35,14 +35,14 @@
                             
                             NSString * temp = strs[0];
                             NSString * replacing = [temp stringByReplacingOccurrencesOfString:@" " withString:@""];
-                            if ([MixStringStrategy isAlphaNum:replacing]) {
+                            if ([MixStringStrategy isAlphaNumUnderline:replacing]) {
                                 classStr = replacing;
                             }
                         }
                         
                     }
                     else {
-                        if ([MixStringStrategy isAlphaNum:str]) {
+                        if ([MixStringStrategy isAlphaNumUnderline:str]) {
                             for (int ff = ii + 1 ; ff < blanks.count; ff++) {
                                 NSString * pp = blanks[ff];
                                 if (!pp.length) {

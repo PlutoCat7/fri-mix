@@ -33,6 +33,8 @@
 	<string>../Reference</string>
 	<key>ProjectPrefix</key>
 	<string>Mix</string>
+	<key>AbsolutePath</key>
+	<true/>
 	<key>OpenLog</key>
 	<true/>
 </dict>

@@ -11,21 +11,21 @@
 @implementation MixClassFileStrategy
 
 + (NSArray <MixClassFile *> *)filesToClassFiles:(NSArray <MixFile *>*)hmFiles {
-    __block NSMutableArray <MixClassFile *>*classFiles = [NSMutableArray arrayWithCapacity:0];
-
-    [hmFiles enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.fileType == MixFileTypeH) {
-            MixFile * mFile = [self mFileOfHFile:obj classFiles:hmFiles];
-            MixClassFile * classFile = [[MixClassFile alloc] init];
-            classFile.hFile = obj;
-            if (mFile) {
-                classFile.mFile = mFile;
+    NSMutableArray <MixClassFile *>*classFiles = [NSMutableArray arrayWithCapacity:0];
+    
+    for (MixFile * obj in hmFiles) {
+        @autoreleasepool {
+            if (obj.fileType == MixFileTypeH) {
+                MixFile * mFile = [self mFileOfHFile:obj classFiles:hmFiles];
+                MixClassFile * classFile = [[MixClassFile alloc] init];
+                classFile.hFile = obj;
+                if (mFile) {
+                    classFile.mFile = mFile;
+                }
+                [classFiles addObject:classFile];
             }
-            [classFiles addObject:classFile];
-
         }
-    }];
-
+    }
 
     return [NSArray arrayWithArray:classFiles];
     
@@ -60,7 +60,8 @@
 
 + (MixFile *)mFileOfHFile:(MixFile *)hFile classFiles:(NSArray <MixFile *>*)hmFiles {
     __block MixFile * mFile = nil;
-    [hmFiles enumerateObjectsUsingBlock:^(MixFile * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    
+    for (MixFile * obj in hmFiles) {
         if (obj.fileType == MixFileTypeM || obj.fileType == MixFileTypeMM) {
             NSString * classHFileName = [hFile.fileName stringByReplacingOccurrencesOfString:@".h" withString:@""];
             
@@ -73,7 +74,8 @@
                 mFile = obj;
             }
         }
-    }];
+    }
+  
     return mFile;
 }
 

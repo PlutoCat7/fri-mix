@@ -11,7 +11,6 @@
 
 @interface MixCategoryStrategy : NSObject
 
-+ (NSArray <MixObject *>*)integrateCategoryMethod:(NSArray <MixObject *>*)objects;
 
 
 @end

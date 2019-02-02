@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MixEncryption.h"
+
 
 typedef NS_ENUM(NSUInteger, MixFileType) {
     MixFileTypeUnknown,
@@ -23,7 +25,7 @@ typedef NS_ENUM(NSUInteger, MixFileType) {
 };
 
 
-@interface MixFile : NSObject
+@interface MixFile : NSObject <NSCoding>
 
 @property (nonatomic , assign) MixFileType fileType;
 
