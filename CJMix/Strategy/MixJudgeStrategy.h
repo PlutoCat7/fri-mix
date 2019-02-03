@@ -20,6 +20,8 @@
 
 + (BOOL)isLegalMethodBackSymbol:(NSString *)symbol;
 
++ (BOOL)isLegalMethodFront:(NSString *)front;
+
 + (BOOL)isShieldWithPath:(NSString *)path;
 
 + (BOOL)isShieldWithClass:(NSString *)className;

@@ -7,6 +7,9 @@
 //
 
 #import "MixFile.h"
+#import "../Strategy/MixFileStrategy.h"
+#import "MixEncryption.h"
+#import "../Strategy/MixStringStrategy.h"
 
 @implementation MixFile
 
@@ -37,15 +40,23 @@
     if (!_path) {
         return;
     }
-    
-    NSData * data = [NSData dataWithContentsOfFile:self.path options:NSDataReadingUncached error:nil];
-    NSString * text  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    self.data = text;
+    [self data];
     
 }
 
+- (void)save {
+    if (self.isEdit) {
+        MixEncryption * encryption = [MixEncryption encryptionWithFile:self];
+        if (!encryption) {
+            return;
+        }
+        self.data = [MixStringStrategy decoding:encryption.encryptionData originals:encryption.originals replaces:encryption.replaces];
+        [MixFileStrategy writeFileAtPath:self.path content:self.data];
+        self.isEdit = NO;
+    }
+}
+
 - (NSString *)data {
-    
     if (!_data) {
         NSData *data = [NSData dataWithContentsOfFile:self.path options:NSDataReadingMappedIfSafe error:nil];
         NSString * text  = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];

@@ -16,8 +16,6 @@ typedef void (^MixEncryptionBlock)(NSArray <NSString*>* originals ,NSArray <NSSt
 
 + (BOOL)isAlphaNum:(NSString *)string;
 
-+ (BOOL)isSemicolonOrRightBraceEnd:(NSString *)string;
-
 + (NSString *)filterOutImpurities:(NSString *)string;
 
 + (void)encryption:(NSString *)data originals:(NSMutableArray *)originals block:(MixEncryptionBlock)block;

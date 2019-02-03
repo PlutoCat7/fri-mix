@@ -9,17 +9,26 @@
 #import "MixMethodStrategy.h"
 #import "MixStringStrategy.h"
 #import "MixFileStrategy.h"
+#import "MixJudgeStrategy.h"
 #import "../Config/MixConfig.h"
 
 @implementation MixMethodStrategy
 
 + (NSString *)methodFromData:(NSString *)data {
+    
     NSString * copyData = [data stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    
+    NSString * empty = [MixStringStrategy filterOutImpurities:data];
+    
+    if (![empty hasPrefix:@"("]) {
+        return nil;
+    }
     
     NSRange bracketRange = [copyData rangeOfString:@")"];
     NSString * methodStr = nil;
     if (bracketRange.location != NSNotFound) {
         methodStr = [copyData substringFromIndex:bracketRange.location + bracketRange.length];
+        
         if ([methodStr containsString:@"{"] || [methodStr containsString:@";"]) {
             NSRange range1 = [methodStr rangeOfString:@"{"];
             NSRange range2 = [methodStr rangeOfString:@";"];
@@ -202,26 +211,20 @@
     
     [addMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx != 0) {
-            NSString * front = addMethodData[idx-1];
-            if ([MixStringStrategy isSemicolonOrRightBraceEnd:front]) {
-                NSString * group = [NSString stringWithFormat:@"+%@",obj];
-                NSString * method = [MixMethodStrategy methodFromData:group];
-                if (method && ![methods containsObject:method]) {
-                    [methods addObject:method];
-                }
+            NSString * group = [NSString stringWithFormat:@"%@",obj];
+            NSString * method = [MixMethodStrategy methodFromData:group];
+            if (method && ![methods containsObject:method]) {
+                [methods addObject:method];
             }
         }
     }];
     
     [subMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx != 0) {
-            NSString * front = subMethodData[idx-1];
-            if ([MixStringStrategy isSemicolonOrRightBraceEnd:front]) {
-                NSString * group = [NSString stringWithFormat:@"-%@",obj];
-                NSString * method = [MixMethodStrategy methodFromData:group];
-                if (method && ![methods containsObject:method]) {
-                    [methods addObject:method];
-                }
+            NSString * group = [NSString stringWithFormat:@"%@",obj];
+            NSString * method = [MixMethodStrategy methodFromData:group];
+            if (method && ![methods containsObject:method]) {
+                [methods addObject:method];
             }
         }
     }];
