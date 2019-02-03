@@ -36,10 +36,10 @@ int main(int argc, const char * argv[]) {
             MixLog(@"偶遇mix.plist文件\n");
         } else {
             MixLog(@"丢失mix.plist文件！请输入路径：\n");
-//            char a[1000];
-//            scanf("%s",a);
-//            mixPlistPath = [NSString stringWithFormat:@"%s", a];
-            mixPlistPath = @"/Users/wn/Documents/mix.plist";
+            char a[1000];
+            scanf("%s",a);
+            mixPlistPath = [NSString stringWithFormat:@"%s", a];
+//            mixPlistPath = @"/Users/wn/Documents/mix.plist";
             if (![MixFileStrategy isExistsAtPath:mixPlistPath]) {
                 MixLog(@"文件不存在\n");
                 return 0;
