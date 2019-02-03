@@ -20,11 +20,8 @@
     
     NSString * empty = [MixStringStrategy filterOutImpurities:data];
     
-    if (empty.length) {
-        NSString * str = [empty substringToIndex:1];
-        if (![str isEqualToString:@"("]) {
-            return nil;
-        }
+    if (![empty hasPrefix:@"("]) {
+        return nil;
     }
     
     NSRange bracketRange = [copyData rangeOfString:@")"];

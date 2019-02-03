@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-
+#import "MixFile.h"
 
 @interface MixEncryption : NSObject
 
@@ -17,5 +16,7 @@
 @property (nonatomic , copy) NSArray<NSString *> *originals;
 
 @property (nonatomic , copy) NSArray<NSString *> *replaces;
+
++ (instancetype)encryptionWithFile:(MixFile *)file;
 
 @end

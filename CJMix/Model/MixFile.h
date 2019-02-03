@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MixEncryption.h"
-
 
 typedef NS_ENUM(NSUInteger, MixFileType) {
     MixFileTypeUnknown,
@@ -36,6 +34,10 @@ typedef NS_ENUM(NSUInteger, MixFileType) {
 @property (nonatomic , copy) NSString * data;
 
 @property (nonatomic , copy) NSArray <MixFile *>* subFiles;
+
+@property (nonatomic , assign) BOOL isEdit;
+
+- (void)save;
 
 @end
 

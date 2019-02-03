@@ -106,9 +106,10 @@
             return YES;
         }
         
-        NSArray * arr = @[@"titleLabel",@"SDExternalCompletionBlock",@"dispatch_block_t",@"CFHTTPMessageRef",@"fillMode",@"allKeys",@"dispatch_time_t",@"addObject",@"sharedInstance",@"isRefreshing",@"longitude",@"latitude",@"stroke",@"sharedManager",@"systemUptime",@"animationType",@"isLoading",@"parser",@"msg_type_",@"isPlaying",@"menuItems",@"maskView",@"firstItem",@"kCCParamError"];
+        NSArray * arr = @[@"parser",@"addObject",@"allKeys",@"isLoading",@"isHighlighted"];
         for (NSString *str in arr) {
             if ([method containsString:str]) {
+//                NSLog(@"xxxxx === %@",str);
                 return YES;
             }
         }

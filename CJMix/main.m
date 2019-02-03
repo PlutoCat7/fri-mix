@@ -25,8 +25,8 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
-        MixLog(@"欢迎使用CJMix混淆工具");
-        MixLog(@"（BUG请联系467116811@qq.com 与 yahua523@163.com）\n");
+        MixLog(@"欢迎使用CJMix混淆工具\n");
+        MixLog(@"BUG请联系467116811@qq.com与yahua523@163.com\n");
         
         NSString * argvPath = [NSString stringWithFormat:@"%s",*argv];
         NSString * argvFolderPath = argvPath.stringByDeletingLastPathComponent;
