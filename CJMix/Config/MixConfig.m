@@ -14,7 +14,7 @@
     NSArray <NSString *>* _legalClassBackSymbols;
     NSArray <MixObject*>* _systemObjects;
     NSMutableDictionary * _encryptionDictionary;
-    NSMutableArray * _shieldMethods;
+    NSMutableArray <NSString *>* _shieldProperty;
 }
 
 @end
@@ -157,9 +157,6 @@
     return _shieldSystemParameter;
 }
 
-- (void)setShieldMethods:(NSMutableArray<NSString *> *)shieldMethods {
-    _shieldMethods = shieldMethods;
-}
 
 - (NSMutableArray <NSString *>*)shieldProperty {
     if (!_shieldProperty) {
