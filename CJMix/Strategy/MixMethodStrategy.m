@@ -173,6 +173,8 @@
     if (!data) {
         return @[];
     }
+    
+    
     NSMutableArray <NSString *>* methods = [NSMutableArray arrayWithCapacity:0];
     
     NSArray <NSString *>* interface = [data componentsSeparatedByString:@"@interface"];
@@ -252,6 +254,8 @@
         }
     }];
     
+    
+    
     NSArray <NSString *>* propertyMethodData = [data componentsSeparatedByString:@"@property"];
     [propertyMethodData enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx != 0) {
@@ -270,10 +274,18 @@
                         NSArray * strs = [property componentsSeparatedByString:@"*"];
                         if (strs.count) {
                             NSString * lastStr = strs.lastObject;
-                            lastStr = [lastStr stringByReplacingOccurrencesOfString:@" " withString:@""];
-                            if ([MixStringStrategy isAlphaNumUnderline:lastStr]) {
-                                propertyName = lastStr;
+      
+                            NSArray * strs = [lastStr componentsSeparatedByString:@" "];
+                            for (NSString * str in strs) {
+                                if (str.length) {
+                                    if ([MixStringStrategy isAlphaNumUnderline:str]) {
+                                        propertyName = str;
+                                        break;
+                                    }
+                                }
                             }
+                            
+                            
                         }
                         
                     } else {
@@ -292,6 +304,8 @@
                     }
                     
                     if (propertyName.length) {
+                        
+                        
                         
                         if (![methods containsObject:propertyName]) {
                             [methods addObject:propertyName];
