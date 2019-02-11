@@ -38,7 +38,7 @@
 
 @property (nonatomic , copy) NSArray <NSString *>* shieldPaths;
 
-@property (nonatomic , copy) NSArray <NSString *>* shieldMethods;
+@property (nonatomic , copy) NSArray <NSString *>* shieldSystemParameter;
 
 @property (nonatomic , copy) NSArray <NSString *>* shieldClass;
 
@@ -48,7 +48,15 @@
 
 @property (nonatomic , copy) NSArray <MixFile *>* allFile;  //所有文件
 @property (nonatomic , copy) NSArray <MixFile *>* referenceAllFile;  //参考工程的所有文件
-@property (nonatomic , copy) NSMutableArray <NSString *>* allProperty;
+
+@property (nonatomic , copy) NSArray <NSString *>* shieldPropertyClass;
+
+//过滤方法
+@property (nonatomic , copy) NSMutableArray <NSString *>* shieldProperty;
+
+@property (nonatomic , copy) NSMutableDictionary * mixClassCache;
+
+@property (nonatomic , copy) NSMutableDictionary * mixMethodCache;
 
 @property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassFrontSymbols;
 

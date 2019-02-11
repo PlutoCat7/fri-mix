@@ -47,6 +47,12 @@
     return newData;
 }
 
++ (NSString *)filterEscapeCharacter:(NSString *)string {
+    NSString * newData = [string stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    newData = [newData stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
+    return newData;
+}
+
 
 + (void)encryption:(NSString *)data originals:(NSMutableArray *)originals block:(MixEncryptionBlock)block {
     @autoreleasepool {

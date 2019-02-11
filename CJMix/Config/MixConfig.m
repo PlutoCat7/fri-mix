@@ -14,6 +14,7 @@
     NSArray <NSString *>* _legalClassBackSymbols;
     NSArray <MixObject*>* _systemObjects;
     NSMutableDictionary * _encryptionDictionary;
+//    NSMutableArray <NSString *>* _shieldProperty;
 }
 
 @end
@@ -53,6 +54,12 @@
     self.mixMethodSuffix = [dic objectForKey:@"MethodSuffix"];
     self.shieldClass = [dic objectForKey:@"ShieldClass"];
     self.shieldPaths = [dic objectForKey:@"ShieldPaths"];
+    NSArray * shieldProperty = [dic objectForKey:@"ShieldProperty"];
+    for (NSString * property in shieldProperty) {
+        NSString * p = [NSString stringWithFormat:@"%@",property];
+        [self.shieldProperty addObject:p];
+    }
+    self.shieldPropertyClass = [dic objectForKey:@"ShieldPropertyClass"];
     [self setupPathsWithDic:dic absolutePath:self.absolutePath];
 }
 
@@ -144,18 +151,33 @@
     return _shieldClass;
 }
 
-- (NSArray <NSString *>*)shieldMethods {
-    if (!_shieldMethods) {
-        _shieldMethods = @[@"copy",@"strong",@"assign",@"retain",@"weak",@"nonatomic",@"atomic",@"NSInteger",@"instancetype",@"interface",@"implementation",@"property",@"void"];
+- (NSArray <NSString *>*)shieldSystemParameter {
+    if (!_shieldSystemParameter) {
+        _shieldSystemParameter = @[@"copy",@"strong",@"assign",@"retain",@"weak",@"nonatomic",@"atomic",@"NSInteger",@"instancetype",@"interface",@"implementation",@"property",@"void"];
     }
-    return _shieldMethods;
+    return _shieldSystemParameter;
 }
 
-- (NSMutableArray <NSString *>*)allProperty {
-    if (!_allProperty) {
-        _allProperty = [NSMutableArray arrayWithCapacity:0];
+
+- (NSMutableArray <NSString *>*)shieldProperty {
+    if (!_shieldProperty) {
+        _shieldProperty = [NSMutableArray arrayWithCapacity:0];
     }
-    return _allProperty;
+    return _shieldProperty;
+}
+
+- (NSMutableDictionary *)mixClassCache {
+    if (!_mixClassCache) {
+        _mixClassCache = [NSMutableDictionary dictionaryWithCapacity:0];
+    }
+    return _mixClassCache;
+}
+
+- (NSMutableDictionary *)mixMethodCache {
+    if (!_mixMethodCache) {
+        _mixMethodCache = [NSMutableDictionary dictionaryWithCapacity:0];
+    }
+    return _mixMethodCache;
 }
 
 

@@ -66,15 +66,8 @@ int main(int argc, const char * argv[]) {
         }
         MixLog(@"拷贝文件成功\n");
         
-        MixLog(@"获取需要被替换对象\n");
+        MixLog(@"提取工程对象\n");
         NSArray <MixObject*>* copyObjects = [MixObjectStrategy objectsWithPath:copyPath saveConfig:YES];
-        MixLog(@"获取参考替换对象\n");
-        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
-        MixLog(@"获取替换类名\n");
-        NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
-        MixLog(@"开始替换类名\n");
-        [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
-        MixLog(@"结束替换类名\n");
         
         MixLog(@"获取框架方法名\n");
         NSMutableArray * frameworkMethods = [NSMutableArray arrayWithCapacity:0];
@@ -96,6 +89,14 @@ int main(int argc, const char * argv[]) {
         MixLog(@"开始替换方法（请耐心等待）\n");
         [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemMethods:frameworkMethods];
         MixLog(@"结束替换方法\n");
+        
+        MixLog(@"获取参考替换对象\n");
+        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
+        MixLog(@"获取替换类名\n");
+        NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
+        MixLog(@"开始替换类名\n");
+        [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
+        MixLog(@"结束替换类名\n");
         
         MixLog(@"开始替换Protocol名称\n");
         if ([MixProtocolStrategy startWithPath:rootPath]) {
