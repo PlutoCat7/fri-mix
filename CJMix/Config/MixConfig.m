@@ -14,7 +14,7 @@
     NSArray <NSString *>* _legalClassBackSymbols;
     NSArray <MixObject*>* _systemObjects;
     NSMutableDictionary * _encryptionDictionary;
-    NSMutableArray <NSString *>* _shieldProperty;
+//    NSMutableArray <NSString *>* _shieldProperty;
 }
 
 @end
@@ -55,8 +55,9 @@
     self.shieldClass = [dic objectForKey:@"ShieldClass"];
     self.shieldPaths = [dic objectForKey:@"ShieldPaths"];
     NSArray * shieldProperty = [dic objectForKey:@"ShieldProperty"];
-    if ([shieldProperty isKindOfClass:[NSArray class]]) {
-        self.shieldProperty = [NSMutableArray arrayWithArray:shieldProperty];
+    for (NSString * property in shieldProperty) {
+        NSString * p = [NSString stringWithFormat:@"%@",property];
+        [self.shieldProperty addObject:p];
     }
     self.shieldPropertyClass = [dic objectForKey:@"ShieldPropertyClass"];
     [self setupPathsWithDic:dic absolutePath:self.absolutePath];
