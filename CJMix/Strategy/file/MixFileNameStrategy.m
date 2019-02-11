@@ -246,7 +246,6 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
                         }
                     }else if(newClassName){
                         newFileName = [oldFileName stringByReplacingOccurrencesOfString:oldClassName withString:newClassName];
-                        newFileName = [NSString stringWithFormat:@"%@.%@", newFileName, [oldFileName componentsSeparatedByString:@"."].lastObject];
                     }
                     if (oldFileName && newFileName &&
                         ![oldFileName isEqualToString:newFileName]) {
