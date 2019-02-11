@@ -117,8 +117,8 @@
         if (method.length < 5) {
             return YES;
         }
-        
-        NSArray * arr = @[@"parser",@"addObject",@"allKeys",@"isLoading",@"msg_type"];
+        //顽固分子
+        NSArray * arr = @[@"parser",@"addObject",@"allKeys",@"isLoading",@"msg_type",@"editable",@"setImageBlock"];
         
         for (NSString *str in arr) {
             if ([method containsString:str]) {
