@@ -176,12 +176,13 @@
     NSMutableArray <NSString *>* methods = [NSMutableArray arrayWithCapacity:0];
     
     NSArray <NSString *>* interface = [data componentsSeparatedByString:@"@interface"];
+    
     [interface enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx != 0) {
             NSRange range = [obj rangeOfString:@"@end"];
             if (range.location != NSNotFound) {
                 NSString * str = [obj substringToIndex:range.location];
-                [methods addObjectsFromArray:[MixMethodStrategy methodsWithClassData:str]];
+                [methods addObjectsFromArray:[MixMethodStrategy methodsWithClassData:str isInterface:YES]];
             }
         }
     }];
@@ -214,7 +215,17 @@
     return methods;
 }
 
-+ (NSArray <NSString *>*)methodsWithClassData:(NSString *)data {
++ (NSArray <NSString *>*)methodsWithClassData:(NSString *)data isInterface:(BOOL)isInterface {
+    
+    NSString * temp = [MixStringStrategy filterEscapeCharacter:data];
+    NSArray * strs = [temp componentsSeparatedByString:@" "];
+    bool isShieldClass = NO;
+    for (NSString * str in strs) {
+        if (str.length) {
+            isShieldClass = [MixJudgeStrategy isShieldPropertyWithClass:str];
+            break;
+        }
+    }
     
     NSMutableArray <NSString *>* methods = [NSMutableArray arrayWithCapacity:0];
     
@@ -251,10 +262,9 @@
                 
                 if ([property containsString:@"atomic"] || [property containsString:@"nonatomic"]) {
                     
-                    //                BOOL isOnlyRead = [property containsString:@"readonly"];
+                    BOOL isOnlyRead = [property containsString:@"readonly"];
                     
                     NSString * propertyName = nil;
-                    
                     if ([property containsString:@"*"]) {
                         //强引用
                         NSArray * strs = [property componentsSeparatedByString:@"*"];
@@ -283,41 +293,38 @@
                     
                     if (propertyName.length) {
                         
-                        //                    if (![methods containsObject:propertyName]) {
-                        //                        [methods addObject:propertyName];
-                        //                    }
+                        if (![methods containsObject:propertyName]) {
+                            [methods addObject:propertyName];
+                        }
                         
-                        if (![[MixConfig sharedSingleton].allProperty containsObject:propertyName]) {
-                            [[MixConfig sharedSingleton].allProperty addObject:propertyName];
+                        NSString * setPropertyName = nil;
+                        if (!isOnlyRead) {
+                            setPropertyName = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[propertyName substringToIndex:1] uppercaseString]];
+                            
+                            setPropertyName = [NSString stringWithFormat:@"set%@:",setPropertyName];
+                            if (![methods containsObject:setPropertyName]) {
+                                [methods addObject:setPropertyName];
+                            }
                         }
                         
                         
-                        //                    if (!isOnlyRead) {
-                        //                        NSString * setPropertyName = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[propertyName substringToIndex:1] uppercaseString]];
-                        //
-                        //                        setPropertyName = [NSString stringWithFormat:@"set%@:",setPropertyName];
-                        //
-                        //                        if (![methods containsObject:setPropertyName]) {
-                        //                            [methods addObject:setPropertyName];
-                        //                        }
-                        //
-                        //                    }
+                        if (![[MixConfig sharedSingleton].shieldProperty containsObject:propertyName]&& isShieldClass) {
+                            [[MixConfig sharedSingleton].shieldProperty addObject:propertyName];
+                        }
+                        
                     }
-                    
-                    
-                    
                 }
             }
-
         }
     }];
-
-    
-    
-    
-    
     
     return methods;
+    
+    
+}
+
++ (NSArray <NSString *>*)methodsWithClassData:(NSString *)data {
+    return [MixMethodStrategy methodsWithClassData:data isInterface:NO];
 }
 
 

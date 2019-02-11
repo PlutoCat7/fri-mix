@@ -92,6 +92,18 @@
     }
 }
 
++ (BOOL)isShieldPropertyWithClass:(NSString *)className {
+    @autoreleasepool {
+        NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldPropertyClass];
+        for (NSString * str in array) {
+            if ([className isEqualToString:str]) {
+                return YES;
+            }
+        }
+        return NO;
+    }
+}
+
 + (BOOL)isShieldWithMethod:(NSString *)method {
     @autoreleasepool {
         if ([method hasPrefix:@"init"]) {
@@ -114,7 +126,7 @@
             }
         }
         
-        NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldMethods];
+        NSArray <NSString *> * array = [NSArray arrayWithArray:[MixConfig sharedSingleton].shieldSystemParameter];
         for (NSString * str in array) {
             if ([method isEqualToString:str]) {
                 return YES;

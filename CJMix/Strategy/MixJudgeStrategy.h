@@ -26,6 +26,8 @@
 
 + (BOOL)isShieldWithClass:(NSString *)className;
 
++ (BOOL)isShieldPropertyWithClass:(NSString *)className;
+
 + (BOOL)isShieldWithMethod:(NSString *)method;
 
 + (BOOL)isLegalNewClassName:(NSString *)className;

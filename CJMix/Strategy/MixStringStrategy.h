@@ -18,6 +18,8 @@ typedef void (^MixEncryptionBlock)(NSArray <NSString*>* originals ,NSArray <NSSt
 
 + (NSString *)filterOutImpurities:(NSString *)string;
 
++ (NSString *)filterEscapeCharacter:(NSString *)string;
+
 + (void)encryption:(NSString *)data originals:(NSMutableArray *)originals block:(MixEncryptionBlock)block;
 
 + (NSString *)decoding:(NSString*)data originals:(NSArray <NSString*>*)originals replaces:(NSArray <NSString*>*)replaces;

@@ -36,7 +36,6 @@
 
 - (void)setPath:(NSString *)path {
     _path = path;
-    
     if (!_path) {
         return;
     }
