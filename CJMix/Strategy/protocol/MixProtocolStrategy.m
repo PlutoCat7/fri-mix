@@ -60,19 +60,8 @@
 #pragma mark - Private
 
 - (void)initWhiteData {
-    
-    NSString *jsonPath = [self.rootPath stringByAppendingPathComponent:@"AudioRoom-Protocol-WhiteList.json"];
-    NSData *data = [NSData dataWithContentsOfFile:jsonPath];
-    if (!data) {
-#warning 防止文件未拷贝
-        self.whiteFolderList = [MixConfig sharedSingleton].shieldPaths;
-        return;
-    }
-    NSError *error = nil;
-    id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-    if ([result isKindOfClass:NSArray.class]) {
-        self.whiteFolderList = result;
-    }
+
+    self.whiteFolderList = [MixConfig sharedSingleton].shieldPaths;
 }
 
 #pragma mark - 初始化新的protocol名称列表
@@ -343,7 +332,7 @@
             return YES;
         }
     }
-#warning 可以优化下名称
+
     if (file.fileType != MixFileTypeFolder) {
         return YES;
     }

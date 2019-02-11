@@ -266,7 +266,6 @@
 
 - (BOOL)checkIsWhiteFolder:(MixFile *)file {
 
-#warning 可以优化下名称
     if (file.fileType != MixFileTypeFolder) {
         return YES;
     }

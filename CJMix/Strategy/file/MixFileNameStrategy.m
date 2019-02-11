@@ -451,7 +451,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
         if ([curStr containsString:@"/"]) { //引文文件可能是这个格式 ./a.h
             curStr = [curStr componentsSeparatedByString:@"/"].lastObject;
         }
-        //对文件名做小写处理， eg：虽然文件名是A.h  但是#import "a.h" xcode也可以识别，坑啊。。。 浪费我一个小时
+        //对文件名做小写处理， eg：虽然文件名是A.h  但是#import "a.h" xcode也可以识别，坑啊。。。 
         NSString *newName = [fileNameDict objectForKey:[curStr lowercaseString]];
         if (newName) {
             NSString *tmpString = [lineString stringByReplacingOccurrencesOfString:curStr withString:newName];
