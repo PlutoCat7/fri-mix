@@ -199,6 +199,18 @@
     }];
     
     
+    NSArray <NSString *>* protocol = [data componentsSeparatedByString:@"@protocol"];
+    [protocol enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (idx != 0) {
+            NSRange range = [obj rangeOfString:@"@end"];
+            if (range.location != NSNotFound) {
+                NSString * str = [obj substringToIndex:range.location];
+                [methods addObjectsFromArray:[MixMethodStrategy methodsWithClassData:str]];
+            }
+        }
+    }];
+    
+    
     return methods;
 }
 

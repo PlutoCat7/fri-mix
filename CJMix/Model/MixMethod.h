@@ -8,13 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSUInteger, MixMethodType) {
+    MixMethodTypeClass,
+    MixMethodTypeExample,
+    MixMethodTypeProperty
+};
+
 @interface MixMethod : NSObject <NSCoding>
 
-@property (nonatomic , copy) NSMutableArray <NSString *>* classMethods;
+@property (nonatomic , strong) NSString * methodName;
 
-@property (nonatomic , copy) NSMutableArray <NSString *>* exampleMethods;
+@property (nonatomic , assign) MixMethodType methodType;
 
-@property (nonatomic , copy) NSMutableArray <NSString *>* propertyMethods;
+@property (nonatomic , assign) BOOL isReadonly;
 
 @end
 

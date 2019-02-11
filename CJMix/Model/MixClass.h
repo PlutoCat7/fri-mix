@@ -17,8 +17,5 @@
 
 - (instancetype)initWithClassName:(NSString *)className;
 
-//- (void)methodFromData:(NSString *)data;
-
-
 @end
 
