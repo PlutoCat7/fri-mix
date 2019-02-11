@@ -264,35 +264,62 @@
                 
                 NSString * property = [obj substringToIndex:range.location];
                 
-                if ([property containsString:@"atomic"] || [property containsString:@"nonatomic"]) {
-                    
-                    BOOL isOnlyRead = [property containsString:@"readonly"];
-                    
-                    NSString * propertyName = nil;
-                    if ([property containsString:@"*"]) {
-                        //强引用
-                        NSArray * strs = [property componentsSeparatedByString:@"*"];
-                        if (strs.count) {
-                            NSString * lastStr = strs.lastObject;
-      
-                            NSArray * strs = [lastStr componentsSeparatedByString:@" "];
-                            for (NSString * str in strs) {
-                                if (str.length) {
-                                    if ([MixStringStrategy isAlphaNumUnderline:str]) {
-                                        propertyName = str;
-                                        break;
+                
+                if ([property containsString:@"getter"]) {
+                    NSRange getterRange = [property rangeOfString:@"getter"];
+                    NSString * methodStr = nil;
+                    if (getterRange.location != NSNotFound) {
+                        methodStr = [property substringFromIndex:getterRange.location + getterRange.length];
+                        NSRange range1 = [methodStr rangeOfString:@")"];
+                        NSRange range2 = [methodStr rangeOfString:@","];
+                        NSInteger location = NSNotFound;
+                        if (range1.location != NSNotFound) {
+                            location = range1.location;
+                        }
+                        if (range2.location != NSNotFound) {
+                            if (range2.location < location) {
+                                location = range2.location;
+                            }
+                        }
+                        
+                        if (location != NSNotFound) {
+                            methodStr = [methodStr substringToIndex:location];
+                            
+                            methodStr = [methodStr stringByReplacingOccurrencesOfString:@"=" withString:@""];
+                            methodStr = [methodStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+                            
+                            if (methodStr.length) {
+                                if ([MixStringStrategy isAlphaNumUnderline:methodStr]) {
+                                    
+                                    if (![methods containsObject:methodStr]) {
+                                        [methods addObject:methodStr];
+                                    }
+                                    
+                                    if (isShieldClass) {
+                                        
+                                        if (![[MixConfig sharedSingleton].shieldProperty containsObject:methodStr]) {
+                                            [[MixConfig sharedSingleton].shieldProperty addObject:methodStr];
+                                        }
+                                    
                                     }
                                 }
                             }
                             
-                            
                         }
+                    }
+                }
+                
+                BOOL isOnlyRead = [property containsString:@"readonly"];
+                
+                NSString * propertyName = nil;
+                if ([property containsString:@"*"]) {
+                    //强引用
+                    NSArray * strs = [property componentsSeparatedByString:@"*"];
+                    if (strs.count) {
+                        NSString * lastStr = strs.lastObject;
                         
-                    } else {
-                        //弱引用
-                        NSArray * strs = [property componentsSeparatedByString:@" "];
-                        for (int i = (int)strs.count-1; i > 0; i--) {
-                            NSString * str = strs[i];
+                        NSArray * strs = [lastStr componentsSeparatedByString:@" "];
+                        for (NSString * str in strs) {
                             if (str.length) {
                                 if ([MixStringStrategy isAlphaNumUnderline:str]) {
                                     propertyName = str;
@@ -301,31 +328,50 @@
                             }
                         }
                         
+                        
                     }
                     
-                    if (propertyName.length) {
-                        
-                        
-                        
-                        if (![methods containsObject:propertyName]) {
-                            [methods addObject:propertyName];
-                        }
-                        
-                        NSString * setPropertyName = nil;
-                        if (!isOnlyRead) {
-                            setPropertyName = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[propertyName substringToIndex:1] uppercaseString]];
-                            
-                            setPropertyName = [NSString stringWithFormat:@"set%@:",setPropertyName];
-                            if (![methods containsObject:setPropertyName]) {
-                                [methods addObject:setPropertyName];
+                } else {
+                    //弱引用
+                    NSArray * strs = [property componentsSeparatedByString:@" "];
+                    for (int i = (int)strs.count-1; i > 0; i--) {
+                        NSString * str = strs[i];
+                        if (str.length) {
+                            if ([MixStringStrategy isAlphaNumUnderline:str]) {
+                                propertyName = str;
+                                break;
                             }
                         }
+                    }
+                    
+                }
+                
+                if (propertyName.length) {
+                    
+                    if (![methods containsObject:propertyName]) {
+                        [methods addObject:propertyName];
+                    }
+                    
+                    NSString * setPropertyName = nil;
+                    if (!isOnlyRead) {
+                        setPropertyName = [propertyName stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[propertyName substringToIndex:1] uppercaseString]];
                         
+                        setPropertyName = [NSString stringWithFormat:@"set%@:",setPropertyName];
+                        if (![methods containsObject:setPropertyName]) {
+                            [methods addObject:setPropertyName];
+                        }
+                    }
+                    
+                    
+                    if (isShieldClass) {
                         
-                        if (![[MixConfig sharedSingleton].shieldProperty containsObject:propertyName]&& isShieldClass) {
+                        if (![[MixConfig sharedSingleton].shieldProperty containsObject:propertyName]) {
                             [[MixConfig sharedSingleton].shieldProperty addObject:propertyName];
                         }
                         
+                        if (setPropertyName && ![[MixConfig sharedSingleton].shieldProperty containsObject:setPropertyName]) {
+                            [[MixConfig sharedSingleton].shieldProperty addObject:setPropertyName];
+                        }
                     }
                 }
             }

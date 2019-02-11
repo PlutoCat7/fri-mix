@@ -91,8 +91,17 @@
     
     
     for (NSString * str in [MixConfig sharedSingleton].shieldSystemMethodNames) {
-        if ([str containsString:oldTrueMethod]) {
-            return;
+        if ([str containsString:@":"]) {
+            NSArray * arr = [str componentsSeparatedByString:@":"];
+            for (NSString * p in arr) {
+                if ([p isEqualToString:oldTrueMethod]) {
+                    return;
+                }
+            }
+        } else {
+            if ([str isEqualToString:oldTrueMethod]) {
+                return;
+            }
         }
     }
     

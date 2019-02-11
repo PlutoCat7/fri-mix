@@ -118,7 +118,8 @@
             return YES;
         }
         
-        NSArray * arr = @[@"parser",@"addObject",@"allKeys",@"isLoading",@"isHighlighted",@"mach_msg_type"];
+        NSArray * arr = @[@"parser",@"addObject",@"allKeys",@"isLoading",@"msg_type"];
+        
         for (NSString *str in arr) {
             if ([method containsString:str]) {
 //                NSLog(@"xxxxx === %@",str);

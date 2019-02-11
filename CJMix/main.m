@@ -90,7 +90,7 @@ int main(int argc, const char * argv[]) {
         [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemMethods:frameworkMethods];
         MixLog(@"结束替换方法\n");
         
-        MixLog(@"获取参考替换对象\n");
+        MixLog(@"获取类名参考对象\n");
         NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
         MixLog(@"获取替换类名\n");
         NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
