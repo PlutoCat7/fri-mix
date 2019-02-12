@@ -168,14 +168,26 @@
 
 - (NSMutableDictionary *)mixClassCache {
     if (!_mixClassCache) {
-        _mixClassCache = [NSMutableDictionary dictionaryWithCapacity:0];
+        NSString * classCachePath = [NSString stringWithFormat:@"%@/MixClassCache",self.argvFolderPath];
+        NSDictionary * objects = [NSKeyedUnarchiver unarchiveObjectWithFile:classCachePath];
+        if ([objects isKindOfClass:[NSDictionary class]]) {
+            _mixClassCache = [NSMutableDictionary dictionaryWithDictionary:objects];
+        } else {
+            _mixClassCache = [NSMutableDictionary dictionaryWithCapacity:0];
+        }
     }
     return _mixClassCache;
 }
 
 - (NSMutableDictionary *)mixMethodCache {
     if (!_mixMethodCache) {
-        _mixMethodCache = [NSMutableDictionary dictionaryWithCapacity:0];
+        NSString * methodCachePath = [NSString stringWithFormat:@"%@/MixMethodCache",self.argvFolderPath];
+        NSDictionary * objects = [NSKeyedUnarchiver unarchiveObjectWithFile:methodCachePath];
+        if ([objects isKindOfClass:[NSDictionary class]]) {
+            _mixMethodCache = [NSMutableDictionary dictionaryWithDictionary:objects];
+        } else {
+            _mixMethodCache = [NSMutableDictionary dictionaryWithCapacity:0];
+        }
     }
     return _mixMethodCache;
 }
@@ -198,6 +210,16 @@
         _encryptionDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
     }
     return _encryptionDictionary;
+}
+
+- (void)saveCache {
+    
+    NSString * classCachePath = [NSString stringWithFormat:@"%@/MixClassCache",self.argvFolderPath];
+    [NSKeyedArchiver archiveRootObject:self.mixClassCache toFile:classCachePath];
+    
+    NSString * methodCachePath = [NSString stringWithFormat:@"%@/MixMethodCache",self.argvFolderPath];
+    [NSKeyedArchiver archiveRootObject:self.mixMethodCache toFile:methodCachePath];
+    
 }
 
 

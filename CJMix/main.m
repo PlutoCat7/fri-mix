@@ -48,7 +48,7 @@ int main(int argc, const char * argv[]) {
         
         [MixConfig sharedSingleton].argvFolderPath = argvFolderPath;
         [MixConfig sharedSingleton].mixPlistPath = mixPlistPath;
-        
+ 
         NSString * referencePath = [MixConfig sharedSingleton].referencePath;
         NSString * rootPath = [MixConfig sharedSingleton].rootPath;
         NSString * copyPath = [NSString stringWithFormat:@"%@_%@",rootPath,[MixConfig sharedSingleton].mixPrefix];
@@ -118,6 +118,9 @@ int main(int argc, const char * argv[]) {
         } else {
             MixLog(@"替换文件名称出错了\n");
         }
+        
+        [[MixConfig sharedSingleton] saveCache];
+        
     }
     return 0;
 }

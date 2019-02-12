@@ -105,10 +105,16 @@
     if (!newMethods.count) {
         return;
     }
-
     
-    NSString * newMethod = newMethods.firstObject;
-    [newMethods removeObjectAtIndex:0];
+    
+    NSString * newMethod = nil;
+    if (![[MixConfig sharedSingleton].mixMethodCache.allKeys containsObject:oldMethod]) {
+        newMethod = newMethods.firstObject;
+        [newMethods removeObjectAtIndex:0];
+        [MixConfig sharedSingleton].mixMethodCache[oldMethod] = newMethods;
+    } else {
+        newMethods = [MixConfig sharedSingleton].mixMethodCache[oldMethod];
+    }
 
     NSString * newTrueMethod = [MixMainStrategy trueMethod:newMethod];
 
@@ -127,7 +133,6 @@
 
 
     if (oldSetTrueMethod) {
-
         NSString * newSetTrueMethod = [newTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[newTrueMethod substringToIndex:1] uppercaseString]];
         newSetTrueMethod = [NSString stringWithFormat:@"set%@",newSetTrueMethod];
         //有可能存在set方法
@@ -282,14 +287,27 @@
 }
 
 + (void)replace:(NSArray <MixClass *>*)classes newNames:(NSMutableArray<NSString *>*)newNmaes allObject:(NSArray <MixObject *>*)allObject {
+    
     for (MixClass * class in classes) {
         NSString * oldClassName = class.className;
         
         if ([MixJudgeStrategy isSystemClass:oldClassName] || [MixJudgeStrategy isShieldWithClass:oldClassName]) {
             continue;
         }
-        NSString * newClassName = newNmaes.firstObject;
-        [newNmaes removeObjectAtIndex:0];
+        
+        if (!newNmaes.count) {
+            break;
+        }
+        
+        NSString * newClassName;
+        if (![[MixConfig sharedSingleton].mixClassCache.allKeys containsObject:oldClassName]) {
+            newClassName = newNmaes.firstObject;
+            [newNmaes removeObjectAtIndex:0];
+            [MixConfig sharedSingleton].mixClassCache[oldClassName] = newClassName;
+        } else {
+            newClassName = [MixConfig sharedSingleton].mixClassCache[oldClassName];
+        }
+        
         [MixMainStrategy reference:allObject oldName:oldClassName newName:newClassName];
         class.className = newClassName;
         

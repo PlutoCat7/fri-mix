@@ -66,5 +66,7 @@
 
 @property (nonatomic , copy) NSMutableDictionary * encryptionDictionary;
 
+- (void)saveCache;
+
 @end
 
