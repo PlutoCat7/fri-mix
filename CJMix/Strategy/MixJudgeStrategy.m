@@ -104,6 +104,19 @@
     }
 }
 
++ (BOOL)isIllegalMethod:(NSString *)method {
+    
+    if (![method containsString:@":"]) {
+        char fnameStr = [method characterAtIndex:0];
+        if (isupper(fnameStr)) {
+            return YES;
+        }
+    }
+    
+    return NO;
+    
+}
+
 + (BOOL)isShieldWithMethod:(NSString *)method {
     @autoreleasepool {
         if ([method hasPrefix:@"init"]) {

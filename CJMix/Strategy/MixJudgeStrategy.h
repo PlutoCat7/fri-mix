@@ -28,6 +28,8 @@
 
 + (BOOL)isShieldPropertyWithClass:(NSString *)className;
 
++ (BOOL)isIllegalMethod:(NSString *)method;
+
 + (BOOL)isShieldWithMethod:(NSString *)method;
 
 + (BOOL)isLegalNewClassName:(NSString *)className;

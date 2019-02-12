@@ -82,6 +82,11 @@
 
 + (void)replaceMethod:(NSArray <MixObject *>*)objects oldMethod:(NSString *)oldMethod newMethods:(NSMutableArray <NSString *>*)newMethods {
     
+    if ([MixJudgeStrategy isIllegalMethod:oldMethod]) {
+//        printf("深坑:%s\n",[oldMethod UTF8String]);
+        return;
+    }
+    
     NSString * oldTrueMethod = [MixMainStrategy trueMethod:oldMethod];
     NSString * oldSetTrueMethod = nil;
     if (![oldMethod containsString:@":"]) {
@@ -94,8 +99,10 @@
         return;
     }
     
-    if ([[MixConfig sharedSingleton].shieldProperty containsObject:oldTrueMethod]) {
-        return;
+    for (NSString * property in [MixConfig sharedSingleton].shieldProperty) {
+        if ([oldTrueMethod containsString:property] || [property containsString:oldTrueMethod]) {
+            return;
+        }
     }
     
     if ([MixJudgeStrategy isShieldWithMethod:oldTrueMethod]) {
@@ -134,7 +141,7 @@
     if (oldSetTrueMethod) {
         NSString * newSetTrueMethod = [newTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[newTrueMethod substringToIndex:1] uppercaseString]];
         newSetTrueMethod = [NSString stringWithFormat:@"set%@",newSetTrueMethod];
-        
+
         //有可能存在set方法
         for (MixObject * object in objects) {
             [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:object.classFile.hFile];
