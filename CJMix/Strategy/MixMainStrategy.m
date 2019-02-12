@@ -90,19 +90,8 @@
     }
     
     
-    for (NSString * str in [MixConfig sharedSingleton].shieldSystemMethodNames) {
-        if ([str containsString:@":"]) {
-            NSArray * arr = [str componentsSeparatedByString:@":"];
-            for (NSString * p in arr) {
-                if ([p isEqualToString:oldTrueMethod]) {
-                    return;
-                }
-            }
-        } else {
-            if ([str isEqualToString:oldTrueMethod]) {
-                return;
-            }
-        }
+    if ([[MixConfig sharedSingleton].shieldSystemMethodNames containsObject:oldTrueMethod]) {
+        return;
     }
     
     if ([[MixConfig sharedSingleton].shieldProperty containsObject:oldTrueMethod]) {
@@ -116,28 +105,29 @@
     if (!newMethods.count) {
         return;
     }
+
     
     NSString * newMethod = newMethods.firstObject;
     [newMethods removeObjectAtIndex:0];
-    
+
     NSString * newTrueMethod = [MixMainStrategy trueMethod:newMethod];
-    
+
     for (MixObject * object in objects) {
         @autoreleasepool {
             [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.hFile];
             [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.mFile];
         };
     }
-    
+
     for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
         @autoreleasepool {
             [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:file];
         }
     }
-    
-    
+
+
     if (oldSetTrueMethod) {
-        
+
         NSString * newSetTrueMethod = [newTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[newTrueMethod substringToIndex:1] uppercaseString]];
         newSetTrueMethod = [NSString stringWithFormat:@"set%@",newSetTrueMethod];
         //有可能存在set方法
@@ -145,12 +135,12 @@
             [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:object.classFile.hFile];
             [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:object.classFile.mFile];
         }
-        
+
         for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
             [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:file];
         }
-        
-        
+
+
     }
     
     

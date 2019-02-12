@@ -110,10 +110,6 @@
             return YES;
         }
         
-        if ([method hasPrefix:@"set"]) {
-            return YES;
-        }
-        
         if (method.length < 5) {
             return YES;
         }
