@@ -107,13 +107,12 @@
     }
     
     
-    NSString * newMethod = nil;
-    if (![[MixConfig sharedSingleton].mixMethodCache.allKeys containsObject:oldMethod]) {
+    NSString * newMethod = [MixConfig sharedSingleton].mixMethodCache[oldMethod];
+    
+    if (![newMethod isKindOfClass:[NSString class]]) {
         newMethod = newMethods.firstObject;
         [newMethods removeObjectAtIndex:0];
         [MixConfig sharedSingleton].mixMethodCache[oldMethod] = newMethod;
-    } else {
-        newMethods = [MixConfig sharedSingleton].mixMethodCache[oldMethod];
     }
 
     NSString * newTrueMethod = [MixMainStrategy trueMethod:newMethod];
@@ -135,6 +134,7 @@
     if (oldSetTrueMethod) {
         NSString * newSetTrueMethod = [newTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[newTrueMethod substringToIndex:1] uppercaseString]];
         newSetTrueMethod = [NSString stringWithFormat:@"set%@",newSetTrueMethod];
+        
         //有可能存在set方法
         for (MixObject * object in objects) {
             [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:object.classFile.hFile];
