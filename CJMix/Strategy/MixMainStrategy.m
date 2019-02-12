@@ -111,7 +111,7 @@
     if (![[MixConfig sharedSingleton].mixMethodCache.allKeys containsObject:oldMethod]) {
         newMethod = newMethods.firstObject;
         [newMethods removeObjectAtIndex:0];
-        [MixConfig sharedSingleton].mixMethodCache[oldMethod] = newMethods;
+        [MixConfig sharedSingleton].mixMethodCache[oldMethod] = newMethod;
     } else {
         newMethods = [MixConfig sharedSingleton].mixMethodCache[oldMethod];
     }
