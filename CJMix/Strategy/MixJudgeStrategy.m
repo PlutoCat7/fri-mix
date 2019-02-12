@@ -113,6 +113,14 @@
         if (method.length < 5) {
             return YES;
         }
+        
+        if ([method hasPrefix:@"set"]) {
+            char fnameStr = [method characterAtIndex:3];
+            if (isupper(fnameStr)) {
+                return YES;
+            }
+        }
+        
         //顽固分子
         NSArray * arr = @[@"parser",@"addObject",@"allKeys",@"isLoading",@"msg_type",@"editable",@"setImageBlock"];
         
