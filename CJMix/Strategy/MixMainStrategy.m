@@ -100,7 +100,7 @@
     }
     
     for (NSString * property in [MixConfig sharedSingleton].shieldProperty) {
-        if ([oldTrueMethod containsString:property] || [property containsString:oldTrueMethod]) {
+        if (([property containsString:oldTrueMethod]&&[property containsString:@"_"])||[property isEqualToString:oldTrueMethod]) {
             return;
         }
     }
