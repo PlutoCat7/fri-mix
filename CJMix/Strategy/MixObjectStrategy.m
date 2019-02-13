@@ -9,7 +9,6 @@
 #import "MixObjectStrategy.h"
 #import "MixFileStrategy.h"
 #import "MixClassFileStrategy.h"
-#import "MixCategoryStrategy.h"
 #import "../Config/MixConfig.h"
 
 @implementation MixObjectStrategy
