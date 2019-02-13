@@ -62,7 +62,7 @@
         
         NSString * copyData = [NSString stringWithFormat:@"%@",data];
         
-        NSRange curRange = [copyData rangeOfString:@"(?<=\")([\\S]+?)(?=\")" options:NSRegularExpressionSearch];
+        NSRange curRange = [copyData rangeOfString:@"(?<=\")([\\S ]+?)(?=\")" options:NSRegularExpressionSearch];
         if (curRange.location != NSNotFound) {
             NSString * front = [copyData substringToIndex:curRange.location - 1];
             NSString * back = [copyData substringFromIndex:curRange.location + curRange.length+1];

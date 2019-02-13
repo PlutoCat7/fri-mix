@@ -51,7 +51,6 @@
 
 @property (nonatomic , copy) NSArray <NSString *>* shieldPropertyClass;
 
-//过滤方法
 @property (nonatomic , copy) NSMutableArray <NSString *>* shieldProperty;
 
 @property (nonatomic , copy) NSMutableDictionary * mixClassCache;
