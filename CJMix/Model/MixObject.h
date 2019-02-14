@@ -11,6 +11,7 @@
 #import "MixClassFile.h"
 #import "MixClass.h"
 
+#warning  it will be repealed
 @interface MixObject : NSObject <NSCoding>
 
 @property (nonatomic , strong , readonly) MixClassFile* classFile;

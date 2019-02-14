@@ -10,7 +10,7 @@
 #import "MixFileNameModifyJsonInfo.h"
 #import "MixFileStrategy.h"
 #import "MixConfig.h"
-#import "CJMix-swift.h"
+#import "CJMix-Swift.h"
 #import "MixYAHCategoryStrategy.h"
 #import "../category/MixYAHCategoryStrategy.h"
 #import "MixDefine.h"
