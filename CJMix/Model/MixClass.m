@@ -16,14 +16,14 @@
     self = [super init];
     if (self) {
         _className = [aDecoder decodeObjectForKey:@"className"];
-        _method = [aDecoder decodeObjectForKey:@"method"];
+        _methods = [aDecoder decodeObjectForKey:@"methods"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:_className forKey:@"className"];
-    [aCoder encodeObject:_method forKey:@"method"];
+    [aCoder encodeObject:_methods forKey:@"methods"];
 }
 
 
@@ -35,11 +35,11 @@
     return self;
 }
 
-- (MixMethod *)method {
-    if (!_method) {
-        _method = [[MixMethod alloc] init];
+- (NSMutableArray <MixMethod *>*)methods {
+    if (!_methods) {
+        _methods = [NSMutableArray arrayWithCapacity:0];
     }
-    return _method;
+    return _methods;
 }
 
 

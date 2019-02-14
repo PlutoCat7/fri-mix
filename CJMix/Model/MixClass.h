@@ -13,7 +13,7 @@
 
 @property (nonatomic , copy) NSString * className;
 
-@property (nonatomic , strong) MixMethod * method;
+@property (nonatomic , copy) NSMutableArray <MixMethod *> *methods;
 
 - (instancetype)initWithClassName:(NSString *)className;
 
