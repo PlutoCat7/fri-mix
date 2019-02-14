@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FrameworkPaths</key>
+	<array>
+		<string>../AudioRoom/Pods</string>
+	</array>
+	<key>ShieldPaths</key>
+	<array>
+		<string>FBKVOController</string>
+		<string>MJExtension</string>
+	</array>
+	<key>ShieldClass</key>
+	<array>
+		<string>UIButton</string>
+	</array>
+	<key>MethodSuffix</key>
+	<array>
+		<string>ccc</string>
+		<string>ddd</string>
+	</array>
+	<key>MethodPrefix</key>
+	<array>
+		<string>aaa</string>
+		<string>bbb</string>
+	</array>
+	<key>ShieldProperty</key>
+	<array>
+		<string>block</string>
+	</array>
+	<key>ShieldPropertyClass</key>
+	<array>
+		<string>UILabel</string>
+	</array>
+	<key>RootPath</key>
+	<string>../Root</string>
+	<key>ReferencePath</key>
+	<string>../Reference</string>
+	<key>ProjectPrefix</key>
+	<string>Mix</string>
+	<key>AbsolutePath</key>
+	<true/>
+	<key>OpenLog</key>
+	<true/>
+</dict>
+</plist>

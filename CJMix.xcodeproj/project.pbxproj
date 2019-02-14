@@ -90,7 +90,6 @@
 		B78CED4621FAA0A700811586 /* MixObjectStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixObjectStrategy.m; sourceTree = "<group>"; };
 		B79B4C5022058651004802D9 /* MixEncryption.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixEncryption.h; sourceTree = "<group>"; };
 		B79B4C5122058651004802D9 /* MixEncryption.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixEncryption.m; sourceTree = "<group>"; };
-		B7DA000B22041117001809C0 /* mix.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mix.plist; sourceTree = "<group>"; };
 		B7DA000D220425B7001809C0 /* MixCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixCategory.h; sourceTree = "<group>"; };
 		B7DA000E220425B7001809C0 /* MixCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixCategory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -173,7 +172,6 @@
 			isa = PBXGroup;
 			children = (
 				2B210DAB220062C10088ABBE /* SwiftCode */,
-				B7DAFFF32202E89F001809C0 /* Plist */,
 				B75DB03421FAAF71006FDB86 /* Config */,
 				B78CED2821FAA0A600811586 /* Model */,
 				B78CED3521FAA0A600811586 /* Strategy */,
@@ -230,14 +228,6 @@
 				B78CED3B21FAA0A700811586 /* MixMainStrategy.m */,
 			);
 			path = Strategy;
-			sourceTree = "<group>";
-		};
-		B7DAFFF32202E89F001809C0 /* Plist */ = {
-			isa = PBXGroup;
-			children = (
-				B7DA000B22041117001809C0 /* mix.plist */,
-			);
-			path = Plist;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
