@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MixYAHCategoryStrategy : NSObject
+@interface MixCategoryStrategy : NSObject
 
 //旧分类与新分类
 @property (nonatomic, strong) NSMutableDictionary *resetDict;

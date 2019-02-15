@@ -19,7 +19,7 @@
 #import "Strategy/MixStringStrategy.h"
 #import "Strategy/file/MixFileNameStrategy.h"
 #import "Strategy/protocol/MixProtocolStrategy.h"
-#import "Strategy/category/MixYAHCategoryStrategy.h"
+#import "Strategy/category/MixCategoryStrategy.h"
 #import "MixDefine.h"
 
 int main(int argc, const char * argv[]) {
@@ -106,7 +106,7 @@ int main(int argc, const char * argv[]) {
         }
         
         MixLog(@"开始替换Category名称\n");
-        if ([[MixYAHCategoryStrategy shareInstance] start]) {
+        if ([[MixCategoryStrategy shareInstance] start]) {
             MixLog(@"替换Category名称成功\n");
         } else {
             MixLog(@"替换Category名称出错了\n");

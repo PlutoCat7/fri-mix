@@ -6,25 +6,25 @@
 //  Copyright © 2019 Chan. All rights reserved.
 //
 
-#import "MixYAHCategoryStrategy.h"
+#import "MixCategoryStrategy.h"
 #import "MixConfig.h"
 #import "MixFileStrategy.h"
 
 #import "MixDefine.h"
 
-@interface MixYAHCategoryStrategy ()
+@interface MixCategoryStrategy ()
 
 @property (nonatomic, strong) NSMutableArray<NSString *> *resetCategoryList;
 
 @end
 
-@implementation MixYAHCategoryStrategy
+@implementation MixCategoryStrategy
 
 + (instancetype)shareInstance {
-    static MixYAHCategoryStrategy *strategy;
+    static MixCategoryStrategy *strategy;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        strategy = [[MixYAHCategoryStrategy alloc] init];
+        strategy = [[MixCategoryStrategy alloc] init];
     });
     return strategy;
 }

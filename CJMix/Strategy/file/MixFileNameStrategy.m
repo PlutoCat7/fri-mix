@@ -11,8 +11,7 @@
 #import "MixFileStrategy.h"
 #import "MixConfig.h"
 #import "CJMix-Swift.h"
-#import "MixYAHCategoryStrategy.h"
-#import "../category/MixYAHCategoryStrategy.h"
+#import "../category/MixCategoryStrategy.h"
 #import "MixDefine.h"
 
 
@@ -81,7 +80,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 //                if ([subObject.classFile.classFileName isEqualToString:className]) {
 //                    NSString *newClassName = subObject.classFile.resetFileName;
 //                    if (newClassName && newClassName.length>0) {
-//                        newName = [NSString stringWithFormat:@"%@+%@", newClassName, [[MixYAHCategoryStrategy shareInstance] getNewCategoryNameWithOld:categoryName]];
+//                        newName = [NSString stringWithFormat:@"%@+%@", newClassName, [[MixCategoryStrategy shareInstance] getNewCategoryNameWithOld:categoryName]];
 //                    }
 //                    break;
 //                }
@@ -234,7 +233,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
                             if ([subObject.classFile.classFileName isEqualToString:className]) {
                                 NSString *newClassName = subObject.classFile.resetFileName;
                                 if (newClassName && newClassName.length>0) {
-                                    NSString *newCategoryName = [[MixYAHCategoryStrategy shareInstance] getNewCategoryNameWithOld:categoryName];
+                                    NSString *newCategoryName = [[MixCategoryStrategy shareInstance] getNewCategoryNameWithOld:categoryName];
                                     if (!newCategoryName) {//未找到
                                         newCategoryName = categoryName;
                                     }
@@ -265,7 +264,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
                 NSString *suffx = [oldFileName componentsSeparatedByString:@"."].lastObject;
                 NSString *className = [string componentsSeparatedByString:@"+"].firstObject;
                 NSString *categoryName = [string componentsSeparatedByString:@"+"].lastObject;
-                NSString *newCategoryName = [[MixYAHCategoryStrategy shareInstance] getNewCategoryNameWithOld:categoryName];
+                NSString *newCategoryName = [[MixCategoryStrategy shareInstance] getNewCategoryNameWithOld:categoryName];
                 if (newCategoryName && ![newCategoryName isEqualToString:categoryName]) {
                     NSString *newFileName = [NSString stringWithFormat:@"%@+%@.%@", className, newCategoryName, suffx];
                     [self saveFile:file oldFileName:oldFileName newFileName:newFileName];
