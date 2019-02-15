@@ -125,7 +125,7 @@
 
 - (NSArray <NSString *>*)legalClassFrontSymbols {
     if (!_legalClassFrontSymbols) {
-        _legalClassFrontSymbols = @[@" ",@",",@"(",@")",@"\n",@"[",@"<"];
+        _legalClassFrontSymbols = @[@" ",@",",@"(",@")",@"\n",@"[",@"<",@":"];
     }
     return _legalClassFrontSymbols;
 }
