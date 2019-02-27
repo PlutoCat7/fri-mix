@@ -135,7 +135,7 @@
         }
         
         //顽固分子
-        NSArray * arr = @[@"parser",@"addObject",@"allKeys",@"isLoading",@"msg_type",@"editable",@"setImageBlock",@"imageBlock",@"ImageBlock"];
+        NSArray * arr = @[@"parser",@"addObject",@"allKeys",@"isLoading",@"msg_type",@"editable",@"setImageBlock",@"imageBlock",@"ImageBlock",@"contentEdgeInsets"];
         
         for (NSString *str in arr) {
             if ([method containsString:str]) {
