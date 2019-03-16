@@ -162,12 +162,18 @@
                 if (curRange.location == NSNotFound)
                     continue;
                 NSString *curStr = [tmpString substringWithRange:curRange];
-                //替换新protocol
-                NSString *resetProtocol = self.resetProtocolList.firstObject;
+                //----替换新protocol
+                //一个项目里可能有两个一样的protocol
+                NSString *resetProtocol = [self.protocolDict objectForKey:curStr];
                 if (!resetProtocol) {
-                    MixLog(@"新的protocol个数不足,无法替换完全\n");
-                    return;
+                    //取新的protocol
+                    resetProtocol = self.resetProtocolList.firstObject;
+                    if (!resetProtocol) {
+                        MixLog(@"新的protocol个数不足,无法替换完全\n");
+                        return;
+                    }
                 }
+                
                 tmpString = [lineString stringByReplacingOccurrencesOfString:curStr withString:resetProtocol];
                 [tmpList replaceObjectAtIndex:index withObject:tmpString];
                 

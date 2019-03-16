@@ -46,7 +46,7 @@ int main(int argc, const char * argv[]) {
             }
         }
         
-        [MixConfig sharedSingleton].argvFolderPath = argvFolderPath;
+        [MixConfig sharedSingleton].argvFolderPath = mixPlistPath.stringByDeletingLastPathComponent;
         [MixConfig sharedSingleton].mixPlistPath = mixPlistPath;
  
         NSString * referencePath = [MixConfig sharedSingleton].referencePath;
