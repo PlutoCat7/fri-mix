@@ -12,14 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MixCategoryStrategy : NSObject
 
-//旧分类与新分类
-@property (nonatomic, strong) NSMutableDictionary *resetDict;
-
-+ (instancetype)shareInstance;
-
-- (BOOL)start;
-
-- (NSString *)getNewCategoryNameWithOld:(NSString *)old;
++ (BOOL)start;
 
 @end
 

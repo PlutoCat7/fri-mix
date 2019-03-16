@@ -18,6 +18,7 @@
 #import "../Model/MixFile.h"
 #import "../Model/MixEncryption.h"
 #import "../Config/MixConfig.h"
+#import "MixCacheStrategy.h"
 
 #define kMixMinMethodLength 5
 #define kMixTag @"######&&&&&&$$$$$***&#$***"
@@ -114,11 +115,11 @@
     }
     
     
-    NSString * newMethod = [MixConfig sharedSingleton].mixMethodCache[oldMethod];
+    NSString * newMethod = [MixCacheStrategy sharedSingleton].mixMethodCache[oldMethod];
     
     if (![newMethod isKindOfClass:[NSString class]]) {
         newMethod = [self getNewMethodName:newMethods];
-        [MixConfig sharedSingleton].mixMethodCache[oldMethod] = newMethod;
+        [MixCacheStrategy sharedSingleton].mixMethodCache[oldMethod] = newMethod;
     }
 
     NSString * newTrueMethod = [MixMainStrategy trueMethod:newMethod];
@@ -160,7 +161,7 @@
 + (NSString *)getNewMethodName:(NSMutableArray *)newNmaes {
     NSString * newMethodName = newNmaes.firstObject;
     [newNmaes removeObjectAtIndex:0];
-    if ([[MixConfig sharedSingleton].mixMethodCache.allValues containsObject:newMethodName]) {
+    if ([[MixCacheStrategy sharedSingleton].mixMethodCache.allValues containsObject:newMethodName]) {
         return [MixMainStrategy getNewClassName:newNmaes];
     }
     return newMethodName;
@@ -315,11 +316,11 @@
         }
         
         NSString * newClassName;
-        if (![[MixConfig sharedSingleton].mixClassCache.allKeys containsObject:oldClassName]) {
+        if (![[MixCacheStrategy sharedSingleton].mixClassCache.allKeys containsObject:oldClassName]) {
             newClassName = [MixMainStrategy getNewClassName:newNames];
-            [MixConfig sharedSingleton].mixClassCache[oldClassName] = newClassName;
+            [MixCacheStrategy sharedSingleton].mixClassCache[oldClassName] = newClassName;
         } else {
-            newClassName = [MixConfig sharedSingleton].mixClassCache[oldClassName];
+            newClassName = [MixCacheStrategy sharedSingleton].mixClassCache[oldClassName];
         }
         
         [MixMainStrategy reference:allObject oldName:oldClassName newName:newClassName];
@@ -331,7 +332,7 @@
 + (NSString *)getNewClassName:(NSMutableArray *)newNmaes {
     NSString * newClassName = newNmaes.firstObject;
     [newNmaes removeObjectAtIndex:0];
-    if ([[MixConfig sharedSingleton].mixClassCache.allValues containsObject:newClassName]) {
+    if ([[MixCacheStrategy sharedSingleton].mixClassCache.allValues containsObject:newClassName]) {
         return [MixMainStrategy getNewClassName:newNmaes];
     }
     return newClassName;

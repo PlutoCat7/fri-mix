@@ -11,6 +11,7 @@
 #import "MixFileStrategy.h"
 
 #import "MixDefine.h"
+#import "MixCacheStrategy.h"
 
 @interface MixCategoryStrategy ()
 
@@ -33,7 +34,6 @@
 {
     self = [super init];
     if (self) {
-        _resetDict = [NSMutableDictionary dictionaryWithCapacity:1];
         [self initResetCategoryData];
     }
     return self;
@@ -41,43 +41,25 @@
 
 #pragma mark - Public
 
-- (BOOL)start {
++ (BOOL)start {
     
-    BOOL result = [self findOldCategory];
+    MixCategoryStrategy *strategy = [[MixCategoryStrategy alloc] init];
+    BOOL result = [strategy findOldCategory];
     
-    result = [self replaceCategoryQuote];
+    result = [strategy replaceCategoryQuote];
     
     return result;
 }
 
-- (NSString *)getNewCategoryNameWithOld:(NSString *)old {
-    
-    NSString *newCategoryName = self.resetDict[old];
-    return newCategoryName;
-}
 
 #pragma mark - Private
 
 - (BOOL)initResetCategoryData {
-    
-//    NSString *path = @"/Users/wangsw/CJMix/Reference/cache/category.json";
-//    NSData *data = [NSData dataWithContentsOfFile:path];
-//    if (data) {
-//        NSError *error = nil;
-//        id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-//        if ([result isKindOfClass:NSArray.class]) {
-//            _resetCategoryList = [NSMutableArray arrayWithArray:result];
-//        }
-//    }
+
     if (!_resetCategoryList) {
         _resetCategoryList = [[NSMutableArray alloc] initWithCapacity:1];
         [self recursiveFile:[MixConfig sharedSingleton].referenceAllFile resetList:_resetCategoryList];
     }
-    
-    //保存到json文件中
-//    NSData *data=[NSJSONSerialization dataWithJSONObject:_resetCategoryList options:NSJSONWritingPrettyPrinted error:nil];
-//    NSString *jsonStr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-//    [jsonStr writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
     return YES;
 }
@@ -115,9 +97,22 @@
                     continue;
                 }
                 curStr = [NSString stringWithFormat:@"%@%@", [MixConfig sharedSingleton].mixPrefix, curStr];
-                if (![list containsObject:curStr]) {
-                    [list addObject:curStr];
+                
+                if ([list containsObject:curStr]) {
+                    continue;
                 }
+                //缓存是否已存在，是否已被缓存使用了
+                BOOL isUse = NO;
+                for (NSString *key in [MixCacheStrategy sharedSingleton].mixProtocolCache) {
+                    if ([[[MixCacheStrategy sharedSingleton].mixCategoryCache objectForKey:key] isEqualToString:curStr]) {
+                        isUse = YES;
+                        break;
+                    }
+                }
+                if (isUse) {
+                    continue;
+                }
+                [list addObject:curStr];
             }
         }
     }
@@ -165,7 +160,7 @@
                     continue;
                 }
                 //替换新protocol
-                NSString *resetCategory = self.resetDict[curStr]; //分类可重复
+                NSString *resetCategory = [MixCacheStrategy sharedSingleton].mixCategoryCache[curStr]; //分类可重复
                 if (!resetCategory) {
                     if (self.resetCategoryList.count>0) {
                         resetCategory = self.resetCategoryList[0];
@@ -174,13 +169,13 @@
                 }
                 if (!resetCategory) {
                     MixLog(@"新的Category个数不足,无法替换完全\n");
-                    return;
+                    continue;
                 }
-                tmpString = [lineString stringByReplacingOccurrencesOfString:curStr withString:resetCategory];
+                tmpString = [lineString stringByReplacingCharactersInRange:curRange withString:resetCategory];
                 [tmpList replaceObjectAtIndex:index withObject:tmpString];
                 
                 //保存数据
-                [self.resetDict setObject:resetCategory forKey:curStr];
+                [[MixCacheStrategy sharedSingleton].mixCategoryCache setObject:resetCategory forKey:curStr];
             }
             string = [tmpList componentsJoinedByString:@"\n"];
             if (![string isEqualToString:file.data]) { //保存
@@ -201,7 +196,7 @@
 
 - (void)recursiveReplaceCategoryWithFiles:(NSArray *)files {
     
-    NSMutableDictionary *dict = self.resetDict;
+    NSMutableDictionary *dict = [MixCacheStrategy sharedSingleton].mixCategoryCache;
     //遍历文件列表
     for (MixFile *file in files) {
         if (file.subFiles.count>0) {

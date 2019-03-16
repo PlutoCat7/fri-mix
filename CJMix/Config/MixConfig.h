@@ -53,19 +53,11 @@
 
 @property (nonatomic , copy) NSMutableArray <NSString *>* shieldProperty;
 
-@property (nonatomic , copy) NSMutableDictionary * mixClassCache;
-
-@property (nonatomic , copy) NSMutableDictionary * mixMethodCache;
-
 @property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassFrontSymbols;
 
 @property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassBackSymbols;
 
-@property (nonatomic , copy) NSArray <MixObject*>* systemObjects;
-
 @property (nonatomic , copy) NSMutableDictionary * encryptionDictionary;
-
-- (void)saveCache;
 
 @end
 

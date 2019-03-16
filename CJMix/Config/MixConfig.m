@@ -166,61 +166,11 @@
     return _shieldProperty;
 }
 
-- (NSMutableDictionary *)mixClassCache {
-    if (!_mixClassCache) {
-        NSString * classCachePath = [NSString stringWithFormat:@"%@/MixClassCache",self.argvFolderPath];
-        NSDictionary * objects = [NSKeyedUnarchiver unarchiveObjectWithFile:classCachePath];
-        if ([objects isKindOfClass:[NSDictionary class]]) {
-            _mixClassCache = [NSMutableDictionary dictionaryWithDictionary:objects];
-        } else {
-            _mixClassCache = [NSMutableDictionary dictionaryWithCapacity:0];
-        }
-    }
-    return _mixClassCache;
-}
-
-- (NSMutableDictionary *)mixMethodCache {
-    if (!_mixMethodCache) {
-        NSString * methodCachePath = [NSString stringWithFormat:@"%@/MixMethodCache",self.argvFolderPath];
-        NSDictionary * objects = [NSKeyedUnarchiver unarchiveObjectWithFile:methodCachePath];
-        if ([objects isKindOfClass:[NSDictionary class]]) {
-            _mixMethodCache = [NSMutableDictionary dictionaryWithDictionary:objects];
-        } else {
-            _mixMethodCache = [NSMutableDictionary dictionaryWithCapacity:0];
-        }
-    }
-    return _mixMethodCache;
-}
-
-
-- (void)setSystemObjects:(NSArray<MixObject *> *)systemObjects {
-    _systemObjects = systemObjects;
-    [MixObjectStrategy saveObjects:systemObjects key:@"mix_system"];
-}
-
-- (NSArray<MixObject *> *)systemObjects {
-    if (!_systemObjects) {
-        _systemObjects = [MixObjectStrategy objectsForKey:@"mix_system"];
-    }
-    return _systemObjects;
-}
-
 - (NSMutableDictionary *)encryptionDictionary {
     if (!_encryptionDictionary) {
         _encryptionDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
     }
     return _encryptionDictionary;
 }
-
-- (void)saveCache {
-    
-    NSString * classCachePath = [NSString stringWithFormat:@"%@/MixClassCache",self.argvFolderPath];
-    [NSKeyedArchiver archiveRootObject:self.mixClassCache toFile:classCachePath];
-    
-    NSString * methodCachePath = [NSString stringWithFormat:@"%@/MixMethodCache",self.argvFolderPath];
-    [NSKeyedArchiver archiveRootObject:self.mixMethodCache toFile:methodCachePath];
-    
-}
-
 
 @end

@@ -11,7 +11,7 @@
 #import "MixFileStrategy.h"
 #import "MixConfig.h"
 #import "CJMix-Swift.h"
-#import "../category/MixCategoryStrategy.h"
+#import "MixCacheStrategy.h"
 #import "MixDefine.h"
 
 
@@ -233,7 +233,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
                             if ([subObject.classFile.classFileName isEqualToString:className]) {
                                 NSString *newClassName = subObject.classFile.resetFileName;
                                 if (newClassName && newClassName.length>0) {
-                                    NSString *newCategoryName = [[MixCategoryStrategy shareInstance] getNewCategoryNameWithOld:categoryName];
+                                    NSString *newCategoryName = [[MixCacheStrategy sharedSingleton].mixCategoryCache objectForKey:categoryName];
                                     if (!newCategoryName) {//未找到
                                         newCategoryName = categoryName;
                                     }
@@ -264,7 +264,7 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
                 NSString *suffx = [oldFileName componentsSeparatedByString:@"."].lastObject;
                 NSString *className = [string componentsSeparatedByString:@"+"].firstObject;
                 NSString *categoryName = [string componentsSeparatedByString:@"+"].lastObject;
-                NSString *newCategoryName = [[MixCategoryStrategy shareInstance] getNewCategoryNameWithOld:categoryName];
+                NSString *newCategoryName = [[MixCacheStrategy sharedSingleton].mixCategoryCache objectForKey:categoryName];
                 if (newCategoryName && ![newCategoryName isEqualToString:categoryName]) {
                     NSString *newFileName = [NSString stringWithFormat:@"%@+%@.%@", className, newCategoryName, suffx];
                     [self saveFile:file oldFileName:oldFileName newFileName:newFileName];

@@ -10,22 +10,21 @@
 #import "MixConfig.h"
 #import "MixFileStrategy.h"
 #import "MixDefine.h"
+#import "MixCacheStrategy.h"
 
 @interface MixProtocolStrategy ()
 
-@property (nonatomic, copy) NSString *rootPath;
-@property (nonatomic, strong) NSArray<NSString *> *whiteFolderList; //白名单文件夹
-
+@property (nonatomic, strong) NSArray<NSString *> *legalProtocolFrontSymbols;
+@property (nonatomic, strong) NSArray<NSString *> *legalProtocolBackSymbols;
 @property (nonatomic, strong) NSMutableArray<NSString *> *resetProtocolList; //新的protocol名称
-@property (nonatomic, strong) NSMutableDictionary *protocolDict;
 
 @end
 
 @implementation MixProtocolStrategy
 
-+ (BOOL)startWithPath:(NSString *)path {
++ (BOOL)start {
     
-    MixProtocolStrategy *strategy = [[MixProtocolStrategy alloc] initWithRootPath:path];
+    MixProtocolStrategy *strategy = [[MixProtocolStrategy alloc] init];
     BOOL result = [strategy initResetProtocolData];
     if (!result) {
         MixLog(@"初始化ResetProtocolData数据失败\n");
@@ -46,47 +45,15 @@
     return YES;
 }
 
-- (instancetype)initWithRootPath:(NSString *)rootPath
-{
-    self = [super init];
-    if (self) {
-        _protocolDict = [NSMutableDictionary dictionaryWithCapacity:1];
-        _rootPath = rootPath;
-        [self initWhiteData];
-    }
-    return self;
-}
-
 #pragma mark - Private
-
-- (void)initWhiteData {
-
-    self.whiteFolderList = [MixConfig sharedSingleton].shieldPaths;
-}
 
 #pragma mark - 初始化新的protocol名称列表
 - (BOOL)initResetProtocolData {
-    
-    //NSString *path = @"/Users/wangsw/CJMix/Reference/cache/protocol.json";
-//    NSData *data = [NSData dataWithContentsOfFile:path];
-//    if (data) {
-//        NSError *error = nil;
-//        id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-//        if ([result isKindOfClass:NSArray.class]) {
-//            _resetProtocolList = [NSMutableArray arrayWithArray:result];
-//        }
-//    }
     
     if (!_resetProtocolList) {
         _resetProtocolList = [[NSMutableArray alloc] initWithCapacity:1];
         [self recursiveFile:[MixConfig sharedSingleton].referenceAllFile resetList:_resetProtocolList];
     }
-    
-    //保存到文件中
-//    NSString *path = @"/Users/wangsw/CJMix/Reference/cache/protocol.json";
-//    NSData *data=[NSJSONSerialization dataWithJSONObject:_resetProtocolList options:NSJSONWritingPrettyPrinted error:nil];
-//    NSString *jsonStr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-//    [jsonStr writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
     return YES;
 }
@@ -115,9 +82,21 @@
                 if (curRange.location == NSNotFound)
                     continue;
                 NSString *curStr = [NSString stringWithFormat:@"%@%@",  [MixConfig sharedSingleton].mixPrefix, [tmpString substringWithRange:curRange]];
-                if (![list containsObject:curStr]) {
-                    [list addObject:curStr];
+                if ([list containsObject:curStr]) {
+                    continue;
                 }
+                //缓存是否已存在，是否已被缓存使用了
+                BOOL isUse = NO;
+                for (NSString *key in [MixCacheStrategy sharedSingleton].mixProtocolCache) {
+                    if ([[[MixCacheStrategy sharedSingleton].mixProtocolCache objectForKey:key] isEqualToString:curStr]) {
+                        isUse = YES;
+                        break;
+                    }
+                }
+                if (isUse) {
+                    continue;
+                }
+                [list addObject:curStr];
             }
         }
     }
@@ -164,7 +143,7 @@
                 NSString *curStr = [tmpString substringWithRange:curRange];
                 //----替换新protocol
                 //一个项目里可能有两个一样的protocol
-                NSString *resetProtocol = [self.protocolDict objectForKey:curStr];
+                NSString *resetProtocol = [[MixCacheStrategy sharedSingleton].mixProtocolCache objectForKey:curStr];
                 if (!resetProtocol) {
                     //取新的protocol
                     resetProtocol = self.resetProtocolList.firstObject;
@@ -172,14 +151,15 @@
                         MixLog(@"新的protocol个数不足,无法替换完全\n");
                         return;
                     }
+                    //移除已有
+                    [self.resetProtocolList removeObjectAtIndex:0];
+                    
+                    //保存数据
+                    [[MixCacheStrategy sharedSingleton].mixProtocolCache setObject:resetProtocol forKey:curStr];
                 }
-                
+                //数据替换
                 tmpString = [lineString stringByReplacingOccurrencesOfString:curStr withString:resetProtocol];
                 [tmpList replaceObjectAtIndex:index withObject:tmpString];
-                
-                //保存数据
-                [self.resetProtocolList removeObjectAtIndex:0];
-                [self.protocolDict setObject:resetProtocol forKey:curStr];
             }
             string = [tmpList componentsJoinedByString:@"\n"];
             if (![string isEqualToString:file.data]) { //保存
@@ -200,7 +180,7 @@
 
 - (void)recursiveReplaceProtocolWithFiles:(NSArray *)files {
     
-    NSMutableDictionary *dict = self.protocolDict;
+    NSMutableDictionary *dict = [MixCacheStrategy sharedSingleton].mixProtocolCache;
     //遍历文件列表
     for (MixFile *file in files) {
         if (file.subFiles.count>0) {
@@ -211,7 +191,7 @@
                   file.fileType == MixFileTypePch) {
             //
             NSString *string = file.data;
-
+            
             //简单的过滤
             NSMutableDictionary *findDict = [NSMutableDictionary dictionaryWithCapacity:1];
             for (NSString *oldProtocol in dict) {
@@ -223,106 +203,35 @@
                 continue;
             }
             
-            
-            NSArray *lineList = [string componentsSeparatedByString:@"\n"];
-            NSMutableArray *tmpList = [NSMutableArray arrayWithArray:lineList];
-            for (NSInteger index =0; index<lineList.count; index++) {
-                NSString *lineString = lineList[index];
-                NSString *tmpString = [lineString copy];
-                for (NSString *oldProtocol in findDict) {
-                    //简单的判断
-                    if (![lineString containsString:oldProtocol]) {
-                        continue;
+            for (NSString *oldProtocol in findDict) {
+                NSArray *divisions = [string componentsSeparatedByString:oldProtocol];
+                NSInteger location = 0;
+                for (NSInteger i=0 ; i<divisions.count; i++) {
+                    if (i==divisions.count-1) {//最后一个不做处理
+                        break;
                     }
-                    NSString *newProtocol = findDict[oldProtocol];
-                    //去空格处理
-                    NSString *removeSpaceString = [lineString stringByReplacingOccurrencesOfString:@" " withString:@""];
-                    //第一种  id<xxDelagate>   一行只有一个delegate
-                    NSString *key = [NSString stringWithFormat:@"id<%@>", oldProtocol];
-                    if ([removeSpaceString containsString:key]) {
-                        NSRange curRange = [tmpString rangeOfString:@"(?<=id).*(?=>)" options:NSRegularExpressionSearch];
-                        if (curRange.location != NSNotFound && curRange.length>0) {
-                            NSString *oldStr = [tmpString substringWithRange:curRange];
-                            NSRange curRange2 = [oldStr rangeOfString:@"<"];
-                            if (curRange2.location != NSNotFound) {
-                                oldStr = [oldStr substringFromIndex:curRange2.location+1];
-                                curRange = NSMakeRange(curRange.location+curRange2.location+1, oldStr.length);
-                            }
-                            NSString *newStr = [oldStr stringByReplacingOccurrencesOfString:oldProtocol withString:newProtocol];
-                            tmpString = [tmpString stringByReplacingCharactersInRange:curRange withString:newStr];
-                            continue;
-                        }
+                    NSString *frontString = divisions[i];
+                    NSString *backString = divisions[i+1];
+                    //第一个字符
+                    NSString * frontSymbol = @"";
+                    if (frontString.length>0) {
+                        frontSymbol = [frontString substringFromIndex:frontString.length-1];
                     }
-                    //第2种  @protocol xxxDelegate;  @protocol xxxDelegate, oooDelegate;
-                    NSRange curRange = [removeSpaceString rangeOfString:@"(?<=@protocol).*(?=;)" options:NSRegularExpressionSearch];
-                    if (curRange.location != NSNotFound && curRange.length>0) {
-                        NSArray *delegateList = [tmpString componentsSeparatedByString:@","];
-                        NSMutableArray *delegateTmpList = [NSMutableArray arrayWithArray:delegateList];
-                        for (NSInteger subIndex=0; subIndex<delegateList.count; subIndex++) {
-                            NSString *sub = delegateList[subIndex];
-                            if (sub.length == 0) {
-                                continue;
-                            }
-                            NSString *protocolString = [sub copy];
-                            NSRange range = [protocolString rangeOfString:@"@protocol"];
-                            if (range.location != NSNotFound) {
-                                protocolString = [protocolString substringFromIndex:range.location+range.length];
-                            }
-                            range = [protocolString rangeOfString:@";"];
-                            if (range.location != NSNotFound) {
-                                protocolString = [protocolString substringToIndex:range.location];
-                            }
-                            if ([[protocolString stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:oldProtocol]) {
-                                NSString *newStr = [sub stringByReplacingOccurrencesOfString:oldProtocol withString:newProtocol];
-                                [delegateTmpList replaceObjectAtIndex:subIndex withObject:newStr];
-                            }
-                        }
-                        tmpString = [delegateTmpList componentsJoinedByString:@","];
+                    NSString * backSymbol = @"";
+                    if (backString.length>0) {
+                        backSymbol = [backString substringWithRange:NSMakeRange(0, 1)];
                     }
-                    //第3种 @protocol(xxdelegate)
-                    curRange = [tmpString rangeOfString:@"(?<=@protocol\\().*(?=\\))" options:NSRegularExpressionSearch];
-                    if (curRange.location != NSNotFound && curRange.length>0) {
-                        NSString *curStr = [tmpString substringWithRange:curRange];
-                        //正则有问题  先这样处理
-                        NSRange range = [curStr rangeOfString:@")"];
-                        if (range.location != NSNotFound) {
-                            curStr = [curStr substringToIndex:range.location];
-                        }
-                        if ([curStr isEqualToString:oldProtocol]) {
-                            tmpString = [tmpString stringByReplacingOccurrencesOfString:oldProtocol withString:newProtocol];
-                            continue;
-                        }
+                    location += frontString.length;
+                    if ([self isValidFront:frontSymbol] && [self isValidBack:backSymbol]) {
+                        //替换
+                        NSString *newProtocol = findDict[oldProtocol];
+                        string = [string stringByReplacingCharactersInRange:NSMakeRange(location, oldProtocol.length) withString:newProtocol];
+                        location += newProtocol.length;
+                    }else {
+                        location += oldProtocol.length;
                     }
-                    //第4种 跟在类申明后面的   <xxDelegate1,xxDelegate2>
-                    NSArray *delegateList = [tmpString componentsSeparatedByString:@","];
-                    NSMutableArray *delegateTmpList = [NSMutableArray arrayWithArray:delegateList];
-                    for (NSInteger subIndex=0; subIndex<delegateList.count; subIndex++) {
-                        NSString *sub = delegateList[subIndex];
-                        if (sub.length == 0) {
-                            continue;
-                        }
-                        NSString *delegateString = [sub copy];
-                        NSRange range = [sub rangeOfString:@"<"];
-                        if (range.location != NSNotFound) {
-                            delegateString = [delegateString substringFromIndex:range.location+range.length];
-                        }
-                        range = [delegateString rangeOfString:@">"];
-                        if (range.location != NSNotFound) {
-                            delegateString = [delegateString substringToIndex:range.location];
-                        }
-                        if ([[delegateString stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:oldProtocol]) {
-                            NSString *newStr = [sub stringByReplacingOccurrencesOfString:oldProtocol withString:newProtocol];
-                            [delegateTmpList replaceObjectAtIndex:subIndex withObject:newStr];
-                        }
-                    }
-                    tmpString = [delegateTmpList componentsJoinedByString:@","];
-                }
-                if (tmpString && ![tmpString isEqualToString:lineString]) {
-                    [tmpList replaceObjectAtIndex:index withObject:tmpString];
                 }
             }
-            
-            string = [tmpList componentsJoinedByString:@"\n"];
             if (![string isEqualToString:file.data]) {
                 file.data = string;
                 [MixFileStrategy writeFileAtPath:file.path content:file.data];
@@ -333,7 +242,7 @@
 
 - (BOOL)checkIsWhiteFolder:(MixFile *)file {
     
-    for (NSString *folder in self.whiteFolderList) {
+    for (NSString *folder in [MixConfig sharedSingleton].shieldPaths) {
         if (file.subFiles>0 && [folder isEqualToString:file.fileName]) {
             return YES;
         }
@@ -343,6 +252,33 @@
         return YES;
     }
     return NO;
+}
+
+#pragma mark - Private
+
+- (BOOL)isValidFront:(NSString *)front {
+    
+    return [self.legalProtocolFrontSymbols containsObject:front];
+}
+
+- (BOOL)isValidBack:(NSString *)back {
+    
+    return [self.legalProtocolBackSymbols containsObject:back];
+}
+
+- (NSArray <NSString *>*)legalProtocolFrontSymbols {
+    
+    if (!_legalProtocolFrontSymbols) {
+        _legalProtocolFrontSymbols = @[@"",@" ",@"\n",@"(",@"<",@","];
+    }
+    return _legalProtocolFrontSymbols;
+}
+
+- (NSArray <NSString *>*)legalProtocolBackSymbols {
+    if (!_legalProtocolBackSymbols) {
+        _legalProtocolBackSymbols = @[@"",@" ",@"\n",@")",@">",@",",@";"];
+    }
+    return _legalProtocolBackSymbols;
 }
 
 @end
