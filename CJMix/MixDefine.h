@@ -10,6 +10,6 @@
 #define MixDefine_h
 
 #define MixLog(x) printf("%s:%s", [[[NSDate date] description] UTF8String], [x UTF8String]);
-#define MixSDKPath @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform"
+#define MixSystemSDKPath @"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform"
 
 #endif /* MixDefine_h */

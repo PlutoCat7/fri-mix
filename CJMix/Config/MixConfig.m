@@ -73,7 +73,11 @@
         self.rootPath = [self getAbsolutePaths:@[[dic objectForKey:@"RootPath"]]].firstObject;
         self.referencePath = [self getAbsolutePaths:@[[dic objectForKey:@"ReferencePath"]]].firstObject;
         self.frameworkPaths = [self getAbsolutePaths:[dic objectForKey:@"FrameworkPaths"]];
-        
+    }
+    if ([dic objectForKey:@"MixToPath"]) {
+        self.mixProjectPath = [dic objectForKey:@"MixToPath"];
+    }else {
+        self.mixProjectPath = [NSString stringWithFormat:@"%@_Mix",self.rootPath];
     }
 }
 
@@ -171,6 +175,32 @@
         _encryptionDictionary = [NSMutableDictionary dictionaryWithCapacity:0];
     }
     return _encryptionDictionary;
+}
+
+#pragma mark - Private
+
+- (NSArray<MixFile *> *)all_HM_File {
+    
+    if (!_all_HM_File) {
+        NSMutableArray *list = [NSMutableArray arrayWithCapacity:1];
+        [self recursiveFile:self.allFile resetList:list];
+        _all_HM_File = [list copy];
+    }
+    return _all_HM_File;
+}
+
+- (void)recursiveFile:(NSArray *)files resetList:(NSMutableArray *)list {
+    
+    for (MixFile *file in files) {
+        if (file.subFiles.count>0) {
+            [self recursiveFile:file.subFiles resetList:list];
+        }else if (file.fileType == MixFileTypeH ||
+                  file.fileType == MixFileTypeM ||
+                  file.fileType == MixFileTypeMM ||
+                  file.fileType == MixFileTypePch) {
+            [list addObject:file];
+        }
+    }
 }
 
 @end

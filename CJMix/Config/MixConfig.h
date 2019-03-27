@@ -29,6 +29,7 @@
 @property (nonatomic , copy) NSString * mixPlistPath;
 
 @property (nonatomic , copy) NSString * rootPath;
+@property (nonatomic, copy) NSString *mixProjectPath; //混淆后的工程
 
 @property (nonatomic , copy) NSString * referencePath;
 
@@ -58,6 +59,8 @@
 @property (nonatomic , copy , readonly) NSArray <NSString *>* legalClassBackSymbols;
 
 @property (nonatomic , copy) NSMutableDictionary * encryptionDictionary;
+
+@property (nonatomic , copy) NSArray <MixFile *>* all_HM_File;  //项目中所有h\m\mm文件
 
 @end
 

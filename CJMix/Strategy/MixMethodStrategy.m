@@ -160,6 +160,10 @@
     
     NSMutableArray * worker = [NSMutableArray arrayWithCapacity:0];
     for (NSString * obj in methods) {
+        if ([MixJudgeStrategy isIllegalMethod:obj]) {
+            //        printf("深坑:%s\n",[oldMethod UTF8String]);
+            continue;
+        }
         if (![worker containsObject:obj]) {
             [worker addObject:obj];
         }
@@ -173,7 +177,6 @@
     if (!data) {
         return @[];
     }
-    
     
     NSMutableArray <NSString *>* methods = [NSMutableArray arrayWithCapacity:0];
     
@@ -312,7 +315,24 @@
                 BOOL isOnlyRead = [property containsString:@"readonly"];
                 
                 NSString * propertyName = nil;
-                if ([property containsString:@"*"]) {
+                if ([property containsString:@"^"]) {//block
+                    NSArray * strs = [property componentsSeparatedByString:@"^"];
+                    if (strs.count>1) {
+                        NSString * lastStr = strs.lastObject;
+                        NSArray * strs = [lastStr componentsSeparatedByString:@")"];
+                        if (strs.count>1) {
+                            strs = [strs.firstObject componentsSeparatedByString:@" "];
+                            if (strs.count>=1) {
+                                NSString *str = strs.lastObject;
+                                if (str.length) {
+                                    if ([MixStringStrategy isAlphaNumUnderline:str]) {
+                                        propertyName = str;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }else if ([property containsString:@"*"]) {
                     //强引用
                     NSArray * strs = [property componentsSeparatedByString:@"*"];
                     if (strs.count) {
@@ -331,7 +351,7 @@
                         
                     }
                     
-                } else {
+                }else {
                     //弱引用
                     NSArray * strs = [property componentsSeparatedByString:@" "];
                     for (int i = (int)strs.count-1; i > 0; i--) {

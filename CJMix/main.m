@@ -23,6 +23,8 @@
 #import "MixDefine.h"
 #import "MixCacheStrategy.h"
 #import "MixYAHClassStrategy.h"
+#import "MixTool.h"
+#import "PackIpaStrategy.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -30,10 +32,17 @@ int main(int argc, const char * argv[]) {
         MixLog(@"欢迎使用CJMix混淆工具\n");
         MixLog(@"BUG请联系467116811@qq.com与yahua523@163.com\n");
         
+        //移除已使用文件
+        //[MixTool removeReferenceFileWithPath:@"/Users/wangsw/wangle/code/WonderVoice/Trunk/Mix/Reference" usedCachePath:@"/Users/wangsw/Desktop/Trunk/Mix/MixClassCache"];
+        //添加文件到Reference中
+        //[MixTool moveReferenceFileWithPath:@"/Users/wangsw/wangle/code/WonderVoice/Trunk/Mix/Reference" fromFilePath:@"/Users/wangsw/Desktop/code-r"];
+        
         NSString * argvPath = [NSString stringWithFormat:@"%s",*argv];
         NSString * argvFolderPath = argvPath.stringByDeletingLastPathComponent;
         NSString * mixPlistPath = [NSString stringWithFormat:@"%@/mix.plist",argvFolderPath];
-        mixPlistPath = @"/Users/wangsw/WonderVoice/Trunk/Mix/mix.plist";
+#if DEBUG
+        mixPlistPath = @"/Users/wangsw/wangle/code/WonderVoice/Trunk/Mix/mix.plist";
+#endif
         
         if ([MixFileStrategy isExistsAtPath:mixPlistPath]) {
             MixLog(@"偶遇mix.plist文件\n");
@@ -53,7 +62,7 @@ int main(int argc, const char * argv[]) {
  
         NSString * referencePath = [MixConfig sharedSingleton].referencePath;
         NSString * rootPath = [MixConfig sharedSingleton].rootPath;
-        NSString * copyPath = [NSString stringWithFormat:@"%@_%@",rootPath,[MixConfig sharedSingleton].mixPrefix];
+        NSString * copyPath = [MixConfig sharedSingleton].mixProjectPath;
         
         if (!referencePath || !rootPath) {
             MixLog(@"请检查配置\n");
@@ -67,55 +76,44 @@ int main(int argc, const char * argv[]) {
             return 0;
         }
         MixLog(@"拷贝文件成功\n");
-        
-//        MixLog(@"获取框架方法名\n");
-//        NSMutableArray * frameworkMethods = [NSMutableArray arrayWithCapacity:0];
-//        NSMutableArray * frameworkPaths = [NSMutableArray arrayWithArray:[MixConfig sharedSingleton].frameworkPaths];
-//        NSString * systemPaths = MixSDKPath;
-//        [frameworkPaths addObject:systemPaths];
-//        for (NSString * framework in frameworkPaths) {
-//            NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:framework];
-//            [frameworkMethods addObjectsFromArray:methods];
-//        }
-//        
-//        if (!frameworkMethods.count) {
-//            MixLog(@"没有发现框架方法名\n");
-//        }
-        
-        //
-//        MixLog(@"获取替换方法名\n");
-//        NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:referencePath];
-//        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithReferenceMethods:methods];
-//        MixLog(@"开始替换方法（请耐心等待）\n");
-//        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemMethods:frameworkMethods];
-//        MixLog(@"结束替换方法\n");
-//
-//        MixLog(@"获取类名参考对象\n");
-//        NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:referencePath];
-//        MixLog(@"获取替换类名\n");
-//        NSArray <NSString *>* classNames = [MixReferenceStrategy classNamesWithObjects:referenceObjects];
-//        MixLog(@"开始替换类名\n");
-//        [MixMainStrategy replaceClassName:copyObjects referenceClassNames:classNames];
-//        MixLog(@"结束替换类名\n");
-        
+
         MixLog(@"提取工程对象\n");
         NSArray <MixObject*>* copyObjects = [MixObjectStrategy objectsWithPath:copyPath saveConfig:YES];
         NSArray <MixObject*>* referenceObjects = [MixObjectStrategy objectsWithPath:copyPath saveConfig:NO];
-        
+
+        MixLog(@"获取框架方法名\n");  //过滤这些方法
+        NSMutableArray * frameworkMethods = [NSMutableArray arrayWithCapacity:0];
+        NSMutableArray * frameworkPaths = [NSMutableArray arrayWithArray:[MixConfig sharedSingleton].frameworkPaths];
+        [frameworkPaths addObject:MixSystemSDKPath];
+        for (NSString * framework in frameworkPaths) {
+            NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:framework];
+            [frameworkMethods addObjectsFromArray:methods];
+        }
+        if (!frameworkMethods.count) {
+            MixLog(@"没有发现框架方法名\n");
+        }
+
+        MixLog(@"获取替换方法名\n");
+        NSArray <NSString *> * methods = [MixMethodStrategy methodsWithPath:referencePath];
+        NSArray <NSString *>* referenceMethods = [MixReferenceStrategy methodWithReferenceMethods:methods];
+        MixLog(@"开始替换方法（请耐心等待）\n");
+        [MixMainStrategy replaceMethod:copyObjects methods:referenceMethods systemMethods:frameworkMethods];
+        MixLog(@"结束替换方法\n");
+
         MixLog(@"开始替换Class名称\n");
         if ([MixYAHClassStrategy start]) {
             MixLog(@"替换Class名称成功\n");
         } else {
             MixLog(@"替换Class名称出错了\n");
         }
-        
+
         MixLog(@"开始替换Protocol名称\n");
         if ([MixProtocolStrategy start]) {
             MixLog(@"替换Protocol名称成功\n");
         } else {
             MixLog(@"替换Protocol名称出错了\n");
         }
-        
+
         MixLog(@"开始替换Category名称\n");
         if ([MixCategoryStrategy start]) {
             MixLog(@"替换Category名称成功\n");
@@ -123,16 +121,19 @@ int main(int argc, const char * argv[]) {
             MixLog(@"替换Category名称出错了\n");
         }
 
-//        MixLog(@"开始替换文件名称\n");
-//        if ([MixFileNameStrategy start:copyObjects rootPath:rootPath mixPath:copyPath]) {
-//            MixLog(@"替换文件名称成功\n");
-//        } else {
-//            MixLog(@"替换文件名称出错了\n");
-//        }
+        MixLog(@"开始替换文件名称\n");
+        if ([MixFileNameStrategy start]) {
+            MixLog(@"替换文件名称成功\n");
+        } else {
+            MixLog(@"替换文件名称出错了\n");
+            return 0;
+        }
+        //保存缓存
+        [[MixCacheStrategy sharedSingleton] saveCache];
         
-#warning 调试暂不存储
-        //[[MixCacheStrategy sharedSingleton] saveCache];
         
+        MixLog(@"开始自动打包\n");
+        [PackIpaStrategy pack_ipa];
     }
     return 0;
 }

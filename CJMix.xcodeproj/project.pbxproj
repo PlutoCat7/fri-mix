@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2B210E04220085510088ABBE /* PropertyListHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B210E03220085510088ABBE /* PropertyListHandler.swift */; };
 		2C59506F21FEEB880039E1A3 /* MixProtocolStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C59506E21FEEB880039E1A3 /* MixProtocolStrategy.m */; };
+		2C61426322438BCD00048E45 /* PackIpaStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C61426222438BCD00048E45 /* PackIpaStrategy.m */; };
+		2C66C7312240913800336E57 /* MixTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C66C7302240913800336E57 /* MixTool.m */; };
 		2CE40DB2223D343400264B29 /* MixCacheStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE40DB1223D343400264B29 /* MixCacheStrategy.m */; };
 		2CE40DB6223DF50C00264B29 /* MixYAHClassStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE40DB5223DF50C00264B29 /* MixYAHClassStrategy.m */; };
 		B75DB03221FAAC94006FDB86 /* MixFileNameStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DB02E21FAAC94006FDB86 /* MixFileNameStrategy.m */; };
@@ -51,6 +53,10 @@
 		2C554D0D2201918400D953C7 /* MixDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixDefine.h; sourceTree = "<group>"; };
 		2C59506D21FEEB880039E1A3 /* MixProtocolStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixProtocolStrategy.h; sourceTree = "<group>"; };
 		2C59506E21FEEB880039E1A3 /* MixProtocolStrategy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixProtocolStrategy.m; sourceTree = "<group>"; };
+		2C61426122438BCD00048E45 /* PackIpaStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PackIpaStrategy.h; sourceTree = "<group>"; };
+		2C61426222438BCD00048E45 /* PackIpaStrategy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PackIpaStrategy.m; sourceTree = "<group>"; };
+		2C66C72F2240913800336E57 /* MixTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixTool.h; sourceTree = "<group>"; };
+		2C66C7302240913800336E57 /* MixTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixTool.m; sourceTree = "<group>"; };
 		2CE40DB0223D343400264B29 /* MixCacheStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixCacheStrategy.h; sourceTree = "<group>"; };
 		2CE40DB1223D343400264B29 /* MixCacheStrategy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixCacheStrategy.m; sourceTree = "<group>"; };
 		2CE40DB4223DF50C00264B29 /* MixYAHClassStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixYAHClassStrategy.h; sourceTree = "<group>"; };
@@ -126,6 +132,24 @@
 			path = protocol;
 			sourceTree = "<group>";
 		};
+		2C61426022438BA700048E45 /* pack_ipa */ = {
+			isa = PBXGroup;
+			children = (
+				2C61426122438BCD00048E45 /* PackIpaStrategy.h */,
+				2C61426222438BCD00048E45 /* PackIpaStrategy.m */,
+			);
+			path = pack_ipa;
+			sourceTree = "<group>";
+		};
+		2C66C72E2240911400336E57 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				2C66C72F2240913800336E57 /* MixTool.h */,
+				2C66C7302240913800336E57 /* MixTool.m */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
 		2CE40DAF223D341700264B29 /* cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +219,7 @@
 				2B210DAB220062C10088ABBE /* SwiftCode */,
 				B75DB03421FAAF71006FDB86 /* Config */,
 				B78CED2821FAA0A600811586 /* Model */,
+				2C66C72E2240911400336E57 /* Tool */,
 				B78CED3521FAA0A600811586 /* Strategy */,
 				2C554D0D2201918400D953C7 /* MixDefine.h */,
 				B78CED2121FAA09E00811586 /* main.m */,
@@ -224,6 +249,7 @@
 		B78CED3521FAA0A600811586 /* Strategy */ = {
 			isa = PBXGroup;
 			children = (
+				2C61426022438BA700048E45 /* pack_ipa */,
 				2CE40DAF223D341700264B29 /* cache */,
 				2CE40DB3223DF45000264B29 /* class */,
 				B77D5A592200A53100B8F270 /* category */,
@@ -309,6 +335,7 @@
 			files = (
 				B78CED4C21FAA0A700811586 /* MixFile.m in Sources */,
 				B77D5A5F2200B3A400B8F270 /* MixCategoryStrategy.m in Sources */,
+				2C61426322438BCD00048E45 /* PackIpaStrategy.m in Sources */,
 				B78CED2221FAA09E00811586 /* main.m in Sources */,
 				B78CED4A21FAA0A700811586 /* MixClass.m in Sources */,
 				B78CED4B21FAA0A700811586 /* MixObject.m in Sources */,
@@ -316,6 +343,7 @@
 				B75DB03221FAAC94006FDB86 /* MixFileNameStrategy.m in Sources */,
 				B75DB03321FAAC94006FDB86 /* MixFileNameModifyJsonInfo.m in Sources */,
 				B75DB03A21FAE547006FDB86 /* MixJudgeStrategy.m in Sources */,
+				2C66C7312240913800336E57 /* MixTool.m in Sources */,
 				2CE40DB6223DF50C00264B29 /* MixYAHClassStrategy.m in Sources */,
 				B78CED5621FAA0A700811586 /* MixObjectStrategy.m in Sources */,
 				B78CED4821FAA0A700811586 /* MixMethod.m in Sources */,

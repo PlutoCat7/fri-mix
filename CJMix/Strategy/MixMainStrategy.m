@@ -29,8 +29,7 @@
 
 + (void)replaceMethod:(NSArray <MixObject *>*)objects methods:(NSArray <NSString *>*)methods systemMethods:(NSArray <NSString*>*)systemMethods {
     
-    NSMutableArray <NSString *>* validMethods = [NSMutableArray arrayWithArray:[MixMethodStrategy methods:objects]];
-    
+    //提取的替换方法
     NSMutableArray <NSString *>* newMethods = [NSMutableArray arrayWithArray:methods];
     NSMutableArray <NSString *>* worker = [NSMutableArray arrayWithCapacity:0];
     for (NSString * obj in newMethods) {
@@ -40,28 +39,81 @@
         }
     }
     newMethods = worker;
+    
+    //系统的方法，  需要做过滤处理
     [MixConfig sharedSingleton].shieldSystemMethodNames = [MixMainStrategy shieldSystemMethodName:systemMethods];
     
+    //现有工程的需要替换的方法
+    NSArray <NSString *> *validMethods = [MixMethodStrategy methods:objects];
+    NSMutableArray <NSString *> *oldMethodsList = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray <NSString *> *newMethodsList = [NSMutableArray arrayWithCapacity:1];
+    for (NSString *oldMethod in validMethods) {
+        
+        NSString * oldTrueMethod = [MixMainStrategy trueMethod:oldMethod];
+        if ([[MixConfig sharedSingleton].shieldSystemMethodNames containsObject:oldTrueMethod]) {
+            continue;
+        }
+        BOOL find = NO;
+        for (NSString * property in [MixConfig sharedSingleton].shieldProperty) {
+            if (([property containsString:oldTrueMethod]&&[property containsString:@"_"])||[property isEqualToString:oldTrueMethod]) {
+                find = YES;
+                break;
+            }
+        }
+        if (find) {
+            continue;
+        }
+        if ([oldTrueMethod containsString:@"setAliasUserId"]) {
+            NSLog(@"");
+        }
+        if ([MixJudgeStrategy isShieldWithMethod:oldTrueMethod]) {
+            continue;
+        }
+        if ([oldMethodsList containsObject:oldTrueMethod]) {
+            continue;
+        }
+        [oldMethodsList addObject:oldTrueMethod];
+        NSString * newMethod = [MixCacheStrategy sharedSingleton].mixMethodCache[oldTrueMethod];
+        if (![newMethod isKindOfClass:[NSString class]]) {
+            newMethod = [self getNewMethodName:newMethods];
+            if (!newMethod) {
+                return;
+            }
+            [MixCacheStrategy sharedSingleton].mixMethodCache[oldTrueMethod] = newMethod;
+        }
+        NSString * newTrueMethod = [MixMainStrategy trueMethod:newMethod];
+        [newMethodsList addObject:newTrueMethod];
+        //添加set方法
+        NSString * oldSetTrueMethod = nil;
+        if (![oldMethod containsString:@":"]) {
+            oldSetTrueMethod = [oldTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[oldTrueMethod substringToIndex:1] uppercaseString]];
+            oldSetTrueMethod = [NSString stringWithFormat:@"set%@",oldSetTrueMethod];
+            [oldMethodsList addObject:oldSetTrueMethod];
+            
+            NSString * newSetTrueMethod = [newTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[newTrueMethod substringToIndex:1] uppercaseString]];
+            newSetTrueMethod = [NSString stringWithFormat:@"set%@",newSetTrueMethod];
+            [newMethodsList addObject:newSetTrueMethod];
+        }
+    }
+    
     NSInteger count = 0;
-    for (NSString * method in validMethods) {
+    NSInteger allCount = [MixConfig sharedSingleton].all_HM_File.count;
+    CGFloat ratio = 1;
+    NSArray *tmpMethods = [oldMethodsList subarrayWithRange:NSMakeRange(0, (NSInteger)(oldMethodsList.count*ratio))];
+    for (MixFile *file in [MixConfig sharedSingleton].all_HM_File) {
         count ++;
         @autoreleasepool {
-            [MixMainStrategy replaceMethod:objects oldMethod:method newMethods:newMethods];
+            for (NSInteger i=0; i<tmpMethods.count; i++) {
+                [MixMainStrategy replaceMethodOldMethod:tmpMethods[i] newMethod:newMethodsList[i] file:file];
+            }
         }
-        printf("完成进度%.2f %%  \n",(float)count/(float)validMethods.count*100);
+        printf("完成进度%.2f %%  当前文件：%s\n",(float)count/allCount*100, [file.fileName UTF8String]);
     }
     printf("保存数据\n");
-    for (MixObject * object in objects) {
-        [object.classFile.hFile save];
-        [object.classFile.mFile save];
-    }
-    
-    for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
+    for (MixFile *file in [MixConfig sharedSingleton].all_HM_File) {
         [file save];
     }
-    
 }
-
 
 + (NSArray <NSString *>*)shieldSystemMethodName:(NSArray <NSString*>*)systemMethods {
     @autoreleasepool {
@@ -73,96 +125,26 @@
                     [strs addObject:str];
                 }
             }
+            //添加set方法
+            if (![systemMethod containsString:@":"]) {
+                NSString *setMethod = [systemMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[systemMethod substringToIndex:1] uppercaseString]];
+                setMethod = [NSString stringWithFormat:@"set%@",setMethod];
+                [strs addObject:setMethod];
+            }
         }
         return strs;
     }
 }
 
-
-
-
-+ (void)replaceMethod:(NSArray <MixObject *>*)objects oldMethod:(NSString *)oldMethod newMethods:(NSMutableArray <NSString *>*)newMethods {
-    
-    if ([MixJudgeStrategy isIllegalMethod:oldMethod]) {
-//        printf("深坑:%s\n",[oldMethod UTF8String]);
-        return;
-    }
-    
-    NSString * oldTrueMethod = [MixMainStrategy trueMethod:oldMethod];
-    NSString * oldSetTrueMethod = nil;
-    if (![oldMethod containsString:@":"]) {
-        oldSetTrueMethod = [oldTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[oldTrueMethod substringToIndex:1] uppercaseString]];
-        oldSetTrueMethod = [NSString stringWithFormat:@"set%@",oldSetTrueMethod];
-    }
-    
-    
-    if ([[MixConfig sharedSingleton].shieldSystemMethodNames containsObject:oldTrueMethod]) {
-        return;
-    }
-    
-    for (NSString * property in [MixConfig sharedSingleton].shieldProperty) {
-        if (([property containsString:oldTrueMethod]&&[property containsString:@"_"])||[property isEqualToString:oldTrueMethod]) {
-            return;
-        }
-    }
-    
-    if ([MixJudgeStrategy isShieldWithMethod:oldTrueMethod]) {
-        return;
-    }
-    
-    if (!newMethods.count) {
-        return;
-    }
-    
-    
-    NSString * newMethod = [MixCacheStrategy sharedSingleton].mixMethodCache[oldMethod];
-    
-    if (![newMethod isKindOfClass:[NSString class]]) {
-        newMethod = [self getNewMethodName:newMethods];
-        [MixCacheStrategy sharedSingleton].mixMethodCache[oldMethod] = newMethod;
-    }
-
-    NSString * newTrueMethod = [MixMainStrategy trueMethod:newMethod];
-
-    for (MixObject * object in objects) {
-        @autoreleasepool {
-            [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.hFile];
-            [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:object.classFile.mFile];
-        };
-    }
-
-    for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
-        @autoreleasepool {
-            [MixMainStrategy replaceMethodOldMethod:oldTrueMethod newMethod:newTrueMethod file:file];
-        }
-    }
-
-
-    if (oldSetTrueMethod) {
-        NSString * newSetTrueMethod = [newTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[newTrueMethod substringToIndex:1] uppercaseString]];
-        newSetTrueMethod = [NSString stringWithFormat:@"set%@",newSetTrueMethod];
-
-        //有可能存在set方法
-        for (MixObject * object in objects) {
-            [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:object.classFile.hFile];
-            [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:object.classFile.mFile];
-        }
-
-        for (MixFile * file in [MixConfig sharedSingleton].pchFile) {
-            [MixMainStrategy replaceMethodOldMethod:oldSetTrueMethod newMethod:newSetTrueMethod file:file];
-        }
-
-
-    }
-    
-    
-}
-
 + (NSString *)getNewMethodName:(NSMutableArray *)newNmaes {
     NSString * newMethodName = newNmaes.firstObject;
+    if (!newMethodName) {
+        printf("参考的方法不够请添加\n");
+        return nil;
+    }
     [newNmaes removeObjectAtIndex:0];
     if ([[MixCacheStrategy sharedSingleton].mixMethodCache.allValues containsObject:newMethodName]) {
-        return [MixMainStrategy getNewClassName:newNmaes];
+        return [MixMainStrategy getNewMethodName:newNmaes];
     }
     return newMethodName;
 }
@@ -180,52 +162,43 @@
 }
 
 + (void)replaceMethodOldMethod:(NSString *)oldMethod newMethod:(NSString *)newMethod file:(MixFile *)file {
-    if (!file || !file.data || !file.path || !oldMethod || !newMethod) {
+
+    if (![file.data containsString:oldMethod]) {
         return;
     }
-    
     MixEncryption * encryption = [MixEncryption encryptionWithFile:file];
-    
-    if (![encryption.encryptionData containsString:oldMethod]) {
+    NSArray * divisions = [encryption.encryptionData componentsSeparatedByString:oldMethod];
+    if (divisions.count <= 1) {
         return;
     }
     
-    NSArray * division = [encryption.encryptionData componentsSeparatedByString:oldMethod];
-    
-    if (division.count <= 1) {
-        return;
-    }
-    
-    NSString * dataCopy = [NSString stringWithFormat:@"%@",encryption.encryptionData];
-    NSString * substitute = [dataCopy stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
-    
-    for (int ii = 0; ii <= division.count; ii++) {
-        NSRange range = [substitute rangeOfString:oldMethod];
-        if (range.location != NSNotFound) {
+    //NSString * dataCopy = [NSString stringWithFormat:@"%@",encryption.encryptionData];
+    NSString * dataCopy = encryption.encryptionData;
+    NSInteger location = 0;
+    for (NSInteger i=0 ; i<divisions.count-1; i++) {  //最后一个不做处理
 
-            NSRange frontRange = NSMakeRange(range.location - 1, 1);
-            NSRange backRange = NSMakeRange(range.location + range.length, 1);
-            NSString * frontSymbol = [substitute substringWithRange:frontRange];
-            NSString * backSymbol = [substitute substringWithRange:backRange];
-
-            NSString * front = [substitute substringToIndex:range.location];
-            NSString * back = [substitute substringFromIndex:range.location + range.length];
-            if ([MixJudgeStrategy isLegalMethodFrontSymbol:frontSymbol] && [MixJudgeStrategy isLegalMethodBackSymbol:backSymbol]) {
-                substitute = [NSString stringWithFormat:@"%@%@%@",front,newMethod,back];
-            } else {
-                NSString * encrypt = [NSString stringWithFormat:kMixTag];
-                substitute = [NSString stringWithFormat:@"%@%@%@",front,encrypt,back];
-            }
-            
+        NSString *frontString = divisions[i];
+        NSString *backString = divisions[i+1];
+        //第一个字符
+        NSString * frontSymbol = @"";
+        NSString * backSymbol = @"";
+        @try {
+            frontSymbol = [frontString substringFromIndex:frontString.length-1];
+            backSymbol = [backString substringWithRange:NSMakeRange(0, 1)];
+        }@catch (NSException *exception) {
+            NSLog(@"出错了");
+        }
+        location += frontString.length;
+        if ([MixJudgeStrategy isLegalMethodFrontSymbol:frontSymbol] && [MixJudgeStrategy isLegalMethodBackSymbol:backSymbol]) {
+            dataCopy = [dataCopy stringByReplacingCharactersInRange:NSMakeRange(location, oldMethod.length) withString:newMethod];
+            location += newMethod.length;
+        } else {
+            location += oldMethod.length;
         }
     }
     
-    NSString * substituteCopy = [substitute stringByReplacingOccurrencesOfString:kMixTag withString:oldMethod];
-    
-    if (![encryption.encryptionData isEqualToString:substituteCopy]) {
-        encryption.encryptionData = substituteCopy;
-        file.isEdit = YES;
-    }
+    encryption.encryptionData = dataCopy;
+    file.isEdit = YES;
     
 }
 

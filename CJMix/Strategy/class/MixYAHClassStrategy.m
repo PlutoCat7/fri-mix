@@ -103,17 +103,16 @@
                       file.fileType == MixFileTypePch) {
                 NSArray<NSString *> *classNames = [self dataToClassName:file.data];
                 for (NSString *oldClassName in classNames) {
-                    
+                    if ([[MixConfig sharedSingleton].shieldClass containsObject:oldClassName]) {
+                        continue;
+                    }
                     NSString *newClassName = [[MixCacheStrategy sharedSingleton].mixClassCache objectForKey:oldClassName];
                     if (!newClassName) {
-                        //取新的protocol
-                        newClassName = self.resetClassList.firstObject;
+                        newClassName = [self getNewClassName];
                         if (!newClassName) {
                             MixLog(@"新的ClassName个数不足,无法替换完全\n");
                             return;
                         }
-                        //移除已有
-                        [self.resetClassList removeObjectAtIndex:0];
                     }
                     //保存数据
                     [[MixCacheStrategy sharedSingleton].mixClassCache setObject:newClassName forKey:oldClassName];
@@ -123,7 +122,18 @@
     }
 }
 
-//替换protocol的使用
+- (NSString *)getNewClassName {
+    NSString * newClassName = self.resetClassList.firstObject;
+    if (!newClassName) {
+        return nil;
+    }
+    [self.resetClassList removeObjectAtIndex:0];
+    if ([[MixCacheStrategy sharedSingleton].mixClassCache.allValues containsObject:newClassName]) {  //防止重复
+        return [self getNewClassName];
+    }
+    return newClassName;
+}
+
 - (BOOL)replaceClassQuote {
     
     [self recursiveReplaceClassWithFiles:[MixConfig sharedSingleton].allFile];
@@ -251,7 +261,7 @@
 - (NSArray <NSString *>*)legalClassFrontSymbols {
     
     if (!_legalClassFrontSymbols) {
-        _legalClassFrontSymbols = @[@"",@" ",@",",@"(",@")",@"\n",@"[",@"<",@":",@"+",@"-",@"*",@"/",@"!",@"%",@"&",@"|",@":",@"?",@"=",@">"];
+        _legalClassFrontSymbols = @[@"\t",@"",@" ",@",",@"(",@")",@"\n",@"[",@"<",@":",@"+",@"-",@"*",@"/",@"!",@"%",@"&",@"|",@":",@"?",@"=",@">"];
     }
     return _legalClassFrontSymbols;
 }

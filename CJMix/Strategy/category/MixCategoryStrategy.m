@@ -230,7 +230,7 @@
                         continue;
                     }
                     //去空格处理
-                    if (![[lineString stringByReplacingOccurrencesOfString:@" " withString:@""] hasPrefix:@"@implementation"]) {
+                    if (!([[lineString stringByReplacingOccurrencesOfString:@" " withString:@""] hasPrefix:@"@implementation"]||[[lineString stringByReplacingOccurrencesOfString:@" " withString:@""] hasPrefix:@"@interface"])) {
                         continue;
                     }
                     

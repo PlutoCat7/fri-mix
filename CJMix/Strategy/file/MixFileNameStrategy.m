@@ -13,6 +13,7 @@
 #import "CJMix-Swift.h"
 #import "MixCacheStrategy.h"
 #import "MixDefine.h"
+#import "MixCacheStrategy.h"
 
 
 typedef NS_ENUM(NSUInteger, yah_MixFileType) {
@@ -31,7 +32,6 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 
 @interface MixFileNameStrategy ()
 
-@property (nonatomic, strong) NSArray<MixObject *> *objects;
 @property (nonatomic, copy) NSString *rootPath;
 @property (nonatomic, copy) NSString *mixPath;
 
@@ -61,12 +61,11 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
 
 #pragma mark - Public
 
-+ (BOOL)start:(NSArray<MixObject *> *)objects rootPath:(NSString *)rootPath mixPath:(NSString *)mixPath{
++ (BOOL)start{
     
     MixFileNameStrategy *strategy = [[MixFileNameStrategy alloc] init];
-    strategy.objects = objects;
-    strategy.rootPath = rootPath;
-    strategy.mixPath = mixPath;
+    strategy.rootPath = [MixConfig sharedSingleton].rootPath;
+    strategy.mixPath = [MixConfig sharedSingleton].mixProjectPath;;
     
     //生成类字段
 //    for (MixObject *object in objects) {
@@ -216,59 +215,30 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
         }else if (file.fileType == MixFileTypeH ||
                   file.fileType == MixFileTypeM ||
                   file.fileType == MixFileTypeMM) {
-            //对类名进行修改
-            BOOL find = NO;
-            for (MixObject *object in self.objects) {
-                NSString *oldFileName = [file.fileName copy];
-                NSString *newFileName = [file.fileName copy];
-                if (object.classFile.hFile == file ||
-                    object.classFile.mFile == file) { //类名被修改了、进行类名替换
-                    NSString *oldClassName = object.classFile.classFileName;
-                    NSString *newClassName = object.classFile.resetFileName;
-                    if (!newClassName && [oldFileName containsString:@"+"]) {//分类的情况， 但是分类没有resetFileName, 需要从正常的类中读取
-                        //遍历已有的类获取 修改后的文件名称
-                        for (MixObject *subObject in self.objects) {
-                            NSString *className = [oldClassName componentsSeparatedByString:@"+"].firstObject;
-                            NSString *categoryName = [oldClassName componentsSeparatedByString:@"+"].lastObject;
-                            if ([subObject.classFile.classFileName isEqualToString:className]) {
-                                NSString *newClassName = subObject.classFile.resetFileName;
-                                if (newClassName && newClassName.length>0) {
-                                    NSString *newCategoryName = [[MixCacheStrategy sharedSingleton].mixCategoryCache objectForKey:categoryName];
-                                    if (!newCategoryName) {//未找到
-                                        newCategoryName = categoryName;
-                                    }
-                                    newClassName = [NSString stringWithFormat:@"%@+%@", newClassName, newCategoryName];
-                                    newFileName = [NSString stringWithFormat:@"%@.%@", newClassName, [oldFileName componentsSeparatedByString:@"."].lastObject];
-                                }
-                                break;
-                            }
-                        }
-                    }else if(newClassName){
-                        newFileName = [oldFileName stringByReplacingOccurrencesOfString:oldClassName withString:newClassName];
-                    }
-                    if (oldFileName && newFileName &&
-                        ![oldFileName isEqualToString:newFileName]) {
-                        [self saveFile:file oldFileName:oldFileName newFileName:newFileName];
-                        find = YES;
-                    }
-                    break;
-                }
+            NSString *oldFileName = file.fileName;
+            NSArray *dotArray = [oldFileName componentsSeparatedByString:@"."];
+            NSString *suffx = dotArray.lastObject;
+            NSString *oldClassName = [dotArray.firstObject componentsSeparatedByString:@"+"].firstObject;
+            NSString *oldCategory = @"";
+            if ([dotArray.firstObject componentsSeparatedByString:@"+"].count==2) {
+                oldCategory = [dotArray.firstObject componentsSeparatedByString:@"+"].lastObject;
             }
-            if (find) {
-                continue;
+            NSString *newFileName = nil;
+            NSString *newClassName = [[MixCacheStrategy sharedSingleton].mixClassCache objectForKey:oldClassName];
+            if (!newClassName) {
+                newClassName = oldClassName;
             }
-            //其它分类情况
-            if ([file.fileName containsString:@"+"]) {//
-                NSString *oldFileName = [file.fileName copy];
-                NSString *string = [oldFileName componentsSeparatedByString:@"."].firstObject;
-                NSString *suffx = [oldFileName componentsSeparatedByString:@"."].lastObject;
-                NSString *className = [string componentsSeparatedByString:@"+"].firstObject;
-                NSString *categoryName = [string componentsSeparatedByString:@"+"].lastObject;
-                NSString *newCategoryName = [[MixCacheStrategy sharedSingleton].mixCategoryCache objectForKey:categoryName];
-                if (newCategoryName && ![newCategoryName isEqualToString:categoryName]) {
-                    NSString *newFileName = [NSString stringWithFormat:@"%@+%@.%@", className, newCategoryName, suffx];
-                    [self saveFile:file oldFileName:oldFileName newFileName:newFileName];
+            if (oldCategory.length == 0) {
+                newFileName = [NSString stringWithFormat:@"%@.%@", newClassName, suffx];
+            }else {
+                NSString *newCategory = [[MixCacheStrategy sharedSingleton].mixCategoryCache objectForKey:oldCategory];
+                if (!newCategory) {
+                    newCategory = oldCategory;
                 }
+                newFileName = [NSString stringWithFormat:@"%@+%@.%@", newClassName, newCategory, suffx];
+            }
+            if (![oldFileName isEqualToString:newFileName]) {
+                [self saveFile:file oldFileName:oldFileName newFileName:newFileName];
             }
         }
     }

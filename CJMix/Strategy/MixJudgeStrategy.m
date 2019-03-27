@@ -49,22 +49,19 @@
 }
 
 + (BOOL)isLegalMethodFrontSymbol:(NSString *)symbol {
-    @autoreleasepool {
-        if ([MixStringStrategy isAlphaNum:symbol]) {
-            return NO;
-        } else {
-            return YES;
-        }
+    
+    if ([MixStringStrategy isAlphaNum:symbol]) {
+        return NO;
+    } else {
+        return YES;
     }
 }
 
 + (BOOL)isLegalMethodBackSymbol:(NSString *)symbol {
-    @autoreleasepool {
-        if ([MixStringStrategy isAlphaNum:symbol]) {
-            return NO;
-        } else {
-            return YES;
-        }
+    if ([MixStringStrategy isAlphaNum:symbol]) {
+        return NO;
+    } else {
+        return YES;
     }
 }
 
@@ -125,13 +122,6 @@
         
         if (method.length < 5) {
             return YES;
-        }
-        
-        if ([method hasPrefix:@"set"]) {
-            char fnameStr = [method characterAtIndex:3];
-            if (isupper(fnameStr)) {
-                return YES;
-            }
         }
         
         //顽固分子
