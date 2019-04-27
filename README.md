@@ -1,6 +1,6 @@
-# CJMix工具使用说明
+# Fri-Mix工具使用说明
 
-#CJMix必须使用mix.plist来启动（支持相对和绝对路径）
+#Fri-Mix必须使用mix.plist来启动（支持相对和绝对路径）
 
 <---- mix.plist ---->
 FrameworkPaths 用来过滤掉一些系统和第三方的框架方法和属性
