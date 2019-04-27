@@ -48,7 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2B210DBE22007B7E0088ABBE /* CJMix-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CJMix-Bridging-Header.h"; sourceTree = "<group>"; };
+		2B210DBE22007B7E0088ABBE /* Mix-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mix-Bridging-Header.h"; sourceTree = "<group>"; };
 		2B210E03220085510088ABBE /* PropertyListHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyListHandler.swift; sourceTree = "<group>"; };
 		2C554D0D2201918400D953C7 /* MixDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixDefine.h; sourceTree = "<group>"; };
 		2C59506D21FEEB880039E1A3 /* MixProtocolStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixProtocolStrategy.h; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 		B75DB03921FAE547006FDB86 /* MixJudgeStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixJudgeStrategy.m; sourceTree = "<group>"; };
 		B77D5A5D2200B3A200B8F270 /* MixCategoryStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixCategoryStrategy.h; sourceTree = "<group>"; };
 		B77D5A5E2200B3A400B8F270 /* MixCategoryStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixCategoryStrategy.m; sourceTree = "<group>"; };
-		B78CED1E21FAA09E00811586 /* CJMix */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CJMix; sourceTree = BUILT_PRODUCTS_DIR; };
+		B78CED1E21FAA09E00811586 /* Mix */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Mix; sourceTree = BUILT_PRODUCTS_DIR; };
 		B78CED2121FAA09E00811586 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B78CED2921FAA0A600811586 /* MixObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixObject.h; sourceTree = "<group>"; };
 		B78CED2B21FAA0A600811586 /* MixMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixMethod.m; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				2B210E03220085510088ABBE /* PropertyListHandler.swift */,
-				2B210DBE22007B7E0088ABBE /* CJMix-Bridging-Header.h */,
+				2B210DBE22007B7E0088ABBE /* Mix-Bridging-Header.h */,
 			);
 			path = SwiftCode;
 			sourceTree = "<group>";
@@ -200,7 +200,7 @@
 		B78CED1521FAA09E00811586 = {
 			isa = PBXGroup;
 			children = (
-				B78CED2021FAA09E00811586 /* CJMix */,
+				B78CED2021FAA09E00811586 /* Mix */,
 				B78CED1F21FAA09E00811586 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -208,12 +208,12 @@
 		B78CED1F21FAA09E00811586 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B78CED1E21FAA09E00811586 /* CJMix */,
+				B78CED1E21FAA09E00811586 /* Mix */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B78CED2021FAA09E00811586 /* CJMix */ = {
+		B78CED2021FAA09E00811586 /* Mix */ = {
 			isa = PBXGroup;
 			children = (
 				2B210DAB220062C10088ABBE /* SwiftCode */,
@@ -224,7 +224,7 @@
 				2C554D0D2201918400D953C7 /* MixDefine.h */,
 				B78CED2121FAA09E00811586 /* main.m */,
 			);
-			path = CJMix;
+			path = Mix;
 			sourceTree = "<group>";
 		};
 		B78CED2821FAA0A600811586 /* Model */ = {
@@ -280,9 +280,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B78CED1D21FAA09E00811586 /* CJMix */ = {
+		B78CED1D21FAA09E00811586 /* Mix */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B78CED2521FAA09E00811586 /* Build configuration list for PBXNativeTarget "CJMix" */;
+			buildConfigurationList = B78CED2521FAA09E00811586 /* Build configuration list for PBXNativeTarget "Mix" */;
 			buildPhases = (
 				B78CED1A21FAA09E00811586 /* Sources */,
 				B78CED1B21FAA09E00811586 /* Frameworks */,
@@ -292,9 +292,9 @@
 			);
 			dependencies = (
 			);
-			name = CJMix;
+			name = Mix;
 			productName = CJMix;
-			productReference = B78CED1E21FAA09E00811586 /* CJMix */;
+			productReference = B78CED1E21FAA09E00811586 /* Mix */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -311,7 +311,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B78CED1921FAA09E00811586 /* Build configuration list for PBXProject "CJMix" */;
+			buildConfigurationList = B78CED1921FAA09E00811586 /* Build configuration list for PBXProject "Mix" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -323,7 +323,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B78CED1D21FAA09E00811586 /* CJMix */,
+				B78CED1D21FAA09E00811586 /* Mix */,
 			);
 		};
 /* End PBXProject section */
@@ -484,7 +484,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "CJMix/SwiftCode/CJMix-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Mix/SwiftCode/Mix-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -497,7 +497,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "CJMix/SwiftCode/CJMix-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Mix/SwiftCode/Mix-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -505,7 +505,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B78CED1921FAA09E00811586 /* Build configuration list for PBXProject "CJMix" */ = {
+		B78CED1921FAA09E00811586 /* Build configuration list for PBXProject "Mix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B78CED2321FAA09E00811586 /* Debug */,
@@ -514,7 +514,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B78CED2521FAA09E00811586 /* Build configuration list for PBXNativeTarget "CJMix" */ = {
+		B78CED2521FAA09E00811586 /* Build configuration list for PBXNativeTarget "Mix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B78CED2621FAA09E00811586 /* Debug */,

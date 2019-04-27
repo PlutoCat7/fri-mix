@@ -10,7 +10,7 @@
 #import "MixFileNameModifyJsonInfo.h"
 #import "MixFileStrategy.h"
 #import "MixConfig.h"
-#import "CJMix-Swift.h"
+#import "Mix-Swift.h"
 #import "MixCacheStrategy.h"
 #import "MixDefine.h"
 #import "MixCacheStrategy.h"
