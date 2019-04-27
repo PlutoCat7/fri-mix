@@ -2,8 +2,8 @@
 
 ### Fri-Mix必须使用mix.plist来启动（支持相对和绝对路径）
 
-##### <---- mix.plist ---->
-</br>
+##### mix.plist 介绍：
+
 FrameworkPaths 用来过滤掉一些系统和第三方的框架方法和属性
 </br>
 ShieldPaths 用来保护不希望被混淆的文件路径（可以是文件夹名称）
