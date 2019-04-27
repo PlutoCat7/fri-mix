@@ -29,7 +29,7 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         
-        MixLog(@"欢迎使用CJMix混淆工具\n");
+        MixLog(@"欢迎使用Fri-Mix混淆工具\n");
         MixLog(@"BUG请联系467116811@qq.com与yahua523@163.com\n");
         
         //移除已使用文件
