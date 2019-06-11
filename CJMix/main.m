@@ -41,7 +41,7 @@ int main(int argc, const char * argv[]) {
         NSString * argvFolderPath = argvPath.stringByDeletingLastPathComponent;
         NSString * mixPlistPath = [NSString stringWithFormat:@"%@/mix.plist",argvFolderPath];
 #if DEBUG
-        mixPlistPath = @"/Users/wangsw/wangle/code/WonderVoice/Trunk/Mix/mix.plist";
+        //mixPlistPath = @"/Users/wangsw/WonderVoice/Trunk/Mix/mix.plist";
 #endif
         
         if ([MixFileStrategy isExistsAtPath:mixPlistPath]) {

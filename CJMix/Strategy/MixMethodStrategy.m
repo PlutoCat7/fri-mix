@@ -267,7 +267,6 @@
                 
                 NSString * property = [obj substringToIndex:range.location];
                 
-                
                 if ([property containsString:@"getter"]) {
                     NSRange getterRange = [property rangeOfString:@"getter"];
                     NSString * methodStr = nil;
@@ -365,7 +364,6 @@
                     }
                     
                 }
-                
                 if (propertyName.length) {
                     
                     if (![methods containsObject:propertyName]) {

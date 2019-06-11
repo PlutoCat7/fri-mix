@@ -45,6 +45,18 @@
     
     //现有工程的需要替换的方法
     NSArray <NSString *> *validMethods = [MixMethodStrategy methods:objects];
+    //剔除set方法  防止不统一
+    NSMutableArray *tmpList = [NSMutableArray arrayWithArray:validMethods];
+    for (NSString *oldMethod in validMethods) {
+        
+        NSString * oldTrueMethod = [MixMainStrategy trueMethod:oldMethod];
+        if (![oldMethod containsString:@":"]) {
+            NSString *oldSetTrueMethod = [oldTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[oldTrueMethod substringToIndex:1] uppercaseString]];
+            oldSetTrueMethod = [NSString stringWithFormat:@"set%@:",oldSetTrueMethod];
+            [tmpList removeObject:oldSetTrueMethod];
+        }
+    }
+    validMethods = [tmpList copy];
     NSMutableArray <NSString *> *oldMethodsList = [NSMutableArray arrayWithCapacity:1];
     NSMutableArray <NSString *> *newMethodsList = [NSMutableArray arrayWithCapacity:1];
     for (NSString *oldMethod in validMethods) {
