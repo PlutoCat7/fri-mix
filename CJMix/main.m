@@ -6,7 +6,7 @@
 //  Copyright © 2019 ChenJie. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+//#import <Foundation/Foundation.h>
 #import "Config/MixConfig.h"
 #import "Model/MixObject.h"
 #import "Model/MixFile.h"
@@ -41,7 +41,7 @@ int main(int argc, const char * argv[]) {
         NSString * argvFolderPath = argvPath.stringByDeletingLastPathComponent;
         NSString * mixPlistPath = [NSString stringWithFormat:@"%@/mix.plist",argvFolderPath];
 #if DEBUG
-        //mixPlistPath = @"/Users/wangsw/WonderVoice/Trunk/Mix/mix.plist";
+        //mixPlistPath = @"/Users/wangsw/yalla-share/Mix/mix.plist";
 #endif
         
         if ([MixFileStrategy isExistsAtPath:mixPlistPath]) {
@@ -133,7 +133,7 @@ int main(int argc, const char * argv[]) {
         
         
         MixLog(@"开始自动打包\n");
-        [PackIpaStrategy pack_ipa];
+        //[PackIpaStrategy pack_ipa];
     }
     return 0;
 }

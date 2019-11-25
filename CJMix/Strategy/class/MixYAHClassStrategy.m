@@ -154,6 +154,21 @@
                       file.fileType == MixFileTypeMM ||
                       file.fileType == MixFileTypePch) {
                 NSString *string = file.data;
+                //import的不替换
+                NSArray *tmpList = [string componentsSeparatedByString:@"#import"];
+                string = tmpList.lastObject;
+                tmpList = [string componentsSeparatedByString:@"\n"];
+                NSString *headerString = @"";
+                if (tmpList.count>0) {
+                    NSString *text =  tmpList.firstObject;
+                    NSRange range = [file.data rangeOfString:text];
+                    headerString = [file.data substringWithRange:NSMakeRange(0, range.location+range.length)];
+                    headerString = [NSString stringWithFormat:@"%@\n", headerString];
+                    
+                    NSMutableArray *mut = [NSMutableArray arrayWithArray:tmpList];
+                    [mut removeObjectAtIndex:0];
+                    string = [mut componentsJoinedByString:@"\n"];
+                }
                 //简单的过滤
                 NSMutableDictionary *findDict = [NSMutableDictionary dictionaryWithCapacity:1];
                 for (NSString *old in dict) {
@@ -193,6 +208,7 @@
                         }
                     }
                 }
+                string = [NSString stringWithFormat:@"%@%@", headerString, string];
                 if (![string isEqualToString:file.data]) {
                     file.data = string;
                     [MixFileStrategy writeFileAtPath:file.path content:file.data];

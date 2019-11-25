@@ -231,13 +231,14 @@ typedef NS_ENUM(NSUInteger, yah_MixFileType) {
             if (oldCategory.length == 0) {
                 newFileName = [NSString stringWithFormat:@"%@.%@", newClassName, suffx];
             }else {
+                //分类文件暂不处理   ps：自己创建的类   又在别的文件定义的分类会引起错乱，分类名称会被类名先修改 导致文件无法修改
                 NSString *newCategory = [[MixCacheStrategy sharedSingleton].mixCategoryCache objectForKey:oldCategory];
                 if (!newCategory) {
                     newCategory = oldCategory;
                 }
                 newFileName = [NSString stringWithFormat:@"%@+%@.%@", newClassName, newCategory, suffx];
             }
-            if (![oldFileName isEqualToString:newFileName]) {
+            if (![oldFileName isEqualToString:newFileName]  && newFileName) {
                 [self saveFile:file oldFileName:oldFileName newFileName:newFileName];
             }
         }

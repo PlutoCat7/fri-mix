@@ -45,7 +45,7 @@
     
     //现有工程的需要替换的方法
     NSArray <NSString *> *validMethods = [MixMethodStrategy methods:objects];
-    //剔除set方法  防止不统一
+    //剔除set方法  防止后面的set方法不统一
     NSMutableArray *tmpList = [NSMutableArray arrayWithArray:validMethods];
     for (NSString *oldMethod in validMethods) {
         
@@ -59,29 +59,36 @@
     validMethods = [tmpList copy];
     NSMutableArray <NSString *> *oldMethodsList = [NSMutableArray arrayWithCapacity:1];
     NSMutableArray <NSString *> *newMethodsList = [NSMutableArray arrayWithCapacity:1];
-    for (NSString *oldMethod in validMethods) {
+    BOOL (^checkValidBlock)(NSString *oldMethod) = ^(NSString *oldMethod){
         
-        NSString * oldTrueMethod = [MixMainStrategy trueMethod:oldMethod];
-        if ([[MixConfig sharedSingleton].shieldSystemMethodNames containsObject:oldTrueMethod]) {
-            continue;
+        if ([[MixConfig sharedSingleton].shieldSystemMethodNames containsObject:oldMethod]) {
+            return NO;
         }
         BOOL find = NO;
         for (NSString * property in [MixConfig sharedSingleton].shieldProperty) {
-            if (([property containsString:oldTrueMethod]&&[property containsString:@"_"])||[property isEqualToString:oldTrueMethod]) {
+            if (([property containsString:oldMethod]&&[property containsString:@"_"])||[property isEqualToString:oldMethod]) {
                 find = YES;
                 break;
             }
         }
         if (find) {
-            continue;
+            return NO;
         }
-        if ([oldTrueMethod containsString:@"setAliasUserId"]) {
-            NSLog(@"");
+        if ([oldMethod containsString:@"setAliasUserId"]) {
+            return NO;
         }
-        if ([MixJudgeStrategy isShieldWithMethod:oldTrueMethod]) {
-            continue;
+        if ([MixJudgeStrategy isShieldWithMethod:oldMethod]) {
+            return NO;
         }
-        if ([oldMethodsList containsObject:oldTrueMethod]) {
+        if ([oldMethodsList containsObject:oldMethod]) {
+            return NO;
+        }
+        return YES;
+    };
+    for (NSString *oldMethod in validMethods) {
+        
+        NSString * oldTrueMethod = [MixMainStrategy trueMethod:oldMethod];
+        if (!checkValidBlock(oldTrueMethod)) {
             continue;
         }
         [oldMethodsList addObject:oldTrueMethod];
@@ -100,6 +107,9 @@
         if (![oldMethod containsString:@":"]) {
             oldSetTrueMethod = [oldTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[oldTrueMethod substringToIndex:1] uppercaseString]];
             oldSetTrueMethod = [NSString stringWithFormat:@"set%@",oldSetTrueMethod];
+            if (!checkValidBlock(oldSetTrueMethod)) {
+                continue;
+            }
             [oldMethodsList addObject:oldSetTrueMethod];
             
             NSString * newSetTrueMethod = [newTrueMethod stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[newTrueMethod substringToIndex:1] uppercaseString]];
